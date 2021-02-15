@@ -391,10 +391,10 @@ Max will take minutes for the meeting. We will have weekly check-in meetings Sun
 
 #### Conflict Resolution:
 
-- Somebody missing meetings without announcing beforehand
+- Somebody missing meetings without letting the team know beforehand
   - We'll begin by asking on Discord server why they didn’t attend the meeting. If they don’t reply by the end of the next day, reach out through email. If a member repeatedly misses meetings, we'll ask them whether the current meeting time is hard for them.
 - Leadership conflicts
-  - We have a dedicated mediator, Yuhan, in case tensions rise, and an alternate mediator, Joyce, in case the mediator is in a conflict. In the rare case that both mediators are in a conflict with each other, the other team members will help out. If it’s a specific decision such as which API to use, the member(s) implementing it will have the final say. If the members in charge are in conflict, they must first try to resolve it on their own. In the case that they are unable to, they may bring it to the mediator who will talk about it to the whole team during the weekly meeting. If tensions get too high during a meeting, we will call a meeting at a later time within the next week to continue the conversation, so everyone has a chance to cool down
+  - We have a dedicated mediator, Yuhan, in case tensions rise. We also have an alternate mediator, Joyce, in case the mediator is in a conflict. In the rare case that both mediators are in a conflict with each other, the other team members will help out. For a conflict between members of one section of the project (e.g. UI/UX), all members assigned in section must first try to come to an agreement on their own. In the case that a conflict cannot be resolved, it should be brought to the mediator who will talk about it to the whole team during the weekly meeting. If the disagreement is about a specific decision (such as which database service to use), the member(s) implementing it will have the final say. If tensions get too high during a meeting, we will call a meeting at a later time within the next week to continue the conversation, so everyone has a chance to cool down.
 - Somebody not doing work
   - First, we'll kindly confront them and ask what’s going on. This way, we'll get an idea of what’s preventing them from doing the work. We want to ensure that we’re not giving somebody too much or little work. We have agreed that we will give a two day notice if we can’t finish our task on time.
 
