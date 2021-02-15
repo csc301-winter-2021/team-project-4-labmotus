@@ -6,11 +6,11 @@
 
 We are planning to build a telehealth platform to allow physiotherapists to provide remote care augmented with automatically computed accurate patient range-of-motion data.
 
-There are many pitfalls for the remote assessment and treatment of musculoskeletal disorder patients by clinicians. Given that many patients do not follow the treatment plan given to them, as well as the difficulty in determining a patient’s progress through basic video software, the recovery process often ends up being prolonged. To this end, we are building a web app allowing patients to upload video of their movement and allowing clinicians to remotely view automated motion analysis of their patients.
+There are many pitfalls for the remote assessment and treatment of musculoskeletal disorder patients by clinicians. Given that many patients do not follow the treatment plan given to them, as well as the difficulty in determining a patient’s progress through basic video software, the recovery process often ends up being prolonged. To this end, we are building a web app allowing patients to upload videos of their movement and allowing clinicians to remotely view automated motion analysis of their patients.
 
 On the website, the patient is guided through recording poses and movements a physiotherapist would be interested in analyzing. Once the patient is done, the video is analyzed on our cloud. The results are saved on the cloud, and can then be viewed by the patient’s therapist.
 
-The clinician is able to see a list of their patients, and each of their motion analysis reports. Reports for individual video uploads are available, as well as a per-patient report showing the evolution of the patient’s movement over the duration of treatment. In addition, they can choose to view only what the cloud has labelled as irregular results, making the clinician workflow easier and more efficient.
+The clinician can see a list of their patients, and each of their motion analysis reports. Reports for individual video uploads are available, as well as a per-patient report showing the evolution of the patient’s movement over the duration of treatment. In addition, they can choose to view only what the cloud has labelled as irregular results, making the clinician workflow easier and more efficient.
 
 ***
 
@@ -30,7 +30,7 @@ Some example personas:
 
 ### Q3: Why would your users choose your product? What are they using today to solve their problem/need?
 
-Currently, the WHO estimates there are around 1.71 billion people worldwide suffering from musculoskeletal conditions. Musculoskeletal issues, specifically lower back pain, are a primary cause of disabilities in 160 countries<sup>[1](https://www.who.int/news-room/fact-sheets/detail/musculoskeletal-conditions)</sup>. We are building a telemedicine service that will allow physiotherapists to provide remote rehabilitation services to theirboth local clinic patients and global underserved populations. Studies of telemedicine services in specific fields have shown the service to be feasible as an in-person alternative and highly welcomed by patients, with more than 97.1% of the participants willing to recommend the service to others<sup> [2](https://pubmed.ncbi.nlm.nih.gov/31472419/)</sup>.
+Currently, the WHO estimates there are around 1.71 billion people worldwide suffering from musculoskeletal conditions. Musculoskeletal issues, specifically lower back pain, are a primary cause of disabilities in 160 countries<sup>[1](https://www.who.int/news-room/fact-sheets/detail/musculoskeletal-conditions)</sup>. We are building a telemedicine service that will allow physiotherapists to provide remote rehabilitation services to both local clinic patients and global underserved populations. Studies of telemedicine services in specific fields have shown the service to be feasible as an in-person alternative and highly welcomed by patients, with more than 97.1% of the participants willing to recommend the service to others<sup> [2](https://pubmed.ncbi.nlm.nih.gov/31472419/)</sup>.
 
 Traditional motion capture technology for physiotherapy is very expensive, costing upwards of \$10,000, and thus is usually limited to only use in academia. Other digital rehabilitation services like Kinetisense can provide the service at a much lower cost, in this case only requiring a Microsoft Kinect camera valued at \$400. We are designing our product to require only a smartphone, making it highly accessible to all users without the hassle of setting up dedicated hardware. 
 
@@ -38,7 +38,7 @@ Many existing apps that provide pose analysis also use 2D pose estimation techno
 
 We are providing our service directly to clinicians who can then provide the service to their existing patients remotely, without having the patient having to familiarize themselves with a new clinician. Compared to consumer focused products such as Kaia health which focuses on providing tools to the patient to self medicate, we are focusing on providing the medically significant metrics directly to the clinician to provide better care than an algorithm guided solution.
 
-Our service will also help clinicians perform their job faster. Compared to generic telemedicine services, we provide highly specialized diagnostic-aid tools, including but not limited to AI driven pose-estimation, automatically computed joint angle metrics, and comparisons against benchmarks. These tools can significantly decrease the amount of time physiotherapists must spend in manual measurements. With physiotherapists attending to 8-12 patients a day, we can estimate the manual measurements taking 5 minutes per patient, we can potentially save upto a hour per day. That is, we can save physiotherapists 262 hours of work in a year, around $10,000 in savings per physiotherapist per year. 
+Our service will also help clinicians perform their job faster. Compared to generic telemedicine services, we provide highly specialized diagnostic-aid tools, including but not limited to AI driven pose-estimation, automatically computed joint angle metrics, and comparisons against benchmarks. These tools can significantly decrease the number of times physiotherapists must spend on manual measurements. With physiotherapists attending to 8-12 patients an day, we can estimate the manual measurements taking 5 minutes per patient, we can potentially save up to a hour per day. That is, we can save physiotherapists 262 hours of work in a year, around $10,000 in savings per physiotherapist per year. 
 
 ***
 
@@ -163,7 +163,7 @@ Max will be responsible for project management and front-end logic. Outside of s
 
 Sayan will be our team's scrum master. Sayan is also responsible for project management, UX, and back-end. Sayan's strengths include UX, back-end, NoSQL DB, and machine learning. Sayan’s weaknesses include no experience with SQL databases, mobile development (iOS / Android), and DevOps.
 
-Yuhan will be responsible for the UX and back-end. Yuhan's strengths include web front-end (React, CSS, JavaScript), doing backend with Node.js (which Fastify is based off of), and familiarity with Git version control. Yuhan’s weaknesses are no experience with iOS development, integrating third-party APIs, and writing tests.
+Yuhan will be responsible for the UX and back-end. Yuhan's strengths include web front-end (React, CSS, JavaScript), doing backend with Node.js (which Fastify is based on), and familiarity with Git version control. Yuhan’s weaknesses are no experience with iOS development, integrating third-party APIs, and writing tests.
 
 Kyoji will be responsible for the UX and back-end. Kyoji's strengths include back-end (Node.js/Express.js), web front-end (React), and UX. Kyoji’s weaknesses include never have worked on a project using the Agile Methodology (mostly solo projects), no experience with AWS, and isn’t good at writing meaningful tests.
 
@@ -290,7 +290,7 @@ The clinics being targeted
 
 Why is it necessary for the physiotherapist to see live pose estimation?
 
-- Telemedicine is really restricted, and if you were not to have live pose estimation, the the physiotherapist would have to ask the patient to adjust camera angles and re-upload the video
+- Telemedicine is really restricted, and if you were not to have live pose estimation, the physiotherapist would have to ask the patient to adjust camera angles and re-upload the video
 - Live analysis saves a lot of time for the clinician and allows them to focus on treatment and the patient
 - Do doctors want to take notes per video upload? 
   - Would be nice
@@ -383,7 +383,7 @@ Other major decisions such as task prioritization will be made during our Discor
 
 #### Communications:
 
-Communications will be done via dedicated Discord server. For communicating with our partner, we have weekly meetings Wednesday 10am through Google Meet, and we can email them with any immediate questions or concerns.
+Communications will be done via a dedicated Discord server. For communicating with our partner, we have weekly meetings Wednesday 10am through Google Meet, and we can email them with any immediate questions or concerns.
 
 #### Meetings:
 
@@ -394,9 +394,9 @@ Max will take minutes for the meeting. We will have weekly check-in meetings Sun
 - Somebody missing meetings without announcing beforehand
   - We'll begin by asking on Discord server why they didn’t attend the meeting. If they don’t reply by the end of the next day, reach out through email. If a member repeatedly misses meetings, we'll ask them whether the current meeting time is hard for them.
 - Leadership conflicts
-  - We have a dedicated mediator, Yuhan, in case tensions rise, and an alternate mediator, Joyce, in case the mediator is in a conflict. In the rare case that both mediators are in a conflict with each other, the other team members will help out. If it’s a specific decision such as which API to use, the member(s) implementing it will have the final say. If the members in charge are in conflict, they must first try to resolve on their own. In the case that they are unable to, they may bring it to the mediator who will talk about it to the whole team during the weekly meeting. If tensions get too high during a meeting, we will call a meeting at a later time within the next week to continue the conversation, so everyone has a chance to cool down
+  - We have a dedicated mediator, Yuhan, in case tensions rise, and an alternate mediator, Joyce, in case the mediator is in a conflict. In the rare case that both mediators are in a conflict with each other, the other team members will help out. If it’s a specific decision such as which API to use, the member(s) implementing it will have the final say. If the members in charge are in conflict, they must first try to resolve it on their own. In the case that they are unable to, they may bring it to the mediator who will talk about it to the whole team during the weekly meeting. If tensions get too high during a meeting, we will call a meeting at a later time within the next week to continue the conversation, so everyone has a chance to cool down
 - Somebody not doing work
-  - First, we'll kindly confront them and ask what’s going on. This way, we'll get an idea of what’s preventing them from doing the work. We want to ensure that we’re not giving somebody too much or little work. We have agreed that we will give two days notice if we can’t finish our task on time.
+  - First, we'll kindly confront them and ask what’s going on. This way, we'll get an idea of what’s preventing them from doing the work. We want to ensure that we’re not giving somebody too much or little work. We have agreed that we will give a two day notice if we can’t finish our task on time.
 
 For all of these conflicts, the **final** resort is going to the professor / TA.
 
