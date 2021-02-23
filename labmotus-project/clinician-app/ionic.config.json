@@ -1,0 +1,7 @@
+{
+  "name": "clinician-app",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}
