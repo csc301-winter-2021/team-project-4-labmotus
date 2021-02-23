@@ -1,5 +1,5 @@
 {
-  "name": "patient-app",
+  "name": "@labmotus/patient-app",
   "version": "0.0.1",
   "private": true,
   "dependencies": {
