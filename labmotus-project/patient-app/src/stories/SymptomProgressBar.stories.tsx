@@ -16,7 +16,7 @@ import "@ionic/react/css/flex-utils.css";
 import "@ionic/react/css/display.css";
 
 export default {
-    title: 'Components/SymptomProgressBar',
+    title: 'Components/Symptom Progress Bar',
     component: SymptomProgressBar,
     argTypes: {
         label: {

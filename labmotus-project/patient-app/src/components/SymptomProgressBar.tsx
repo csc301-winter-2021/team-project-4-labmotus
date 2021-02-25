@@ -7,7 +7,7 @@ export interface SymptomProgressBarProps {
     label?: String;
     angle: number;
     goalAngle: number;
-    minAngle: number;
+    minAngle?: number;
 }
 
 const SymptomProgressBar: FunctionComponent<SymptomProgressBarProps> = ({
@@ -18,7 +18,7 @@ const SymptomProgressBar: FunctionComponent<SymptomProgressBarProps> = ({
                                                                         }) => {
 
     const theme = React.useContext(ThemeContext);
-    const percentage = goalAngle > 0 ? (angle - minAngle) / (goalAngle - minAngle) : 0;
+    const percentage = (goalAngle - minAngle) > 0 ? (angle - minAngle) / (goalAngle - minAngle) : 0;
 
     return (<SymptomProgressBarDiv className="symptom-progress-bar" {...theme}>
         <TopDiv {...theme}>
@@ -56,11 +56,13 @@ const LabelDiv = styled.div`
     flex: 1;
     font-size: ${(props: Theme) => props.secondaryFontSize};
     font-family: ${(props: Theme) => props.secondaryFontFamily};
+    color: ${(props: Theme) => props.colors.contrast};
 `;
 
 const CurrentAngleDiv = styled.span`
     font-size: ${(props: Theme) => props.primaryFontSize};
     font-family: ${(props: Theme) => props.primaryFontFamily};
+    color: ${(props: Theme) => props.colors.contrast};
 `;
 
 const BottomDiv = styled.div`
