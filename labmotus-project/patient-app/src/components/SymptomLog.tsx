@@ -5,6 +5,7 @@ import {Theme, ThemeContext} from "../theme/Theme";
 // @ts-ignore
 import Accordion from "./Accordion";
 import SymptomProgressBar, {SymptomProgressBarProps} from "./SymptomProgressBar";
+import Scrollbar from "react-scrollbars-custom";
 
 export interface SymptomLogEntry extends SymptomProgressBarProps {
     joint: string;
@@ -34,14 +35,22 @@ const SymptomLog: FunctionComponent<SymptomLogProps> = ({logs, shadow = false}) 
         }
     }
 
-    return (<SymptomLogDiv className="symptom-log">
-        {generateAccordions()}
+    return (<SymptomLogDiv className="symptom-log" {...theme}>
+        <Scrollbar>
+            {generateAccordions()}
+        </Scrollbar>
     </SymptomLogDiv>)
 };
 
 const SymptomLogDiv = styled.div`
-    overflow-y: scroll;
-    overflow-x: hidden;
+    overflow: hidden;
+    .ScrollbarsCustom-Track {
+        width: 6px !important;
+        background-color: ${(props: Theme) => props.colors.shade} !important;
+    }
+    .ScrollbarsCustom-Thumb {
+        background-color: ${(props: Theme) => props.colors.primary} !important;
+    }
 `;
 
 const AccordionDiv = styled.div`
