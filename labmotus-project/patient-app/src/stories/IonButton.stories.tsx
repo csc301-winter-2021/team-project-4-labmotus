@@ -1,7 +1,6 @@
 import React from 'react';
 import {Meta, Story} from '@storybook/react';
 import {IonButton} from '@ionic/react';
-import {Button} from "./Button";
 /* Core CSS required for Ionic components to work properly */
 import "@ionic/react/css/core.css";
 /* Basic CSS for apps built with Ionic */
@@ -17,7 +16,7 @@ import "@ionic/react/css/flex-utils.css";
 import "@ionic/react/css/display.css";
 
 export default {
-    title: 'IonButtons',
+    title: 'Components/IonButtons',
     component: IonButton,
     argTypes: {
         disabled: {
