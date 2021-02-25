@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@capacitor/core": "2.4.6",
+    "@ionic/core": "^5.5.0",
     "@ionic/react": "^5.5.0",
     "@ionic/react-router": "^5.5.0",
     "@testing-library/jest-dom": "^5.11.9",
@@ -35,7 +36,8 @@
     "workbox-routing": "^5.1.4",
     "workbox-strategies": "^5.1.4",
     "workbox-streams": "^5.1.4",
-    "styled-components": "^5.2.1"
+    "styled-components": "^5.2.1",
+    "react-custom-scroll": "^4.2.2"
   },
   "scripts": {
     "start": "react-scripts start",
