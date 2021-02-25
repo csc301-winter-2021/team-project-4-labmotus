@@ -1,4 +1,4 @@
-import React, {FunctionComponent, useRef, useState} from "react";
+import React, {FunctionComponent, useEffect, useRef, useState} from "react";
 // @ts-ignore
 import styled from 'styled-components';
 import {Theme, ThemeContext} from "../theme/Theme";
@@ -21,8 +21,9 @@ const Accordion: FunctionComponent<AccordionProps> = ({
                                                           children
                                                       }) => {
     const theme = React.useContext(ThemeContext);
-    const [expandedState, setExpanded] = useState(false);
+    const [expandedState, setExpanded] = useState(true);
     const expanded = expandedParent === undefined ? expandedState : expandedParent;
+    const [height, setHeight] = useState(false);
     const bodyRef = useRef();
 
     function onClick() {
@@ -30,6 +31,12 @@ const Accordion: FunctionComponent<AccordionProps> = ({
             onClickCallback(!expanded);
         setExpanded(!expanded);
     }
+
+    useEffect(() => {
+        if (!height) {
+            setHeight(true);
+        }
+    }, [bodyRef.current]);
 
     return (<AccordionDiv className="accordion">
         <Card shadow={shadow}>
@@ -39,7 +46,7 @@ const Accordion: FunctionComponent<AccordionProps> = ({
                     {label}
                 </LabelSpan>
             </HeaderDiv>
-            <BodyDiv expanded={expanded} height={bodyRef.current?.clientHeight}>
+            <BodyDiv expanded={expanded} height={height ? bodyRef.current?.clientHeight : undefined}>
                 <IonCardContent ref={bodyRef}>
                     {children}
                 </IonCardContent>
