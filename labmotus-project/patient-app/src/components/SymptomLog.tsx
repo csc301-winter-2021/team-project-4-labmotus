@@ -12,9 +12,10 @@ export interface SymptomLogEntry extends SymptomProgressBarProps {
 
 export interface SymptomLogProps {
     logs: SymptomLogEntry[]
+    shadow?: boolean
 }
 
-const SymptomLog: FunctionComponent<SymptomLogProps> = ({logs}) => {
+const SymptomLog: FunctionComponent<SymptomLogProps> = ({logs, shadow = false}) => {
     const theme = React.useContext(ThemeContext);
 
     function generateAccordions() {
@@ -24,7 +25,7 @@ const SymptomLog: FunctionComponent<SymptomLogProps> = ({logs}) => {
             </NullDiv>)
         } else {
             return logs.map(({joint, ...props}, index) => (
-                <Accordion label={joint} key={index}>
+                <Accordion label={joint} shadow={shadow} key={index}>
                     <AccordionDiv>
                         <SymptomProgressBar {...props}/>
                     </AccordionDiv>

@@ -81,7 +81,7 @@ const BarBackground = styled.div`
     background-color: ${(props: Theme) => props.colors.shade};
     overflow: hidden;
     border-radius: 9999px;
-    height: 75%;
+    height: 50%;
     width: 100%;
 `;
 

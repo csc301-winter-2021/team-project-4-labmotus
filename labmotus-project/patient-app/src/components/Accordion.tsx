@@ -9,12 +9,14 @@ import {IonCard, IonCardContent, IonCardHeader, IonIcon} from "@ionic/react";
 export interface AccordionProps {
     label: string;
     expanded?: boolean;
+    shadow?: boolean;
     onClick?: (expanded: boolean) => void;
 }
 
 const Accordion: FunctionComponent<AccordionProps> = ({
                                                           label,
                                                           expanded: expandedParent,
+                                                          shadow = true,
                                                           onClick: onClickCallback,
                                                           children
                                                       }) => {
@@ -30,7 +32,7 @@ const Accordion: FunctionComponent<AccordionProps> = ({
     }
 
     return (<AccordionDiv className="accordion">
-        <Card>
+        <Card shadow={shadow}>
             <HeaderDiv expanded={expanded} onClick={onClick}>
                 <IonIcon icon={chevronDown}/>
                 <LabelSpan {...theme}>
@@ -51,8 +53,17 @@ const AccordionDiv = styled.div`
     flex-direction: column;
 `;
 
-const Card = styled(IonCard)`
+interface CardProps {
+    shadow: boolean;
+}
 
+const Card = styled(IonCard)`
+    margin: 0px;
+    ${({shadow}: CardProps) => (
+    !shadow && `
+        box-shadow: none;
+        `
+)}
 `;
 
 interface ExpandedProps {
