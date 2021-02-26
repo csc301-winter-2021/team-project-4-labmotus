@@ -30,7 +30,7 @@ Some example personas:
 
 ### Q3: Why would your users choose your product? What are they using today to solve their problem/need?
 
-Currently, the WHO estimates there are around 1.71 billion people worldwide suffering from musculoskeletal conditions. Musculoskeletal issues, specifically lower back pain, are a primary cause of disabilities in 160 countries<sup>[1](https://www.who.int/news-room/fact-sheets/detail/musculoskeletal-conditions)</sup>. We are building a telemedicine service that will allow physiotherapists to provide remote rehabilitation services to both local clinic patients and global underserved populations. Studies of telemedicine services in specific fields have shown the service to be feasible as an in-person alternative and highly welcomed by patients, with more than 97.1% of the participants willing to recommend the service to others<sup> [2](https://pubmed.ncbi.nlm.nih.gov/31472419/)</sup>.
+Currently, the WHO estimates there are around 1.71 billion people worldwide suffering from musculoskeletal conditions. Musculoskeletal issues, specifically lower back pain, are a primary cause of disabilities in 160 countries<sup>[1](https://www.who.int/news-room/fact-sheets/detail/musculoskeletal-conditions)</sup>. We are building a telemedicine service that will allow physiotherapists to provide remote rehabilitation services to both local clinic patients and global underserved populations. Studies of telemedicine services in specific fields have shown the service to be feasible as an in-person alternative and highly welcomed by patients, with more than 97.1% of the participants willing to recommend the service to others<sup>[2](https://pubmed.ncbi.nlm.nih.gov/31472419/)</sup>.
 
 Traditional motion capture technology for physiotherapy is very expensive, costing upwards of \$10,000, and thus is usually limited to only use in academia. Other digital rehabilitation services like Kinetisense can provide the service at a much lower cost, in this case only requiring a Microsoft Kinect camera valued at \$400. We are designing our product to require only a smartphone, making it highly accessible to all users without the hassle of setting up dedicated hardware. 
 
@@ -422,6 +422,16 @@ For all of these conflicts, the **final** resort is going to the professor / TA.
 
 ## Mockup
 
-Clinician Portal: https://share.proto.io/LFFD2W/
+### Clinician Portal
 
-Patient App: https://share.proto.io/HFDT7T/
+<p align="center">
+<img src="mockup/clinician-portal.gif" alt="clinician portal gif">
+<img src="mockup/clinician-portal.png" alt="clinician portal png">
+</p>
+
+### Patient App
+
+<p align="center">
+<img src="mockup/patient-app.gif" alt="patient app gif">
+<img src="mockup/patient-app.png" alt="patient app png">
+</p>
