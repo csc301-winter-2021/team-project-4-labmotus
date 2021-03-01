@@ -1,6 +1,6 @@
 import React from 'react';
 import {Meta, Story} from '@storybook/react';
-import SymptomProgressBar, {SymptomProgressBarProps} from "../components/SymptomProgressBar";
+import SymptomProgressBar, {SymptomProgressBarProps} from "../../components/SymptomProgressBar";
 /* Core CSS required for Ionic components to work properly */
 import "@ionic/react/css/core.css";
 /* Basic CSS for apps built with Ionic */

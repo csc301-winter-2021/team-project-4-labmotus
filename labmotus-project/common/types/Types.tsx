@@ -1,8 +1,10 @@
+import {Moment} from "moment";
+
 export interface Assessment {
     id: string
     patientId: string
-    date: Date
-    videoUrl: string
+    date: Moment
+    videoUrl?: string
     stats: Array<Stats>
 }
 
@@ -18,7 +20,7 @@ export interface User {
 export interface Patients {
     user: User
     phone: string
-    birthday: Date
+    birthday: Moment
     height: number // TODO: ASK VICTOR
     weight: number // TODO: ASK VICTOR
 }
@@ -34,4 +36,5 @@ export interface Stats {
     joint: string
     currValue: number
     goalValue: number
+    minValue?: number
 }

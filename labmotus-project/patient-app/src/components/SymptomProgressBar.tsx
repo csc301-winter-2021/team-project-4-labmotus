@@ -5,20 +5,20 @@ import {Theme, ThemeContext} from "../theme/Theme";
 
 export interface SymptomProgressBarProps {
     label?: String;
-    angle: number;
-    goalAngle: number;
-    minAngle?: number;
+    currValue: number;
+    goalValue: number;
+    minValue?: number;
 }
 
 const SymptomProgressBar: FunctionComponent<SymptomProgressBarProps> = ({
                                                                             label = "Max Range of Motion",
-                                                                            angle,
-                                                                            goalAngle,
-                                                                            minAngle = 0,
+                                                                            currValue,
+                                                                            goalValue,
+                                                                            minValue = 0,
                                                                         }) => {
 
     const theme = React.useContext(ThemeContext);
-    const percentage = (goalAngle - minAngle) > 0 ? (angle - minAngle) / (goalAngle - minAngle) : 0;
+    const percentage = (goalValue - minValue) > 0 ? (currValue - minValue) / (goalValue - minValue) : 0;
 
     return (<SymptomProgressBarDiv className="symptom-progress-bar" {...theme}>
         <TopDiv {...theme}>
@@ -26,7 +26,7 @@ const SymptomProgressBar: FunctionComponent<SymptomProgressBarProps> = ({
                 {label}
             </LabelDiv>
             <CurrentAngleDiv {...theme}>
-                {angle}&#176;
+                {currValue}&#176;
             </CurrentAngleDiv>
         </TopDiv>
         <BottomDiv {...theme}>
@@ -36,7 +36,7 @@ const SymptomProgressBar: FunctionComponent<SymptomProgressBarProps> = ({
                 </BarBackground>
             </BarDiv>
             <GoalAngleDiv {...theme}>
-                {goalAngle}&#176;
+                {goalValue}&#176;
             </GoalAngleDiv>
         </BottomDiv>
     </SymptomProgressBarDiv>)

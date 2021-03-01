@@ -4,9 +4,12 @@ import "../fonts/fonts.css"
 export interface Theme {
     primaryFontSize: string;
     primaryFontFamily: string;
+    headerFontSize: string;
+    headerFontFamily: string;
     secondaryFontSize: string;
     secondaryFontFamily: string;
     colors: Colors;
+    locale: string;
 }
 
 export interface Colors {
@@ -15,11 +18,14 @@ export interface Colors {
     light: string;
     contrast: string;
     shade: string;
+    cycle: string[];
 }
 
 export const PrimaryTheme: Theme = {
     primaryFontSize: "16px",
     primaryFontFamily: "Roboto",
+    headerFontSize: "20px",
+    headerFontFamily: "Roboto",
     secondaryFontSize: "10px",
     secondaryFontFamily: "Roboto",
     colors: {
@@ -27,8 +33,21 @@ export const PrimaryTheme: Theme = {
         secondary: "#3dc2ff",
         light: "#f4f5f8",
         contrast: "#000000",
-        shade: "#d7d8da"
-    }
+        shade: "#d7d8da",
+        cycle: [
+            '#1f77b4',
+            '#ff7f0e',
+            '#2ca02c',
+            '#d62728',
+            '#9467bd',
+            '#8c564b',
+            '#e377c2',
+            '#7f7f7f',
+            '#bcbd22',
+            '#17becf'
+        ],
+    },
+    locale: "en-US",
 };
 
 export const ThemeContext = React.createContext(PrimaryTheme);

@@ -1,10 +1,13 @@
-import React, {FunctionComponent, useEffect, useRef, useState} from "react";
+import React, {FunctionComponent, useRef, useState} from "react";
 // @ts-ignore
 import styled from 'styled-components';
 import {Theme, ThemeContext} from "../theme/Theme";
 // @ts-ignore
 import {chevronDown} from "ionicons/icons";
 import {IonCard, IonCardContent, IonCardHeader, IonIcon} from "@ionic/react";
+// @ts-ignore
+import ResizeObserver from 'resize-observer-polyfill';
+
 
 export interface AccordionProps {
     label: string;
@@ -23,7 +26,7 @@ const Accordion: FunctionComponent<AccordionProps> = ({
     const theme = React.useContext(ThemeContext);
     const [expandedState, setExpanded] = useState(true);
     const expanded = expandedParent === undefined ? expandedState : expandedParent;
-    const [height, setHeight] = useState(false);
+    const [height, setHeight] = useState(undefined);
     const bodyRef = useRef();
 
     function onClick() {
@@ -32,11 +35,13 @@ const Accordion: FunctionComponent<AccordionProps> = ({
         setExpanded(!expanded);
     }
 
-    useEffect(() => {
-        if (!height) {
-            setHeight(true);
-        }
-    }, [bodyRef.current]);
+    function update(ref: any) {
+        bodyRef.current = ref;
+        if (ref != null)
+            new ResizeObserver((e: any) => {
+                setHeight(e[0].borderBoxSize[0].blockSize);
+            }).observe(ref);
+    }
 
     return (<AccordionDiv className="accordion">
         <Card shadow={shadow}>
@@ -46,8 +51,8 @@ const Accordion: FunctionComponent<AccordionProps> = ({
                     {label}
                 </LabelSpan>
             </HeaderDiv>
-            <BodyDiv expanded={expanded} height={height ? bodyRef.current?.clientHeight : undefined}>
-                <IonCardContent ref={bodyRef}>
+            <BodyDiv expanded={expanded} height={height}>
+                <IonCardContent ref={(ref) => update(ref)}>
                     {children}
                 </IonCardContent>
             </BodyDiv>

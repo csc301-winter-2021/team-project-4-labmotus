@@ -2,7 +2,7 @@ import React from 'react';
 // @ts-ignore
 import styled from 'styled-components';
 import {Meta, Story} from '@storybook/react';
-import SymptomLog, {SymptomLogProps} from "../components/SymptomLog";
+import SymptomLog, {SymptomLogProps} from "../../components/SymptomLog";
 /* Core CSS required for Ionic components to work properly */
 import "@ionic/react/css/core.css";
 /* Basic CSS for apps built with Ionic */
@@ -28,6 +28,7 @@ const Template: Story<SymptomLogProps> = (args) => (
         <SymptomLog {...args}/>
     </Container>
 );
+
 export const Primary = Template.bind({});
 Primary.args = {
     logs: [

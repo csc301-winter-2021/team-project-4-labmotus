@@ -4,15 +4,12 @@ import styled from 'styled-components';
 import {Theme, ThemeContext} from "../theme/Theme";
 // @ts-ignore
 import Accordion from "./Accordion";
-import SymptomProgressBar, {SymptomProgressBarProps} from "./SymptomProgressBar";
+import SymptomProgressBar from "./SymptomProgressBar";
 import Scrollbar from "react-scrollbars-custom";
-
-export interface SymptomLogEntry extends SymptomProgressBarProps {
-    joint: string;
-}
+import {Stats} from "../../../common/types/Types";
 
 export interface SymptomLogProps {
-    logs: SymptomLogEntry[]
+    logs?: Stats[]
     shadow?: boolean
 }
 
@@ -20,9 +17,9 @@ const SymptomLog: FunctionComponent<SymptomLogProps> = ({logs, shadow = false}) 
     const theme = React.useContext(ThemeContext);
 
     function generateAccordions() {
-        if (logs.length === 0) {
+        if (logs == null || logs.length === 0) {
             return (<NullDiv {...theme}>
-                Nothing To See Here
+                No Assessments Today
             </NullDiv>)
         } else {
             return logs.map(({joint, ...props}, index) => (

@@ -2,7 +2,7 @@ import React from 'react';
 // @ts-ignore
 import styled from 'styled-components';
 import {Meta, Story} from '@storybook/react';
-import Accordion, {AccordionProps} from "../components/Accordion";
+import Accordion, {AccordionProps} from "../../components/Accordion";
 /* Core CSS required for Ionic components to work properly */
 import "@ionic/react/css/core.css";
 /* Basic CSS for apps built with Ionic */
