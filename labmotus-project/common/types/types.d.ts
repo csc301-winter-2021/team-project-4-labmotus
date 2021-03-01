@@ -17,7 +17,7 @@ export interface User {
     email: string
 }
 
-export interface Patients {
+export interface Patient {
     user: User
     phone: string
     birthday: Moment
