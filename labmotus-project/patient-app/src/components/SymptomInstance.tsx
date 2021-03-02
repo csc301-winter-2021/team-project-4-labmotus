@@ -3,7 +3,7 @@ import React, {FunctionComponent} from "react";
 import styled from 'styled-components';
 import {Theme, ThemeContext} from "../theme/Theme";
 import SymptomLog from "./SymptomLog";
-import {Stats} from "../../../common/types/Types";
+import {Stats} from "../../../common/types";
 import moment, {Moment} from "moment";
 import {CartesianGrid, Line, LineChart, ReferenceLine, ResponsiveContainer, Tooltip, XAxis, YAxis} from "recharts";
 

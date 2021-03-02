@@ -18,6 +18,8 @@ export interface Colors {
     light: string;
     contrast: string;
     shade: string;
+    mediumShade: string;
+    darkShade: string;
     cycle: string[];
 }
 
@@ -34,6 +36,8 @@ export const PrimaryTheme: Theme = {
         light: "#f4f5f8",
         contrast: "#000000",
         shade: "#d7d8da",
+        mediumShade: "#808289",
+        darkShade: "#1e2023",
         cycle: [
             '#1f77b4',
             '#ff7f0e',
