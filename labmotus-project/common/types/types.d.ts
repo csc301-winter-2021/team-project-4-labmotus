@@ -33,3 +33,9 @@ export interface Stats {
     currValue: number
     goalValue: number
 }
+
+export interface Response<T> {
+    success: boolean
+    error?: string
+    body?: T
+}
