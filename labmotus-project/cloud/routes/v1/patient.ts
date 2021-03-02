@@ -35,7 +35,7 @@ export default async function(server: fastify.FastifyInstance, options: fastify.
         reply
             .code(200)
             .header('Content-Type', 'application/json')
-            .send(JSON.stringify(mockResponse))
+            .send(mockResponse)
     })
 
     /**
@@ -68,7 +68,7 @@ export default async function(server: fastify.FastifyInstance, options: fastify.
         reply
             .code(200)
             .header('Content-Type', 'application/json')
-            .send(JSON.stringify(mockResponse))
+            .send(mockResponse)
     })
 
     /**
@@ -106,7 +106,7 @@ export default async function(server: fastify.FastifyInstance, options: fastify.
         reply
             .code(200)
             .header('Content-Type', 'application/json')
-            .send(JSON.stringify(mockResponse))
+            .send(mockResponse)
     })
 
     /**
@@ -141,7 +141,7 @@ export default async function(server: fastify.FastifyInstance, options: fastify.
         reply
             .code(200)
             .header('Content-Type', 'application/json')
-            .send(JSON.stringify(mockResponse))
+            .send(mockResponse)
     })
 
     /**
@@ -199,6 +199,6 @@ export default async function(server: fastify.FastifyInstance, options: fastify.
         reply
             .code(200)
             .header('Content-Type', 'application/json')
-            .send(JSON.stringify(mockResponse))
+            .send(mockResponse)
     })
 }
