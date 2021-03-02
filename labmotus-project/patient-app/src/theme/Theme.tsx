@@ -6,6 +6,8 @@ export interface Theme {
     primaryFontFamily: string;
     headerFontSize: string;
     headerFontFamily: string;
+    subheaderFontSize: string;
+    subheaderFontFamily: string;
     secondaryFontSize: string;
     secondaryFontFamily: string;
     colors: Colors;
@@ -28,6 +30,8 @@ export const PrimaryTheme: Theme = {
     primaryFontFamily: "Roboto",
     headerFontSize: "20px",
     headerFontFamily: "Roboto",
+    subheaderFontSize: "14px",
+    subheaderFontFamily: "Roboto",
     secondaryFontSize: "10px",
     secondaryFontFamily: "Roboto",
     colors: {
