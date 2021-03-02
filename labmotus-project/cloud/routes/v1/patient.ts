@@ -74,7 +74,7 @@ export default async function(server: fastify.FastifyInstance, options: fastify.
     /**
      * PATCH /patient/:patientId
      * 
-     * Update patient document with given patient invite code
+     * Update patient document with given patient ID
      * 
      * Parameters:
      *  patientId: Patient ID
