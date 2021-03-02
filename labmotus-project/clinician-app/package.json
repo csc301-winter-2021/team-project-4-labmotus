@@ -23,6 +23,7 @@
     "react-scripts": "4.0.2",
     "typescript": "^4.1.3",
     "web-vitals": "^0.2.4",
+    "ts-loader": "^8.0.17",
     "workbox-background-sync": "^5.1.4",
     "workbox-broadcast-update": "^5.1.4",
     "workbox-cacheable-response": "^5.1.4",
@@ -69,7 +70,9 @@
     "@storybook/addon-links": "^6.1.19",
     "@storybook/node-logger": "^6.1.19",
     "@storybook/preset-create-react-app": "^3.1.6",
-    "@storybook/react": "^6.1.19"
+    "@storybook/react": "^6.1.19",
+    "customize-cra": "^1.0.0",
+    "react-app-rewired": "^2.1.8"
   },
   "description": "An Ionic project"
 }
