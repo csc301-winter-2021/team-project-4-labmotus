@@ -3,7 +3,8 @@ export interface Assessment {
     patientId: string
     date: Date
     videoUrl: string
-    stats: Array<Stats>
+    poseData?: any // TODO: Create type for pose data
+    stats?: Array<Stats>
 }
 
 export interface User {
