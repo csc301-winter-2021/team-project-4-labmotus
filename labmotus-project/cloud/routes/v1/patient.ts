@@ -1,5 +1,5 @@
 import * as fastify from 'fastify'
-import { Assessment, Patient, Response } from '@labmotus/types'
+import { Assessment, Patient, Response, User } from '@labmotus/types'
 import { RequestHeaders } from '../../types';
 
 
@@ -86,18 +86,21 @@ export default async function(server: fastify.FastifyInstance, options: fastify.
         Params: PatientIdParams,
         Body: Patient
     }>('/patient/:patientId', {}, async (request, reply) => {
+        const patientUser: User = {
+            id: request.params.patientId,
+            firebaseId: "firebase:0",
+            username: "labmotus",
+            name: "LabMotus User",
+            email: "user@labmot.us"
+        }
         const patient: Patient = {
-            user: {
-                id: request.params.patientId,
-                firebaseId: "firebase:0",
-                username: "labmotus",
-                name: "LabMotus User",
-                email: "user@labmot.us"
-            },
+            user: patientUser,
             phone: "1234567890",
             birthday: new Date(new Date().valueOf() - (1000 * 60 * 60 * 24 * 365 * 18))
         }
+        Object.assign(patientUser, request.body.user)
         Object.assign(patient, request.body)
+        Object.assign(patient.user, patientUser)
 
         const mockResponse: Response<Patient> = {
             success: true,
