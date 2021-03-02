@@ -19,8 +19,6 @@ export interface Patient {
     patientCode?: string
     phone: string
     birthday: Date
-    height: number // TODO: ASK VICTOR
-    weight: number // TODO: ASK VICTOR
 }
 
 export interface Clinician {
