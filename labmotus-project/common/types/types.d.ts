@@ -1,7 +1,9 @@
+import {Moment} from "moment";
+
 export interface Assessment {
     id: string
     patientId: string
-    date: Date
+    date: Moment
     videoUrl: string
     poseData?: any // TODO: Create type for pose data
     stats?: Array<Stats>
@@ -19,7 +21,7 @@ export interface Patient {
     user: User
     patientCode?: string
     phone: string
-    birthday: Date
+    birthday: Moment
 }
 
 export interface Clinician {
@@ -30,9 +32,11 @@ export interface Clinician {
 
 export interface Stats {
     name: string
+    videoUrl?: string
     joint: string
     currValue: number
     goalValue: number
+    minValue?: number
 }
 
 export interface Response<T> {
