@@ -9,7 +9,7 @@ import {CartesianGrid, Line, LineChart, ReferenceLine, ResponsiveContainer, Tool
 
 export interface SymptomInstanceProps {
     date: Moment;
-    stats: Array<Stats>;
+    stats?: Array<Stats>;
     graphData?: any[];
     graphKeys?: Set<string>;
     changeDay?: (newDay: Moment) => void;

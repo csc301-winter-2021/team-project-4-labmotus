@@ -31,23 +31,43 @@ const Template: Story<SymptomLogProps> = (args) => (
 
 export const Primary = Template.bind({});
 Primary.args = {
-    logs: [
+    logs: [   
         {
             joint: "Knee",
             angle: 120,
             goalAngle: 180,
         },
         {
-            joint: "Shoulder",
-            angle: 85,
-            goalAngle: 90,
-        },
-        {
             joint: "Hip",
             angle: -5,
             goalAngle: 0,
             minAngle: -10,
-        }
+        },        
+        {
+            joint: "Trunk",
+            angle: 85,
+            goalAngle: 90,
+        },        
+        {
+            joint: "Ankle Plantar",
+            angle: 85,
+            goalAngle: 90,
+        },        
+        {
+            joint: "Knee Valgus",
+            angle: 85,
+            goalAngle: 90,
+        },        
+        {
+            joint: "Lateral Trunk",
+            angle: 85,
+            goalAngle: 90,
+        },        
+        {
+            joint: "Foot Position",
+            angle: 45,
+            goalAngle: 30,
+        },
     ]
 };
 
