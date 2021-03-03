@@ -1,4 +1,5 @@
 import * as fastify from 'fastify'
+import moment from 'moment'
 import { Assessment, Clinician, Patient, Response, User } from '@labmotus/types'
 import { RequestHeaders } from '../../types';
 
@@ -131,7 +132,7 @@ export default async function(server: fastify.FastifyInstance, options: fastify.
                     email: "patient"+i+"@labmot.us"
                 },
                 phone: "000000000"+i,
-                birthday: new Date(new Date().valueOf() - (1000 * 60 * 60 * 24 * (365 * (18 + i) + Math.round(Math.random() * 364))))
+                birthday: moment().subtract(18+i, 'years').subtract(Math.round(Math.random()*364), 'days')
             }
         })
 
