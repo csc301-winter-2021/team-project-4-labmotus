@@ -1,3 +1,4 @@
+import React from "react";
 import {BrowserRouter as Router, Redirect, Route, Switch} from 'react-router-dom';
 import {IonApp} from '@ionic/react';
 import Home from './pages/Home';
@@ -19,11 +20,12 @@ import '@ionic/react/css/display.css';
 /* Theme variables */
 import './theme/variables.css';
 import LoadingComponent from "./components/LoadingComponent";
+import LoadingScreen from "./pages/LoadingScreen";
 
 const App: React.FC = () => (
     <IonApp>
         <RootDiv>
-            <LoadingComponent>
+            <LoadingComponent loadingScreen={() => <LoadingScreen/>}>
                 <Router>
                     <Switch>
                         <Route exact path="/home" render={() =>

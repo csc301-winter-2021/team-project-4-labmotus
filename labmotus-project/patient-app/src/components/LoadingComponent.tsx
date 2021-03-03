@@ -24,17 +24,18 @@ const LoadingComponent: FunctionComponent<LoadingComponentProps> = ({
     if (timeout > 0) {
         functors.push(timeoutFunctor(timeout))
     }
-    const [loaded, setLoaded] = useState(functors.map(() => false));
+    const [loadedItems, setLoadedItems] = useState(functors.map(() => false));
+    const [loaded, setLoaded] = useState(false);
     useEffect(() => {
-        if (!loaded.every(value => value !== false)) {
+        if (!loaded && !loadedItems.every(value => value !== false)) {
             let new_loaded = undefined;
-            for (let i = 0; i < loaded.length; i++) {
-                if (loaded[i] === false) {
+            for (let i = 0; i < loadedItems.length; i++) {
+                if (loadedItems[i] === false) {
                     if (new_loaded === undefined)
-                        new_loaded = [...loaded];
+                        new_loaded = [...loadedItems];
                     new_loaded[i] = undefined;
                     functors[i]().then(value => {
-                        setLoaded(prevLoaded => {
+                        setLoadedItems(prevLoaded => {
                             const n = [...prevLoaded];
                             n[i] = value;
                             return n;
@@ -43,12 +44,13 @@ const LoadingComponent: FunctionComponent<LoadingComponentProps> = ({
                 }
             }
             if (new_loaded !== undefined)
-                setLoaded(new_loaded);
+                setLoadedItems(new_loaded);
         }
     });
 
-    if (!loaded.every(value => value === true)) {
-        return <LoadingDiv className="loading-div">
+    if (!loaded) {
+        return <LoadingDiv className="loading-div" loaded={loadedItems.every(value => value === true)}
+                           onTransitionEnd={() => setLoaded(loadedItems.every(value => value === true))}>
             {loadingScreen !== undefined ? loadingScreen() : <IonSpinner/>}
         </LoadingDiv>;
     } else {
@@ -58,8 +60,14 @@ const LoadingComponent: FunctionComponent<LoadingComponentProps> = ({
     }
 };
 
+interface LoadingProps {
+    loaded: boolean;
+}
+
 const LoadingDiv = styled.div`
     display: flex;
+    transition: opacity 0.3s;
+    opacity: ${({loaded}: LoadingProps) => loaded ? "0" : "1"};
     align-items: center;
     justify-content: center;
 `;

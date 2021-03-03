@@ -27,6 +27,10 @@ class API {
         return true
     }
 
+    async getPatient(): Promise<Patient> {
+        return null;
+    }
+
     async updatePatient(patient: Patient): Promise<boolean> {
         return true;
     }
@@ -35,11 +39,11 @@ class API {
         return true;
     }
 
-    async getClinician(patient: Patient): Promise<Clinician | null> {
+    async getClinician(patient: Patient): Promise<Clinician> {
         return null;
     }
 
-    async getAssessments(patient: Patient): Promise<Assessment[] | null> {
+    async getAssessments(patient: Patient): Promise<Assessment[]> {
         return null;
     }
 }
