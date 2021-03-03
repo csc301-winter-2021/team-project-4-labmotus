@@ -9,13 +9,14 @@ export interface Assessment {
 
 export interface User {
     id: string
-    firebaseId: string
+    firebaseId?: string
     name: string
-    email: string
+    email?: string
 }
 
 export interface Patient {
     user: User
+    clinicianID: string;
     phone: string
     birthday: Moment
 }
