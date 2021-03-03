@@ -1,7 +1,8 @@
 import React from "react"
 import { Patient } from "../../../common/types/types"
 import { IonIcon, IonItem, IonLabel } from "@ionic/react"
-import { ProfilePictureComponent } from "@labmotus/ui";
+import { ProfilePictureComponent } from "../../../common/ui/components/ProfilePictureComponent";
+import { useHistory } from "react-router-dom";
 import { chevronForward } from 'ionicons/icons';
 
 export interface PatientListProp {
@@ -28,8 +29,10 @@ export const PatientListComponent: React.FC<PatientListProp> = (props: PatientLi
 
 export const PatientListing: React.FC<Patient> = (patient: Patient) => {
 
+  const history = useHistory()
+
   return(
-    <div>
+    <div onClick={() => history.push("/patients/")}>
       <IonItem>
         <ProfilePictureComponent imageLink="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y"/>
           <IonLabel>

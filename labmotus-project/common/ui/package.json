@@ -1,9 +1,7 @@
 {
     "name": "@labmotus/ui",
     "version": "1.0.0",
-    "private": true,
     "typings": "./index.d.ts",
-    "main": "/dist/index.js",
     "dependencies": {
         "@capacitor/core": "2.4.6",
         "@ionic/react": "^5.5.0",
