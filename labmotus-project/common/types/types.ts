@@ -24,7 +24,7 @@ export interface Patient {
 export interface Clinician {
     user: User
     clinic: string
-    patientIDs: Array<string> // UserIds
+    patientIDs?: Array<string> // UserIds
 }
 
 export interface Stats {

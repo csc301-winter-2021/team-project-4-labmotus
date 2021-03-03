@@ -3,47 +3,56 @@ import firebaseConfig from "../../firebase.json"
 import firebase from 'firebase/app';
 import "firebase/auth"
 import {Assessment, Clinician, Patient} from "../../../common/types/types";
+import moment, {Moment} from "moment";
+
+export interface FirebaseConfig {
+    "apiKey": string;
+    "authDomain": string;
+    "projectId": string;
+    "storageBucket": string;
+    "messagingSenderId": string;
+    "appId": string;
+}
 
 class API {
     firebase: firebase.app.App;
 
-    constructor() {
-        this.firebase = firebase.initializeApp(firebaseConfig);
+    constructor(config: (FirebaseConfig | null) = firebaseConfig) {
+        if (config !== null)
+            this.firebase = firebase.initializeApp(config);
     }
 
-    async cachedLogin(): Promise<boolean> {
-        return true;
+    async cachedLogin(): Promise<void> {
     }
 
-    async login(user: string, pass: string): Promise<boolean> {
-        return true
+    async login(user: string, pass: string): Promise<void> {
+
     }
 
-    async logout(): Promise<boolean> {
-        return true
+    async logout(): Promise<void> {
     }
 
-    async deleteUser(): Promise<boolean> {
-        return true
+    async deleteUser(): Promise<void> {
+
     }
 
-    async getPatient(): Promise<Patient> {
+    async getPatient(): Promise<Patient | null> {
         return null;
     }
 
-    async updatePatient(patient: Patient): Promise<boolean> {
-        return true;
+    async updatePatient(patient: Patient): Promise<void> {
+
     }
 
-    async uploadVideo(assessment: Assessment, stat: string): Promise<boolean> {
-        return true;
+    async uploadVideo(assessment: Assessment, stat: string): Promise<void> {
+
     }
 
     async getClinician(patient: Patient): Promise<Clinician> {
         return null;
     }
 
-    async getAssessments(patient: Patient): Promise<Assessment[]> {
+    async getAssessments(week: Moment = moment().startOf('day')): Promise<Assessment[]> {
         return null;
     }
 }

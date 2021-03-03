@@ -21,23 +21,41 @@ import '@ionic/react/css/display.css';
 import './theme/variables.css';
 import LoadingComponent from "./components/LoadingComponent";
 import LoadingScreen from "./pages/LoadingScreen";
+import config from "../config.json";
+import API, {APIContext} from "./api/API";
+import MockAPI from "./mock/MockAPI";
 
-const App: React.FC = () => (
-    <IonApp>
-        <RootDiv>
-            <LoadingComponent loadingScreen={() => <LoadingScreen/>}>
-                <Router>
-                    <Switch>
-                        <Route exact path="/home" render={() =>
-                            <Home/>
-                        }/>
-                        <Redirect from="/" to="/home"/>
-                    </Switch>
-                </Router>
-            </LoadingComponent>
-        </RootDiv>
-    </IonApp>
-);
+const App: React.FC = () => {
+    let APIInstance = null;
+
+    async function loadAPI(): Promise<boolean> {
+        if (!config.mock) {
+            APIInstance = new API();
+        } else {
+            APIInstance = new MockAPI();
+        }
+        return true;
+    }
+
+    return (
+        <IonApp>
+            <APIContext.Provider value={APIInstance}>
+                <RootDiv>
+                    <LoadingComponent functors={[loadAPI]} loadingScreen={() => <LoadingScreen/>}>
+                        <Router>
+                            <Switch>
+                                <Route exact path="/home" render={() =>
+                                    <Home/>
+                                }/>
+                                <Redirect from="/" to="/home"/>
+                            </Switch>
+                        </Router>
+                    </LoadingComponent>
+                </RootDiv>
+            </APIContext.Provider>
+        </IonApp>
+    );
+};
 
 const RootDiv = styled.div`
     width: 100%;
