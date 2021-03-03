@@ -6,7 +6,7 @@ import {Theme, ThemeContext} from "../theme/Theme";
 import Accordion from "./Accordion";
 import SymptomProgressBar from "./SymptomProgressBar";
 import Scrollbar from "react-scrollbars-custom";
-import {Stats} from "../../../common/types";
+import {Stats} from "../../../common/types/types";
 import ReactPlayer from "react-player";
 
 export interface SymptomLogProps {

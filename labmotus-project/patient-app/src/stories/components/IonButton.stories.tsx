@@ -84,7 +84,7 @@ export interface IonButtonProps {
     label?: string;
 }
 
-const Template: Story<IonButtonProps> = (args) => <IonButton {...args}>{args.label}</IonButton>;
+const Template: Story<IonButtonProps> = (args) => <><IonButton {...args}>{args.label}</IonButton></>;
 export const Primary = Template.bind({});
 Primary.args = {
     label: 'Button'

@@ -23,6 +23,12 @@
     "jsx": "react-jsx",
     "moduleResolution": "node"
   },
-  "include": ["src/components", "./index.ts"],
-  "exclude": ["node_modules", "dist"]
+  "include": [
+    "ui/components",
+    "./index.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist"
+  ]
 }

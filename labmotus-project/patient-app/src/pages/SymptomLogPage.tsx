@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import {Theme, ThemeContext} from "../theme/Theme";
 import {IonSpinner} from "@ionic/react";
 import SymptomInstance from "../components/SymptomInstance";
-import {Assessment} from "../../../common/types";
+import {Assessment} from "../../../common/types/types";
 import moment, {Moment} from "moment";
 
 export interface SymptomLogPageProps {
