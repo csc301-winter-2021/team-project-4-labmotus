@@ -4,7 +4,6 @@ export interface Assessment {
     id: string
     patientId: string
     date: Moment
-    videoUrl?: string
     stats: Array<Stats>
 }
 
@@ -29,6 +28,7 @@ export interface Clinician {
 
 export interface Stats {
     name: string
+    videoUrl?: string
     joint: string
     currValue: number
     goalValue: number

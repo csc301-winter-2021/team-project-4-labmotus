@@ -11,20 +11,24 @@ import ResizeObserver from 'resize-observer-polyfill';
 
 export interface AccordionProps {
     label: string;
+    labelFont?: string;
     expanded?: boolean;
+    initialExpanded?: boolean;
     shadow?: boolean;
     onClick?: (expanded: boolean) => void;
 }
 
 const Accordion: FunctionComponent<AccordionProps> = ({
                                                           label,
+                                                          labelFont = "primary",
                                                           expanded: expandedParent,
+                                                          initialExpanded = true,
                                                           shadow = true,
                                                           onClick: onClickCallback,
                                                           children
                                                       }) => {
     const theme = React.useContext(ThemeContext);
-    const [expandedState, setExpanded] = useState(true);
+    const [expandedState, setExpanded] = useState(initialExpanded);
     const expanded = expandedParent === undefined ? expandedState : expandedParent;
     const [height, setHeight] = useState(undefined);
     const bodyRef = useRef();
@@ -47,7 +51,7 @@ const Accordion: FunctionComponent<AccordionProps> = ({
         <Card shadow={shadow}>
             <HeaderDiv expanded={expanded} onClick={onClick}>
                 <IonIcon icon={chevronDown}/>
-                <LabelSpan {...theme}>
+                <LabelSpan labelFont={labelFont} {...theme}>
                     {label}
                 </LabelSpan>
             </HeaderDiv>
@@ -105,8 +109,15 @@ const BodyDiv = styled.div`
 
 const LabelSpan = styled.span`
     margin-left: 1.5%;
-    font-size: ${(props: Theme) => props.primaryFontSize};
-    font-family: ${(props: Theme) => props.primaryFontFamily};
+    font-size: ${(props: Theme & { labelFont: string }) => {
+    // @ts-ignore
+    return props[`${props.labelFont}FontSize`]
+}
+};
+    font-family: ${(props: Theme & { labelFont: string }) => {
+    // @ts-ignore
+    return props[`${props.labelFont}FontFamily`]
+}};
     font-weight: bold;
     color: ${(props: Theme) => props.colors.contrast};
 `;
