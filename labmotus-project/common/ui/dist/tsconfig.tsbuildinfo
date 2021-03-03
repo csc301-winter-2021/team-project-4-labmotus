@@ -1,0 +1,3250 @@
+{
+  "program": {
+    "fileInfos": {
+      "../../../node_modules/typescript/lib/lib.es5.d.ts": {
+        "version": "b3584bc5798ed422ce2516df360ffa9cf2d80b5eae852867db9ba3743145f895",
+        "signature": "b3584bc5798ed422ce2516df360ffa9cf2d80b5eae852867db9ba3743145f895",
+        "affectsGlobalScope": true
+      },
+      "../../../node_modules/typescript/lib/lib.es2015.d.ts": {
+        "version": "dc47c4fa66b9b9890cf076304de2a9c5201e94b740cffdf09f87296d877d71f6",
+        "signature": "dc47c4fa66b9b9890cf076304de2a9c5201e94b740cffdf09f87296d877d71f6",
+        "affectsGlobalScope": false
+      },
+      "../../../node_modules/typescript/lib/lib.es2016.d.ts": {
+        "version": "7a387c58583dfca701b6c85e0adaf43fb17d590fb16d5b2dc0a2fbd89f35c467",
+        "signature": "7a387c58583dfca701b6c85e0adaf43fb17d590fb16d5b2dc0a2fbd89f35c467",
+        "affectsGlobalScope": false
+      },
+      "../../../node_modules/typescript/lib/lib.es2017.d.ts": {
+        "version": "8a12173c586e95f4433e0c6dc446bc88346be73ffe9ca6eec7aa63c8f3dca7f9",
+        "signature": "8a12173c586e95f4433e0c6dc446bc88346be73ffe9ca6eec7aa63c8f3dca7f9",
+        "affectsGlobalScope": false
+      },
+      "../../../node_modules/typescript/lib/lib.es2018.d.ts": {
+        "version": "5f4e733ced4e129482ae2186aae29fde948ab7182844c3a5a51dd346182c7b06",
+        "signature": "5f4e733ced4e129482ae2186aae29fde948ab7182844c3a5a51dd346182c7b06",
+        "affectsGlobalScope": false
+      },
+      "../../../node_modules/typescript/lib/lib.es2019.d.ts": {
+        "version": "e6b724280c694a9f588847f754198fb96c43d805f065c3a5b28bbc9594541c84",
+        "signature": "e6b724280c694a9f588847f754198fb96c43d805f065c3a5b28bbc9594541c84",
+        "affectsGlobalScope": false
+      },
+      "../../../node_modules/typescript/lib/lib.es2020.d.ts": {
+        "version": "e21c071ca3e1b4a815d5f04a7475adcaeea5d64367e840dd0154096d705c3940",
+        "signature": "e21c071ca3e1b4a815d5f04a7475adcaeea5d64367e840dd0154096d705c3940",
+        "affectsGlobalScope": false
+      },
+      "../../../node_modules/typescript/lib/lib.esnext.d.ts": {
+        "version": "fc7a21dd3ee27fd0a9ff1c46534efcd9c3cec51a445b479bb326d871c0aa8302",
+        "signature": "fc7a21dd3ee27fd0a9ff1c46534efcd9c3cec51a445b479bb326d871c0aa8302",
+        "affectsGlobalScope": false
+      },
+      "../../../node_modules/typescript/lib/lib.dom.d.ts": {
+        "version": "feeeb1dd8a80fb76be42b0426e8f3ffa9bdef3c2f3c12c147e7660b1c5ba8b3b",
+        "signature": "feeeb1dd8a80fb76be42b0426e8f3ffa9bdef3c2f3c12c147e7660b1c5ba8b3b",
+        "affectsGlobalScope": true
+      },
+      "../../../node_modules/typescript/lib/lib.dom.iterable.d.ts": {
+        "version": "d42f4141bd9ce82b4e2902f26acb00c183e321be19a38bbc0e76a922c1724c94",
+        "signature": "d42f4141bd9ce82b4e2902f26acb00c183e321be19a38bbc0e76a922c1724c94",
+        "affectsGlobalScope": true
+      },
+      "../../../node_modules/typescript/lib/lib.es2015.core.d.ts": {
+        "version": "46ee15e9fefa913333b61eaf6b18885900b139867d89832a515059b62cf16a17",
+        "signature": "46ee15e9fefa913333b61eaf6b18885900b139867d89832a515059b62cf16a17",
+        "affectsGlobalScope": true
+      },
+      "../../../node_modules/typescript/lib/lib.es2015.collection.d.ts": {
+        "version": "43fb1d932e4966a39a41b464a12a81899d9ae5f2c829063f5571b6b87e6d2f9c",
+        "signature": "43fb1d932e4966a39a41b464a12a81899d9ae5f2c829063f5571b6b87e6d2f9c",
+        "affectsGlobalScope": true
+      },
+      "../../../node_modules/typescript/lib/lib.es2015.generator.d.ts": {
+        "version": "cdccba9a388c2ee3fd6ad4018c640a471a6c060e96f1232062223063b0a5ac6a",
+        "signature": "cdccba9a388c2ee3fd6ad4018c640a471a6c060e96f1232062223063b0a5ac6a",
+        "affectsGlobalScope": true
+      },
+      "../../../node_modules/typescript/lib/lib.es2015.iterable.d.ts": {
+        "version": "8b2a5df1ce95f78f6b74f1a555ccdb6baab0486b42d8345e0871dd82811f9b9a",
+        "signature": "8b2a5df1ce95f78f6b74f1a555ccdb6baab0486b42d8345e0871dd82811f9b9a",
+        "affectsGlobalScope": true
+      },
+      "../../../node_modules/typescript/lib/lib.es2015.promise.d.ts": {
+        "version": "2bb4b3927299434052b37851a47bf5c39764f2ba88a888a107b32262e9292b7c",
+        "signature": "2bb4b3927299434052b37851a47bf5c39764f2ba88a888a107b32262e9292b7c",
+        "affectsGlobalScope": true
+      },
+      "../../../node_modules/typescript/lib/lib.es2015.proxy.d.ts": {
+        "version": "810627a82ac06fb5166da5ada4159c4ec11978dfbb0805fe804c86406dab8357",
+        "signature": "810627a82ac06fb5166da5ada4159c4ec11978dfbb0805fe804c86406dab8357",
+        "affectsGlobalScope": true
+      },
+      "../../../node_modules/typescript/lib/lib.es2015.reflect.d.ts": {
+        "version": "62d80405c46c3f4c527ee657ae9d43fda65a0bf582292429aea1e69144a522a6",
+        "signature": "62d80405c46c3f4c527ee657ae9d43fda65a0bf582292429aea1e69144a522a6",
+        "affectsGlobalScope": true
+      },
+      "../../../node_modules/typescript/lib/lib.es2015.symbol.d.ts": {
+        "version": "3013574108c36fd3aaca79764002b3717da09725a36a6fc02eac386593110f93",
+        "signature": "3013574108c36fd3aaca79764002b3717da09725a36a6fc02eac386593110f93",
+        "affectsGlobalScope": true
+      },
+      "../../../node_modules/typescript/lib/lib.es2015.symbol.wellknown.d.ts": {
+        "version": "9d122b7e8c1a5c72506eea50c0973cba55b92b5532d5cafa8a6ce2c547d57551",
+        "signature": "9d122b7e8c1a5c72506eea50c0973cba55b92b5532d5cafa8a6ce2c547d57551",
+        "affectsGlobalScope": true
+      },
+      "../../../node_modules/typescript/lib/lib.es2016.array.include.d.ts": {
+        "version": "3be5a1453daa63e031d266bf342f3943603873d890ab8b9ada95e22389389006",
+        "signature": "3be5a1453daa63e031d266bf342f3943603873d890ab8b9ada95e22389389006",
+        "affectsGlobalScope": true
+      },
+      "../../../node_modules/typescript/lib/lib.es2017.object.d.ts": {
+        "version": "17bb1fc99591b00515502d264fa55dc8370c45c5298f4a5c2083557dccba5a2a",
+        "signature": "17bb1fc99591b00515502d264fa55dc8370c45c5298f4a5c2083557dccba5a2a",
+        "affectsGlobalScope": true
+      },
+      "../../../node_modules/typescript/lib/lib.es2017.sharedmemory.d.ts": {
+        "version": "7ce9f0bde3307ca1f944119f6365f2d776d281a393b576a18a2f2893a2d75c98",
+        "signature": "7ce9f0bde3307ca1f944119f6365f2d776d281a393b576a18a2f2893a2d75c98",
+        "affectsGlobalScope": true
+      },
+      "../../../node_modules/typescript/lib/lib.es2017.string.d.ts": {
+        "version": "6a6b173e739a6a99629a8594bfb294cc7329bfb7b227f12e1f7c11bc163b8577",
+        "signature": "6a6b173e739a6a99629a8594bfb294cc7329bfb7b227f12e1f7c11bc163b8577",
+        "affectsGlobalScope": true
+      },
+      "../../../node_modules/typescript/lib/lib.es2017.intl.d.ts": {
+        "version": "12a310447c5d23c7d0d5ca2af606e3bd08afda69100166730ab92c62999ebb9d",
+        "signature": "12a310447c5d23c7d0d5ca2af606e3bd08afda69100166730ab92c62999ebb9d",
+        "affectsGlobalScope": true
+      },
+      "../../../node_modules/typescript/lib/lib.es2017.typedarrays.d.ts": {
+        "version": "b0124885ef82641903d232172577f2ceb5d3e60aed4da1153bab4221e1f6dd4e",
+        "signature": "b0124885ef82641903d232172577f2ceb5d3e60aed4da1153bab4221e1f6dd4e",
+        "affectsGlobalScope": true
+      },
+      "../../../node_modules/typescript/lib/lib.es2018.asyncgenerator.d.ts": {
+        "version": "0eb85d6c590b0d577919a79e0084fa1744c1beba6fd0d4e951432fa1ede5510a",
+        "signature": "0eb85d6c590b0d577919a79e0084fa1744c1beba6fd0d4e951432fa1ede5510a",
+        "affectsGlobalScope": true
+      },
+      "../../../node_modules/typescript/lib/lib.es2018.asynciterable.d.ts": {
+        "version": "a40c4d82bf13fcded295ac29f354eb7d40249613c15e07b53f2fc75e45e16359",
+        "signature": "a40c4d82bf13fcded295ac29f354eb7d40249613c15e07b53f2fc75e45e16359",
+        "affectsGlobalScope": true
+      },
+      "../../../node_modules/typescript/lib/lib.es2018.intl.d.ts": {
+        "version": "df9c8a72ca8b0ed62f5470b41208a0587f0f73f0a7db28e5a1272cf92537518e",
+        "signature": "df9c8a72ca8b0ed62f5470b41208a0587f0f73f0a7db28e5a1272cf92537518e",
+        "affectsGlobalScope": true
+      },
+      "../../../node_modules/typescript/lib/lib.es2018.promise.d.ts": {
+        "version": "bb2d3fb05a1d2ffbca947cc7cbc95d23e1d053d6595391bd325deb265a18d36c",
+        "signature": "bb2d3fb05a1d2ffbca947cc7cbc95d23e1d053d6595391bd325deb265a18d36c",
+        "affectsGlobalScope": true
+      },
+      "../../../node_modules/typescript/lib/lib.es2018.regexp.d.ts": {
+        "version": "c80df75850fea5caa2afe43b9949338ce4e2de086f91713e9af1a06f973872b8",
+        "signature": "c80df75850fea5caa2afe43b9949338ce4e2de086f91713e9af1a06f973872b8",
+        "affectsGlobalScope": true
+      },
+      "../../../node_modules/typescript/lib/lib.es2019.array.d.ts": {
+        "version": "9d57b2b5d15838ed094aa9ff1299eecef40b190722eb619bac4616657a05f951",
+        "signature": "9d57b2b5d15838ed094aa9ff1299eecef40b190722eb619bac4616657a05f951",
+        "affectsGlobalScope": true
+      },
+      "../../../node_modules/typescript/lib/lib.es2019.object.d.ts": {
+        "version": "6c51b5dd26a2c31dbf37f00cfc32b2aa6a92e19c995aefb5b97a3a64f1ac99de",
+        "signature": "6c51b5dd26a2c31dbf37f00cfc32b2aa6a92e19c995aefb5b97a3a64f1ac99de",
+        "affectsGlobalScope": true
+      },
+      "../../../node_modules/typescript/lib/lib.es2019.string.d.ts": {
+        "version": "93544ca2f26a48716c1b6c5091842cad63129daac422dfa4bc52460465f22bb1",
+        "signature": "93544ca2f26a48716c1b6c5091842cad63129daac422dfa4bc52460465f22bb1",
+        "affectsGlobalScope": true
+      },
+      "../../../node_modules/typescript/lib/lib.es2019.symbol.d.ts": {
+        "version": "2ad234885a4240522efccd77de6c7d99eecf9b4de0914adb9a35c0c22433f993",
+        "signature": "2ad234885a4240522efccd77de6c7d99eecf9b4de0914adb9a35c0c22433f993",
+        "affectsGlobalScope": true
+      },
+      "../../../node_modules/typescript/lib/lib.es2020.bigint.d.ts": {
+        "version": "7b5a10e3c897fabece5a51aa85b4111727d7adb53c2734b5d37230ff96802a09",
+        "signature": "7b5a10e3c897fabece5a51aa85b4111727d7adb53c2734b5d37230ff96802a09",
+        "affectsGlobalScope": true
+      },
+      "../../../node_modules/typescript/lib/lib.es2020.promise.d.ts": {
+        "version": "7435b75fdf3509622e79622dbe5091cf4b09688410ee2034e4fc17d0c99d0862",
+        "signature": "7435b75fdf3509622e79622dbe5091cf4b09688410ee2034e4fc17d0c99d0862",
+        "affectsGlobalScope": true
+      },
+      "../../../node_modules/typescript/lib/lib.es2020.sharedmemory.d.ts": {
+        "version": "e7e8e1d368290e9295ef18ca23f405cf40d5456fa9f20db6373a61ca45f75f40",
+        "signature": "e7e8e1d368290e9295ef18ca23f405cf40d5456fa9f20db6373a61ca45f75f40",
+        "affectsGlobalScope": true
+      },
+      "../../../node_modules/typescript/lib/lib.es2020.string.d.ts": {
+        "version": "faf0221ae0465363c842ce6aa8a0cbda5d9296940a8e26c86e04cc4081eea21e",
+        "signature": "faf0221ae0465363c842ce6aa8a0cbda5d9296940a8e26c86e04cc4081eea21e",
+        "affectsGlobalScope": true
+      },
+      "../../../node_modules/typescript/lib/lib.es2020.symbol.wellknown.d.ts": {
+        "version": "936d7d2e8851af9ccfa5333b15e877a824417d352b1d7fd06388639dc69ef80a",
+        "signature": "936d7d2e8851af9ccfa5333b15e877a824417d352b1d7fd06388639dc69ef80a",
+        "affectsGlobalScope": true
+      },
+      "../../../node_modules/typescript/lib/lib.es2020.intl.d.ts": {
+        "version": "e79ca55569f09a5dc3354be04dba4ae85865b1dce98bf46738ffe231c669621f",
+        "signature": "e79ca55569f09a5dc3354be04dba4ae85865b1dce98bf46738ffe231c669621f",
+        "affectsGlobalScope": true
+      },
+      "../../../node_modules/typescript/lib/lib.esnext.intl.d.ts": {
+        "version": "506b80b9951c9381dc5f11897b31fca5e2a65731d96ddefa19687fbc26b23c6e",
+        "signature": "506b80b9951c9381dc5f11897b31fca5e2a65731d96ddefa19687fbc26b23c6e",
+        "affectsGlobalScope": true
+      },
+      "../../../node_modules/typescript/lib/lib.esnext.string.d.ts": {
+        "version": "fb4416144c1bf0323ccbc9afb0ab289c07312214e8820ad17d709498c865a3fe",
+        "signature": "fb4416144c1bf0323ccbc9afb0ab289c07312214e8820ad17d709498c865a3fe",
+        "affectsGlobalScope": true
+      },
+      "../../../node_modules/typescript/lib/lib.esnext.promise.d.ts": {
+        "version": "cd6efb9467a8b6338ece2e2855e37765700f2cd061ca54b01b33878cf5c7677e",
+        "signature": "cd6efb9467a8b6338ece2e2855e37765700f2cd061ca54b01b33878cf5c7677e",
+        "affectsGlobalScope": true
+      },
+      "../../../node_modules/typescript/lib/lib.esnext.weakref.d.ts": {
+        "version": "1e61418f41d404e744b6536af9f8c6f6674dd4d54c12335cd0c4f7eded69cf3f",
+        "signature": "1e61418f41d404e744b6536af9f8c6f6674dd4d54c12335cd0c4f7eded69cf3f",
+        "affectsGlobalScope": true
+      },
+      "../node_modules/@types/react/global.d.ts": {
+        "version": "ecf78e637f710f340ec08d5d92b3f31b134a46a4fcf2e758690d8c46ce62cba6",
+        "signature": "ecf78e637f710f340ec08d5d92b3f31b134a46a4fcf2e758690d8c46ce62cba6",
+        "affectsGlobalScope": true
+      },
+      "../node_modules/csstype/index.d.ts": {
+        "version": "2421504d4ad8486abdb522b7bcdd4caafbcf4a320cdf7b19e780df258c639d7f",
+        "signature": "2421504d4ad8486abdb522b7bcdd4caafbcf4a320cdf7b19e780df258c639d7f",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@types/prop-types/index.d.ts": {
+        "version": "a7e32dcb90bf0c1b7a1e4ac89b0f7747cbcba25e7beddc1ebf17be1e161842ad",
+        "signature": "a7e32dcb90bf0c1b7a1e4ac89b0f7747cbcba25e7beddc1ebf17be1e161842ad",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@types/react/index.d.ts": {
+        "version": "d60f59818f6793e033bff754ff740083d88b9e899d1bce73aba91d3de9650f03",
+        "signature": "d60f59818f6793e033bff754ff740083d88b9e899d1bce73aba91d3de9650f03",
+        "affectsGlobalScope": true
+      },
+      "../node_modules/@types/react/jsx-runtime.d.ts": {
+        "version": "af7fd2870746deed40e130fc0a3966de74e8f52a97ec114d0fbb35876ab05ca9",
+        "signature": "af7fd2870746deed40e130fc0a3966de74e8f52a97ec114d0fbb35876ab05ca9",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@ionic/react/dist/types/contexts/ionlifecyclecontext.d.ts": {
+        "version": "75c742a8d5336c4309c48009629694372651612cc8288101bb502000b2276e62",
+        "signature": "75c742a8d5336c4309c48009629694372651612cc8288101bb502000b2276e62",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@ionic/react/dist/types/lifecycle/ionlifecyclehoc.d.ts": {
+        "version": "990f48d4ed3645d6a26b4e5b9b866f71562ba675b52fc4604ed071a266b617df",
+        "signature": "990f48d4ed3645d6a26b4e5b9b866f71562ba675b52fc4604ed071a266b617df",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@ionic/react/dist/types/lifecycle/hooks.d.ts": {
+        "version": "f9bc222b9979ce0c158e83f57ae082a2f210a9d94c3904fe0c765d849309b29d",
+        "signature": "f9bc222b9979ce0c158e83f57ae082a2f210a9d94c3904fe0c765d849309b29d",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@ionic/react/dist/types/lifecycle/index.d.ts": {
+        "version": "8a82015cfcc0646debd973dcaf588c9a29f77ada5a49faf11ae5e19b920aa7b9",
+        "signature": "8a82015cfcc0646debd973dcaf588c9a29f77ada5a49faf11ae5e19b920aa7b9",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/ionicons/dist/types/components/icon/icon.d.ts": {
+        "version": "2571584e0afe754174fa8f54b46cff86a8bc4d6989b96f06aca630a67afd7148",
+        "signature": "2571584e0afe754174fa8f54b46cff86a8bc4d6989b96f06aca630a67afd7148",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/ionicons/dist/types/components/icon/utils.d.ts": {
+        "version": "60f47cd73ebd7acda032e8640ca0a22a1d23e5b1f983211a3be70cd37efe7400",
+        "signature": "60f47cd73ebd7acda032e8640ca0a22a1d23e5b1f983211a3be70cd37efe7400",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/ionicons/dist/types/stencil-public-runtime.d.ts": {
+        "version": "eef4a9e3314b0e8ae0f2b5599b60c93324fd2ad8a80ca980a3aebe690e2b8aeb",
+        "signature": "eef4a9e3314b0e8ae0f2b5599b60c93324fd2ad8a80ca980a3aebe690e2b8aeb",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/ionicons/dist/types/components.d.ts": {
+        "version": "68c91a21824757a11be51f326a678cd069d2b2f031c22315f0df41a933f5fd23",
+        "signature": "68c91a21824757a11be51f326a678cd069d2b2f031c22315f0df41a933f5fd23",
+        "affectsGlobalScope": true
+      },
+      "../node_modules/ionicons/dist/types/index.d.ts": {
+        "version": "99f7514305bf527bc3538ae461b6ed1d0fc59ad9c82c812a2b341868318bbeb9",
+        "signature": "99f7514305bf527bc3538ae461b6ed1d0fc59ad9c82c812a2b341868318bbeb9",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@ionic/core/dist/types/stencil-public-runtime.d.ts": {
+        "version": "103230b7209f5b256ac7714a6dcacaaaf4b096814d5bb1bd4fd633a525a73be0",
+        "signature": "103230b7209f5b256ac7714a6dcacaaaf4b096814d5bb1bd4fd633a525a73be0",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@ionic/core/dist/types/utils/sanitization/index.d.ts": {
+        "version": "bbb06f7d4d60c3ccd5fb06313ed8da405376eddfb1c4f31a05e046b01a8ecf15",
+        "signature": "bbb06f7d4d60c3ccd5fb06313ed8da405376eddfb1c4f31a05e046b01a8ecf15",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@ionic/core/dist/types/components/route/route-interface.d.ts": {
+        "version": "3a46ce202130a9c96b9ab104246aebc09d7e17f642ea7615810f4ad7a47727a0",
+        "signature": "3a46ce202130a9c96b9ab104246aebc09d7e17f642ea7615810f4ad7a47727a0",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@ionic/core/dist/types/components/select/select-interface.d.ts": {
+        "version": "93d8298b3ca3fcb505bdd8877c129eaafa1becc7f006b35c3d92426c370662b5",
+        "signature": "93d8298b3ca3fcb505bdd8877c129eaafa1becc7f006b35c3d92426c370662b5",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@ionic/core/dist/types/components.d.ts": {
+        "version": "5cd1f0fd03a293ce05b8f29890d7ba9dfd81a204e7995ebdbfc6800ba102be65",
+        "signature": "5cd1f0fd03a293ce05b8f29890d7ba9dfd81a204e7995ebdbfc6800ba102be65",
+        "affectsGlobalScope": true
+      },
+      "../node_modules/@ionic/core/dist/types/utils/animation/animation-interface.d.ts": {
+        "version": "652b2335136f5aa30d971cdb4e60f136a9574e73e4e4e0d4214d901fa8159d46",
+        "signature": "652b2335136f5aa30d971cdb4e60f136a9574e73e4e4e0d4214d901fa8159d46",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@ionic/core/dist/types/utils/animation/animation.d.ts": {
+        "version": "6b6f37da455473c1194903369d372447fa67e32a252a03894472afb833a0af87",
+        "signature": "6b6f37da455473c1194903369d372447fa67e32a252a03894472afb833a0af87",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@ionic/core/dist/types/utils/transition/index.d.ts": {
+        "version": "50ce3dc68a9f73bb91945577c6b3c9e918a895a885a60545e596065f60ab1844",
+        "signature": "50ce3dc68a9f73bb91945577c6b3c9e918a895a885a60545e596065f60ab1844",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@ionic/core/dist/types/utils/transition/ios.transition.d.ts": {
+        "version": "e3735771c8e028339ee512d7fab867104c7a898228d5c96591300508e7ab343b",
+        "signature": "e3735771c8e028339ee512d7fab867104c7a898228d5c96591300508e7ab343b",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@ionic/core/dist/types/utils/transition/md.transition.d.ts": {
+        "version": "0874abd7c8ad19867a32a1841436c5deec87740cecd09c7f19419d5c33b49bb1",
+        "signature": "0874abd7c8ad19867a32a1841436c5deec87740cecd09c7f19419d5c33b49bb1",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@ionic/core/dist/types/utils/animation/cubic-bezier.d.ts": {
+        "version": "fb9bcb145ddaf5573823a8ab781e97111b2f442fb26b1ec96daee929b506ec6a",
+        "signature": "fb9bcb145ddaf5573823a8ab781e97111b2f442fb26b1ec96daee929b506ec6a",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@ionic/core/dist/types/utils/gesture/gesture-controller.d.ts": {
+        "version": "6806760bd4054f85b7461841ed1bdcb678a426052d5200c09dd1ca0bbe5a11e0",
+        "signature": "6806760bd4054f85b7461841ed1bdcb678a426052d5200c09dd1ca0bbe5a11e0",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@ionic/core/dist/types/utils/gesture/index.d.ts": {
+        "version": "5dd5cd7e4e2a843c72400ba541b1639d907a5cfd75b7d25aec2e928453813a9b",
+        "signature": "5dd5cd7e4e2a843c72400ba541b1639d907a5cfd75b7d25aec2e928453813a9b",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@ionic/core/dist/types/utils/platform.d.ts": {
+        "version": "5db54a2d2ade42c49afa090d0e9f12ff6287b6470ada35c6e90ac0337d7f639a",
+        "signature": "5db54a2d2ade42c49afa090d0e9f12ff6287b6470ada35c6e90ac0337d7f639a",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@ionic/core/dist/types/utils/config.d.ts": {
+        "version": "2837918fac4cab7ddedb1928a7be6ebe74188e47ec7e4dee067bf1e348ec6e4b",
+        "signature": "2837918fac4cab7ddedb1928a7be6ebe74188e47ec7e4dee067bf1e348ec6e4b",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@ionic/core/dist/types/components/nav/constants.d.ts": {
+        "version": "b507647261a2f5ed71006ee352a8e65df0b1fea17279b0166dcc016e1a0db25e",
+        "signature": "b507647261a2f5ed71006ee352a8e65df0b1fea17279b0166dcc016e1a0db25e",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@ionic/core/dist/types/utils/menu-controller/index.d.ts": {
+        "version": "31e38f749b68df8f707fd7aa16634bb77e466992cdd6932ffd0b8a8f76af9827",
+        "signature": "31e38f749b68df8f707fd7aa16634bb77e466992cdd6932ffd0b8a8f76af9827",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@ionic/core/dist/types/utils/overlays.d.ts": {
+        "version": "a8a8beb7b58c3c9fcbdf1e9102046603706f62d40461d0c043cf6e7cc76acf80",
+        "signature": "a8a8beb7b58c3c9fcbdf1e9102046603706f62d40461d0c043cf6e7cc76acf80",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@ionic/core/dist/types/index.d.ts": {
+        "version": "a15e4a9539dab874502d504196ed948518b2e2dbfcea6b2d44ecbf4d501109c0",
+        "signature": "a15e4a9539dab874502d504196ed948518b2e2dbfcea6b2d44ecbf4d501109c0",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@ionic/core/dist/types/components/alert/alert-interface.d.ts": {
+        "version": "b7582fc04f9a4973d7284ba162c3a9787b2550aed442054483991ee95ac467a1",
+        "signature": "b7582fc04f9a4973d7284ba162c3a9787b2550aed442054483991ee95ac467a1",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@ionic/core/dist/types/components/action-sheet/action-sheet-interface.d.ts": {
+        "version": "e7c3d0760341e4e33900c1a4d9440dedf6e37b7a200548097ddbce8a311697df",
+        "signature": "e7c3d0760341e4e33900c1a4d9440dedf6e37b7a200548097ddbce8a311697df",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@ionic/core/dist/types/components/content/content-interface.d.ts": {
+        "version": "8974d5f80f01df2fb9f5f3e5bd84444b6a54f689bcf274dac31e17940f684e02",
+        "signature": "8974d5f80f01df2fb9f5f3e5bd84444b6a54f689bcf274dac31e17940f684e02",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@ionic/core/dist/types/components/checkbox/checkbox-interface.d.ts": {
+        "version": "9299057164ef28d1c1a0cf20d2d01d923b6cb1e74b5e7cb2f6f5ef1c6c368686",
+        "signature": "9299057164ef28d1c1a0cf20d2d01d923b6cb1e74b5e7cb2f6f5ef1c6c368686",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@ionic/core/dist/types/components/datetime/datetime-interface.d.ts": {
+        "version": "0009f8e7f56ee27c895c4c860ce62b70dbe0e8eba6971aa5ce8f5cd60197892b",
+        "signature": "0009f8e7f56ee27c895c4c860ce62b70dbe0e8eba6971aa5ce8f5cd60197892b",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@ionic/core/dist/types/components/input/input-interface.d.ts": {
+        "version": "2cb51c598083d23ad3273230b69366dcc42d3fd55d69b4b1565d0fedad0955d3",
+        "signature": "2cb51c598083d23ad3273230b69366dcc42d3fd55d69b4b1565d0fedad0955d3",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@ionic/core/dist/types/components/loading/loading-interface.d.ts": {
+        "version": "231c4236ca6b3b27ff991a902c2421fd981f747215b730ef909436823ffa2975",
+        "signature": "231c4236ca6b3b27ff991a902c2421fd981f747215b730ef909436823ffa2975",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@ionic/core/dist/types/components/menu/menu-interface.d.ts": {
+        "version": "a2ac575e8a68ccd00cd175837cfc5bc525d00498d9be1ca746a7cbd721b46155",
+        "signature": "a2ac575e8a68ccd00cd175837cfc5bc525d00498d9be1ca746a7cbd721b46155",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@ionic/core/dist/types/components/modal/modal-interface.d.ts": {
+        "version": "9f12b5379909075050698c73dacf2ff17a8eb8758bbead4c09f74d48bc77324b",
+        "signature": "9f12b5379909075050698c73dacf2ff17a8eb8758bbead4c09f74d48bc77324b",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@ionic/core/dist/types/components/nav/view-controller.d.ts": {
+        "version": "c277685f275fd0fcc9aebd2d706b8573219f74fc850c1cbe0c5162d9cb92f0ab",
+        "signature": "c277685f275fd0fcc9aebd2d706b8573219f74fc850c1cbe0c5162d9cb92f0ab",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@ionic/core/dist/types/components/nav/nav-interface.d.ts": {
+        "version": "86d8bc1c04681d8092ccb311258816c3f2439852942235c8767a352ae9c9cf56",
+        "signature": "86d8bc1c04681d8092ccb311258816c3f2439852942235c8767a352ae9c9cf56",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@ionic/core/dist/types/components/picker/picker-interface.d.ts": {
+        "version": "f4c65b566931d20e0177e19b9644447c2ec711a912d8fc6a5c5ae29b8e39f0a5",
+        "signature": "f4c65b566931d20e0177e19b9644447c2ec711a912d8fc6a5c5ae29b8e39f0a5",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@ionic/core/dist/types/components/popover/popover-interface.d.ts": {
+        "version": "b0311e57685843dc5bd9bfe36f1bf1632062843896c7b2355c75936ff1016133",
+        "signature": "b0311e57685843dc5bd9bfe36f1bf1632062843896c7b2355c75936ff1016133",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@ionic/core/dist/types/components/radio-group/radio-group-interface.d.ts": {
+        "version": "bf5e432abc37054a609525264068a242ccfbb0072af21724f6abf00597390c61",
+        "signature": "bf5e432abc37054a609525264068a242ccfbb0072af21724f6abf00597390c61",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@ionic/core/dist/types/components/range/range-interface.d.ts": {
+        "version": "73e4600f071dfc57aa74ded74355e0719fea17f858123aaaccd3e25d7a733cfa",
+        "signature": "73e4600f071dfc57aa74ded74355e0719fea17f858123aaaccd3e25d7a733cfa",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@ionic/core/dist/types/components/router/utils/interface.d.ts": {
+        "version": "37f3c91812c88ce5f6aee16a20356cbbed8bc7c5c3fddbdedd52faf76059cb10",
+        "signature": "37f3c91812c88ce5f6aee16a20356cbbed8bc7c5c3fddbdedd52faf76059cb10",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@ionic/core/dist/types/components/refresher/refresher-interface.d.ts": {
+        "version": "88d85a3a23861c70e49fc193d4011826f0872081cbc2c07971194dc9cf90705a",
+        "signature": "88d85a3a23861c70e49fc193d4011826f0872081cbc2c07971194dc9cf90705a",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@ionic/core/dist/types/components/reorder-group/reorder-group-interface.d.ts": {
+        "version": "1e99ab97ac6a51633128a39000e46e9553dfb43d265943054f0c0d39d23f0228",
+        "signature": "1e99ab97ac6a51633128a39000e46e9553dfb43d265943054f0c0d39d23f0228",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@ionic/core/dist/types/components/searchbar/searchbar-interface.d.ts": {
+        "version": "baa3287474dc809735439e7ef257e00fa6d05327790d4e04c5a1c3aa1605a83b",
+        "signature": "baa3287474dc809735439e7ef257e00fa6d05327790d4e04c5a1c3aa1605a83b",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@ionic/core/dist/types/components/segment/segment-interface.d.ts": {
+        "version": "38977971a2db9d5de6af6b9e45ba719a89926eadba74b716fbeb7ab3d50b5c77",
+        "signature": "38977971a2db9d5de6af6b9e45ba719a89926eadba74b716fbeb7ab3d50b5c77",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@ionic/core/dist/types/components/select-popover/select-popover-interface.d.ts": {
+        "version": "bac244f0d429959a282238afd0246257df9f004f5dbfbc31a704cbb783d52868",
+        "signature": "bac244f0d429959a282238afd0246257df9f004f5dbfbc31a704cbb783d52868",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@ionic/core/dist/types/components/spinner/spinner-configs.d.ts": {
+        "version": "1d34b1084fd2abdbc171d2725fc263f895738a57e9f0a02807d15b7c806ac288",
+        "signature": "1d34b1084fd2abdbc171d2725fc263f895738a57e9f0a02807d15b7c806ac288",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@ionic/core/dist/types/components/spinner/spinner-interface.d.ts": {
+        "version": "df583bec8de09b934e954e133b36242a271e1a24cccda3d3308afea3f0cb7aea",
+        "signature": "df583bec8de09b934e954e133b36242a271e1a24cccda3d3308afea3f0cb7aea",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@ionic/core/dist/types/components/tab-bar/tab-bar-interface.d.ts": {
+        "version": "8c78860dae652b1bf82ebee9c5128e2a5b4d3e751bc6bbaf676862fb16167b38",
+        "signature": "8c78860dae652b1bf82ebee9c5128e2a5b4d3e751bc6bbaf676862fb16167b38",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@ionic/core/dist/types/components/textarea/textarea-interface.d.ts": {
+        "version": "8cb7fffd9446f5a4ee41abf17a32fd0bf545f993ea803b1fbf93fe368962e108",
+        "signature": "8cb7fffd9446f5a4ee41abf17a32fd0bf545f993ea803b1fbf93fe368962e108",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@ionic/core/dist/types/components/toast/toast-interface.d.ts": {
+        "version": "24ab18bf34f77af00458ba5c208fa3db8707460c0f2639d1fccbd66f6b747cd2",
+        "signature": "24ab18bf34f77af00458ba5c208fa3db8707460c0f2639d1fccbd66f6b747cd2",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@ionic/core/dist/types/components/toggle/toggle-interface.d.ts": {
+        "version": "0b3b8aaf4db6b5a838edda78dbfb96ba386eea41e1e775c32b2484c7beb03d31",
+        "signature": "0b3b8aaf4db6b5a838edda78dbfb96ba386eea41e1e775c32b2484c7beb03d31",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@ionic/core/dist/types/components/virtual-scroll/virtual-scroll-interface.d.ts": {
+        "version": "3a135e45600564041a18547998f16d3ca29b9b3967a1210a356461826611b60b",
+        "signature": "3a135e45600564041a18547998f16d3ca29b9b3967a1210a356461826611b60b",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@ionic/core/dist/types/utils/overlays-interface.d.ts": {
+        "version": "42e133caebf95c3ec60622d0479c965ed2b141f201b20c65ca6dc70b53be06e4",
+        "signature": "42e133caebf95c3ec60622d0479c965ed2b141f201b20c65ca6dc70b53be06e4",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@ionic/core/dist/types/global/config.d.ts": {
+        "version": "361d016e20866e36d8bad50889e41bcdd40ee70c5f09c6540de361836a32b06f",
+        "signature": "361d016e20866e36d8bad50889e41bcdd40ee70c5f09c6540de361836a32b06f",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@ionic/core/dist/types/interface.d.ts": {
+        "version": "f0cd8c84581541964edd4868c336391602c15d5bf617df8fb534900c05739ffa",
+        "signature": "f0cd8c84581541964edd4868c336391602c15d5bf617df8fb534900c05739ffa",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@ionic/react/dist/types/models/routeaction.d.ts": {
+        "version": "cde2dffdbf9c0b5d4b806ba863f556575bfa0680ff3c655486b9d008d2879f68",
+        "signature": "cde2dffdbf9c0b5d4b806ba863f556575bfa0680ff3c655486b9d008d2879f68",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@ionic/react/dist/types/models/routerdirection.d.ts": {
+        "version": "1c36e5e74a74d7e1dda98d6804876df0144312809048f0911aef78b7e586e8d3",
+        "signature": "1c36e5e74a74d7e1dda98d6804876df0144312809048f0911aef78b7e586e8d3",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@ionic/react/dist/types/models/routeinfo.d.ts": {
+        "version": "7f2c6ab3ad59ff4e27f37cc9bf8d265490b677c069751dc5c540f559f62ec491",
+        "signature": "7f2c6ab3ad59ff4e27f37cc9bf8d265490b677c069751dc5c540f559f62ec491",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@ionic/react/dist/types/models/routeroptions.d.ts": {
+        "version": "ced340756ce1c8f3115a1657c2d0a81a6448b834a80ee78eacf6c8281248c66e",
+        "signature": "ced340756ce1c8f3115a1657c2d0a81a6448b834a80ee78eacf6c8281248c66e",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@ionic/react/dist/types/models/index.d.ts": {
+        "version": "37030b75cd24e5014d34ecec872633832a65b63615ee34bf9f26228bba8e27ed",
+        "signature": "37030b75cd24e5014d34ecec872633832a65b63615ee34bf9f26228bba8e27ed",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@ionic/react/dist/types/contexts/navcontext.d.ts": {
+        "version": "3e2883785ed321eadcf651a2bd8c3fc92f68e7d95abce15d374fc609431f0fba",
+        "signature": "3e2883785ed321eadcf651a2bd8c3fc92f68e7d95abce15d374fc609431f0fba",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@ionic/react/dist/types/components/ionicreactprops.d.ts": {
+        "version": "879e9ac4c495de042239a0cd39f31a64cdc77793bbc3aed2dd1b9c6bb4828b53",
+        "signature": "879e9ac4c495de042239a0cd39f31a64cdc77793bbc3aed2dd1b9c6bb4828b53",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@ionic/react/dist/types/components/proxies.d.ts": {
+        "version": "1705877f34a5b8d9ac861e7b64c34386b6929f08dd9a017c937643fe81583bbb",
+        "signature": "1705877f34a5b8d9ac861e7b64c34386b6929f08dd9a017c937643fe81583bbb",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@ionic/react/dist/types/components/createcontrollercomponent.d.ts": {
+        "version": "5a91c53aa718f7c1c05c60d8fc631fc0b4676dd4344ffa9c6a506f68a819c132",
+        "signature": "5a91c53aa718f7c1c05c60d8fc631fc0b4676dd4344ffa9c6a506f68a819c132",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@ionic/react/dist/types/components/ionalert.d.ts": {
+        "version": "8673f5f15b9d70a1194a669cb75de8b40bbd7278cbc848356cb72c1d9e0f6e67",
+        "signature": "8673f5f15b9d70a1194a669cb75de8b40bbd7278cbc848356cb72c1d9e0f6e67",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@ionic/react/dist/types/components/ionloading.d.ts": {
+        "version": "e2f60228eb65548470582d15a84479c44bd2c0266ab93e42e7280b5c6e7d46d7",
+        "signature": "e2f60228eb65548470582d15a84479c44bd2c0266ab93e42e7280b5c6e7d46d7",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@ionic/react/dist/types/components/iontoast.d.ts": {
+        "version": "866688941cf02f57190d2ee6dcdad19792dc126098a613b6cc37daf3da14dbd2",
+        "signature": "866688941cf02f57190d2ee6dcdad19792dc126098a613b6cc37daf3da14dbd2",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@ionic/react/dist/types/components/ionpicker.d.ts": {
+        "version": "fa058c96e8b07151f9b219fd054ce7d407124777d71a9b2d0f075ea3a377ca72",
+        "signature": "fa058c96e8b07151f9b219fd054ce7d407124777d71a9b2d0f075ea3a377ca72",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@ionic/react/dist/types/components/createoverlaycomponent.d.ts": {
+        "version": "8392646118bddfa85675611a36831b075f44aab6f5c7835f3f4104e9b8022637",
+        "signature": "8392646118bddfa85675611a36831b075f44aab6f5c7835f3f4104e9b8022637",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@ionic/react/dist/types/components/ionactionsheet.d.ts": {
+        "version": "ba3c181cf75d54cab9a78b7665bc50255ad5084b79bafccf2fb042e25fe003ef",
+        "signature": "ba3c181cf75d54cab9a78b7665bc50255ad5084b79bafccf2fb042e25fe003ef",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@ionic/react/dist/types/components/ionmodal.d.ts": {
+        "version": "daa6c6d4a948e1c1cd4f335321bdb2aeb4bd237e6e77a7ed793ca1520af0c82f",
+        "signature": "daa6c6d4a948e1c1cd4f335321bdb2aeb4bd237e6e77a7ed793ca1520af0c82f",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@ionic/react/dist/types/components/ionpopover.d.ts": {
+        "version": "80b9596aa519d1292935993fc1a0ad73f20e2501c801576c2899dd88350de6ef",
+        "signature": "80b9596aa519d1292935993fc1a0ad73f20e2501c801576c2899dd88350de6ef",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@ionic/react/dist/types/components/ionpage.d.ts": {
+        "version": "d9f9419353a17c232e4d700a9785e6023ee3a276421f16f6019e79acd4ac1daf",
+        "signature": "d9f9419353a17c232e4d700a9785e6023ee3a276421f16f6019e79acd4ac1daf",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@ionic/react/dist/types/components/navigation/iontabscontext.d.ts": {
+        "version": "85d525ed622e7d2cc72309ddf39cd2523d0eddeda5f00a26053baca423192d95",
+        "signature": "85d525ed622e7d2cc72309ddf39cd2523d0eddeda5f00a26053baca423192d95",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@ionic/react/dist/types/components/navigation/iontabs.d.ts": {
+        "version": "ee44b03601482d6cd7b6753d990c3db72ca2ded11ef9e0c0eaa192abde359bfa",
+        "signature": "ee44b03601482d6cd7b6753d990c3db72ca2ded11ef9e0c0eaa192abde359bfa",
+        "affectsGlobalScope": true
+      },
+      "../node_modules/@ionic/react/dist/types/components/navigation/iontabbar.d.ts": {
+        "version": "18739244deba60ed56740c79ca524fcf15619624471f9781660c0a80843d9337",
+        "signature": "18739244deba60ed56740c79ca524fcf15619624471f9781660c0a80843d9337",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@ionic/react/dist/types/components/navigation/iontabbutton.d.ts": {
+        "version": "a9e119ac9389710b4d4f7420032d0ca6ba6045fdef477536914f21c5a4cf34fa",
+        "signature": "a9e119ac9389710b4d4f7420032d0ca6ba6045fdef477536914f21c5a4cf34fa",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@ionic/react/dist/types/components/navigation/ionbackbutton.d.ts": {
+        "version": "b7b2c5ee185734277fc3a420902fa5ff44fd8bad7a902817905b22bf2943f8e3",
+        "signature": "b7b2c5ee185734277fc3a420902fa5ff44fd8bad7a902817905b22bf2943f8e3",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@ionic/react/dist/types/components/utils/attachprops.d.ts": {
+        "version": "c5a1ff8bf4235f31fcbc123b300537ee7ae1840aede25afd00c40b82dfddc5e1",
+        "signature": "c5a1ff8bf4235f31fcbc123b300537ee7ae1840aede25afd00c40b82dfddc5e1",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@ionic/react/dist/types/components/utils/case.d.ts": {
+        "version": "419a9f3070cef4bd1cfc679ffd76ec21f79c80c6da752b08077279ca10701f87",
+        "signature": "419a9f3070cef4bd1cfc679ffd76ec21f79c80c6da752b08077279ca10701f87",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@ionic/react/dist/types/components/utils/index.d.ts": {
+        "version": "8ffffd010d1983e9dd5ab6c49c52146ce7b58d3b3fc165cef906991f6bd2cc7f",
+        "signature": "8ffffd010d1983e9dd5ab6c49c52146ce7b58d3b3fc165cef906991f6bd2cc7f",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@ionic/react/dist/types/components/ionrouteroutlet.d.ts": {
+        "version": "cb2a81fa7c3d771f530777f58ebd07a33b5697a068ed72a01904777d0955f8b0",
+        "signature": "cb2a81fa7c3d771f530777f58ebd07a33b5697a068ed72a01904777d0955f8b0",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@ionic/react/dist/types/components/ionicon.d.ts": {
+        "version": "f9c9798244ec4aeec6604592b30228d8196c5addf1630fe53f953085655719e9",
+        "signature": "f9c9798244ec4aeec6604592b30228d8196c5addf1630fe53f953085655719e9",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@ionic/react/dist/types/components/ionroute.d.ts": {
+        "version": "a948552ee3723fcb4d8a6091c1f85a94ffbcccba37aeb66c7f60a1c39aaed89f",
+        "signature": "a948552ee3723fcb4d8a6091c1f85a94ffbcccba37aeb66c7f60a1c39aaed89f",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@ionic/react/dist/types/components/ionredirect.d.ts": {
+        "version": "0829e115ca3add33cc9c3a356d7b0a08b63824924d704f9c7b2e7d416f70b63f",
+        "signature": "0829e115ca3add33cc9c3a356d7b0a08b63824924d704f9c7b2e7d416f70b63f",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@ionic/react/dist/types/components/ionroutercontext.d.ts": {
+        "version": "84c1873fe868bf5b5da64a9f8b62beb8cb72d3511d36b4f8a8111927e9f76d41",
+        "signature": "84c1873fe868bf5b5da64a9f8b62beb8cb72d3511d36b4f8a8111927e9f76d41",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@ionic/react/dist/types/components/hrefprops.d.ts": {
+        "version": "9242a368f5dbe16e7163c5abba8103bace584fa9d257145147dd332db400ddf9",
+        "signature": "9242a368f5dbe16e7163c5abba8103bace584fa9d257145147dd332db400ddf9",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@ionic/react/dist/types/components/createanimation.d.ts": {
+        "version": "2e996eb59150e87320e096b62bc36175ae0e9c119c8cffaee9230ca5ee021fa3",
+        "signature": "2e996eb59150e87320e096b62bc36175ae0e9c119c8cffaee9230ca5ee021fa3",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@ionic/react/dist/types/components/index.d.ts": {
+        "version": "ef6163be32524c689360e065ecd2894c5a8790b9918cd8a6462962b69f234c41",
+        "signature": "ef6163be32524c689360e065ecd2894c5a8790b9918cd8a6462962b69f234c41",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@ionic/react/dist/types/routing/viewitem.d.ts": {
+        "version": "02bfe4ad35a4880dbb464df72bc761b4544da20616338ea288d97031a155f6e2",
+        "signature": "02bfe4ad35a4880dbb464df72bc761b4544da20616338ea288d97031a155f6e2",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@ionic/react/dist/types/routing/routemanagercontext.d.ts": {
+        "version": "be794b1549a8b010851c3e64517c9add9dc61b1f050b8ad12216ca6c817dfcdd",
+        "signature": "be794b1549a8b010851c3e64517c9add9dc61b1f050b8ad12216ca6c817dfcdd",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@ionic/react/dist/types/routing/viewlifecyclemanager.d.ts": {
+        "version": "dcf47e60d3b79af27f37e08d10b53593c1dfcd454d8b6ba29520216f15061499",
+        "signature": "dcf47e60d3b79af27f37e08d10b53593c1dfcd454d8b6ba29520216f15061499",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@ionic/react/dist/types/routing/locationhistory.d.ts": {
+        "version": "0a0208fdea7713c204f581890eed2076727f451eb4e644d120fed0e8cde9001f",
+        "signature": "0a0208fdea7713c204f581890eed2076727f451eb4e644d120fed0e8cde9001f",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@ionic/react/dist/types/routing/stackcontext.d.ts": {
+        "version": "4243677be2a3cd17e398678c9c90182519a0ef28eac0d3a06004213390013f5f",
+        "signature": "4243677be2a3cd17e398678c9c90182519a0ef28eac0d3a06004213390013f5f",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@ionic/react/dist/types/routing/pagemanager.d.ts": {
+        "version": "97851a34f25e3a332c4ee5297007cd64e22766aef420be29cec4ace28fc1d8e2",
+        "signature": "97851a34f25e3a332c4ee5297007cd64e22766aef420be29cec4ace28fc1d8e2",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@ionic/react/dist/types/routing/navmanager.d.ts": {
+        "version": "6d9209a240c97f375261733e74205e0fcabcb9b1b9bd5de0bc0c60cc1580107e",
+        "signature": "6d9209a240c97f375261733e74205e0fcabcb9b1b9bd5de0bc0c60cc1580107e",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@ionic/react/dist/types/routing/viewstacks.d.ts": {
+        "version": "6cefe3b6af18a49d753772465f4d00c2f5d7d830f74d5b8653a60567a2624589",
+        "signature": "6cefe3b6af18a49d753772465f4d00c2f5d7d830f74d5b8653a60567a2624589",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@ionic/react/dist/types/routing/index.d.ts": {
+        "version": "1e56d2eac204e06e5f17b0fe41e6133de2e1ae6ed47c322d46e3c696ab684547",
+        "signature": "1e56d2eac204e06e5f17b0fe41e6133de2e1ae6ed47c322d46e3c696ab684547",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@ionic/react/dist/types/utils/generateid.d.ts": {
+        "version": "7a408fc6917dcadf634e3a00dd1ccc44ec7c544a5901261aa707e41bf7db3834",
+        "signature": "7a408fc6917dcadf634e3a00dd1ccc44ec7c544a5901261aa707e41bf7db3834",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@ionic/react/dist/types/index.d.ts": {
+        "version": "8972f93bfaf3af51c4f790422224d9601341bf3f80600cb959f0cc6e8dd7bd3d",
+        "signature": "8972f93bfaf3af51c4f790422224d9601341bf3f80600cb959f0cc6e8dd7bd3d",
+        "affectsGlobalScope": false
+      },
+      "../src/components/profilepicturecomponent.tsx": {
+        "version": "63f74c53862a5c304423e90e8417a0d983156395341b42386d7f074364e0a0a6",
+        "signature": "c81c814848bf492ae4a43d665563fe75201bfe32ccca208e6b1cfe2a03c24d6c",
+        "affectsGlobalScope": false
+      },
+      "../index.ts": {
+        "version": "bb09e23f5f87c3d8fb4ea1b48414d675f5bb2d16fc1d4a424586ace56e86cb83",
+        "signature": "c2a3be347f41ba4dbcbb5f34fc28de4dc487729a340cea957efd4b2f2b1e2297",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@types/anymatch/index.d.ts": {
+        "version": "48b52264fa193879a074197839dbb4796fa07e86350ff888e5361e06aa46df76",
+        "signature": "48b52264fa193879a074197839dbb4796fa07e86350ff888e5361e06aa46df76",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@types/aria-query/index.d.ts": {
+        "version": "e51e34b4d8bd97569a7101c1b77234f6a1272cbb5bd50ed649b1da3f71070300",
+        "signature": "e51e34b4d8bd97569a7101c1b77234f6a1272cbb5bd50ed649b1da3f71070300",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@babel/types/lib/index.d.ts": {
+        "version": "368d98ad7e5cb65c247aa95c97e86b3812b4d91a74bafa6b0d4420d1ce91557c",
+        "signature": "368d98ad7e5cb65c247aa95c97e86b3812b4d91a74bafa6b0d4420d1ce91557c",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@types/babel__generator/index.d.ts": {
+        "version": "b25c5f2970d06c729f464c0aeaa64b1a5b5f1355aa93554bb5f9c199b8624b1e",
+        "signature": "b25c5f2970d06c729f464c0aeaa64b1a5b5f1355aa93554bb5f9c199b8624b1e",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@types/babel__traverse/index.d.ts": {
+        "version": "8a278bfba7b081cd849434c1130655046639ae90617a682436ed6954e2b57403",
+        "signature": "8a278bfba7b081cd849434c1130655046639ae90617a682436ed6954e2b57403",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@babel/parser/typings/babel-parser.d.ts": {
+        "version": "6da9e714516d081abaa435946d77c8d74dba888530412dc71601e83d2c8a512e",
+        "signature": "6da9e714516d081abaa435946d77c8d74dba888530412dc71601e83d2c8a512e",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@types/babel__template/index.d.ts": {
+        "version": "3051751533eee92572241b3cef28333212401408c4e7aa21718714b793c0f4ed",
+        "signature": "3051751533eee92572241b3cef28333212401408c4e7aa21718714b793c0f4ed",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@types/babel__core/index.d.ts": {
+        "version": "a66e700ed470a0cb52d14f3376c1605c70fec8e9659e45f7e22ad07fcd06ae04",
+        "signature": "a66e700ed470a0cb52d14f3376c1605c70fec8e9659e45f7e22ad07fcd06ae04",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@types/eslint/helpers.d.ts": {
+        "version": "f345b0888d003fd69cb32bad3a0aa04c615ccafc572019e4bd86a52bd5e49e46",
+        "signature": "f345b0888d003fd69cb32bad3a0aa04c615ccafc572019e4bd86a52bd5e49e46",
+        "affectsGlobalScope": true
+      },
+      "../node_modules/@types/json-schema/index.d.ts": {
+        "version": "3a1e165b22a1cb8df82c44c9a09502fd2b33f160cd277de2cd3a055d8e5c6b27",
+        "signature": "3a1e165b22a1cb8df82c44c9a09502fd2b33f160cd277de2cd3a055d8e5c6b27",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@types/estree/index.d.ts": {
+        "version": "745a853d60bf782583a58584f59e202cae5c7a898b0c92696442602a3ef17a87",
+        "signature": "745a853d60bf782583a58584f59e202cae5c7a898b0c92696442602a3ef17a87",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@types/eslint/index.d.ts": {
+        "version": "edb3e2f61a2a6e29a5f9043f73adf65951d52b4c1f22e84050381f7ef0d77318",
+        "signature": "edb3e2f61a2a6e29a5f9043f73adf65951d52b4c1f22e84050381f7ef0d77318",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@types/node/globals.d.ts": {
+        "version": "74d61a149bea97a20b324410e4520796ffc36dcf35b54f03cfd0cfe922bb61cc",
+        "signature": "74d61a149bea97a20b324410e4520796ffc36dcf35b54f03cfd0cfe922bb61cc",
+        "affectsGlobalScope": true
+      },
+      "../node_modules/@types/node/async_hooks.d.ts": {
+        "version": "22ee92839290a810fe7c20ae9a909fdaee2180e394fa5993c99300a585f60885",
+        "signature": "22ee92839290a810fe7c20ae9a909fdaee2180e394fa5993c99300a585f60885",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@types/node/buffer.d.ts": {
+        "version": "e63d5487b6d47f8abcbfdc3af9450d56118041805dd043febd249af0502dc9b1",
+        "signature": "e63d5487b6d47f8abcbfdc3af9450d56118041805dd043febd249af0502dc9b1",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@types/node/child_process.d.ts": {
+        "version": "5f505b075956d1c7db95d14e2e7a27d4e4a9d1ffc34b83b8273c51b074d575bd",
+        "signature": "5f505b075956d1c7db95d14e2e7a27d4e4a9d1ffc34b83b8273c51b074d575bd",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@types/node/cluster.d.ts": {
+        "version": "458d55b08da524f900192dafb5837fcc2471cb59c0c149eea4754c180f943473",
+        "signature": "458d55b08da524f900192dafb5837fcc2471cb59c0c149eea4754c180f943473",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@types/node/console.d.ts": {
+        "version": "65409a1cc0ce6d0e4bc9a4dfd35e7df27b8b2646c9055230fdbb03f694b0cc88",
+        "signature": "65409a1cc0ce6d0e4bc9a4dfd35e7df27b8b2646c9055230fdbb03f694b0cc88",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@types/node/constants.d.ts": {
+        "version": "e9339a66a8c672260b9c6b727f6d818c42a8d13bade07dfaf907103928e3c456",
+        "signature": "e9339a66a8c672260b9c6b727f6d818c42a8d13bade07dfaf907103928e3c456",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@types/node/crypto.d.ts": {
+        "version": "51d9197446e865a6919a2f217f4d0ad19f77483e5c7f2ebc520de4dc416dc5a3",
+        "signature": "51d9197446e865a6919a2f217f4d0ad19f77483e5c7f2ebc520de4dc416dc5a3",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@types/node/dgram.d.ts": {
+        "version": "b39ae9f0d9d0bdcde86891b047ac912602a59fa188c1d2c4bc201fc7c86cfaa9",
+        "signature": "b39ae9f0d9d0bdcde86891b047ac912602a59fa188c1d2c4bc201fc7c86cfaa9",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@types/node/dns.d.ts": {
+        "version": "f8a7a6d7af6267022984c5604ec31c4539fea5cb749e63ff3a0cf8a42fd19603",
+        "signature": "f8a7a6d7af6267022984c5604ec31c4539fea5cb749e63ff3a0cf8a42fd19603",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@types/node/domain.d.ts": {
+        "version": "6570493ff2552919da1e6480f20d0b623b8007343a777922fca7788b6ce85ea1",
+        "signature": "6570493ff2552919da1e6480f20d0b623b8007343a777922fca7788b6ce85ea1",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@types/node/events.d.ts": {
+        "version": "d42d0bfd355a4f9f247789676137aec627d0b23122452c388a6c1a83105ae811",
+        "signature": "d42d0bfd355a4f9f247789676137aec627d0b23122452c388a6c1a83105ae811",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@types/node/fs.d.ts": {
+        "version": "5efce49fe6c5e6c7211f4cfb93724adc1cf5783c63d608dca8cb61bfcbee29e6",
+        "signature": "5efce49fe6c5e6c7211f4cfb93724adc1cf5783c63d608dca8cb61bfcbee29e6",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@types/node/http.d.ts": {
+        "version": "444f395c911236782c542358dc1c06b3c00a2b64f1ea25ea2f75add0312b6dd8",
+        "signature": "444f395c911236782c542358dc1c06b3c00a2b64f1ea25ea2f75add0312b6dd8",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@types/node/http2.d.ts": {
+        "version": "36602da01088f0ec8ba2faa6e298e2496340143de5384fbd9cb88927846352e8",
+        "signature": "36602da01088f0ec8ba2faa6e298e2496340143de5384fbd9cb88927846352e8",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@types/node/https.d.ts": {
+        "version": "1939c52bd6e3fe0c5beacd7f5762f9847e86861059685fbdf471bd8afaf87944",
+        "signature": "1939c52bd6e3fe0c5beacd7f5762f9847e86861059685fbdf471bd8afaf87944",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@types/node/inspector.d.ts": {
+        "version": "d4fa2c2de99b1f4ff83aba4732c33fff918bf5869c04674aa2bfe927adfbd386",
+        "signature": "d4fa2c2de99b1f4ff83aba4732c33fff918bf5869c04674aa2bfe927adfbd386",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@types/node/module.d.ts": {
+        "version": "9cd5d57333119af9861227e2415a944d23ae7fa67706ac60a4c9a5cfde0a5a05",
+        "signature": "9cd5d57333119af9861227e2415a944d23ae7fa67706ac60a4c9a5cfde0a5a05",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@types/node/net.d.ts": {
+        "version": "cf36f4557f363a203e39329aba07cc2f916ae181b4f71c61814db2e9ca6ca30c",
+        "signature": "cf36f4557f363a203e39329aba07cc2f916ae181b4f71c61814db2e9ca6ca30c",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@types/node/os.d.ts": {
+        "version": "b0d1073a8fbdd7b36fd048d82b1f148ce161ed54569a4b4b43007733ee643fff",
+        "signature": "b0d1073a8fbdd7b36fd048d82b1f148ce161ed54569a4b4b43007733ee643fff",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@types/node/path.d.ts": {
+        "version": "311f6a6b6c05d334c29eb795d765bfbb596bb43a78fcb72bc23a6121eefb3924",
+        "signature": "311f6a6b6c05d334c29eb795d765bfbb596bb43a78fcb72bc23a6121eefb3924",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@types/node/perf_hooks.d.ts": {
+        "version": "b76f9cfe8fdfe10bb5ab1b540ea866771b89bb0e0acafbe119c9c8cbe398c092",
+        "signature": "b76f9cfe8fdfe10bb5ab1b540ea866771b89bb0e0acafbe119c9c8cbe398c092",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@types/node/process.d.ts": {
+        "version": "7e56a8722b9aeae9496e1278539f1b7da4651614b487346e225beba1c7b29fb5",
+        "signature": "7e56a8722b9aeae9496e1278539f1b7da4651614b487346e225beba1c7b29fb5",
+        "affectsGlobalScope": true
+      },
+      "../node_modules/@types/node/punycode.d.ts": {
+        "version": "a7b43c69f9602d198825e403ee34e5d64f83c48b391b2897e8c0e6f72bca35f8",
+        "signature": "a7b43c69f9602d198825e403ee34e5d64f83c48b391b2897e8c0e6f72bca35f8",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@types/node/querystring.d.ts": {
+        "version": "c567c7d3038a689bd3274285c3a421eaabc3289d38e8441e686a91db97a3d663",
+        "signature": "c567c7d3038a689bd3274285c3a421eaabc3289d38e8441e686a91db97a3d663",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@types/node/readline.d.ts": {
+        "version": "ae0784437911149dabe5cd245e5858305ebf2c30d44a80a037aa990b8500c5f3",
+        "signature": "ae0784437911149dabe5cd245e5858305ebf2c30d44a80a037aa990b8500c5f3",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@types/node/repl.d.ts": {
+        "version": "133c3fe00db1cce01ae605753f88e29aa707c9a22c5f25c48d9d6e2ee6dab0c7",
+        "signature": "133c3fe00db1cce01ae605753f88e29aa707c9a22c5f25c48d9d6e2ee6dab0c7",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@types/node/stream.d.ts": {
+        "version": "fe7b61b633d3c7ec4ebd8039f40e650adbe7ce872239de15da90d2452849c060",
+        "signature": "fe7b61b633d3c7ec4ebd8039f40e650adbe7ce872239de15da90d2452849c060",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@types/node/string_decoder.d.ts": {
+        "version": "05af2a124f5a9113e7503539a3f1e1c72e92d9c756a2e5ad2e5afab11e0325d7",
+        "signature": "05af2a124f5a9113e7503539a3f1e1c72e92d9c756a2e5ad2e5afab11e0325d7",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@types/node/timers.d.ts": {
+        "version": "2f9c94d2805d249de1ed836937ce1c62dd051bae445661e62ecf238b69893b29",
+        "signature": "2f9c94d2805d249de1ed836937ce1c62dd051bae445661e62ecf238b69893b29",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@types/node/tls.d.ts": {
+        "version": "c1e031196368cb57b219684032865182384fcd3d60027783a42449f6e0a580d1",
+        "signature": "c1e031196368cb57b219684032865182384fcd3d60027783a42449f6e0a580d1",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@types/node/trace_events.d.ts": {
+        "version": "0b7733d83619ac4e3963e2a9f7c75dc1e9af6850cb2354c9554977813092c10a",
+        "signature": "0b7733d83619ac4e3963e2a9f7c75dc1e9af6850cb2354c9554977813092c10a",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@types/node/tty.d.ts": {
+        "version": "3ce933f0c3955f67f67eb7d6b5c83c2c54a18472c1d6f2bb651e51dd40c84837",
+        "signature": "3ce933f0c3955f67f67eb7d6b5c83c2c54a18472c1d6f2bb651e51dd40c84837",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@types/node/url.d.ts": {
+        "version": "911690e5b1cdb5516785d9f811b5f9679fae1a2a1df5fad1f001e8d167c7fd98",
+        "signature": "911690e5b1cdb5516785d9f811b5f9679fae1a2a1df5fad1f001e8d167c7fd98",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@types/node/util.d.ts": {
+        "version": "bd180a2d4ada8a0e92ad33333933e2c96646ea94837bf80f68ec7f95e79b5e12",
+        "signature": "bd180a2d4ada8a0e92ad33333933e2c96646ea94837bf80f68ec7f95e79b5e12",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@types/node/v8.d.ts": {
+        "version": "121cfafda904699b1abc90b7894128a78692a877380d70a9eca2e2b79207076a",
+        "signature": "121cfafda904699b1abc90b7894128a78692a877380d70a9eca2e2b79207076a",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@types/node/vm.d.ts": {
+        "version": "8ef3d66d40dd2b5332b4e84bf591219a04d41a7fdb5237d470f7b2002557e427",
+        "signature": "8ef3d66d40dd2b5332b4e84bf591219a04d41a7fdb5237d470f7b2002557e427",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@types/node/worker_threads.d.ts": {
+        "version": "e959c2855e83468c9b9f2bb73860f718dd80cc82a6d9b8793b81dedf7b1aa249",
+        "signature": "e959c2855e83468c9b9f2bb73860f718dd80cc82a6d9b8793b81dedf7b1aa249",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@types/node/zlib.d.ts": {
+        "version": "ce67e3dcf0f09888d0059fc61017ea22a7e5ac9112c727159fbff7937498e8dd",
+        "signature": "ce67e3dcf0f09888d0059fc61017ea22a7e5ac9112c727159fbff7937498e8dd",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@types/node/ts3.4/base.d.ts": {
+        "version": "067b1964df87a4fc98ebffbd2bada6d7ed14a5b032f9071ea39478d82e701a99",
+        "signature": "067b1964df87a4fc98ebffbd2bada6d7ed14a5b032f9071ea39478d82e701a99",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@types/node/globals.global.d.ts": {
+        "version": "2708349d5a11a5c2e5f3a0765259ebe7ee00cdcc8161cb9990cb4910328442a1",
+        "signature": "2708349d5a11a5c2e5f3a0765259ebe7ee00cdcc8161cb9990cb4910328442a1",
+        "affectsGlobalScope": true
+      },
+      "../node_modules/@types/node/wasi.d.ts": {
+        "version": "2580346168c485710cca0ae724e081c715dafaba9ee1f735aceecc2432427027",
+        "signature": "2580346168c485710cca0ae724e081c715dafaba9ee1f735aceecc2432427027",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@types/node/ts3.6/base.d.ts": {
+        "version": "8300cfa9e51f601acc2ac1e95bb079375e2ffc0a0e334e81bf4bbdeb7a5932ff",
+        "signature": "8300cfa9e51f601acc2ac1e95bb079375e2ffc0a0e334e81bf4bbdeb7a5932ff",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@types/node/assert.d.ts": {
+        "version": "8ea1394bb5549f22e31c1896fb14d943185b72b14db2f39c8fc00e64e8b67361",
+        "signature": "8ea1394bb5549f22e31c1896fb14d943185b72b14db2f39c8fc00e64e8b67361",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@types/node/base.d.ts": {
+        "version": "e61a21e9418f279bc480394a94d1581b2dee73747adcbdef999b6737e34d721b",
+        "signature": "e61a21e9418f279bc480394a94d1581b2dee73747adcbdef999b6737e34d721b",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@types/node/index.d.ts": {
+        "version": "23dca7e2d421cdf16f12144497b3da31302dfbe88d648eff16bf37944483f3bd",
+        "signature": "23dca7e2d421cdf16f12144497b3da31302dfbe88d648eff16bf37944483f3bd",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@types/minimatch/index.d.ts": {
+        "version": "1d1e6bd176eee5970968423d7e215bfd66828b6db8d54d17afec05a831322633",
+        "signature": "1d1e6bd176eee5970968423d7e215bfd66828b6db8d54d17afec05a831322633",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@types/glob/index.d.ts": {
+        "version": "393137c76bd922ba70a2f8bf1ade4f59a16171a02fb25918c168d48875b0cfb0",
+        "signature": "393137c76bd922ba70a2f8bf1ade4f59a16171a02fb25918c168d48875b0cfb0",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@types/graceful-fs/index.d.ts": {
+        "version": "3ebae8c00411116a66fca65b08228ea0cf0b72724701f9b854442100aab55aba",
+        "signature": "3ebae8c00411116a66fca65b08228ea0cf0b72724701f9b854442100aab55aba",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@types/history/domutils.d.ts": {
+        "version": "271cde49dfd9b398ccc91bb3aaa43854cf76f4d14e10fed91cbac649aa6cbc63",
+        "signature": "271cde49dfd9b398ccc91bb3aaa43854cf76f4d14e10fed91cbac649aa6cbc63",
+        "affectsGlobalScope": true
+      },
+      "../node_modules/@types/history/createbrowserhistory.d.ts": {
+        "version": "c6f2572e21f626260d2e4a65e4e1e42b9b273b6f43b5c3bc115c2926417d3eca",
+        "signature": "c6f2572e21f626260d2e4a65e4e1e42b9b273b6f43b5c3bc115c2926417d3eca",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@types/history/createhashhistory.d.ts": {
+        "version": "374ab77e05e0bf5a52acad6d65121d4bd31068108f23d70186dba5fcd7d6a1a3",
+        "signature": "374ab77e05e0bf5a52acad6d65121d4bd31068108f23d70186dba5fcd7d6a1a3",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@types/history/creatememoryhistory.d.ts": {
+        "version": "a4ecd4bb653aa71093375845fba6250ca0f3c633d0e933fc9bf4b301834eab27",
+        "signature": "a4ecd4bb653aa71093375845fba6250ca0f3c633d0e933fc9bf4b301834eab27",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@types/history/locationutils.d.ts": {
+        "version": "25d91fb9ed77a828cc6c7a863236fb712dafcd52f816eec481bd0c1f589f4404",
+        "signature": "25d91fb9ed77a828cc6c7a863236fb712dafcd52f816eec481bd0c1f589f4404",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@types/history/pathutils.d.ts": {
+        "version": "4cd14cea22eed1bfb0dc76183e56989f897ac5b14c0e2a819e5162eafdcfe243",
+        "signature": "4cd14cea22eed1bfb0dc76183e56989f897ac5b14c0e2a819e5162eafdcfe243",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@types/history/index.d.ts": {
+        "version": "cc53cba64efb30576f2a36f1d7107e4453e84cbd0f371d49cd1dfd208e11233b",
+        "signature": "cc53cba64efb30576f2a36f1d7107e4453e84cbd0f371d49cd1dfd208e11233b",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@types/html-minifier-terser/index.d.ts": {
+        "version": "6767cce098e1e6369c26258b7a1f9e569c5467d501a47a090136d5ea6e80ae6d",
+        "signature": "6767cce098e1e6369c26258b7a1f9e569c5467d501a47a090136d5ea6e80ae6d",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@types/istanbul-lib-coverage/index.d.ts": {
+        "version": "de18acda71730bac52f4b256ce7511bb56cc21f6f114c59c46782eff2f632857",
+        "signature": "de18acda71730bac52f4b256ce7511bb56cc21f6f114c59c46782eff2f632857",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@types/istanbul-lib-report/index.d.ts": {
+        "version": "7eb06594824ada538b1d8b48c3925a83e7db792f47a081a62cf3e5c4e23cf0ee",
+        "signature": "7eb06594824ada538b1d8b48c3925a83e7db792f47a081a62cf3e5c4e23cf0ee",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@types/istanbul-reports/index.d.ts": {
+        "version": "905c3e8f7ddaa6c391b60c05b2f4c3931d7127ad717a080359db3df510b7bdab",
+        "signature": "905c3e8f7ddaa6c391b60c05b2f4c3931d7127ad717a080359db3df510b7bdab",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/jest-diff/build/cleanupsemantic.d.ts": {
+        "version": "d8aab31ba8e618cc3eea10b0945de81cb93b7e8150a013a482332263b9305322",
+        "signature": "d8aab31ba8e618cc3eea10b0945de81cb93b7e8150a013a482332263b9305322",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/jest-diff/build/types.d.ts": {
+        "version": "69da61a7b5093dac77fa3bec8be95dcf9a74c95a0e9161edb98bb24e30e439d2",
+        "signature": "69da61a7b5093dac77fa3bec8be95dcf9a74c95a0e9161edb98bb24e30e439d2",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/jest-diff/build/difflines.d.ts": {
+        "version": "561eca7a381b96d6ccac6e4061e6d2ae53f5bc44203f3fd9f5b26864c32ae6e9",
+        "signature": "561eca7a381b96d6ccac6e4061e6d2ae53f5bc44203f3fd9f5b26864c32ae6e9",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/jest-diff/build/printdiffs.d.ts": {
+        "version": "62ea38627e3ebab429f7616812a9394d327c2bc271003dfba985de9b4137369f",
+        "signature": "62ea38627e3ebab429f7616812a9394d327c2bc271003dfba985de9b4137369f",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/jest-diff/build/index.d.ts": {
+        "version": "b4439890c168d646357928431100daac5cbdee1d345a34e6bf6eca9f3abe22bc",
+        "signature": "b4439890c168d646357928431100daac5cbdee1d345a34e6bf6eca9f3abe22bc",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/pretty-format/build/types.d.ts": {
+        "version": "5d72971a459517c44c1379dab9ed248e87a61ba0a1e0f25c9d67e1e640cd9a09",
+        "signature": "5d72971a459517c44c1379dab9ed248e87a61ba0a1e0f25c9d67e1e640cd9a09",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/pretty-format/build/index.d.ts": {
+        "version": "02d734976af36f4273d930bea88b3e62adf6b078cf120c1c63d49aa8d8427c5c",
+        "signature": "02d734976af36f4273d930bea88b3e62adf6b078cf120c1c63d49aa8d8427c5c",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@types/jest/index.d.ts": {
+        "version": "71f30fba971582dc744373cbc8b06c1eb64dc24a6ccbc9b457f94fb68c67cb4e",
+        "signature": "71f30fba971582dc744373cbc8b06c1eb64dc24a6ccbc9b457f94fb68c67cb4e",
+        "affectsGlobalScope": true
+      },
+      "../node_modules/@types/json5/index.d.ts": {
+        "version": "96d14f21b7652903852eef49379d04dbda28c16ed36468f8c9fa08f7c14c9538",
+        "signature": "96d14f21b7652903852eef49379d04dbda28c16ed36468f8c9fa08f7c14c9538",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@types/normalize-package-data/index.d.ts": {
+        "version": "c9ad058b2cc9ce6dc2ed92960d6d009e8c04bef46d3f5312283debca6869f613",
+        "signature": "c9ad058b2cc9ce6dc2ed92960d6d009e8c04bef46d3f5312283debca6869f613",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@types/parse-json/index.d.ts": {
+        "version": "2b8264b2fefd7367e0f20e2c04eed5d3038831fe00f5efbc110ff0131aab899b",
+        "signature": "2b8264b2fefd7367e0f20e2c04eed5d3038831fe00f5efbc110ff0131aab899b",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@types/prettier/index.d.ts": {
+        "version": "d065397724b88df62e79aa428d0844e94d90c8754608dfee0685dcdbbe7b25d9",
+        "signature": "d065397724b88df62e79aa428d0844e94d90c8754608dfee0685dcdbbe7b25d9",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@types/q/index.d.ts": {
+        "version": "f9a2dd6a6084665f093ed0e9664b8e673be2a45e342a59dd4e0e4e552e68a9ad",
+        "signature": "f9a2dd6a6084665f093ed0e9664b8e673be2a45e342a59dd4e0e4e552e68a9ad",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@types/react-dom/index.d.ts": {
+        "version": "8483a29c17f7feb768a1f4333cf12ccf1e7341bd89dadcf407e012d5315228d0",
+        "signature": "8483a29c17f7feb768a1f4333cf12ccf1e7341bd89dadcf407e012d5315228d0",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@types/react-router/index.d.ts": {
+        "version": "c4fdfe0f9327fc110adebcd633e647f65ae9cb2625a4df288aa64f7dfe576b79",
+        "signature": "c4fdfe0f9327fc110adebcd633e647f65ae9cb2625a4df288aa64f7dfe576b79",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@types/react-router-dom/index.d.ts": {
+        "version": "b89701b714364b5bcb0b58e83725aa02a4f41df8357000b4e8fe60566bf805ac",
+        "signature": "b89701b714364b5bcb0b58e83725aa02a4f41df8357000b4e8fe60566bf805ac",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@types/resolve/index.d.ts": {
+        "version": "2880728492d6a6baa55411d14cc42fa55714a24b1d1d27ff9a8a610abd47c761",
+        "signature": "2880728492d6a6baa55411d14cc42fa55714a24b1d1d27ff9a8a610abd47c761",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@types/source-list-map/index.d.ts": {
+        "version": "67fc055eb86a0632e2e072838f889ffe1754083cb13c8c80a06a7d895d877aae",
+        "signature": "67fc055eb86a0632e2e072838f889ffe1754083cb13c8c80a06a7d895d877aae",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@types/stack-utils/index.d.ts": {
+        "version": "c6c4fea9acc55d5e38ff2b70d57ab0b5cdbd08f8bc5d7a226e322cea128c5b57",
+        "signature": "c6c4fea9acc55d5e38ff2b70d57ab0b5cdbd08f8bc5d7a226e322cea128c5b57",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@types/tapable/index.d.ts": {
+        "version": "d558a0fe921ebcc88d3212c2c42108abf9f0d694d67ebdeba37d7728c044f579",
+        "signature": "d558a0fe921ebcc88d3212c2c42108abf9f0d694d67ebdeba37d7728c044f579",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@types/testing-library__jest-dom/index.d.ts": {
+        "version": "d196da9c61a0bec85db6f6ee9b1f46781d25e0627b1d2bedcaeea8ebb1749559",
+        "signature": "d196da9c61a0bec85db6f6ee9b1f46781d25e0627b1d2bedcaeea8ebb1749559",
+        "affectsGlobalScope": true
+      },
+      "../node_modules/source-map/source-map.d.ts": {
+        "version": "2887592574fcdfd087647c539dcb0fbe5af2521270dad4a37f9d17c16190d579",
+        "signature": "2887592574fcdfd087647c539dcb0fbe5af2521270dad4a37f9d17c16190d579",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@types/uglify-js/index.d.ts": {
+        "version": "6eb4533a72414577ea2d61cac639e20bea6c60639d9238a6aac2b5683f0ac64e",
+        "signature": "6eb4533a72414577ea2d61cac639e20bea6c60639d9238a6aac2b5683f0ac64e",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/anymatch/index.d.ts": {
+        "version": "4fb0b7d532aa6fb850b6cd2f1ee4f00802d877b5c66a51903bc1fb0624126349",
+        "signature": "4fb0b7d532aa6fb850b6cd2f1ee4f00802d877b5c66a51903bc1fb0624126349",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@types/webpack-sources/node_modules/source-map/source-map.d.ts": {
+        "version": "b90c59ac4682368a01c83881b814738eb151de8a58f52eb7edadea2bcffb11b9",
+        "signature": "b90c59ac4682368a01c83881b814738eb151de8a58f52eb7edadea2bcffb11b9",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@types/webpack-sources/lib/source.d.ts": {
+        "version": "8560a87b2e9f8e2c3808c8f6172c9b7eb6c9b08cb9f937db71c285ecf292c81d",
+        "signature": "8560a87b2e9f8e2c3808c8f6172c9b7eb6c9b08cb9f937db71c285ecf292c81d",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@types/webpack-sources/lib/compatsource.d.ts": {
+        "version": "ffe3931ff864f28d80ae2f33bd11123ad3d7bad9896b910a1e61504cc093e1f5",
+        "signature": "ffe3931ff864f28d80ae2f33bd11123ad3d7bad9896b910a1e61504cc093e1f5",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@types/webpack-sources/lib/concatsource.d.ts": {
+        "version": "083c1bd82f8dc3a1ed6fc9e8eaddf141f7c05df418eca386598821e045253af9",
+        "signature": "083c1bd82f8dc3a1ed6fc9e8eaddf141f7c05df418eca386598821e045253af9",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@types/webpack-sources/lib/originalsource.d.ts": {
+        "version": "274ebe605bd7f71ce161f9f5328febc7d547a2929f803f04b44ec4a7d8729517",
+        "signature": "274ebe605bd7f71ce161f9f5328febc7d547a2929f803f04b44ec4a7d8729517",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@types/webpack-sources/lib/prefixsource.d.ts": {
+        "version": "6ca0207e70d985a24396583f55836b10dc181063ab6069733561bfde404d1bad",
+        "signature": "6ca0207e70d985a24396583f55836b10dc181063ab6069733561bfde404d1bad",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@types/webpack-sources/lib/rawsource.d.ts": {
+        "version": "5908142efeaab38ffdf43927ee0af681ae77e0d7672b956dfb8b6c705dbfe106",
+        "signature": "5908142efeaab38ffdf43927ee0af681ae77e0d7672b956dfb8b6c705dbfe106",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@types/webpack-sources/lib/replacesource.d.ts": {
+        "version": "f772b188b943549b5c5eb803133314b8aa7689eced80eed0b70e2f30ca07ab9c",
+        "signature": "f772b188b943549b5c5eb803133314b8aa7689eced80eed0b70e2f30ca07ab9c",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@types/webpack-sources/lib/sizeonlysource.d.ts": {
+        "version": "0026b816ef05cfbf290e8585820eef0f13250438669107dfc44482bac007b14f",
+        "signature": "0026b816ef05cfbf290e8585820eef0f13250438669107dfc44482bac007b14f",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@types/webpack-sources/lib/sourcemapsource.d.ts": {
+        "version": "8ef5aad624890acfe0fa48230edce255f00934016d16acb8de0edac0ea5b21bb",
+        "signature": "8ef5aad624890acfe0fa48230edce255f00934016d16acb8de0edac0ea5b21bb",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@types/webpack-sources/lib/index.d.ts": {
+        "version": "9af6248ff4baf0c1ddc62bb0bc43197437bd5fb2c95ff8e10e4cf2e699ea45c1",
+        "signature": "9af6248ff4baf0c1ddc62bb0bc43197437bd5fb2c95ff8e10e4cf2e699ea45c1",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@types/webpack-sources/lib/cachedsource.d.ts": {
+        "version": "d84398556ba4595ee6be554671da142cfe964cbdebb2f0c517a10f76f2b016c0",
+        "signature": "d84398556ba4595ee6be554671da142cfe964cbdebb2f0c517a10f76f2b016c0",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@types/webpack-sources/index.d.ts": {
+        "version": "89b42f8ee5d387a39db85ee2c7123a391c3ede266a2bcd502c85ad55626c3b2b",
+        "signature": "89b42f8ee5d387a39db85ee2c7123a391c3ede266a2bcd502c85ad55626c3b2b",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@types/webpack/index.d.ts": {
+        "version": "f7391eb1cb10ab561aa3ce7c610ea97aa4ab33fc709ee5e2adde541defde882f",
+        "signature": "f7391eb1cb10ab561aa3ce7c610ea97aa4ab33fc709ee5e2adde541defde882f",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@types/yargs-parser/index.d.ts": {
+        "version": "3bdd93ec24853e61bfa4c63ebaa425ff3e474156e87a47d90122e1d8cc717c1f",
+        "signature": "3bdd93ec24853e61bfa4c63ebaa425ff3e474156e87a47d90122e1d8cc717c1f",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@types/yargs/index.d.ts": {
+        "version": "5a2a25feca554a8f289ed62114771b8c63d89f2b58325e2f8b7043e4e0160d11",
+        "signature": "5a2a25feca554a8f289ed62114771b8c63d89f2b58325e2f8b7043e4e0160d11",
+        "affectsGlobalScope": false
+      }
+    },
+    "options": {
+      "composite": true,
+      "target": 1,
+      "lib": [
+        "lib.dom.d.ts",
+        "lib.dom.iterable.d.ts",
+        "lib.esnext.d.ts"
+      ],
+      "noImplicitAny": true,
+      "noEmitOnError": true,
+      "removeComments": false,
+      "sourceMap": true,
+      "outDir": "./",
+      "allowJs": true,
+      "skipLibCheck": true,
+      "esModuleInterop": true,
+      "allowSyntheticDefaultImports": true,
+      "strict": true,
+      "forceConsistentCasingInFileNames": true,
+      "noFallthroughCasesInSwitch": true,
+      "module": 99,
+      "noEmit": false,
+      "jsx": 4,
+      "moduleResolution": 2,
+      "configFilePath": "../tsconfig.json"
+    },
+    "referencedMap": {
+      "../index.ts": [
+        "../node_modules/@types/react/jsx-runtime.d.ts",
+        "../src/components/profilepicturecomponent.tsx"
+      ],
+      "../node_modules/@babel/parser/typings/babel-parser.d.ts": [
+        "../node_modules/@babel/types/lib/index.d.ts"
+      ],
+      "../node_modules/@ionic/core/dist/types/components.d.ts": [
+        "../node_modules/@ionic/core/dist/types/components/route/route-interface.d.ts",
+        "../node_modules/@ionic/core/dist/types/components/select/select-interface.d.ts",
+        "../node_modules/@ionic/core/dist/types/interface.d.ts",
+        "../node_modules/@ionic/core/dist/types/stencil-public-runtime.d.ts",
+        "../node_modules/@ionic/core/dist/types/utils/sanitization/index.d.ts"
+      ],
+      "../node_modules/@ionic/core/dist/types/components/action-sheet/action-sheet-interface.d.ts": [
+        "../node_modules/@ionic/core/dist/types/interface.d.ts"
+      ],
+      "../node_modules/@ionic/core/dist/types/components/alert/alert-interface.d.ts": [
+        "../node_modules/@ionic/core/dist/types/interface.d.ts",
+        "../node_modules/@ionic/core/dist/types/stencil-public-runtime.d.ts",
+        "../node_modules/@ionic/core/dist/types/utils/sanitization/index.d.ts"
+      ],
+      "../node_modules/@ionic/core/dist/types/components/content/content-interface.d.ts": [
+        "../node_modules/@ionic/core/dist/types/interface.d.ts"
+      ],
+      "../node_modules/@ionic/core/dist/types/components/datetime/datetime-interface.d.ts": [
+        "../node_modules/@ionic/core/dist/types/interface.d.ts"
+      ],
+      "../node_modules/@ionic/core/dist/types/components/loading/loading-interface.d.ts": [
+        "../node_modules/@ionic/core/dist/types/interface.d.ts",
+        "../node_modules/@ionic/core/dist/types/utils/sanitization/index.d.ts"
+      ],
+      "../node_modules/@ionic/core/dist/types/components/menu/menu-interface.d.ts": [
+        "../node_modules/@ionic/core/dist/types/interface.d.ts"
+      ],
+      "../node_modules/@ionic/core/dist/types/components/modal/modal-interface.d.ts": [
+        "../node_modules/@ionic/core/dist/types/interface.d.ts"
+      ],
+      "../node_modules/@ionic/core/dist/types/components/nav/nav-interface.d.ts": [
+        "../node_modules/@ionic/core/dist/types/components/nav/view-controller.d.ts",
+        "../node_modules/@ionic/core/dist/types/interface.d.ts"
+      ],
+      "../node_modules/@ionic/core/dist/types/components/nav/view-controller.d.ts": [
+        "../node_modules/@ionic/core/dist/types/interface.d.ts"
+      ],
+      "../node_modules/@ionic/core/dist/types/components/picker/picker-interface.d.ts": [
+        "../node_modules/@ionic/core/dist/types/interface.d.ts"
+      ],
+      "../node_modules/@ionic/core/dist/types/components/popover/popover-interface.d.ts": [
+        "../node_modules/@ionic/core/dist/types/interface.d.ts"
+      ],
+      "../node_modules/@ionic/core/dist/types/components/router/utils/interface.d.ts": [
+        "../node_modules/@ionic/core/dist/types/components/route/route-interface.d.ts",
+        "../node_modules/@ionic/core/dist/types/interface.d.ts"
+      ],
+      "../node_modules/@ionic/core/dist/types/components/spinner/spinner-configs.d.ts": [
+        "../node_modules/@ionic/core/dist/types/components/spinner/spinner-interface.d.ts"
+      ],
+      "../node_modules/@ionic/core/dist/types/components/spinner/spinner-interface.d.ts": [
+        "../node_modules/@ionic/core/dist/types/components/spinner/spinner-configs.d.ts"
+      ],
+      "../node_modules/@ionic/core/dist/types/components/toast/toast-interface.d.ts": [
+        "../node_modules/@ionic/core/dist/types/interface.d.ts",
+        "../node_modules/@ionic/core/dist/types/utils/sanitization/index.d.ts"
+      ],
+      "../node_modules/@ionic/core/dist/types/global/config.d.ts": [
+        "../node_modules/@ionic/core/dist/types/interface.d.ts"
+      ],
+      "../node_modules/@ionic/core/dist/types/index.d.ts": [
+        "../node_modules/@ionic/core/dist/types/components/nav/constants.d.ts",
+        "../node_modules/@ionic/core/dist/types/utils/animation/animation.d.ts",
+        "../node_modules/@ionic/core/dist/types/utils/animation/cubic-bezier.d.ts",
+        "../node_modules/@ionic/core/dist/types/utils/config.d.ts",
+        "../node_modules/@ionic/core/dist/types/utils/gesture/index.d.ts",
+        "../node_modules/@ionic/core/dist/types/utils/menu-controller/index.d.ts",
+        "../node_modules/@ionic/core/dist/types/utils/overlays.d.ts",
+        "../node_modules/@ionic/core/dist/types/utils/platform.d.ts",
+        "../node_modules/@ionic/core/dist/types/utils/sanitization/index.d.ts",
+        "../node_modules/@ionic/core/dist/types/utils/transition/ios.transition.d.ts",
+        "../node_modules/@ionic/core/dist/types/utils/transition/md.transition.d.ts",
+        "../node_modules/ionicons/dist/types/index.d.ts"
+      ],
+      "../node_modules/@ionic/core/dist/types/interface.d.ts": [
+        "../node_modules/@ionic/core/dist/types/components.d.ts",
+        "../node_modules/@ionic/core/dist/types/components/action-sheet/action-sheet-interface.d.ts",
+        "../node_modules/@ionic/core/dist/types/components/alert/alert-interface.d.ts",
+        "../node_modules/@ionic/core/dist/types/components/checkbox/checkbox-interface.d.ts",
+        "../node_modules/@ionic/core/dist/types/components/content/content-interface.d.ts",
+        "../node_modules/@ionic/core/dist/types/components/datetime/datetime-interface.d.ts",
+        "../node_modules/@ionic/core/dist/types/components/input/input-interface.d.ts",
+        "../node_modules/@ionic/core/dist/types/components/loading/loading-interface.d.ts",
+        "../node_modules/@ionic/core/dist/types/components/menu/menu-interface.d.ts",
+        "../node_modules/@ionic/core/dist/types/components/modal/modal-interface.d.ts",
+        "../node_modules/@ionic/core/dist/types/components/nav/nav-interface.d.ts",
+        "../node_modules/@ionic/core/dist/types/components/picker/picker-interface.d.ts",
+        "../node_modules/@ionic/core/dist/types/components/popover/popover-interface.d.ts",
+        "../node_modules/@ionic/core/dist/types/components/radio-group/radio-group-interface.d.ts",
+        "../node_modules/@ionic/core/dist/types/components/range/range-interface.d.ts",
+        "../node_modules/@ionic/core/dist/types/components/refresher/refresher-interface.d.ts",
+        "../node_modules/@ionic/core/dist/types/components/reorder-group/reorder-group-interface.d.ts",
+        "../node_modules/@ionic/core/dist/types/components/router/utils/interface.d.ts",
+        "../node_modules/@ionic/core/dist/types/components/searchbar/searchbar-interface.d.ts",
+        "../node_modules/@ionic/core/dist/types/components/segment/segment-interface.d.ts",
+        "../node_modules/@ionic/core/dist/types/components/select-popover/select-popover-interface.d.ts",
+        "../node_modules/@ionic/core/dist/types/components/select/select-interface.d.ts",
+        "../node_modules/@ionic/core/dist/types/components/spinner/spinner-interface.d.ts",
+        "../node_modules/@ionic/core/dist/types/components/tab-bar/tab-bar-interface.d.ts",
+        "../node_modules/@ionic/core/dist/types/components/textarea/textarea-interface.d.ts",
+        "../node_modules/@ionic/core/dist/types/components/toast/toast-interface.d.ts",
+        "../node_modules/@ionic/core/dist/types/components/toggle/toggle-interface.d.ts",
+        "../node_modules/@ionic/core/dist/types/components/virtual-scroll/virtual-scroll-interface.d.ts",
+        "../node_modules/@ionic/core/dist/types/global/config.d.ts",
+        "../node_modules/@ionic/core/dist/types/index.d.ts",
+        "../node_modules/@ionic/core/dist/types/utils/animation/animation-interface.d.ts",
+        "../node_modules/@ionic/core/dist/types/utils/gesture/index.d.ts",
+        "../node_modules/@ionic/core/dist/types/utils/overlays-interface.d.ts",
+        "../node_modules/ionicons/dist/types/index.d.ts"
+      ],
+      "../node_modules/@ionic/core/dist/types/utils/animation/animation.d.ts": [
+        "../node_modules/@ionic/core/dist/types/utils/animation/animation-interface.d.ts"
+      ],
+      "../node_modules/@ionic/core/dist/types/utils/config.d.ts": [
+        "../node_modules/@ionic/core/dist/types/interface.d.ts"
+      ],
+      "../node_modules/@ionic/core/dist/types/utils/gesture/index.d.ts": [
+        "../node_modules/@ionic/core/dist/types/utils/gesture/gesture-controller.d.ts"
+      ],
+      "../node_modules/@ionic/core/dist/types/utils/menu-controller/index.d.ts": [
+        "../node_modules/@ionic/core/dist/types/interface.d.ts"
+      ],
+      "../node_modules/@ionic/core/dist/types/utils/overlays-interface.d.ts": [
+        "../node_modules/@ionic/core/dist/types/interface.d.ts",
+        "../node_modules/@ionic/core/dist/types/stencil-public-runtime.d.ts"
+      ],
+      "../node_modules/@ionic/core/dist/types/utils/overlays.d.ts": [
+        "../node_modules/@ionic/core/dist/types/interface.d.ts"
+      ],
+      "../node_modules/@ionic/core/dist/types/utils/transition/index.d.ts": [
+        "../node_modules/@ionic/core/dist/types/interface.d.ts"
+      ],
+      "../node_modules/@ionic/core/dist/types/utils/transition/ios.transition.d.ts": [
+        "../node_modules/@ionic/core/dist/types/interface.d.ts",
+        "../node_modules/@ionic/core/dist/types/utils/transition/index.d.ts"
+      ],
+      "../node_modules/@ionic/core/dist/types/utils/transition/md.transition.d.ts": [
+        "../node_modules/@ionic/core/dist/types/interface.d.ts",
+        "../node_modules/@ionic/core/dist/types/utils/transition/index.d.ts"
+      ],
+      "../node_modules/@ionic/react/dist/types/components/createanimation.d.ts": [
+        "../node_modules/@ionic/core/dist/types/interface.d.ts",
+        "../node_modules/@types/react/index.d.ts"
+      ],
+      "../node_modules/@ionic/react/dist/types/components/createcontrollercomponent.d.ts": [
+        "../node_modules/@ionic/core/dist/types/interface.d.ts",
+        "../node_modules/@types/react/index.d.ts"
+      ],
+      "../node_modules/@ionic/react/dist/types/components/createoverlaycomponent.d.ts": [
+        "../node_modules/@ionic/core/dist/types/interface.d.ts",
+        "../node_modules/@types/react/index.d.ts"
+      ],
+      "../node_modules/@ionic/react/dist/types/components/hrefprops.d.ts": [
+        "../node_modules/@ionic/core/dist/types/interface.d.ts",
+        "../node_modules/@ionic/react/dist/types/models/index.d.ts",
+        "../node_modules/@ionic/react/dist/types/models/routerdirection.d.ts"
+      ],
+      "../node_modules/@ionic/react/dist/types/components/index.d.ts": [
+        "../node_modules/@ionic/core/dist/types/interface.d.ts",
+        "../node_modules/@ionic/react/dist/types/components/createanimation.d.ts",
+        "../node_modules/@ionic/react/dist/types/components/hrefprops.d.ts",
+        "../node_modules/@ionic/react/dist/types/components/ionactionsheet.d.ts",
+        "../node_modules/@ionic/react/dist/types/components/ionalert.d.ts",
+        "../node_modules/@ionic/react/dist/types/components/ionicon.d.ts",
+        "../node_modules/@ionic/react/dist/types/components/ionloading.d.ts",
+        "../node_modules/@ionic/react/dist/types/components/ionmodal.d.ts",
+        "../node_modules/@ionic/react/dist/types/components/ionpage.d.ts",
+        "../node_modules/@ionic/react/dist/types/components/ionpicker.d.ts",
+        "../node_modules/@ionic/react/dist/types/components/ionpopover.d.ts",
+        "../node_modules/@ionic/react/dist/types/components/ionredirect.d.ts",
+        "../node_modules/@ionic/react/dist/types/components/ionroute.d.ts",
+        "../node_modules/@ionic/react/dist/types/components/ionroutercontext.d.ts",
+        "../node_modules/@ionic/react/dist/types/components/ionrouteroutlet.d.ts",
+        "../node_modules/@ionic/react/dist/types/components/iontoast.d.ts",
+        "../node_modules/@ionic/react/dist/types/components/navigation/ionbackbutton.d.ts",
+        "../node_modules/@ionic/react/dist/types/components/navigation/iontabbar.d.ts",
+        "../node_modules/@ionic/react/dist/types/components/navigation/iontabbutton.d.ts",
+        "../node_modules/@ionic/react/dist/types/components/navigation/iontabs.d.ts",
+        "../node_modules/@ionic/react/dist/types/components/navigation/iontabscontext.d.ts",
+        "../node_modules/@ionic/react/dist/types/components/proxies.d.ts",
+        "../node_modules/@ionic/react/dist/types/components/utils/index.d.ts"
+      ],
+      "../node_modules/@ionic/react/dist/types/components/ionactionsheet.d.ts": [
+        "../node_modules/@ionic/core/dist/types/interface.d.ts",
+        "../node_modules/@ionic/react/dist/types/components/createoverlaycomponent.d.ts",
+        "../node_modules/@types/react/index.d.ts"
+      ],
+      "../node_modules/@ionic/react/dist/types/components/ionalert.d.ts": [
+        "../node_modules/@ionic/core/dist/types/interface.d.ts",
+        "../node_modules/@ionic/react/dist/types/components/createcontrollercomponent.d.ts",
+        "../node_modules/@types/react/index.d.ts"
+      ],
+      "../node_modules/@ionic/react/dist/types/components/ionicon.d.ts": [
+        "../node_modules/@ionic/react/dist/types/components/ionicreactprops.d.ts",
+        "../node_modules/@types/react/index.d.ts"
+      ],
+      "../node_modules/@ionic/react/dist/types/components/ionloading.d.ts": [
+        "../node_modules/@ionic/core/dist/types/interface.d.ts",
+        "../node_modules/@ionic/react/dist/types/components/createcontrollercomponent.d.ts",
+        "../node_modules/@types/react/index.d.ts"
+      ],
+      "../node_modules/@ionic/react/dist/types/components/ionmodal.d.ts": [
+        "../node_modules/@ionic/core/dist/types/interface.d.ts",
+        "../node_modules/@ionic/react/dist/types/components/createoverlaycomponent.d.ts",
+        "../node_modules/@types/react/index.d.ts"
+      ],
+      "../node_modules/@ionic/react/dist/types/components/ionpage.d.ts": [
+        "../node_modules/@ionic/react/dist/types/components/ionicreactprops.d.ts",
+        "../node_modules/@types/react/index.d.ts"
+      ],
+      "../node_modules/@ionic/react/dist/types/components/ionpicker.d.ts": [
+        "../node_modules/@ionic/core/dist/types/interface.d.ts",
+        "../node_modules/@ionic/react/dist/types/components/createcontrollercomponent.d.ts",
+        "../node_modules/@types/react/index.d.ts"
+      ],
+      "../node_modules/@ionic/react/dist/types/components/ionpopover.d.ts": [
+        "../node_modules/@ionic/core/dist/types/interface.d.ts",
+        "../node_modules/@ionic/react/dist/types/components/createoverlaycomponent.d.ts",
+        "../node_modules/@types/react/index.d.ts"
+      ],
+      "../node_modules/@ionic/react/dist/types/components/ionredirect.d.ts": [
+        "../node_modules/@ionic/react/dist/types/contexts/navcontext.d.ts",
+        "../node_modules/@types/react/index.d.ts"
+      ],
+      "../node_modules/@ionic/react/dist/types/components/ionroute.d.ts": [
+        "../node_modules/@ionic/react/dist/types/contexts/navcontext.d.ts",
+        "../node_modules/@types/react/index.d.ts"
+      ],
+      "../node_modules/@ionic/react/dist/types/components/ionroutercontext.d.ts": [
+        "../node_modules/@ionic/core/dist/types/interface.d.ts",
+        "../node_modules/@ionic/react/dist/types/models/index.d.ts",
+        "../node_modules/@ionic/react/dist/types/models/routeinfo.d.ts",
+        "../node_modules/@types/react/index.d.ts"
+      ],
+      "../node_modules/@ionic/react/dist/types/components/ionrouteroutlet.d.ts": [
+        "../node_modules/@ionic/core/dist/types/interface.d.ts",
+        "../node_modules/@ionic/react/dist/types/components/ionicreactprops.d.ts",
+        "../node_modules/@ionic/react/dist/types/components/utils/index.d.ts",
+        "../node_modules/@types/react/index.d.ts"
+      ],
+      "../node_modules/@ionic/react/dist/types/components/iontoast.d.ts": [
+        "../node_modules/@ionic/core/dist/types/interface.d.ts",
+        "../node_modules/@ionic/react/dist/types/components/createcontrollercomponent.d.ts",
+        "../node_modules/@types/react/index.d.ts"
+      ],
+      "../node_modules/@ionic/react/dist/types/components/navigation/ionbackbutton.d.ts": [
+        "../node_modules/@ionic/core/dist/types/interface.d.ts",
+        "../node_modules/@ionic/react/dist/types/components/ionicreactprops.d.ts",
+        "../node_modules/@ionic/react/dist/types/contexts/navcontext.d.ts",
+        "../node_modules/@types/react/index.d.ts"
+      ],
+      "../node_modules/@ionic/react/dist/types/components/navigation/iontabbar.d.ts": [
+        "../node_modules/@ionic/core/dist/types/interface.d.ts",
+        "../node_modules/@ionic/react/dist/types/components/ionicreactprops.d.ts",
+        "../node_modules/@types/react/index.d.ts"
+      ],
+      "../node_modules/@ionic/react/dist/types/components/navigation/iontabbutton.d.ts": [
+        "../node_modules/@ionic/core/dist/types/interface.d.ts",
+        "../node_modules/@ionic/react/dist/types/components/ionicreactprops.d.ts",
+        "../node_modules/@ionic/react/dist/types/models/index.d.ts",
+        "../node_modules/@types/react/index.d.ts"
+      ],
+      "../node_modules/@ionic/react/dist/types/components/navigation/iontabs.d.ts": [
+        "../node_modules/@ionic/core/dist/types/interface.d.ts",
+        "../node_modules/@ionic/react/dist/types/components/navigation/iontabscontext.d.ts",
+        "../node_modules/@ionic/react/dist/types/contexts/navcontext.d.ts",
+        "../node_modules/@types/react/index.d.ts"
+      ],
+      "../node_modules/@ionic/react/dist/types/components/navigation/iontabscontext.d.ts": [
+        "../node_modules/@types/react/index.d.ts"
+      ],
+      "../node_modules/@ionic/react/dist/types/components/proxies.d.ts": [
+        "../node_modules/@ionic/core/dist/types/interface.d.ts",
+        "../node_modules/@ionic/react/dist/types/components/ionicreactprops.d.ts",
+        "../node_modules/@ionic/react/dist/types/index.d.ts",
+        "../node_modules/@types/react/index.d.ts"
+      ],
+      "../node_modules/@ionic/react/dist/types/components/utils/index.d.ts": [
+        "../node_modules/@ionic/core/dist/types/interface.d.ts",
+        "../node_modules/@ionic/react/dist/types/components/ionicreactprops.d.ts",
+        "../node_modules/@ionic/react/dist/types/components/utils/attachprops.d.ts",
+        "../node_modules/@ionic/react/dist/types/components/utils/case.d.ts",
+        "../node_modules/@types/react/index.d.ts"
+      ],
+      "../node_modules/@ionic/react/dist/types/contexts/ionlifecyclecontext.d.ts": [
+        "../node_modules/@types/react/index.d.ts"
+      ],
+      "../node_modules/@ionic/react/dist/types/contexts/navcontext.d.ts": [
+        "../node_modules/@ionic/core/dist/types/interface.d.ts",
+        "../node_modules/@ionic/react/dist/types/models/index.d.ts",
+        "../node_modules/@types/react/index.d.ts"
+      ],
+      "../node_modules/@ionic/react/dist/types/index.d.ts": [
+        "../node_modules/@ionic/react/dist/types/components/index.d.ts",
+        "../node_modules/@ionic/react/dist/types/contexts/ionlifecyclecontext.d.ts",
+        "../node_modules/@ionic/react/dist/types/contexts/navcontext.d.ts",
+        "../node_modules/@ionic/react/dist/types/lifecycle/index.d.ts",
+        "../node_modules/@ionic/react/dist/types/models/index.d.ts",
+        "../node_modules/@ionic/react/dist/types/routing/index.d.ts",
+        "../node_modules/@ionic/react/dist/types/utils/generateid.d.ts"
+      ],
+      "../node_modules/@ionic/react/dist/types/lifecycle/hooks.d.ts": [
+        "../node_modules/@ionic/react/dist/types/contexts/ionlifecyclecontext.d.ts"
+      ],
+      "../node_modules/@ionic/react/dist/types/lifecycle/index.d.ts": [
+        "../node_modules/@ionic/react/dist/types/lifecycle/hooks.d.ts",
+        "../node_modules/@ionic/react/dist/types/lifecycle/ionlifecyclehoc.d.ts"
+      ],
+      "../node_modules/@ionic/react/dist/types/lifecycle/ionlifecyclehoc.d.ts": [
+        "../node_modules/@ionic/react/dist/types/contexts/ionlifecyclecontext.d.ts",
+        "../node_modules/@types/react/index.d.ts"
+      ],
+      "../node_modules/@ionic/react/dist/types/models/index.d.ts": [
+        "../node_modules/@ionic/react/dist/types/models/routeaction.d.ts",
+        "../node_modules/@ionic/react/dist/types/models/routeinfo.d.ts",
+        "../node_modules/@ionic/react/dist/types/models/routerdirection.d.ts",
+        "../node_modules/@ionic/react/dist/types/models/routeroptions.d.ts"
+      ],
+      "../node_modules/@ionic/react/dist/types/models/routeinfo.d.ts": [
+        "../node_modules/@ionic/core/dist/types/interface.d.ts",
+        "../node_modules/@ionic/react/dist/types/models/routeaction.d.ts",
+        "../node_modules/@ionic/react/dist/types/models/routerdirection.d.ts"
+      ],
+      "../node_modules/@ionic/react/dist/types/routing/index.d.ts": [
+        "../node_modules/@ionic/react/dist/types/routing/locationhistory.d.ts",
+        "../node_modules/@ionic/react/dist/types/routing/navmanager.d.ts",
+        "../node_modules/@ionic/react/dist/types/routing/routemanagercontext.d.ts",
+        "../node_modules/@ionic/react/dist/types/routing/stackcontext.d.ts",
+        "../node_modules/@ionic/react/dist/types/routing/viewitem.d.ts",
+        "../node_modules/@ionic/react/dist/types/routing/viewlifecyclemanager.d.ts",
+        "../node_modules/@ionic/react/dist/types/routing/viewstacks.d.ts"
+      ],
+      "../node_modules/@ionic/react/dist/types/routing/locationhistory.d.ts": [
+        "../node_modules/@ionic/react/dist/types/models/routeinfo.d.ts"
+      ],
+      "../node_modules/@ionic/react/dist/types/routing/navmanager.d.ts": [
+        "../node_modules/@ionic/core/dist/types/interface.d.ts",
+        "../node_modules/@ionic/react/dist/types/components/ionroutercontext.d.ts",
+        "../node_modules/@ionic/react/dist/types/contexts/navcontext.d.ts",
+        "../node_modules/@ionic/react/dist/types/models/routeaction.d.ts",
+        "../node_modules/@ionic/react/dist/types/models/routeinfo.d.ts",
+        "../node_modules/@ionic/react/dist/types/models/routerdirection.d.ts",
+        "../node_modules/@ionic/react/dist/types/routing/locationhistory.d.ts",
+        "../node_modules/@ionic/react/dist/types/routing/pagemanager.d.ts",
+        "../node_modules/@types/react/index.d.ts"
+      ],
+      "../node_modules/@ionic/react/dist/types/routing/pagemanager.d.ts": [
+        "../node_modules/@ionic/react/dist/types/contexts/ionlifecyclecontext.d.ts",
+        "../node_modules/@ionic/react/dist/types/models/index.d.ts",
+        "../node_modules/@ionic/react/dist/types/routing/stackcontext.d.ts",
+        "../node_modules/@types/react/index.d.ts"
+      ],
+      "../node_modules/@ionic/react/dist/types/routing/routemanagercontext.d.ts": [
+        "../node_modules/@ionic/react/dist/types/models/routeinfo.d.ts",
+        "../node_modules/@ionic/react/dist/types/routing/viewitem.d.ts",
+        "../node_modules/@types/react/index.d.ts"
+      ],
+      "../node_modules/@ionic/react/dist/types/routing/stackcontext.d.ts": [
+        "../node_modules/@ionic/react/dist/types/models/routeinfo.d.ts",
+        "../node_modules/@types/react/index.d.ts"
+      ],
+      "../node_modules/@ionic/react/dist/types/routing/viewitem.d.ts": [
+        "../node_modules/@types/react/index.d.ts"
+      ],
+      "../node_modules/@ionic/react/dist/types/routing/viewlifecyclemanager.d.ts": [
+        "../node_modules/@ionic/react/dist/types/contexts/ionlifecyclecontext.d.ts",
+        "../node_modules/@types/react/index.d.ts"
+      ],
+      "../node_modules/@ionic/react/dist/types/routing/viewstacks.d.ts": [
+        "../node_modules/@ionic/react/dist/types/models/routeinfo.d.ts",
+        "../node_modules/@ionic/react/dist/types/routing/viewitem.d.ts",
+        "../node_modules/@types/react/index.d.ts"
+      ],
+      "../node_modules/@types/babel__core/index.d.ts": [
+        "../node_modules/@babel/parser/typings/babel-parser.d.ts",
+        "../node_modules/@babel/types/lib/index.d.ts",
+        "../node_modules/@types/babel__generator/index.d.ts",
+        "../node_modules/@types/babel__template/index.d.ts",
+        "../node_modules/@types/babel__traverse/index.d.ts"
+      ],
+      "../node_modules/@types/babel__generator/index.d.ts": [
+        "../node_modules/@babel/types/lib/index.d.ts"
+      ],
+      "../node_modules/@types/babel__template/index.d.ts": [
+        "../node_modules/@babel/parser/typings/babel-parser.d.ts",
+        "../node_modules/@babel/types/lib/index.d.ts"
+      ],
+      "../node_modules/@types/babel__traverse/index.d.ts": [
+        "../node_modules/@babel/types/lib/index.d.ts"
+      ],
+      "../node_modules/@types/eslint/index.d.ts": [
+        "../node_modules/@types/eslint/helpers.d.ts",
+        "../node_modules/@types/estree/index.d.ts",
+        "../node_modules/@types/json-schema/index.d.ts"
+      ],
+      "../node_modules/@types/glob/index.d.ts": [
+        "../node_modules/@types/minimatch/index.d.ts",
+        "../node_modules/@types/node/events.d.ts",
+        "../node_modules/@types/node/index.d.ts"
+      ],
+      "../node_modules/@types/graceful-fs/index.d.ts": [
+        "../node_modules/@types/node/fs.d.ts",
+        "../node_modules/@types/node/index.d.ts"
+      ],
+      "../node_modules/@types/history/createbrowserhistory.d.ts": [
+        "../node_modules/@types/history/domutils.d.ts",
+        "../node_modules/@types/history/index.d.ts"
+      ],
+      "../node_modules/@types/history/createhashhistory.d.ts": [
+        "../node_modules/@types/history/domutils.d.ts",
+        "../node_modules/@types/history/index.d.ts"
+      ],
+      "../node_modules/@types/history/creatememoryhistory.d.ts": [
+        "../node_modules/@types/history/domutils.d.ts",
+        "../node_modules/@types/history/index.d.ts"
+      ],
+      "../node_modules/@types/history/index.d.ts": [
+        "../node_modules/@types/history/createbrowserhistory.d.ts",
+        "../node_modules/@types/history/createhashhistory.d.ts",
+        "../node_modules/@types/history/creatememoryhistory.d.ts",
+        "../node_modules/@types/history/locationutils.d.ts",
+        "../node_modules/@types/history/pathutils.d.ts"
+      ],
+      "../node_modules/@types/history/locationutils.d.ts": [
+        "../node_modules/@types/history/index.d.ts"
+      ],
+      "../node_modules/@types/history/pathutils.d.ts": [
+        "../node_modules/@types/history/index.d.ts"
+      ],
+      "../node_modules/@types/istanbul-lib-report/index.d.ts": [
+        "../node_modules/@types/istanbul-lib-coverage/index.d.ts"
+      ],
+      "../node_modules/@types/istanbul-reports/index.d.ts": [
+        "../node_modules/@types/istanbul-lib-report/index.d.ts"
+      ],
+      "../node_modules/@types/jest/index.d.ts": [
+        "../node_modules/jest-diff/build/index.d.ts",
+        "../node_modules/pretty-format/build/index.d.ts"
+      ],
+      "../node_modules/@types/node/assert.d.ts": [
+        "../node_modules/@types/node/assert.d.ts"
+      ],
+      "../node_modules/@types/node/async_hooks.d.ts": [
+        "../node_modules/@types/node/async_hooks.d.ts"
+      ],
+      "../node_modules/@types/node/base.d.ts": [
+        "../node_modules/@types/node/assert.d.ts",
+        "../node_modules/@types/node/ts3.6/base.d.ts"
+      ],
+      "../node_modules/@types/node/buffer.d.ts": [
+        "../node_modules/@types/node/buffer.d.ts"
+      ],
+      "../node_modules/@types/node/child_process.d.ts": [
+        "../node_modules/@types/node/child_process.d.ts",
+        "../node_modules/@types/node/events.d.ts",
+        "../node_modules/@types/node/net.d.ts",
+        "../node_modules/@types/node/stream.d.ts"
+      ],
+      "../node_modules/@types/node/cluster.d.ts": [
+        "../node_modules/@types/node/child_process.d.ts",
+        "../node_modules/@types/node/cluster.d.ts",
+        "../node_modules/@types/node/events.d.ts",
+        "../node_modules/@types/node/net.d.ts"
+      ],
+      "../node_modules/@types/node/constants.d.ts": [
+        "../node_modules/@types/node/constants.d.ts"
+      ],
+      "../node_modules/@types/node/crypto.d.ts": [
+        "../node_modules/@types/node/crypto.d.ts",
+        "../node_modules/@types/node/stream.d.ts"
+      ],
+      "../node_modules/@types/node/dgram.d.ts": [
+        "../node_modules/@types/node/dgram.d.ts",
+        "../node_modules/@types/node/dns.d.ts",
+        "../node_modules/@types/node/events.d.ts",
+        "../node_modules/@types/node/net.d.ts"
+      ],
+      "../node_modules/@types/node/dns.d.ts": [
+        "../node_modules/@types/node/dns.d.ts"
+      ],
+      "../node_modules/@types/node/domain.d.ts": [
+        "../node_modules/@types/node/domain.d.ts",
+        "../node_modules/@types/node/events.d.ts"
+      ],
+      "../node_modules/@types/node/events.d.ts": [
+        "../node_modules/@types/node/events.d.ts"
+      ],
+      "../node_modules/@types/node/fs.d.ts": [
+        "../node_modules/@types/node/events.d.ts",
+        "../node_modules/@types/node/fs.d.ts",
+        "../node_modules/@types/node/stream.d.ts",
+        "../node_modules/@types/node/url.d.ts"
+      ],
+      "../node_modules/@types/node/http.d.ts": [
+        "../node_modules/@types/node/http.d.ts",
+        "../node_modules/@types/node/net.d.ts",
+        "../node_modules/@types/node/stream.d.ts",
+        "../node_modules/@types/node/url.d.ts"
+      ],
+      "../node_modules/@types/node/http2.d.ts": [
+        "../node_modules/@types/node/events.d.ts",
+        "../node_modules/@types/node/fs.d.ts",
+        "../node_modules/@types/node/http.d.ts",
+        "../node_modules/@types/node/http2.d.ts",
+        "../node_modules/@types/node/net.d.ts",
+        "../node_modules/@types/node/stream.d.ts",
+        "../node_modules/@types/node/tls.d.ts",
+        "../node_modules/@types/node/url.d.ts"
+      ],
+      "../node_modules/@types/node/https.d.ts": [
+        "../node_modules/@types/node/http.d.ts",
+        "../node_modules/@types/node/https.d.ts",
+        "../node_modules/@types/node/tls.d.ts",
+        "../node_modules/@types/node/url.d.ts"
+      ],
+      "../node_modules/@types/node/index.d.ts": [
+        "../node_modules/@types/node/base.d.ts"
+      ],
+      "../node_modules/@types/node/inspector.d.ts": [
+        "../node_modules/@types/node/events.d.ts",
+        "../node_modules/@types/node/inspector.d.ts"
+      ],
+      "../node_modules/@types/node/net.d.ts": [
+        "../node_modules/@types/node/dns.d.ts",
+        "../node_modules/@types/node/events.d.ts",
+        "../node_modules/@types/node/net.d.ts",
+        "../node_modules/@types/node/stream.d.ts"
+      ],
+      "../node_modules/@types/node/os.d.ts": [
+        "../node_modules/@types/node/os.d.ts"
+      ],
+      "../node_modules/@types/node/path.d.ts": [
+        "../node_modules/@types/node/path.d.ts"
+      ],
+      "../node_modules/@types/node/perf_hooks.d.ts": [
+        "../node_modules/@types/node/async_hooks.d.ts",
+        "../node_modules/@types/node/perf_hooks.d.ts"
+      ],
+      "../node_modules/@types/node/process.d.ts": [
+        "../node_modules/@types/node/tty.d.ts"
+      ],
+      "../node_modules/@types/node/punycode.d.ts": [
+        "../node_modules/@types/node/punycode.d.ts"
+      ],
+      "../node_modules/@types/node/querystring.d.ts": [
+        "../node_modules/@types/node/querystring.d.ts"
+      ],
+      "../node_modules/@types/node/readline.d.ts": [
+        "../node_modules/@types/node/events.d.ts",
+        "../node_modules/@types/node/readline.d.ts"
+      ],
+      "../node_modules/@types/node/repl.d.ts": [
+        "../node_modules/@types/node/readline.d.ts",
+        "../node_modules/@types/node/repl.d.ts",
+        "../node_modules/@types/node/util.d.ts",
+        "../node_modules/@types/node/vm.d.ts"
+      ],
+      "../node_modules/@types/node/stream.d.ts": [
+        "../node_modules/@types/node/events.d.ts",
+        "../node_modules/@types/node/stream.d.ts"
+      ],
+      "../node_modules/@types/node/string_decoder.d.ts": [
+        "../node_modules/@types/node/string_decoder.d.ts"
+      ],
+      "../node_modules/@types/node/timers.d.ts": [
+        "../node_modules/@types/node/timers.d.ts"
+      ],
+      "../node_modules/@types/node/tls.d.ts": [
+        "../node_modules/@types/node/net.d.ts",
+        "../node_modules/@types/node/tls.d.ts"
+      ],
+      "../node_modules/@types/node/trace_events.d.ts": [
+        "../node_modules/@types/node/trace_events.d.ts"
+      ],
+      "../node_modules/@types/node/ts3.4/base.d.ts": [
+        "../node_modules/@types/node/async_hooks.d.ts",
+        "../node_modules/@types/node/buffer.d.ts",
+        "../node_modules/@types/node/child_process.d.ts",
+        "../node_modules/@types/node/cluster.d.ts",
+        "../node_modules/@types/node/console.d.ts",
+        "../node_modules/@types/node/constants.d.ts",
+        "../node_modules/@types/node/crypto.d.ts",
+        "../node_modules/@types/node/dgram.d.ts",
+        "../node_modules/@types/node/dns.d.ts",
+        "../node_modules/@types/node/domain.d.ts",
+        "../node_modules/@types/node/events.d.ts",
+        "../node_modules/@types/node/fs.d.ts",
+        "../node_modules/@types/node/globals.d.ts",
+        "../node_modules/@types/node/http.d.ts",
+        "../node_modules/@types/node/http2.d.ts",
+        "../node_modules/@types/node/https.d.ts",
+        "../node_modules/@types/node/inspector.d.ts",
+        "../node_modules/@types/node/module.d.ts",
+        "../node_modules/@types/node/net.d.ts",
+        "../node_modules/@types/node/os.d.ts",
+        "../node_modules/@types/node/path.d.ts",
+        "../node_modules/@types/node/perf_hooks.d.ts",
+        "../node_modules/@types/node/process.d.ts",
+        "../node_modules/@types/node/punycode.d.ts",
+        "../node_modules/@types/node/querystring.d.ts",
+        "../node_modules/@types/node/readline.d.ts",
+        "../node_modules/@types/node/repl.d.ts",
+        "../node_modules/@types/node/stream.d.ts",
+        "../node_modules/@types/node/string_decoder.d.ts",
+        "../node_modules/@types/node/timers.d.ts",
+        "../node_modules/@types/node/tls.d.ts",
+        "../node_modules/@types/node/trace_events.d.ts",
+        "../node_modules/@types/node/tty.d.ts",
+        "../node_modules/@types/node/url.d.ts",
+        "../node_modules/@types/node/util.d.ts",
+        "../node_modules/@types/node/v8.d.ts",
+        "../node_modules/@types/node/vm.d.ts",
+        "../node_modules/@types/node/worker_threads.d.ts",
+        "../node_modules/@types/node/zlib.d.ts"
+      ],
+      "../node_modules/@types/node/ts3.6/base.d.ts": [
+        "../node_modules/@types/node/globals.global.d.ts",
+        "../node_modules/@types/node/ts3.4/base.d.ts",
+        "../node_modules/@types/node/wasi.d.ts"
+      ],
+      "../node_modules/@types/node/tty.d.ts": [
+        "../node_modules/@types/node/net.d.ts",
+        "../node_modules/@types/node/tty.d.ts"
+      ],
+      "../node_modules/@types/node/url.d.ts": [
+        "../node_modules/@types/node/querystring.d.ts",
+        "../node_modules/@types/node/url.d.ts"
+      ],
+      "../node_modules/@types/node/util.d.ts": [
+        "../node_modules/@types/node/util.d.ts"
+      ],
+      "../node_modules/@types/node/v8.d.ts": [
+        "../node_modules/@types/node/stream.d.ts",
+        "../node_modules/@types/node/v8.d.ts"
+      ],
+      "../node_modules/@types/node/vm.d.ts": [
+        "../node_modules/@types/node/vm.d.ts"
+      ],
+      "../node_modules/@types/node/wasi.d.ts": [
+        "../node_modules/@types/node/wasi.d.ts"
+      ],
+      "../node_modules/@types/node/worker_threads.d.ts": [
+        "../node_modules/@types/node/events.d.ts",
+        "../node_modules/@types/node/fs.d.ts",
+        "../node_modules/@types/node/stream.d.ts",
+        "../node_modules/@types/node/vm.d.ts",
+        "../node_modules/@types/node/worker_threads.d.ts"
+      ],
+      "../node_modules/@types/node/zlib.d.ts": [
+        "../node_modules/@types/node/stream.d.ts",
+        "../node_modules/@types/node/zlib.d.ts"
+      ],
+      "../node_modules/@types/react-dom/index.d.ts": [
+        "../node_modules/@types/react/index.d.ts"
+      ],
+      "../node_modules/@types/react-router-dom/index.d.ts": [
+        "../node_modules/@types/history/index.d.ts",
+        "../node_modules/@types/react-router/index.d.ts",
+        "../node_modules/@types/react/index.d.ts"
+      ],
+      "../node_modules/@types/react-router/index.d.ts": [
+        "../node_modules/@types/history/index.d.ts",
+        "../node_modules/@types/react/index.d.ts"
+      ],
+      "../node_modules/@types/react/index.d.ts": [
+        "../node_modules/@types/prop-types/index.d.ts",
+        "../node_modules/@types/react/global.d.ts",
+        "../node_modules/csstype/index.d.ts"
+      ],
+      "../node_modules/@types/react/jsx-runtime.d.ts": [
+        "../node_modules/@types/react/index.d.ts"
+      ],
+      "../node_modules/@types/resolve/index.d.ts": [
+        "../node_modules/@types/node/index.d.ts"
+      ],
+      "../node_modules/@types/testing-library__jest-dom/index.d.ts": [
+        "../node_modules/@types/jest/index.d.ts"
+      ],
+      "../node_modules/@types/uglify-js/index.d.ts": [
+        "../node_modules/source-map/source-map.d.ts"
+      ],
+      "../node_modules/@types/webpack-sources/index.d.ts": [
+        "../node_modules/@types/node/index.d.ts",
+        "../node_modules/@types/webpack-sources/lib/cachedsource.d.ts",
+        "../node_modules/@types/webpack-sources/lib/compatsource.d.ts",
+        "../node_modules/@types/webpack-sources/lib/concatsource.d.ts",
+        "../node_modules/@types/webpack-sources/lib/index.d.ts",
+        "../node_modules/@types/webpack-sources/lib/originalsource.d.ts",
+        "../node_modules/@types/webpack-sources/lib/prefixsource.d.ts",
+        "../node_modules/@types/webpack-sources/lib/rawsource.d.ts",
+        "../node_modules/@types/webpack-sources/lib/replacesource.d.ts",
+        "../node_modules/@types/webpack-sources/lib/sizeonlysource.d.ts",
+        "../node_modules/@types/webpack-sources/lib/source.d.ts",
+        "../node_modules/@types/webpack-sources/lib/sourcemapsource.d.ts"
+      ],
+      "../node_modules/@types/webpack-sources/lib/cachedsource.d.ts": [
+        "../node_modules/@types/webpack-sources/lib/index.d.ts",
+        "../node_modules/@types/webpack-sources/lib/source.d.ts",
+        "../node_modules/@types/webpack-sources/node_modules/source-map/source-map.d.ts"
+      ],
+      "../node_modules/@types/webpack-sources/lib/compatsource.d.ts": [
+        "../node_modules/@types/webpack-sources/lib/index.d.ts",
+        "../node_modules/@types/webpack-sources/lib/source.d.ts"
+      ],
+      "../node_modules/@types/webpack-sources/lib/concatsource.d.ts": [
+        "../node_modules/@types/source-list-map/index.d.ts",
+        "../node_modules/@types/webpack-sources/lib/index.d.ts",
+        "../node_modules/@types/webpack-sources/lib/source.d.ts",
+        "../node_modules/@types/webpack-sources/node_modules/source-map/source-map.d.ts"
+      ],
+      "../node_modules/@types/webpack-sources/lib/index.d.ts": [
+        "../node_modules/@types/webpack-sources/lib/cachedsource.d.ts",
+        "../node_modules/@types/webpack-sources/lib/compatsource.d.ts",
+        "../node_modules/@types/webpack-sources/lib/concatsource.d.ts",
+        "../node_modules/@types/webpack-sources/lib/originalsource.d.ts",
+        "../node_modules/@types/webpack-sources/lib/prefixsource.d.ts",
+        "../node_modules/@types/webpack-sources/lib/rawsource.d.ts",
+        "../node_modules/@types/webpack-sources/lib/replacesource.d.ts",
+        "../node_modules/@types/webpack-sources/lib/sizeonlysource.d.ts",
+        "../node_modules/@types/webpack-sources/lib/source.d.ts",
+        "../node_modules/@types/webpack-sources/lib/sourcemapsource.d.ts",
+        "../node_modules/@types/webpack-sources/node_modules/source-map/source-map.d.ts"
+      ],
+      "../node_modules/@types/webpack-sources/lib/originalsource.d.ts": [
+        "../node_modules/@types/source-list-map/index.d.ts",
+        "../node_modules/@types/webpack-sources/lib/index.d.ts",
+        "../node_modules/@types/webpack-sources/lib/source.d.ts",
+        "../node_modules/@types/webpack-sources/node_modules/source-map/source-map.d.ts"
+      ],
+      "../node_modules/@types/webpack-sources/lib/prefixsource.d.ts": [
+        "../node_modules/@types/webpack-sources/lib/index.d.ts",
+        "../node_modules/@types/webpack-sources/lib/source.d.ts"
+      ],
+      "../node_modules/@types/webpack-sources/lib/rawsource.d.ts": [
+        "../node_modules/@types/webpack-sources/lib/index.d.ts",
+        "../node_modules/@types/webpack-sources/lib/source.d.ts"
+      ],
+      "../node_modules/@types/webpack-sources/lib/replacesource.d.ts": [
+        "../node_modules/@types/webpack-sources/lib/index.d.ts",
+        "../node_modules/@types/webpack-sources/lib/source.d.ts"
+      ],
+      "../node_modules/@types/webpack-sources/lib/sizeonlysource.d.ts": [
+        "../node_modules/@types/webpack-sources/lib/source.d.ts"
+      ],
+      "../node_modules/@types/webpack-sources/lib/source.d.ts": [
+        "../node_modules/@types/node/crypto.d.ts",
+        "../node_modules/@types/webpack-sources/lib/index.d.ts",
+        "../node_modules/@types/webpack-sources/node_modules/source-map/source-map.d.ts"
+      ],
+      "../node_modules/@types/webpack-sources/lib/sourcemapsource.d.ts": [
+        "../node_modules/@types/webpack-sources/lib/index.d.ts",
+        "../node_modules/@types/webpack-sources/lib/source.d.ts",
+        "../node_modules/@types/webpack-sources/node_modules/source-map/source-map.d.ts"
+      ],
+      "../node_modules/@types/webpack/index.d.ts": [
+        "../node_modules/@types/node/crypto.d.ts",
+        "../node_modules/@types/node/index.d.ts",
+        "../node_modules/@types/tapable/index.d.ts",
+        "../node_modules/@types/uglify-js/index.d.ts",
+        "../node_modules/@types/webpack-sources/index.d.ts",
+        "../node_modules/anymatch/index.d.ts",
+        "../node_modules/source-map/source-map.d.ts"
+      ],
+      "../node_modules/@types/yargs/index.d.ts": [
+        "../node_modules/@types/yargs-parser/index.d.ts"
+      ],
+      "../node_modules/ionicons/dist/types/components.d.ts": [
+        "../node_modules/ionicons/dist/types/stencil-public-runtime.d.ts"
+      ],
+      "../node_modules/ionicons/dist/types/components/icon/utils.d.ts": [
+        "../node_modules/ionicons/dist/types/components/icon/icon.d.ts"
+      ],
+      "../node_modules/ionicons/dist/types/index.d.ts": [
+        "../node_modules/ionicons/dist/types/components.d.ts",
+        "../node_modules/ionicons/dist/types/components/icon/utils.d.ts"
+      ],
+      "../node_modules/jest-diff/build/difflines.d.ts": [
+        "../node_modules/jest-diff/build/cleanupsemantic.d.ts",
+        "../node_modules/jest-diff/build/types.d.ts"
+      ],
+      "../node_modules/jest-diff/build/index.d.ts": [
+        "../node_modules/jest-diff/build/cleanupsemantic.d.ts",
+        "../node_modules/jest-diff/build/difflines.d.ts",
+        "../node_modules/jest-diff/build/printdiffs.d.ts",
+        "../node_modules/jest-diff/build/types.d.ts"
+      ],
+      "../node_modules/jest-diff/build/printdiffs.d.ts": [
+        "../node_modules/jest-diff/build/cleanupsemantic.d.ts",
+        "../node_modules/jest-diff/build/types.d.ts"
+      ],
+      "../node_modules/pretty-format/build/index.d.ts": [
+        "../node_modules/pretty-format/build/types.d.ts"
+      ],
+      "../src/components/profilepicturecomponent.tsx": [
+        "../node_modules/@ionic/react/dist/types/index.d.ts",
+        "../node_modules/@types/react/index.d.ts",
+        "../node_modules/@types/react/jsx-runtime.d.ts"
+      ]
+    },
+    "exportedModulesMap": {
+      "../index.ts": [
+        "../src/components/profilepicturecomponent.tsx"
+      ],
+      "../node_modules/@babel/parser/typings/babel-parser.d.ts": [
+        "../node_modules/@babel/types/lib/index.d.ts"
+      ],
+      "../node_modules/@ionic/core/dist/types/components.d.ts": [
+        "../node_modules/@ionic/core/dist/types/components/route/route-interface.d.ts",
+        "../node_modules/@ionic/core/dist/types/components/select/select-interface.d.ts",
+        "../node_modules/@ionic/core/dist/types/interface.d.ts",
+        "../node_modules/@ionic/core/dist/types/stencil-public-runtime.d.ts",
+        "../node_modules/@ionic/core/dist/types/utils/sanitization/index.d.ts"
+      ],
+      "../node_modules/@ionic/core/dist/types/components/action-sheet/action-sheet-interface.d.ts": [
+        "../node_modules/@ionic/core/dist/types/interface.d.ts"
+      ],
+      "../node_modules/@ionic/core/dist/types/components/alert/alert-interface.d.ts": [
+        "../node_modules/@ionic/core/dist/types/interface.d.ts",
+        "../node_modules/@ionic/core/dist/types/stencil-public-runtime.d.ts",
+        "../node_modules/@ionic/core/dist/types/utils/sanitization/index.d.ts"
+      ],
+      "../node_modules/@ionic/core/dist/types/components/content/content-interface.d.ts": [
+        "../node_modules/@ionic/core/dist/types/interface.d.ts"
+      ],
+      "../node_modules/@ionic/core/dist/types/components/datetime/datetime-interface.d.ts": [
+        "../node_modules/@ionic/core/dist/types/interface.d.ts"
+      ],
+      "../node_modules/@ionic/core/dist/types/components/loading/loading-interface.d.ts": [
+        "../node_modules/@ionic/core/dist/types/interface.d.ts",
+        "../node_modules/@ionic/core/dist/types/utils/sanitization/index.d.ts"
+      ],
+      "../node_modules/@ionic/core/dist/types/components/menu/menu-interface.d.ts": [
+        "../node_modules/@ionic/core/dist/types/interface.d.ts"
+      ],
+      "../node_modules/@ionic/core/dist/types/components/modal/modal-interface.d.ts": [
+        "../node_modules/@ionic/core/dist/types/interface.d.ts"
+      ],
+      "../node_modules/@ionic/core/dist/types/components/nav/nav-interface.d.ts": [
+        "../node_modules/@ionic/core/dist/types/components/nav/view-controller.d.ts",
+        "../node_modules/@ionic/core/dist/types/interface.d.ts"
+      ],
+      "../node_modules/@ionic/core/dist/types/components/nav/view-controller.d.ts": [
+        "../node_modules/@ionic/core/dist/types/interface.d.ts"
+      ],
+      "../node_modules/@ionic/core/dist/types/components/picker/picker-interface.d.ts": [
+        "../node_modules/@ionic/core/dist/types/interface.d.ts"
+      ],
+      "../node_modules/@ionic/core/dist/types/components/popover/popover-interface.d.ts": [
+        "../node_modules/@ionic/core/dist/types/interface.d.ts"
+      ],
+      "../node_modules/@ionic/core/dist/types/components/router/utils/interface.d.ts": [
+        "../node_modules/@ionic/core/dist/types/components/route/route-interface.d.ts",
+        "../node_modules/@ionic/core/dist/types/interface.d.ts"
+      ],
+      "../node_modules/@ionic/core/dist/types/components/spinner/spinner-configs.d.ts": [
+        "../node_modules/@ionic/core/dist/types/components/spinner/spinner-interface.d.ts"
+      ],
+      "../node_modules/@ionic/core/dist/types/components/spinner/spinner-interface.d.ts": [
+        "../node_modules/@ionic/core/dist/types/components/spinner/spinner-configs.d.ts"
+      ],
+      "../node_modules/@ionic/core/dist/types/components/toast/toast-interface.d.ts": [
+        "../node_modules/@ionic/core/dist/types/interface.d.ts",
+        "../node_modules/@ionic/core/dist/types/utils/sanitization/index.d.ts"
+      ],
+      "../node_modules/@ionic/core/dist/types/global/config.d.ts": [
+        "../node_modules/@ionic/core/dist/types/interface.d.ts"
+      ],
+      "../node_modules/@ionic/core/dist/types/index.d.ts": [
+        "../node_modules/@ionic/core/dist/types/components/nav/constants.d.ts",
+        "../node_modules/@ionic/core/dist/types/utils/animation/animation.d.ts",
+        "../node_modules/@ionic/core/dist/types/utils/animation/cubic-bezier.d.ts",
+        "../node_modules/@ionic/core/dist/types/utils/config.d.ts",
+        "../node_modules/@ionic/core/dist/types/utils/gesture/index.d.ts",
+        "../node_modules/@ionic/core/dist/types/utils/menu-controller/index.d.ts",
+        "../node_modules/@ionic/core/dist/types/utils/overlays.d.ts",
+        "../node_modules/@ionic/core/dist/types/utils/platform.d.ts",
+        "../node_modules/@ionic/core/dist/types/utils/sanitization/index.d.ts",
+        "../node_modules/@ionic/core/dist/types/utils/transition/ios.transition.d.ts",
+        "../node_modules/@ionic/core/dist/types/utils/transition/md.transition.d.ts",
+        "../node_modules/ionicons/dist/types/index.d.ts"
+      ],
+      "../node_modules/@ionic/core/dist/types/interface.d.ts": [
+        "../node_modules/@ionic/core/dist/types/components.d.ts",
+        "../node_modules/@ionic/core/dist/types/components/action-sheet/action-sheet-interface.d.ts",
+        "../node_modules/@ionic/core/dist/types/components/alert/alert-interface.d.ts",
+        "../node_modules/@ionic/core/dist/types/components/checkbox/checkbox-interface.d.ts",
+        "../node_modules/@ionic/core/dist/types/components/content/content-interface.d.ts",
+        "../node_modules/@ionic/core/dist/types/components/datetime/datetime-interface.d.ts",
+        "../node_modules/@ionic/core/dist/types/components/input/input-interface.d.ts",
+        "../node_modules/@ionic/core/dist/types/components/loading/loading-interface.d.ts",
+        "../node_modules/@ionic/core/dist/types/components/menu/menu-interface.d.ts",
+        "../node_modules/@ionic/core/dist/types/components/modal/modal-interface.d.ts",
+        "../node_modules/@ionic/core/dist/types/components/nav/nav-interface.d.ts",
+        "../node_modules/@ionic/core/dist/types/components/picker/picker-interface.d.ts",
+        "../node_modules/@ionic/core/dist/types/components/popover/popover-interface.d.ts",
+        "../node_modules/@ionic/core/dist/types/components/radio-group/radio-group-interface.d.ts",
+        "../node_modules/@ionic/core/dist/types/components/range/range-interface.d.ts",
+        "../node_modules/@ionic/core/dist/types/components/refresher/refresher-interface.d.ts",
+        "../node_modules/@ionic/core/dist/types/components/reorder-group/reorder-group-interface.d.ts",
+        "../node_modules/@ionic/core/dist/types/components/router/utils/interface.d.ts",
+        "../node_modules/@ionic/core/dist/types/components/searchbar/searchbar-interface.d.ts",
+        "../node_modules/@ionic/core/dist/types/components/segment/segment-interface.d.ts",
+        "../node_modules/@ionic/core/dist/types/components/select-popover/select-popover-interface.d.ts",
+        "../node_modules/@ionic/core/dist/types/components/select/select-interface.d.ts",
+        "../node_modules/@ionic/core/dist/types/components/spinner/spinner-interface.d.ts",
+        "../node_modules/@ionic/core/dist/types/components/tab-bar/tab-bar-interface.d.ts",
+        "../node_modules/@ionic/core/dist/types/components/textarea/textarea-interface.d.ts",
+        "../node_modules/@ionic/core/dist/types/components/toast/toast-interface.d.ts",
+        "../node_modules/@ionic/core/dist/types/components/toggle/toggle-interface.d.ts",
+        "../node_modules/@ionic/core/dist/types/components/virtual-scroll/virtual-scroll-interface.d.ts",
+        "../node_modules/@ionic/core/dist/types/global/config.d.ts",
+        "../node_modules/@ionic/core/dist/types/index.d.ts",
+        "../node_modules/@ionic/core/dist/types/utils/animation/animation-interface.d.ts",
+        "../node_modules/@ionic/core/dist/types/utils/gesture/index.d.ts",
+        "../node_modules/@ionic/core/dist/types/utils/overlays-interface.d.ts",
+        "../node_modules/ionicons/dist/types/index.d.ts"
+      ],
+      "../node_modules/@ionic/core/dist/types/utils/animation/animation.d.ts": [
+        "../node_modules/@ionic/core/dist/types/utils/animation/animation-interface.d.ts"
+      ],
+      "../node_modules/@ionic/core/dist/types/utils/config.d.ts": [
+        "../node_modules/@ionic/core/dist/types/interface.d.ts"
+      ],
+      "../node_modules/@ionic/core/dist/types/utils/gesture/index.d.ts": [
+        "../node_modules/@ionic/core/dist/types/utils/gesture/gesture-controller.d.ts"
+      ],
+      "../node_modules/@ionic/core/dist/types/utils/menu-controller/index.d.ts": [
+        "../node_modules/@ionic/core/dist/types/interface.d.ts"
+      ],
+      "../node_modules/@ionic/core/dist/types/utils/overlays-interface.d.ts": [
+        "../node_modules/@ionic/core/dist/types/interface.d.ts",
+        "../node_modules/@ionic/core/dist/types/stencil-public-runtime.d.ts"
+      ],
+      "../node_modules/@ionic/core/dist/types/utils/overlays.d.ts": [
+        "../node_modules/@ionic/core/dist/types/interface.d.ts"
+      ],
+      "../node_modules/@ionic/core/dist/types/utils/transition/index.d.ts": [
+        "../node_modules/@ionic/core/dist/types/interface.d.ts"
+      ],
+      "../node_modules/@ionic/core/dist/types/utils/transition/ios.transition.d.ts": [
+        "../node_modules/@ionic/core/dist/types/interface.d.ts",
+        "../node_modules/@ionic/core/dist/types/utils/transition/index.d.ts"
+      ],
+      "../node_modules/@ionic/core/dist/types/utils/transition/md.transition.d.ts": [
+        "../node_modules/@ionic/core/dist/types/interface.d.ts",
+        "../node_modules/@ionic/core/dist/types/utils/transition/index.d.ts"
+      ],
+      "../node_modules/@ionic/react/dist/types/components/createanimation.d.ts": [
+        "../node_modules/@ionic/core/dist/types/interface.d.ts",
+        "../node_modules/@types/react/index.d.ts"
+      ],
+      "../node_modules/@ionic/react/dist/types/components/createcontrollercomponent.d.ts": [
+        "../node_modules/@ionic/core/dist/types/interface.d.ts",
+        "../node_modules/@types/react/index.d.ts"
+      ],
+      "../node_modules/@ionic/react/dist/types/components/createoverlaycomponent.d.ts": [
+        "../node_modules/@ionic/core/dist/types/interface.d.ts",
+        "../node_modules/@types/react/index.d.ts"
+      ],
+      "../node_modules/@ionic/react/dist/types/components/hrefprops.d.ts": [
+        "../node_modules/@ionic/core/dist/types/interface.d.ts",
+        "../node_modules/@ionic/react/dist/types/models/index.d.ts",
+        "../node_modules/@ionic/react/dist/types/models/routerdirection.d.ts"
+      ],
+      "../node_modules/@ionic/react/dist/types/components/index.d.ts": [
+        "../node_modules/@ionic/core/dist/types/interface.d.ts",
+        "../node_modules/@ionic/react/dist/types/components/createanimation.d.ts",
+        "../node_modules/@ionic/react/dist/types/components/hrefprops.d.ts",
+        "../node_modules/@ionic/react/dist/types/components/ionactionsheet.d.ts",
+        "../node_modules/@ionic/react/dist/types/components/ionalert.d.ts",
+        "../node_modules/@ionic/react/dist/types/components/ionicon.d.ts",
+        "../node_modules/@ionic/react/dist/types/components/ionloading.d.ts",
+        "../node_modules/@ionic/react/dist/types/components/ionmodal.d.ts",
+        "../node_modules/@ionic/react/dist/types/components/ionpage.d.ts",
+        "../node_modules/@ionic/react/dist/types/components/ionpicker.d.ts",
+        "../node_modules/@ionic/react/dist/types/components/ionpopover.d.ts",
+        "../node_modules/@ionic/react/dist/types/components/ionredirect.d.ts",
+        "../node_modules/@ionic/react/dist/types/components/ionroute.d.ts",
+        "../node_modules/@ionic/react/dist/types/components/ionroutercontext.d.ts",
+        "../node_modules/@ionic/react/dist/types/components/ionrouteroutlet.d.ts",
+        "../node_modules/@ionic/react/dist/types/components/iontoast.d.ts",
+        "../node_modules/@ionic/react/dist/types/components/navigation/ionbackbutton.d.ts",
+        "../node_modules/@ionic/react/dist/types/components/navigation/iontabbar.d.ts",
+        "../node_modules/@ionic/react/dist/types/components/navigation/iontabbutton.d.ts",
+        "../node_modules/@ionic/react/dist/types/components/navigation/iontabs.d.ts",
+        "../node_modules/@ionic/react/dist/types/components/navigation/iontabscontext.d.ts",
+        "../node_modules/@ionic/react/dist/types/components/proxies.d.ts",
+        "../node_modules/@ionic/react/dist/types/components/utils/index.d.ts"
+      ],
+      "../node_modules/@ionic/react/dist/types/components/ionactionsheet.d.ts": [
+        "../node_modules/@ionic/core/dist/types/interface.d.ts",
+        "../node_modules/@ionic/react/dist/types/components/createoverlaycomponent.d.ts",
+        "../node_modules/@types/react/index.d.ts"
+      ],
+      "../node_modules/@ionic/react/dist/types/components/ionalert.d.ts": [
+        "../node_modules/@ionic/core/dist/types/interface.d.ts",
+        "../node_modules/@ionic/react/dist/types/components/createcontrollercomponent.d.ts",
+        "../node_modules/@types/react/index.d.ts"
+      ],
+      "../node_modules/@ionic/react/dist/types/components/ionicon.d.ts": [
+        "../node_modules/@ionic/react/dist/types/components/ionicreactprops.d.ts",
+        "../node_modules/@types/react/index.d.ts"
+      ],
+      "../node_modules/@ionic/react/dist/types/components/ionloading.d.ts": [
+        "../node_modules/@ionic/core/dist/types/interface.d.ts",
+        "../node_modules/@ionic/react/dist/types/components/createcontrollercomponent.d.ts",
+        "../node_modules/@types/react/index.d.ts"
+      ],
+      "../node_modules/@ionic/react/dist/types/components/ionmodal.d.ts": [
+        "../node_modules/@ionic/core/dist/types/interface.d.ts",
+        "../node_modules/@ionic/react/dist/types/components/createoverlaycomponent.d.ts",
+        "../node_modules/@types/react/index.d.ts"
+      ],
+      "../node_modules/@ionic/react/dist/types/components/ionpage.d.ts": [
+        "../node_modules/@ionic/react/dist/types/components/ionicreactprops.d.ts",
+        "../node_modules/@types/react/index.d.ts"
+      ],
+      "../node_modules/@ionic/react/dist/types/components/ionpicker.d.ts": [
+        "../node_modules/@ionic/core/dist/types/interface.d.ts",
+        "../node_modules/@ionic/react/dist/types/components/createcontrollercomponent.d.ts",
+        "../node_modules/@types/react/index.d.ts"
+      ],
+      "../node_modules/@ionic/react/dist/types/components/ionpopover.d.ts": [
+        "../node_modules/@ionic/core/dist/types/interface.d.ts",
+        "../node_modules/@ionic/react/dist/types/components/createoverlaycomponent.d.ts",
+        "../node_modules/@types/react/index.d.ts"
+      ],
+      "../node_modules/@ionic/react/dist/types/components/ionredirect.d.ts": [
+        "../node_modules/@ionic/react/dist/types/contexts/navcontext.d.ts",
+        "../node_modules/@types/react/index.d.ts"
+      ],
+      "../node_modules/@ionic/react/dist/types/components/ionroute.d.ts": [
+        "../node_modules/@ionic/react/dist/types/contexts/navcontext.d.ts",
+        "../node_modules/@types/react/index.d.ts"
+      ],
+      "../node_modules/@ionic/react/dist/types/components/ionroutercontext.d.ts": [
+        "../node_modules/@ionic/core/dist/types/interface.d.ts",
+        "../node_modules/@ionic/react/dist/types/models/index.d.ts",
+        "../node_modules/@ionic/react/dist/types/models/routeinfo.d.ts",
+        "../node_modules/@types/react/index.d.ts"
+      ],
+      "../node_modules/@ionic/react/dist/types/components/ionrouteroutlet.d.ts": [
+        "../node_modules/@ionic/core/dist/types/interface.d.ts",
+        "../node_modules/@ionic/react/dist/types/components/ionicreactprops.d.ts",
+        "../node_modules/@ionic/react/dist/types/components/utils/index.d.ts",
+        "../node_modules/@types/react/index.d.ts"
+      ],
+      "../node_modules/@ionic/react/dist/types/components/iontoast.d.ts": [
+        "../node_modules/@ionic/core/dist/types/interface.d.ts",
+        "../node_modules/@ionic/react/dist/types/components/createcontrollercomponent.d.ts",
+        "../node_modules/@types/react/index.d.ts"
+      ],
+      "../node_modules/@ionic/react/dist/types/components/navigation/ionbackbutton.d.ts": [
+        "../node_modules/@ionic/core/dist/types/interface.d.ts",
+        "../node_modules/@ionic/react/dist/types/components/ionicreactprops.d.ts",
+        "../node_modules/@ionic/react/dist/types/contexts/navcontext.d.ts",
+        "../node_modules/@types/react/index.d.ts"
+      ],
+      "../node_modules/@ionic/react/dist/types/components/navigation/iontabbar.d.ts": [
+        "../node_modules/@ionic/core/dist/types/interface.d.ts",
+        "../node_modules/@ionic/react/dist/types/components/ionicreactprops.d.ts",
+        "../node_modules/@types/react/index.d.ts"
+      ],
+      "../node_modules/@ionic/react/dist/types/components/navigation/iontabbutton.d.ts": [
+        "../node_modules/@ionic/core/dist/types/interface.d.ts",
+        "../node_modules/@ionic/react/dist/types/components/ionicreactprops.d.ts",
+        "../node_modules/@ionic/react/dist/types/models/index.d.ts",
+        "../node_modules/@types/react/index.d.ts"
+      ],
+      "../node_modules/@ionic/react/dist/types/components/navigation/iontabs.d.ts": [
+        "../node_modules/@ionic/core/dist/types/interface.d.ts",
+        "../node_modules/@ionic/react/dist/types/components/navigation/iontabscontext.d.ts",
+        "../node_modules/@ionic/react/dist/types/contexts/navcontext.d.ts",
+        "../node_modules/@types/react/index.d.ts"
+      ],
+      "../node_modules/@ionic/react/dist/types/components/navigation/iontabscontext.d.ts": [
+        "../node_modules/@types/react/index.d.ts"
+      ],
+      "../node_modules/@ionic/react/dist/types/components/proxies.d.ts": [
+        "../node_modules/@ionic/core/dist/types/interface.d.ts",
+        "../node_modules/@ionic/react/dist/types/components/ionicreactprops.d.ts",
+        "../node_modules/@ionic/react/dist/types/index.d.ts",
+        "../node_modules/@types/react/index.d.ts"
+      ],
+      "../node_modules/@ionic/react/dist/types/components/utils/index.d.ts": [
+        "../node_modules/@ionic/core/dist/types/interface.d.ts",
+        "../node_modules/@ionic/react/dist/types/components/ionicreactprops.d.ts",
+        "../node_modules/@ionic/react/dist/types/components/utils/attachprops.d.ts",
+        "../node_modules/@ionic/react/dist/types/components/utils/case.d.ts",
+        "../node_modules/@types/react/index.d.ts"
+      ],
+      "../node_modules/@ionic/react/dist/types/contexts/ionlifecyclecontext.d.ts": [
+        "../node_modules/@types/react/index.d.ts"
+      ],
+      "../node_modules/@ionic/react/dist/types/contexts/navcontext.d.ts": [
+        "../node_modules/@ionic/core/dist/types/interface.d.ts",
+        "../node_modules/@ionic/react/dist/types/models/index.d.ts",
+        "../node_modules/@types/react/index.d.ts"
+      ],
+      "../node_modules/@ionic/react/dist/types/index.d.ts": [
+        "../node_modules/@ionic/react/dist/types/components/index.d.ts",
+        "../node_modules/@ionic/react/dist/types/contexts/ionlifecyclecontext.d.ts",
+        "../node_modules/@ionic/react/dist/types/contexts/navcontext.d.ts",
+        "../node_modules/@ionic/react/dist/types/lifecycle/index.d.ts",
+        "../node_modules/@ionic/react/dist/types/models/index.d.ts",
+        "../node_modules/@ionic/react/dist/types/routing/index.d.ts",
+        "../node_modules/@ionic/react/dist/types/utils/generateid.d.ts"
+      ],
+      "../node_modules/@ionic/react/dist/types/lifecycle/hooks.d.ts": [
+        "../node_modules/@ionic/react/dist/types/contexts/ionlifecyclecontext.d.ts"
+      ],
+      "../node_modules/@ionic/react/dist/types/lifecycle/index.d.ts": [
+        "../node_modules/@ionic/react/dist/types/lifecycle/hooks.d.ts",
+        "../node_modules/@ionic/react/dist/types/lifecycle/ionlifecyclehoc.d.ts"
+      ],
+      "../node_modules/@ionic/react/dist/types/lifecycle/ionlifecyclehoc.d.ts": [
+        "../node_modules/@ionic/react/dist/types/contexts/ionlifecyclecontext.d.ts",
+        "../node_modules/@types/react/index.d.ts"
+      ],
+      "../node_modules/@ionic/react/dist/types/models/index.d.ts": [
+        "../node_modules/@ionic/react/dist/types/models/routeaction.d.ts",
+        "../node_modules/@ionic/react/dist/types/models/routeinfo.d.ts",
+        "../node_modules/@ionic/react/dist/types/models/routerdirection.d.ts",
+        "../node_modules/@ionic/react/dist/types/models/routeroptions.d.ts"
+      ],
+      "../node_modules/@ionic/react/dist/types/models/routeinfo.d.ts": [
+        "../node_modules/@ionic/core/dist/types/interface.d.ts",
+        "../node_modules/@ionic/react/dist/types/models/routeaction.d.ts",
+        "../node_modules/@ionic/react/dist/types/models/routerdirection.d.ts"
+      ],
+      "../node_modules/@ionic/react/dist/types/routing/index.d.ts": [
+        "../node_modules/@ionic/react/dist/types/routing/locationhistory.d.ts",
+        "../node_modules/@ionic/react/dist/types/routing/navmanager.d.ts",
+        "../node_modules/@ionic/react/dist/types/routing/routemanagercontext.d.ts",
+        "../node_modules/@ionic/react/dist/types/routing/stackcontext.d.ts",
+        "../node_modules/@ionic/react/dist/types/routing/viewitem.d.ts",
+        "../node_modules/@ionic/react/dist/types/routing/viewlifecyclemanager.d.ts",
+        "../node_modules/@ionic/react/dist/types/routing/viewstacks.d.ts"
+      ],
+      "../node_modules/@ionic/react/dist/types/routing/locationhistory.d.ts": [
+        "../node_modules/@ionic/react/dist/types/models/routeinfo.d.ts"
+      ],
+      "../node_modules/@ionic/react/dist/types/routing/navmanager.d.ts": [
+        "../node_modules/@ionic/core/dist/types/interface.d.ts",
+        "../node_modules/@ionic/react/dist/types/components/ionroutercontext.d.ts",
+        "../node_modules/@ionic/react/dist/types/contexts/navcontext.d.ts",
+        "../node_modules/@ionic/react/dist/types/models/routeaction.d.ts",
+        "../node_modules/@ionic/react/dist/types/models/routeinfo.d.ts",
+        "../node_modules/@ionic/react/dist/types/models/routerdirection.d.ts",
+        "../node_modules/@ionic/react/dist/types/routing/locationhistory.d.ts",
+        "../node_modules/@ionic/react/dist/types/routing/pagemanager.d.ts",
+        "../node_modules/@types/react/index.d.ts"
+      ],
+      "../node_modules/@ionic/react/dist/types/routing/pagemanager.d.ts": [
+        "../node_modules/@ionic/react/dist/types/contexts/ionlifecyclecontext.d.ts",
+        "../node_modules/@ionic/react/dist/types/models/index.d.ts",
+        "../node_modules/@ionic/react/dist/types/routing/stackcontext.d.ts",
+        "../node_modules/@types/react/index.d.ts"
+      ],
+      "../node_modules/@ionic/react/dist/types/routing/routemanagercontext.d.ts": [
+        "../node_modules/@ionic/react/dist/types/models/routeinfo.d.ts",
+        "../node_modules/@ionic/react/dist/types/routing/viewitem.d.ts",
+        "../node_modules/@types/react/index.d.ts"
+      ],
+      "../node_modules/@ionic/react/dist/types/routing/stackcontext.d.ts": [
+        "../node_modules/@ionic/react/dist/types/models/routeinfo.d.ts",
+        "../node_modules/@types/react/index.d.ts"
+      ],
+      "../node_modules/@ionic/react/dist/types/routing/viewitem.d.ts": [
+        "../node_modules/@types/react/index.d.ts"
+      ],
+      "../node_modules/@ionic/react/dist/types/routing/viewlifecyclemanager.d.ts": [
+        "../node_modules/@ionic/react/dist/types/contexts/ionlifecyclecontext.d.ts",
+        "../node_modules/@types/react/index.d.ts"
+      ],
+      "../node_modules/@ionic/react/dist/types/routing/viewstacks.d.ts": [
+        "../node_modules/@ionic/react/dist/types/models/routeinfo.d.ts",
+        "../node_modules/@ionic/react/dist/types/routing/viewitem.d.ts",
+        "../node_modules/@types/react/index.d.ts"
+      ],
+      "../node_modules/@types/babel__core/index.d.ts": [
+        "../node_modules/@babel/parser/typings/babel-parser.d.ts",
+        "../node_modules/@babel/types/lib/index.d.ts",
+        "../node_modules/@types/babel__generator/index.d.ts",
+        "../node_modules/@types/babel__template/index.d.ts",
+        "../node_modules/@types/babel__traverse/index.d.ts"
+      ],
+      "../node_modules/@types/babel__generator/index.d.ts": [
+        "../node_modules/@babel/types/lib/index.d.ts"
+      ],
+      "../node_modules/@types/babel__template/index.d.ts": [
+        "../node_modules/@babel/parser/typings/babel-parser.d.ts",
+        "../node_modules/@babel/types/lib/index.d.ts"
+      ],
+      "../node_modules/@types/babel__traverse/index.d.ts": [
+        "../node_modules/@babel/types/lib/index.d.ts"
+      ],
+      "../node_modules/@types/eslint/index.d.ts": [
+        "../node_modules/@types/eslint/helpers.d.ts",
+        "../node_modules/@types/estree/index.d.ts",
+        "../node_modules/@types/json-schema/index.d.ts"
+      ],
+      "../node_modules/@types/glob/index.d.ts": [
+        "../node_modules/@types/minimatch/index.d.ts",
+        "../node_modules/@types/node/events.d.ts",
+        "../node_modules/@types/node/index.d.ts"
+      ],
+      "../node_modules/@types/graceful-fs/index.d.ts": [
+        "../node_modules/@types/node/fs.d.ts",
+        "../node_modules/@types/node/index.d.ts"
+      ],
+      "../node_modules/@types/history/createbrowserhistory.d.ts": [
+        "../node_modules/@types/history/domutils.d.ts",
+        "../node_modules/@types/history/index.d.ts"
+      ],
+      "../node_modules/@types/history/createhashhistory.d.ts": [
+        "../node_modules/@types/history/domutils.d.ts",
+        "../node_modules/@types/history/index.d.ts"
+      ],
+      "../node_modules/@types/history/creatememoryhistory.d.ts": [
+        "../node_modules/@types/history/domutils.d.ts",
+        "../node_modules/@types/history/index.d.ts"
+      ],
+      "../node_modules/@types/history/index.d.ts": [
+        "../node_modules/@types/history/createbrowserhistory.d.ts",
+        "../node_modules/@types/history/createhashhistory.d.ts",
+        "../node_modules/@types/history/creatememoryhistory.d.ts",
+        "../node_modules/@types/history/locationutils.d.ts",
+        "../node_modules/@types/history/pathutils.d.ts"
+      ],
+      "../node_modules/@types/history/locationutils.d.ts": [
+        "../node_modules/@types/history/index.d.ts"
+      ],
+      "../node_modules/@types/history/pathutils.d.ts": [
+        "../node_modules/@types/history/index.d.ts"
+      ],
+      "../node_modules/@types/istanbul-lib-report/index.d.ts": [
+        "../node_modules/@types/istanbul-lib-coverage/index.d.ts"
+      ],
+      "../node_modules/@types/istanbul-reports/index.d.ts": [
+        "../node_modules/@types/istanbul-lib-report/index.d.ts"
+      ],
+      "../node_modules/@types/jest/index.d.ts": [
+        "../node_modules/jest-diff/build/index.d.ts",
+        "../node_modules/pretty-format/build/index.d.ts"
+      ],
+      "../node_modules/@types/node/assert.d.ts": [
+        "../node_modules/@types/node/assert.d.ts"
+      ],
+      "../node_modules/@types/node/async_hooks.d.ts": [
+        "../node_modules/@types/node/async_hooks.d.ts"
+      ],
+      "../node_modules/@types/node/base.d.ts": [
+        "../node_modules/@types/node/assert.d.ts",
+        "../node_modules/@types/node/ts3.6/base.d.ts"
+      ],
+      "../node_modules/@types/node/buffer.d.ts": [
+        "../node_modules/@types/node/buffer.d.ts"
+      ],
+      "../node_modules/@types/node/child_process.d.ts": [
+        "../node_modules/@types/node/child_process.d.ts",
+        "../node_modules/@types/node/events.d.ts",
+        "../node_modules/@types/node/net.d.ts",
+        "../node_modules/@types/node/stream.d.ts"
+      ],
+      "../node_modules/@types/node/cluster.d.ts": [
+        "../node_modules/@types/node/child_process.d.ts",
+        "../node_modules/@types/node/cluster.d.ts",
+        "../node_modules/@types/node/events.d.ts",
+        "../node_modules/@types/node/net.d.ts"
+      ],
+      "../node_modules/@types/node/constants.d.ts": [
+        "../node_modules/@types/node/constants.d.ts"
+      ],
+      "../node_modules/@types/node/crypto.d.ts": [
+        "../node_modules/@types/node/crypto.d.ts",
+        "../node_modules/@types/node/stream.d.ts"
+      ],
+      "../node_modules/@types/node/dgram.d.ts": [
+        "../node_modules/@types/node/dgram.d.ts",
+        "../node_modules/@types/node/dns.d.ts",
+        "../node_modules/@types/node/events.d.ts",
+        "../node_modules/@types/node/net.d.ts"
+      ],
+      "../node_modules/@types/node/dns.d.ts": [
+        "../node_modules/@types/node/dns.d.ts"
+      ],
+      "../node_modules/@types/node/domain.d.ts": [
+        "../node_modules/@types/node/domain.d.ts",
+        "../node_modules/@types/node/events.d.ts"
+      ],
+      "../node_modules/@types/node/events.d.ts": [
+        "../node_modules/@types/node/events.d.ts"
+      ],
+      "../node_modules/@types/node/fs.d.ts": [
+        "../node_modules/@types/node/events.d.ts",
+        "../node_modules/@types/node/fs.d.ts",
+        "../node_modules/@types/node/stream.d.ts",
+        "../node_modules/@types/node/url.d.ts"
+      ],
+      "../node_modules/@types/node/http.d.ts": [
+        "../node_modules/@types/node/http.d.ts",
+        "../node_modules/@types/node/net.d.ts",
+        "../node_modules/@types/node/stream.d.ts",
+        "../node_modules/@types/node/url.d.ts"
+      ],
+      "../node_modules/@types/node/http2.d.ts": [
+        "../node_modules/@types/node/events.d.ts",
+        "../node_modules/@types/node/fs.d.ts",
+        "../node_modules/@types/node/http.d.ts",
+        "../node_modules/@types/node/http2.d.ts",
+        "../node_modules/@types/node/net.d.ts",
+        "../node_modules/@types/node/stream.d.ts",
+        "../node_modules/@types/node/tls.d.ts",
+        "../node_modules/@types/node/url.d.ts"
+      ],
+      "../node_modules/@types/node/https.d.ts": [
+        "../node_modules/@types/node/http.d.ts",
+        "../node_modules/@types/node/https.d.ts",
+        "../node_modules/@types/node/tls.d.ts",
+        "../node_modules/@types/node/url.d.ts"
+      ],
+      "../node_modules/@types/node/index.d.ts": [
+        "../node_modules/@types/node/base.d.ts"
+      ],
+      "../node_modules/@types/node/inspector.d.ts": [
+        "../node_modules/@types/node/events.d.ts",
+        "../node_modules/@types/node/inspector.d.ts"
+      ],
+      "../node_modules/@types/node/net.d.ts": [
+        "../node_modules/@types/node/dns.d.ts",
+        "../node_modules/@types/node/events.d.ts",
+        "../node_modules/@types/node/net.d.ts",
+        "../node_modules/@types/node/stream.d.ts"
+      ],
+      "../node_modules/@types/node/os.d.ts": [
+        "../node_modules/@types/node/os.d.ts"
+      ],
+      "../node_modules/@types/node/path.d.ts": [
+        "../node_modules/@types/node/path.d.ts"
+      ],
+      "../node_modules/@types/node/perf_hooks.d.ts": [
+        "../node_modules/@types/node/async_hooks.d.ts",
+        "../node_modules/@types/node/perf_hooks.d.ts"
+      ],
+      "../node_modules/@types/node/process.d.ts": [
+        "../node_modules/@types/node/tty.d.ts"
+      ],
+      "../node_modules/@types/node/punycode.d.ts": [
+        "../node_modules/@types/node/punycode.d.ts"
+      ],
+      "../node_modules/@types/node/querystring.d.ts": [
+        "../node_modules/@types/node/querystring.d.ts"
+      ],
+      "../node_modules/@types/node/readline.d.ts": [
+        "../node_modules/@types/node/events.d.ts",
+        "../node_modules/@types/node/readline.d.ts"
+      ],
+      "../node_modules/@types/node/repl.d.ts": [
+        "../node_modules/@types/node/readline.d.ts",
+        "../node_modules/@types/node/repl.d.ts",
+        "../node_modules/@types/node/util.d.ts",
+        "../node_modules/@types/node/vm.d.ts"
+      ],
+      "../node_modules/@types/node/stream.d.ts": [
+        "../node_modules/@types/node/events.d.ts",
+        "../node_modules/@types/node/stream.d.ts"
+      ],
+      "../node_modules/@types/node/string_decoder.d.ts": [
+        "../node_modules/@types/node/string_decoder.d.ts"
+      ],
+      "../node_modules/@types/node/timers.d.ts": [
+        "../node_modules/@types/node/timers.d.ts"
+      ],
+      "../node_modules/@types/node/tls.d.ts": [
+        "../node_modules/@types/node/net.d.ts",
+        "../node_modules/@types/node/tls.d.ts"
+      ],
+      "../node_modules/@types/node/trace_events.d.ts": [
+        "../node_modules/@types/node/trace_events.d.ts"
+      ],
+      "../node_modules/@types/node/ts3.4/base.d.ts": [
+        "../node_modules/@types/node/async_hooks.d.ts",
+        "../node_modules/@types/node/buffer.d.ts",
+        "../node_modules/@types/node/child_process.d.ts",
+        "../node_modules/@types/node/cluster.d.ts",
+        "../node_modules/@types/node/console.d.ts",
+        "../node_modules/@types/node/constants.d.ts",
+        "../node_modules/@types/node/crypto.d.ts",
+        "../node_modules/@types/node/dgram.d.ts",
+        "../node_modules/@types/node/dns.d.ts",
+        "../node_modules/@types/node/domain.d.ts",
+        "../node_modules/@types/node/events.d.ts",
+        "../node_modules/@types/node/fs.d.ts",
+        "../node_modules/@types/node/globals.d.ts",
+        "../node_modules/@types/node/http.d.ts",
+        "../node_modules/@types/node/http2.d.ts",
+        "../node_modules/@types/node/https.d.ts",
+        "../node_modules/@types/node/inspector.d.ts",
+        "../node_modules/@types/node/module.d.ts",
+        "../node_modules/@types/node/net.d.ts",
+        "../node_modules/@types/node/os.d.ts",
+        "../node_modules/@types/node/path.d.ts",
+        "../node_modules/@types/node/perf_hooks.d.ts",
+        "../node_modules/@types/node/process.d.ts",
+        "../node_modules/@types/node/punycode.d.ts",
+        "../node_modules/@types/node/querystring.d.ts",
+        "../node_modules/@types/node/readline.d.ts",
+        "../node_modules/@types/node/repl.d.ts",
+        "../node_modules/@types/node/stream.d.ts",
+        "../node_modules/@types/node/string_decoder.d.ts",
+        "../node_modules/@types/node/timers.d.ts",
+        "../node_modules/@types/node/tls.d.ts",
+        "../node_modules/@types/node/trace_events.d.ts",
+        "../node_modules/@types/node/tty.d.ts",
+        "../node_modules/@types/node/url.d.ts",
+        "../node_modules/@types/node/util.d.ts",
+        "../node_modules/@types/node/v8.d.ts",
+        "../node_modules/@types/node/vm.d.ts",
+        "../node_modules/@types/node/worker_threads.d.ts",
+        "../node_modules/@types/node/zlib.d.ts"
+      ],
+      "../node_modules/@types/node/ts3.6/base.d.ts": [
+        "../node_modules/@types/node/globals.global.d.ts",
+        "../node_modules/@types/node/ts3.4/base.d.ts",
+        "../node_modules/@types/node/wasi.d.ts"
+      ],
+      "../node_modules/@types/node/tty.d.ts": [
+        "../node_modules/@types/node/net.d.ts",
+        "../node_modules/@types/node/tty.d.ts"
+      ],
+      "../node_modules/@types/node/url.d.ts": [
+        "../node_modules/@types/node/querystring.d.ts",
+        "../node_modules/@types/node/url.d.ts"
+      ],
+      "../node_modules/@types/node/util.d.ts": [
+        "../node_modules/@types/node/util.d.ts"
+      ],
+      "../node_modules/@types/node/v8.d.ts": [
+        "../node_modules/@types/node/stream.d.ts",
+        "../node_modules/@types/node/v8.d.ts"
+      ],
+      "../node_modules/@types/node/vm.d.ts": [
+        "../node_modules/@types/node/vm.d.ts"
+      ],
+      "../node_modules/@types/node/wasi.d.ts": [
+        "../node_modules/@types/node/wasi.d.ts"
+      ],
+      "../node_modules/@types/node/worker_threads.d.ts": [
+        "../node_modules/@types/node/events.d.ts",
+        "../node_modules/@types/node/fs.d.ts",
+        "../node_modules/@types/node/stream.d.ts",
+        "../node_modules/@types/node/vm.d.ts",
+        "../node_modules/@types/node/worker_threads.d.ts"
+      ],
+      "../node_modules/@types/node/zlib.d.ts": [
+        "../node_modules/@types/node/stream.d.ts",
+        "../node_modules/@types/node/zlib.d.ts"
+      ],
+      "../node_modules/@types/react-dom/index.d.ts": [
+        "../node_modules/@types/react/index.d.ts"
+      ],
+      "../node_modules/@types/react-router-dom/index.d.ts": [
+        "../node_modules/@types/history/index.d.ts",
+        "../node_modules/@types/react-router/index.d.ts",
+        "../node_modules/@types/react/index.d.ts"
+      ],
+      "../node_modules/@types/react-router/index.d.ts": [
+        "../node_modules/@types/history/index.d.ts",
+        "../node_modules/@types/react/index.d.ts"
+      ],
+      "../node_modules/@types/react/index.d.ts": [
+        "../node_modules/@types/prop-types/index.d.ts",
+        "../node_modules/@types/react/global.d.ts",
+        "../node_modules/csstype/index.d.ts"
+      ],
+      "../node_modules/@types/react/jsx-runtime.d.ts": [
+        "../node_modules/@types/react/index.d.ts"
+      ],
+      "../node_modules/@types/resolve/index.d.ts": [
+        "../node_modules/@types/node/index.d.ts"
+      ],
+      "../node_modules/@types/testing-library__jest-dom/index.d.ts": [
+        "../node_modules/@types/jest/index.d.ts"
+      ],
+      "../node_modules/@types/uglify-js/index.d.ts": [
+        "../node_modules/source-map/source-map.d.ts"
+      ],
+      "../node_modules/@types/webpack-sources/index.d.ts": [
+        "../node_modules/@types/node/index.d.ts",
+        "../node_modules/@types/webpack-sources/lib/cachedsource.d.ts",
+        "../node_modules/@types/webpack-sources/lib/compatsource.d.ts",
+        "../node_modules/@types/webpack-sources/lib/concatsource.d.ts",
+        "../node_modules/@types/webpack-sources/lib/index.d.ts",
+        "../node_modules/@types/webpack-sources/lib/originalsource.d.ts",
+        "../node_modules/@types/webpack-sources/lib/prefixsource.d.ts",
+        "../node_modules/@types/webpack-sources/lib/rawsource.d.ts",
+        "../node_modules/@types/webpack-sources/lib/replacesource.d.ts",
+        "../node_modules/@types/webpack-sources/lib/sizeonlysource.d.ts",
+        "../node_modules/@types/webpack-sources/lib/source.d.ts",
+        "../node_modules/@types/webpack-sources/lib/sourcemapsource.d.ts"
+      ],
+      "../node_modules/@types/webpack-sources/lib/cachedsource.d.ts": [
+        "../node_modules/@types/webpack-sources/lib/index.d.ts",
+        "../node_modules/@types/webpack-sources/lib/source.d.ts",
+        "../node_modules/@types/webpack-sources/node_modules/source-map/source-map.d.ts"
+      ],
+      "../node_modules/@types/webpack-sources/lib/compatsource.d.ts": [
+        "../node_modules/@types/webpack-sources/lib/index.d.ts",
+        "../node_modules/@types/webpack-sources/lib/source.d.ts"
+      ],
+      "../node_modules/@types/webpack-sources/lib/concatsource.d.ts": [
+        "../node_modules/@types/source-list-map/index.d.ts",
+        "../node_modules/@types/webpack-sources/lib/index.d.ts",
+        "../node_modules/@types/webpack-sources/lib/source.d.ts",
+        "../node_modules/@types/webpack-sources/node_modules/source-map/source-map.d.ts"
+      ],
+      "../node_modules/@types/webpack-sources/lib/index.d.ts": [
+        "../node_modules/@types/webpack-sources/lib/cachedsource.d.ts",
+        "../node_modules/@types/webpack-sources/lib/compatsource.d.ts",
+        "../node_modules/@types/webpack-sources/lib/concatsource.d.ts",
+        "../node_modules/@types/webpack-sources/lib/originalsource.d.ts",
+        "../node_modules/@types/webpack-sources/lib/prefixsource.d.ts",
+        "../node_modules/@types/webpack-sources/lib/rawsource.d.ts",
+        "../node_modules/@types/webpack-sources/lib/replacesource.d.ts",
+        "../node_modules/@types/webpack-sources/lib/sizeonlysource.d.ts",
+        "../node_modules/@types/webpack-sources/lib/source.d.ts",
+        "../node_modules/@types/webpack-sources/lib/sourcemapsource.d.ts",
+        "../node_modules/@types/webpack-sources/node_modules/source-map/source-map.d.ts"
+      ],
+      "../node_modules/@types/webpack-sources/lib/originalsource.d.ts": [
+        "../node_modules/@types/source-list-map/index.d.ts",
+        "../node_modules/@types/webpack-sources/lib/index.d.ts",
+        "../node_modules/@types/webpack-sources/lib/source.d.ts",
+        "../node_modules/@types/webpack-sources/node_modules/source-map/source-map.d.ts"
+      ],
+      "../node_modules/@types/webpack-sources/lib/prefixsource.d.ts": [
+        "../node_modules/@types/webpack-sources/lib/index.d.ts",
+        "../node_modules/@types/webpack-sources/lib/source.d.ts"
+      ],
+      "../node_modules/@types/webpack-sources/lib/rawsource.d.ts": [
+        "../node_modules/@types/webpack-sources/lib/index.d.ts",
+        "../node_modules/@types/webpack-sources/lib/source.d.ts"
+      ],
+      "../node_modules/@types/webpack-sources/lib/replacesource.d.ts": [
+        "../node_modules/@types/webpack-sources/lib/index.d.ts",
+        "../node_modules/@types/webpack-sources/lib/source.d.ts"
+      ],
+      "../node_modules/@types/webpack-sources/lib/sizeonlysource.d.ts": [
+        "../node_modules/@types/webpack-sources/lib/source.d.ts"
+      ],
+      "../node_modules/@types/webpack-sources/lib/source.d.ts": [
+        "../node_modules/@types/node/crypto.d.ts",
+        "../node_modules/@types/webpack-sources/lib/index.d.ts",
+        "../node_modules/@types/webpack-sources/node_modules/source-map/source-map.d.ts"
+      ],
+      "../node_modules/@types/webpack-sources/lib/sourcemapsource.d.ts": [
+        "../node_modules/@types/webpack-sources/lib/index.d.ts",
+        "../node_modules/@types/webpack-sources/lib/source.d.ts",
+        "../node_modules/@types/webpack-sources/node_modules/source-map/source-map.d.ts"
+      ],
+      "../node_modules/@types/webpack/index.d.ts": [
+        "../node_modules/@types/node/crypto.d.ts",
+        "../node_modules/@types/node/index.d.ts",
+        "../node_modules/@types/tapable/index.d.ts",
+        "../node_modules/@types/uglify-js/index.d.ts",
+        "../node_modules/@types/webpack-sources/index.d.ts",
+        "../node_modules/anymatch/index.d.ts",
+        "../node_modules/source-map/source-map.d.ts"
+      ],
+      "../node_modules/@types/yargs/index.d.ts": [
+        "../node_modules/@types/yargs-parser/index.d.ts"
+      ],
+      "../node_modules/ionicons/dist/types/components.d.ts": [
+        "../node_modules/ionicons/dist/types/stencil-public-runtime.d.ts"
+      ],
+      "../node_modules/ionicons/dist/types/components/icon/utils.d.ts": [
+        "../node_modules/ionicons/dist/types/components/icon/icon.d.ts"
+      ],
+      "../node_modules/ionicons/dist/types/index.d.ts": [
+        "../node_modules/ionicons/dist/types/components.d.ts",
+        "../node_modules/ionicons/dist/types/components/icon/utils.d.ts"
+      ],
+      "../node_modules/jest-diff/build/difflines.d.ts": [
+        "../node_modules/jest-diff/build/cleanupsemantic.d.ts",
+        "../node_modules/jest-diff/build/types.d.ts"
+      ],
+      "../node_modules/jest-diff/build/index.d.ts": [
+        "../node_modules/jest-diff/build/cleanupsemantic.d.ts",
+        "../node_modules/jest-diff/build/difflines.d.ts",
+        "../node_modules/jest-diff/build/printdiffs.d.ts",
+        "../node_modules/jest-diff/build/types.d.ts"
+      ],
+      "../node_modules/jest-diff/build/printdiffs.d.ts": [
+        "../node_modules/jest-diff/build/cleanupsemantic.d.ts",
+        "../node_modules/jest-diff/build/types.d.ts"
+      ],
+      "../node_modules/pretty-format/build/index.d.ts": [
+        "../node_modules/pretty-format/build/types.d.ts"
+      ],
+      "../src/components/profilepicturecomponent.tsx": [
+        "../node_modules/@types/react/index.d.ts"
+      ]
+    },
+    "semanticDiagnosticsPerFile": [
+      "../index.ts",
+      "../node_modules/@babel/parser/typings/babel-parser.d.ts",
+      "../node_modules/@babel/types/lib/index.d.ts",
+      "../node_modules/@ionic/core/dist/types/components.d.ts",
+      "../node_modules/@ionic/core/dist/types/components/action-sheet/action-sheet-interface.d.ts",
+      "../node_modules/@ionic/core/dist/types/components/alert/alert-interface.d.ts",
+      "../node_modules/@ionic/core/dist/types/components/checkbox/checkbox-interface.d.ts",
+      "../node_modules/@ionic/core/dist/types/components/content/content-interface.d.ts",
+      "../node_modules/@ionic/core/dist/types/components/datetime/datetime-interface.d.ts",
+      "../node_modules/@ionic/core/dist/types/components/input/input-interface.d.ts",
+      "../node_modules/@ionic/core/dist/types/components/loading/loading-interface.d.ts",
+      "../node_modules/@ionic/core/dist/types/components/menu/menu-interface.d.ts",
+      "../node_modules/@ionic/core/dist/types/components/modal/modal-interface.d.ts",
+      "../node_modules/@ionic/core/dist/types/components/nav/constants.d.ts",
+      "../node_modules/@ionic/core/dist/types/components/nav/nav-interface.d.ts",
+      "../node_modules/@ionic/core/dist/types/components/nav/view-controller.d.ts",
+      "../node_modules/@ionic/core/dist/types/components/picker/picker-interface.d.ts",
+      "../node_modules/@ionic/core/dist/types/components/popover/popover-interface.d.ts",
+      "../node_modules/@ionic/core/dist/types/components/radio-group/radio-group-interface.d.ts",
+      "../node_modules/@ionic/core/dist/types/components/range/range-interface.d.ts",
+      "../node_modules/@ionic/core/dist/types/components/refresher/refresher-interface.d.ts",
+      "../node_modules/@ionic/core/dist/types/components/reorder-group/reorder-group-interface.d.ts",
+      "../node_modules/@ionic/core/dist/types/components/route/route-interface.d.ts",
+      "../node_modules/@ionic/core/dist/types/components/router/utils/interface.d.ts",
+      "../node_modules/@ionic/core/dist/types/components/searchbar/searchbar-interface.d.ts",
+      "../node_modules/@ionic/core/dist/types/components/segment/segment-interface.d.ts",
+      "../node_modules/@ionic/core/dist/types/components/select-popover/select-popover-interface.d.ts",
+      "../node_modules/@ionic/core/dist/types/components/select/select-interface.d.ts",
+      "../node_modules/@ionic/core/dist/types/components/spinner/spinner-configs.d.ts",
+      "../node_modules/@ionic/core/dist/types/components/spinner/spinner-interface.d.ts",
+      "../node_modules/@ionic/core/dist/types/components/tab-bar/tab-bar-interface.d.ts",
+      "../node_modules/@ionic/core/dist/types/components/textarea/textarea-interface.d.ts",
+      "../node_modules/@ionic/core/dist/types/components/toast/toast-interface.d.ts",
+      "../node_modules/@ionic/core/dist/types/components/toggle/toggle-interface.d.ts",
+      "../node_modules/@ionic/core/dist/types/components/virtual-scroll/virtual-scroll-interface.d.ts",
+      "../node_modules/@ionic/core/dist/types/global/config.d.ts",
+      "../node_modules/@ionic/core/dist/types/index.d.ts",
+      "../node_modules/@ionic/core/dist/types/interface.d.ts",
+      "../node_modules/@ionic/core/dist/types/stencil-public-runtime.d.ts",
+      "../node_modules/@ionic/core/dist/types/utils/animation/animation-interface.d.ts",
+      "../node_modules/@ionic/core/dist/types/utils/animation/animation.d.ts",
+      "../node_modules/@ionic/core/dist/types/utils/animation/cubic-bezier.d.ts",
+      "../node_modules/@ionic/core/dist/types/utils/config.d.ts",
+      "../node_modules/@ionic/core/dist/types/utils/gesture/gesture-controller.d.ts",
+      "../node_modules/@ionic/core/dist/types/utils/gesture/index.d.ts",
+      "../node_modules/@ionic/core/dist/types/utils/menu-controller/index.d.ts",
+      "../node_modules/@ionic/core/dist/types/utils/overlays-interface.d.ts",
+      "../node_modules/@ionic/core/dist/types/utils/overlays.d.ts",
+      "../node_modules/@ionic/core/dist/types/utils/platform.d.ts",
+      "../node_modules/@ionic/core/dist/types/utils/sanitization/index.d.ts",
+      "../node_modules/@ionic/core/dist/types/utils/transition/index.d.ts",
+      "../node_modules/@ionic/core/dist/types/utils/transition/ios.transition.d.ts",
+      "../node_modules/@ionic/core/dist/types/utils/transition/md.transition.d.ts",
+      "../node_modules/@ionic/react/dist/types/components/createanimation.d.ts",
+      "../node_modules/@ionic/react/dist/types/components/createcontrollercomponent.d.ts",
+      "../node_modules/@ionic/react/dist/types/components/createoverlaycomponent.d.ts",
+      "../node_modules/@ionic/react/dist/types/components/hrefprops.d.ts",
+      "../node_modules/@ionic/react/dist/types/components/index.d.ts",
+      "../node_modules/@ionic/react/dist/types/components/ionactionsheet.d.ts",
+      "../node_modules/@ionic/react/dist/types/components/ionalert.d.ts",
+      "../node_modules/@ionic/react/dist/types/components/ionicon.d.ts",
+      "../node_modules/@ionic/react/dist/types/components/ionicreactprops.d.ts",
+      "../node_modules/@ionic/react/dist/types/components/ionloading.d.ts",
+      "../node_modules/@ionic/react/dist/types/components/ionmodal.d.ts",
+      "../node_modules/@ionic/react/dist/types/components/ionpage.d.ts",
+      "../node_modules/@ionic/react/dist/types/components/ionpicker.d.ts",
+      "../node_modules/@ionic/react/dist/types/components/ionpopover.d.ts",
+      "../node_modules/@ionic/react/dist/types/components/ionredirect.d.ts",
+      "../node_modules/@ionic/react/dist/types/components/ionroute.d.ts",
+      "../node_modules/@ionic/react/dist/types/components/ionroutercontext.d.ts",
+      "../node_modules/@ionic/react/dist/types/components/ionrouteroutlet.d.ts",
+      "../node_modules/@ionic/react/dist/types/components/iontoast.d.ts",
+      "../node_modules/@ionic/react/dist/types/components/navigation/ionbackbutton.d.ts",
+      "../node_modules/@ionic/react/dist/types/components/navigation/iontabbar.d.ts",
+      "../node_modules/@ionic/react/dist/types/components/navigation/iontabbutton.d.ts",
+      "../node_modules/@ionic/react/dist/types/components/navigation/iontabs.d.ts",
+      "../node_modules/@ionic/react/dist/types/components/navigation/iontabscontext.d.ts",
+      "../node_modules/@ionic/react/dist/types/components/proxies.d.ts",
+      "../node_modules/@ionic/react/dist/types/components/utils/attachprops.d.ts",
+      "../node_modules/@ionic/react/dist/types/components/utils/case.d.ts",
+      "../node_modules/@ionic/react/dist/types/components/utils/index.d.ts",
+      "../node_modules/@ionic/react/dist/types/contexts/ionlifecyclecontext.d.ts",
+      "../node_modules/@ionic/react/dist/types/contexts/navcontext.d.ts",
+      "../node_modules/@ionic/react/dist/types/index.d.ts",
+      "../node_modules/@ionic/react/dist/types/lifecycle/hooks.d.ts",
+      "../node_modules/@ionic/react/dist/types/lifecycle/index.d.ts",
+      "../node_modules/@ionic/react/dist/types/lifecycle/ionlifecyclehoc.d.ts",
+      "../node_modules/@ionic/react/dist/types/models/index.d.ts",
+      "../node_modules/@ionic/react/dist/types/models/routeaction.d.ts",
+      "../node_modules/@ionic/react/dist/types/models/routeinfo.d.ts",
+      "../node_modules/@ionic/react/dist/types/models/routerdirection.d.ts",
+      "../node_modules/@ionic/react/dist/types/models/routeroptions.d.ts",
+      "../node_modules/@ionic/react/dist/types/routing/index.d.ts",
+      "../node_modules/@ionic/react/dist/types/routing/locationhistory.d.ts",
+      "../node_modules/@ionic/react/dist/types/routing/navmanager.d.ts",
+      "../node_modules/@ionic/react/dist/types/routing/pagemanager.d.ts",
+      "../node_modules/@ionic/react/dist/types/routing/routemanagercontext.d.ts",
+      "../node_modules/@ionic/react/dist/types/routing/stackcontext.d.ts",
+      "../node_modules/@ionic/react/dist/types/routing/viewitem.d.ts",
+      "../node_modules/@ionic/react/dist/types/routing/viewlifecyclemanager.d.ts",
+      "../node_modules/@ionic/react/dist/types/routing/viewstacks.d.ts",
+      "../node_modules/@ionic/react/dist/types/utils/generateid.d.ts",
+      "../node_modules/@types/anymatch/index.d.ts",
+      "../node_modules/@types/aria-query/index.d.ts",
+      "../node_modules/@types/babel__core/index.d.ts",
+      "../node_modules/@types/babel__generator/index.d.ts",
+      "../node_modules/@types/babel__template/index.d.ts",
+      "../node_modules/@types/babel__traverse/index.d.ts",
+      "../node_modules/@types/eslint/helpers.d.ts",
+      "../node_modules/@types/eslint/index.d.ts",
+      "../node_modules/@types/estree/index.d.ts",
+      "../node_modules/@types/glob/index.d.ts",
+      "../node_modules/@types/graceful-fs/index.d.ts",
+      "../node_modules/@types/history/createbrowserhistory.d.ts",
+      "../node_modules/@types/history/createhashhistory.d.ts",
+      "../node_modules/@types/history/creatememoryhistory.d.ts",
+      "../node_modules/@types/history/domutils.d.ts",
+      "../node_modules/@types/history/index.d.ts",
+      "../node_modules/@types/history/locationutils.d.ts",
+      "../node_modules/@types/history/pathutils.d.ts",
+      "../node_modules/@types/html-minifier-terser/index.d.ts",
+      "../node_modules/@types/istanbul-lib-coverage/index.d.ts",
+      "../node_modules/@types/istanbul-lib-report/index.d.ts",
+      "../node_modules/@types/istanbul-reports/index.d.ts",
+      "../node_modules/@types/jest/index.d.ts",
+      "../node_modules/@types/json-schema/index.d.ts",
+      "../node_modules/@types/json5/index.d.ts",
+      "../node_modules/@types/minimatch/index.d.ts",
+      "../node_modules/@types/node/assert.d.ts",
+      "../node_modules/@types/node/async_hooks.d.ts",
+      "../node_modules/@types/node/base.d.ts",
+      "../node_modules/@types/node/buffer.d.ts",
+      "../node_modules/@types/node/child_process.d.ts",
+      "../node_modules/@types/node/cluster.d.ts",
+      "../node_modules/@types/node/console.d.ts",
+      "../node_modules/@types/node/constants.d.ts",
+      "../node_modules/@types/node/crypto.d.ts",
+      "../node_modules/@types/node/dgram.d.ts",
+      "../node_modules/@types/node/dns.d.ts",
+      "../node_modules/@types/node/domain.d.ts",
+      "../node_modules/@types/node/events.d.ts",
+      "../node_modules/@types/node/fs.d.ts",
+      "../node_modules/@types/node/globals.d.ts",
+      "../node_modules/@types/node/globals.global.d.ts",
+      "../node_modules/@types/node/http.d.ts",
+      "../node_modules/@types/node/http2.d.ts",
+      "../node_modules/@types/node/https.d.ts",
+      "../node_modules/@types/node/index.d.ts",
+      "../node_modules/@types/node/inspector.d.ts",
+      "../node_modules/@types/node/module.d.ts",
+      "../node_modules/@types/node/net.d.ts",
+      "../node_modules/@types/node/os.d.ts",
+      "../node_modules/@types/node/path.d.ts",
+      "../node_modules/@types/node/perf_hooks.d.ts",
+      "../node_modules/@types/node/process.d.ts",
+      "../node_modules/@types/node/punycode.d.ts",
+      "../node_modules/@types/node/querystring.d.ts",
+      "../node_modules/@types/node/readline.d.ts",
+      "../node_modules/@types/node/repl.d.ts",
+      "../node_modules/@types/node/stream.d.ts",
+      "../node_modules/@types/node/string_decoder.d.ts",
+      "../node_modules/@types/node/timers.d.ts",
+      "../node_modules/@types/node/tls.d.ts",
+      "../node_modules/@types/node/trace_events.d.ts",
+      "../node_modules/@types/node/ts3.4/base.d.ts",
+      "../node_modules/@types/node/ts3.6/base.d.ts",
+      "../node_modules/@types/node/tty.d.ts",
+      "../node_modules/@types/node/url.d.ts",
+      "../node_modules/@types/node/util.d.ts",
+      "../node_modules/@types/node/v8.d.ts",
+      "../node_modules/@types/node/vm.d.ts",
+      "../node_modules/@types/node/wasi.d.ts",
+      "../node_modules/@types/node/worker_threads.d.ts",
+      "../node_modules/@types/node/zlib.d.ts",
+      "../node_modules/@types/normalize-package-data/index.d.ts",
+      "../node_modules/@types/parse-json/index.d.ts",
+      "../node_modules/@types/prettier/index.d.ts",
+      "../node_modules/@types/prop-types/index.d.ts",
+      "../node_modules/@types/q/index.d.ts",
+      "../node_modules/@types/react-dom/index.d.ts",
+      "../node_modules/@types/react-router-dom/index.d.ts",
+      "../node_modules/@types/react-router/index.d.ts",
+      "../node_modules/@types/react/global.d.ts",
+      "../node_modules/@types/react/index.d.ts",
+      "../node_modules/@types/react/jsx-runtime.d.ts",
+      "../node_modules/@types/resolve/index.d.ts",
+      "../node_modules/@types/source-list-map/index.d.ts",
+      "../node_modules/@types/stack-utils/index.d.ts",
+      "../node_modules/@types/tapable/index.d.ts",
+      "../node_modules/@types/testing-library__jest-dom/index.d.ts",
+      "../node_modules/@types/uglify-js/index.d.ts",
+      "../node_modules/@types/webpack-sources/index.d.ts",
+      "../node_modules/@types/webpack-sources/lib/cachedsource.d.ts",
+      "../node_modules/@types/webpack-sources/lib/compatsource.d.ts",
+      "../node_modules/@types/webpack-sources/lib/concatsource.d.ts",
+      "../node_modules/@types/webpack-sources/lib/index.d.ts",
+      "../node_modules/@types/webpack-sources/lib/originalsource.d.ts",
+      "../node_modules/@types/webpack-sources/lib/prefixsource.d.ts",
+      "../node_modules/@types/webpack-sources/lib/rawsource.d.ts",
+      "../node_modules/@types/webpack-sources/lib/replacesource.d.ts",
+      "../node_modules/@types/webpack-sources/lib/sizeonlysource.d.ts",
+      "../node_modules/@types/webpack-sources/lib/source.d.ts",
+      "../node_modules/@types/webpack-sources/lib/sourcemapsource.d.ts",
+      "../node_modules/@types/webpack-sources/node_modules/source-map/source-map.d.ts",
+      "../node_modules/@types/webpack/index.d.ts",
+      "../node_modules/@types/yargs-parser/index.d.ts",
+      "../node_modules/@types/yargs/index.d.ts",
+      "../node_modules/anymatch/index.d.ts",
+      "../node_modules/csstype/index.d.ts",
+      "../node_modules/ionicons/dist/types/components.d.ts",
+      "../node_modules/ionicons/dist/types/components/icon/icon.d.ts",
+      "../node_modules/ionicons/dist/types/components/icon/utils.d.ts",
+      "../node_modules/ionicons/dist/types/index.d.ts",
+      "../node_modules/ionicons/dist/types/stencil-public-runtime.d.ts",
+      "../node_modules/jest-diff/build/cleanupsemantic.d.ts",
+      "../node_modules/jest-diff/build/difflines.d.ts",
+      "../node_modules/jest-diff/build/index.d.ts",
+      "../node_modules/jest-diff/build/printdiffs.d.ts",
+      "../node_modules/jest-diff/build/types.d.ts",
+      "../node_modules/pretty-format/build/index.d.ts",
+      "../node_modules/pretty-format/build/types.d.ts",
+      "../node_modules/source-map/source-map.d.ts",
+      "../src/components/profilepicturecomponent.tsx",
+      "../../../node_modules/typescript/lib/lib.dom.d.ts",
+      "../../../node_modules/typescript/lib/lib.dom.iterable.d.ts",
+      "../../../node_modules/typescript/lib/lib.es2015.collection.d.ts",
+      "../../../node_modules/typescript/lib/lib.es2015.core.d.ts",
+      "../../../node_modules/typescript/lib/lib.es2015.d.ts",
+      "../../../node_modules/typescript/lib/lib.es2015.generator.d.ts",
+      "../../../node_modules/typescript/lib/lib.es2015.iterable.d.ts",
+      "../../../node_modules/typescript/lib/lib.es2015.promise.d.ts",
+      "../../../node_modules/typescript/lib/lib.es2015.proxy.d.ts",
+      "../../../node_modules/typescript/lib/lib.es2015.reflect.d.ts",
+      "../../../node_modules/typescript/lib/lib.es2015.symbol.d.ts",
+      "../../../node_modules/typescript/lib/lib.es2015.symbol.wellknown.d.ts",
+      "../../../node_modules/typescript/lib/lib.es2016.array.include.d.ts",
+      "../../../node_modules/typescript/lib/lib.es2016.d.ts",
+      "../../../node_modules/typescript/lib/lib.es2017.d.ts",
+      "../../../node_modules/typescript/lib/lib.es2017.intl.d.ts",
+      "../../../node_modules/typescript/lib/lib.es2017.object.d.ts",
+      "../../../node_modules/typescript/lib/lib.es2017.sharedmemory.d.ts",
+      "../../../node_modules/typescript/lib/lib.es2017.string.d.ts",
+      "../../../node_modules/typescript/lib/lib.es2017.typedarrays.d.ts",
+      "../../../node_modules/typescript/lib/lib.es2018.asyncgenerator.d.ts",
+      "../../../node_modules/typescript/lib/lib.es2018.asynciterable.d.ts",
+      "../../../node_modules/typescript/lib/lib.es2018.d.ts",
+      "../../../node_modules/typescript/lib/lib.es2018.intl.d.ts",
+      "../../../node_modules/typescript/lib/lib.es2018.promise.d.ts",
+      "../../../node_modules/typescript/lib/lib.es2018.regexp.d.ts",
+      "../../../node_modules/typescript/lib/lib.es2019.array.d.ts",
+      "../../../node_modules/typescript/lib/lib.es2019.d.ts",
+      "../../../node_modules/typescript/lib/lib.es2019.object.d.ts",
+      "../../../node_modules/typescript/lib/lib.es2019.string.d.ts",
+      "../../../node_modules/typescript/lib/lib.es2019.symbol.d.ts",
+      "../../../node_modules/typescript/lib/lib.es2020.bigint.d.ts",
+      "../../../node_modules/typescript/lib/lib.es2020.d.ts",
+      "../../../node_modules/typescript/lib/lib.es2020.intl.d.ts",
+      "../../../node_modules/typescript/lib/lib.es2020.promise.d.ts",
+      "../../../node_modules/typescript/lib/lib.es2020.sharedmemory.d.ts",
+      "../../../node_modules/typescript/lib/lib.es2020.string.d.ts",
+      "../../../node_modules/typescript/lib/lib.es2020.symbol.wellknown.d.ts",
+      "../../../node_modules/typescript/lib/lib.es5.d.ts",
+      "../../../node_modules/typescript/lib/lib.esnext.d.ts",
+      "../../../node_modules/typescript/lib/lib.esnext.intl.d.ts",
+      "../../../node_modules/typescript/lib/lib.esnext.promise.d.ts",
+      "../../../node_modules/typescript/lib/lib.esnext.string.d.ts",
+      "../../../node_modules/typescript/lib/lib.esnext.weakref.d.ts"
+    ]
+  },
+  "version": "4.2.2"
+}
