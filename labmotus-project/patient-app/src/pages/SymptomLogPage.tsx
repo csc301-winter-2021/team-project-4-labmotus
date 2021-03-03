@@ -151,11 +151,11 @@ const SymptomLogPage: FunctionComponent<SymptomLogPageProps> = ({}) => {
         setMoving(true);
     }
 
-    function onDrag(e: SyntheticEvent & { clientX: number }) {
+    function onDrag(e: SyntheticEvent & { clientX: number, target: { clientWidth: number } }) {
         if (moving) {
             const container: { style: { transform: string, transition: string } } = containerRef.current;
             const current = e?.clientX;
-            if (current != null && container != null && Math.abs(current - last.current) < 50) {
+            if (current != null && container != null && current != 0) {
                 container.style.transition = 'unset';
                 container.style.transform = `translate3d(${current - offset.current}px, 0, 0)`;
                 last.current = current;

@@ -17,11 +17,13 @@ export interface SymptomLogProps {
 const SymptomLog: FunctionComponent<SymptomLogProps> = ({logs, shadow = false}) => {
     const theme = React.useContext(ThemeContext);
     const [expanded, setExpanded] = useState([]);
+    const [v_expanded, setVExpanded] = useState([]);
     const [playing, setPlaying] = useState(-1);
     useEffect(() => {
         if (logs != null) {
             setPlaying(-1);
-            setExpanded(logs.map(() => false))
+            setExpanded(logs.map(() => false));
+            setVExpanded(logs.map(() => false));
         }
     }, [logs]);
 
@@ -33,6 +35,19 @@ const SymptomLog: FunctionComponent<SymptomLogProps> = ({logs, shadow = false}) 
             setPlaying(-1);
         } else if (!logs[index].videoUrl) {
             setPlaying(index);
+        }
+        if (ex) {
+            const nvex = [...expanded];
+            nvex[index] = ex;
+            setVExpanded(nvex);
+        }
+    }
+
+    function handleVisualExpand(ex: boolean, index: number) {
+        if (!ex) {
+            const nvex = [...expanded];
+            nvex[index] = ex;
+            setVExpanded(nvex);
         }
     }
 
@@ -48,11 +63,14 @@ const SymptomLog: FunctionComponent<SymptomLogProps> = ({logs, shadow = false}) 
                         <SymptomProgressBar {...props}/>
                         <VideoContainer>
                             <Accordion label="Video" labelFont="secondary" shadow={shadow} expanded={expanded[index]}
-                                       onClick={(ex) => handleExpand(ex, index)}>
-                                <ReactPlayer width="100%" height="100%" pip
-                                             url={props.videoUrl ? props.videoUrl : "https://youtu.be/dQw4w9WgXcQ"}
-                                             playing={playing === index} onPlay={() => setPlaying(index)}
-                                             onPause={() => setPlaying(-1)}/>
+                                       onClick={(ex) => handleExpand(ex, index)}
+                                       onExpandEnd={(ex) => handleVisualExpand(ex, index)}>
+                                {v_expanded[index] ?
+                                    <ReactPlayer width="100%" height="100%" pip
+                                                 url={props.videoUrl ? props.videoUrl : "https://youtu.be/dQw4w9WgXcQ"}
+                                                 playing={playing === index} onPlay={() => setPlaying(index)}
+                                                 onPause={() => setPlaying(-1)}/>
+                                    : null}
                             </Accordion>
                         </VideoContainer>
                     </AccordionDiv>

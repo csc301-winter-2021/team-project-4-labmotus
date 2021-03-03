@@ -16,6 +16,7 @@ export interface AccordionProps {
     initialExpanded?: boolean;
     shadow?: boolean;
     onClick?: (expanded: boolean) => void;
+    onExpandEnd?: (expanded: boolean) => void;
 }
 
 const Accordion: FunctionComponent<AccordionProps> = ({
@@ -25,6 +26,7 @@ const Accordion: FunctionComponent<AccordionProps> = ({
                                                           initialExpanded = true,
                                                           shadow = true,
                                                           onClick: onClickCallback,
+                                                          onExpandEnd,
                                                           children
                                                       }) => {
     const theme = React.useContext(ThemeContext);
@@ -66,7 +68,8 @@ const Accordion: FunctionComponent<AccordionProps> = ({
                     {label}
                 </LabelSpan>
             </HeaderDiv>
-            <BodyDiv expanded={expanded} height={height}>
+            <BodyDiv expanded={expanded} height={height}
+                     onTransitionEnd={() => onExpandEnd ? onExpandEnd(expanded) : null}>
                 <IonCardContent ref={(ref) => update(ref)}>
                     {children}
                 </IonCardContent>
