@@ -1,4 +1,4 @@
-import React, {FunctionComponent} from "react";
+import React, {FunctionComponent, useEffect, useState} from "react";
 // @ts-ignore
 import styled from 'styled-components';
 import {Theme, ThemeContext} from "../theme/Theme";
@@ -7,6 +7,7 @@ import Accordion from "./Accordion";
 import SymptomProgressBar from "./SymptomProgressBar";
 import Scrollbar from "react-scrollbars-custom";
 import {Stats} from "../../../common/types";
+import ReactPlayer from "react-player";
 
 export interface SymptomLogProps {
     logs?: Stats[]
@@ -15,6 +16,25 @@ export interface SymptomLogProps {
 
 const SymptomLog: FunctionComponent<SymptomLogProps> = ({logs, shadow = false}) => {
     const theme = React.useContext(ThemeContext);
+    const [expanded, setExpanded] = useState([]);
+    const [playing, setPlaying] = useState(-1);
+    useEffect(() => {
+        if (logs != null) {
+            setPlaying(-1);
+            setExpanded(logs.map(() => false))
+        }
+    }, [logs]);
+
+    function handleExpand(ex: boolean, index: number) {
+        const nex = [...expanded];
+        nex[index] = ex;
+        setExpanded(nex);
+        if (!ex && playing === index) {
+            setPlaying(-1);
+        } else if (!logs[index].videoUrl) {
+            setPlaying(index);
+        }
+    }
 
     function generateAccordions() {
         if (logs == null || logs.length === 0) {
@@ -26,6 +46,15 @@ const SymptomLog: FunctionComponent<SymptomLogProps> = ({logs, shadow = false}) 
                 <Accordion label={joint} shadow={shadow} key={index}>
                     <AccordionDiv>
                         <SymptomProgressBar {...props}/>
+                        <VideoContainer>
+                            <Accordion label="Video" labelFont="secondary" shadow={shadow} expanded={expanded[index]}
+                                       onClick={(ex) => handleExpand(ex, index)}>
+                                <ReactPlayer width="100%" height="100%" pip
+                                             url={props.videoUrl ? props.videoUrl : "https://youtu.be/dQw4w9WgXcQ"}
+                                             playing={playing === index} onPlay={() => setPlaying(index)}
+                                             onPause={() => setPlaying(-1)}/>
+                            </Accordion>
+                        </VideoContainer>
                     </AccordionDiv>
                 </Accordion>
             ))
@@ -47,6 +76,16 @@ const SymptomLogDiv = styled.div`
     }
     .ScrollbarsCustom-Thumb {
         background-color: ${(props: Theme) => props.colors.primary} !important;
+    }
+`;
+
+const VideoContainer = styled.div`
+    ion-card-header {
+        padding: 0;
+        span {
+            font-size: ${(props: Theme) => props.subheaderFontSize};
+            font-family: ${(props: Theme) => props.subheaderFontFamily};
+        }
     }
 `;
 

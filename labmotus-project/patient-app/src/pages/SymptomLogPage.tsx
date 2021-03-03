@@ -23,13 +23,31 @@ const SymptomLogPage: FunctionComponent<SymptomLogPageProps> = ({
     const [graphKeys, setGraphKeys] = useState<Set<string>>(new Set());
     const [index, setIndex] = useState(1);
     const [moving, setMoving] = useState(true);
-    const slidesRef: any = useRef();
     const now = moment();
     const thisWeek = moment(now).startOf('week');
     const containerRef = useRef();
     const offset = useRef<number>(0);
     const last = useRef<number>(0);
     const page = useRef<number>(0);
+    const [shift, setShift] = useState<[Moment, number] | null>(null);
+
+    function setDate(datetime: Moment) {
+        const date = moment(datetime).startOf('day');
+        page.current = 0;
+        if (week === null) {
+            page.current = 1;
+        } else {
+            const curr = moment(week).add(index - 1, 'd').startOf('day');
+            if (curr.unix() !== date.unix()) {
+                const after = curr.unix() < date.unix();
+                page.current = after ? 1 : -1;
+            }
+        }
+        if (page.current !== 0) {
+            const day = date.day() + 1;
+            setShift([date.startOf('week'), day]);
+        }
+    }
 
     function updateData(week: Moment, index: number) {
         getWeekData(week).then(((assessments: Assessment[]) => {
@@ -70,7 +88,17 @@ const SymptomLogPage: FunctionComponent<SymptomLogPageProps> = ({
                 container.style.transition = `transform 0.4s`;
                 container.style.transform = `translate3d(${page.current === 0 ? '0' : (page.current > 0 ? '-33.3333%' : '33.3333%')}, 0, 0)`;
                 container.addEventListener("transitionend", () => {
-                    if (week !== null && page.current !== 0) {
+                    if (shift != null) {
+                        const [nextWeek, nextIndex] = shift;
+                        if (!data.hasOwnProperty(nextWeek.format(dateFormat))) {
+                            updateData(nextWeek, nextIndex)
+                        } else {
+                            setWeek(nextWeek);
+                            setIndex(nextIndex);
+                        }
+                        page.current = 0;
+                        setShift(null);
+                    } else if (week !== null && page.current !== 0) {
                         const currIndex = index + page.current;
                         const nextWeek = moment(week);
                         if (currIndex === 8 || currIndex === 0) {
@@ -87,7 +115,7 @@ const SymptomLogPage: FunctionComponent<SymptomLogPageProps> = ({
                 }, {once: true});
             }
         }
-    }, [moving]);
+    }, [moving, shift]);
 
     useEffect(() => {
         if (week !== null && data.hasOwnProperty(week.format(dateFormat))) {
@@ -99,17 +127,13 @@ const SymptomLogPage: FunctionComponent<SymptomLogPageProps> = ({
         }
     }, [index, data]);
 
-    const end = (week !== null) && (week.format(dateFormat) === thisWeek.format(dateFormat));
-    if (slidesRef.current) {
-        slidesRef.current.lockSwipeToNext(end && index == 7);
-    }
-
     function generateInstances() {
         if (week !== null) {
             const day = moment(week).add(index - 1, 'd');
             const weekData = data[day.format(dateFormat)];
             return <InstanceDiv>
-                <SymptomInstance date={day} graphData={graphData} graphKeys={graphKeys} {...weekData}/>
+                <SymptomInstance changeDay={setDate} date={day} graphData={graphData}
+                                 graphKeys={graphKeys} {...weekData}/>
             </InstanceDiv>
         } else {
             return <InstanceDiv>
