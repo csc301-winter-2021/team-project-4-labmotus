@@ -47,7 +47,27 @@ Primary.args = {
             angle: -5,
             goalAngle: 0,
             minAngle: -10,
-        }
+        },        
+        {
+            joint: "Trunk",
+            angle: 85,
+            goalAngle: 90,
+        },        
+        {
+            joint: "Ankle Plantar",
+            angle: 85,
+            goalAngle: 90,
+        },        
+        {
+            joint: "Knee Valgus",
+            angle: 85,
+            goalAngle: 90,
+        },        
+        {
+            joint: "Lateral Trunk",
+            angle: 85,
+            goalAngle: 90,
+        },
     ]
 };
 
