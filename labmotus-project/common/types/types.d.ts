@@ -10,9 +10,7 @@ export interface Assessment {
 export interface User {
     id: string
     firebaseId: string
-    username: string
     name: string
-
     email: string
 }
 
@@ -20,8 +18,6 @@ export interface Patient {
     user: User
     phone: string
     birthday: Moment
-    height: number // TODO: ASK VICTOR
-    weight: number // TODO: ASK VICTOR
 }
 
 export interface Clinician {
