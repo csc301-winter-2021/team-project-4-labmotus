@@ -4,16 +4,17 @@ import { IonInput, IonButton, IonAlert } from "@ionic/react";
 // @ts-ignore
 import styled from "styled-components";
 
-export interface LoginPageProps {}
+export interface SignupPageProps {}
 
-const LoginPage: FunctionComponent<LoginPageProps> = () => {
+const SignupPage: FunctionComponent<SignupPageProps> = () => {
   const [email, setEmail] = useState<string>();
   const [password, setPassword] = useState<string>();
+  const [confirmPassword, setConfirmPassword] = useState<string>();
   const [iserror, openAlert] = useState<boolean>(false);
   const [header, setHeader] = useState<string>();
   const [message, setMessage] = useState<string>();
 
-  async function login() {
+  function signUp() {
     if (!email) {
       setHeader("Invalid email");
       setMessage("Please enter your email");
@@ -23,7 +24,14 @@ const LoginPage: FunctionComponent<LoginPageProps> = () => {
 
     if (!password) {
       setHeader("Invalid Password");
-      setMessage("Please enter your password");
+      setMessage("Please enter a password");
+      openAlert(true);
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      setHeader("Passwords Don't Match");
+      setMessage("The passwords don't match. Please try again.");
       openAlert(true);
       return;
     }
@@ -31,11 +39,11 @@ const LoginPage: FunctionComponent<LoginPageProps> = () => {
     // TODO: USE FIREBASE AND CONNECT TO BACKEND
     // firebase
     //   .auth()
-    //   .signInWithEmailAndPassword(email, password)
+    //   .createUserWithEmailAndPassword(email, password)
     //   .then((userCredential) => {
     //     // SIGNED IN
     //     var user = userCredential.user;
-    //     // TODO: REDIRECT TO HOME PAGE
+    //     // TODO: CREATE ACCOUNT AND REDIRECT TO HOME PAGE
     //   })
     //   .catch((error) => {
     //     var errorCode = error.code;
@@ -44,7 +52,7 @@ const LoginPage: FunctionComponent<LoginPageProps> = () => {
   }
 
   return (
-    <LoginPageDiv>
+    <SignupPageDiv>
       <h1>LabMotus</h1>
       <form>
         <IonInput
@@ -62,14 +70,23 @@ const LoginPage: FunctionComponent<LoginPageProps> = () => {
           value={password}
           onIonChange={(e) => setPassword(e.detail.value!)}
         ></IonInput>
+        <IonInput
+          class="input password"
+          placeholder="Confirm Password"
+          type="password"
+          value={confirmPassword}
+          onIonChange={(e) => setConfirmPassword(e.detail.value!)}
+        ></IonInput>
 
-        <IonButton expand="block" shape="round" onClick={login}>
-          Login
+        <IonButton expand="block" shape="round" onClick={signUp}>
+          Sign Up
         </IonButton>
       </form>
-      <a>Forgot password?</a>
+      <p>
+        By clicking 'Sign Up' you agree to our <a>Terms of Service</a>
+      </p>
       <p id="bottom">
-        Don't have an account? <a>Sign Up</a>
+        Already have an account? <a>Login</a>
       </p>
       <IonAlert
         isOpen={iserror}
@@ -78,11 +95,11 @@ const LoginPage: FunctionComponent<LoginPageProps> = () => {
         message={message}
         buttons={["OK"]}
       />
-    </LoginPageDiv>
+    </SignupPageDiv>
   );
 };
 
-const LoginPageDiv = styled.div`
+const SignupPageDiv = styled.div`
   overflow: hidden;
   text-align: center;
   position: absolute;
@@ -93,6 +110,9 @@ const LoginPageDiv = styled.div`
   padding: 5%;
   > * {
     margin-bottom: 2.5%;
+  }
+  form {
+      
   }
   .input {
     margin-bottom: 5%;
@@ -105,11 +125,11 @@ const LoginPageDiv = styled.div`
   }
   h1,
   #bottom {
-    margin: 15vh 0;
+    margin: 10vh 0;
   }
   a {
     text-decoration: none;
   }
 `;
 
-export default LoginPage;
+export default SignupPage;
