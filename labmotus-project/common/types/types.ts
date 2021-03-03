@@ -4,7 +4,7 @@ export interface Assessment {
     id: string
     patientId: string
     date: Moment
-    videoUrl: string
+    videoUrl?: string
     poseData?: any // TODO: Create type for pose data
     stats?: Array<Stats>
 }

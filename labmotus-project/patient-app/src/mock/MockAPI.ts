@@ -6,7 +6,8 @@ import moment, {Moment} from "moment";
 const FakeUser: Patient = {
     user: {
         id: "1",
-        name: "John Smith"
+        name: "John Smith",
+        username: "john"
     },
     birthday: moment(),
     clinicianID: "2",
@@ -16,7 +17,8 @@ const FakeUser: Patient = {
 const FakeClinician: Clinician = {
     user: {
         id: "2",
-        name: "Alfonzo"
+        name: "Alfonzo",
+        username: "alfonzo_poggers"
     },
     clinic: "UofTears"
 };
