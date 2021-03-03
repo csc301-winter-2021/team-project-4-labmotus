@@ -1,6 +1,7 @@
 import * as fastify from 'fastify'
+import moment from 'moment'
 import { Assessment, Response } from '@labmotus/types'
-import { RequestHeaders } from '../../types';
+import { RequestHeaders } from '../../types'
 
 
 interface AssessmentIdParams {
@@ -24,7 +25,7 @@ export default async function(server: fastify.FastifyInstance, options: fastify.
             body: {
                 id: "0",
                 patientId: "0",
-                date: new Date(),
+                date: moment(),
                 videoUrl: "https://video.url/"
             }
         }

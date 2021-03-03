@@ -1,4 +1,5 @@
 import * as fastify from 'fastify'
+import moment from 'moment'
 import { Assessment, Patient, Response, User } from '@labmotus/types'
 import { RequestHeaders } from '../../types';
 
@@ -62,7 +63,7 @@ export default async function(server: fastify.FastifyInstance, options: fastify.
                     email: "user@labmot.us"
                 },
                 phone: "1234567890",
-                birthday: new Date(new Date().valueOf() - (1000 * 60 * 60 * 24 * 365 * 18))
+                birthday: moment().subtract(18, 'years')
             }
         }
         reply
@@ -96,7 +97,7 @@ export default async function(server: fastify.FastifyInstance, options: fastify.
         const patient: Patient = {
             user: patientUser,
             phone: "1234567890",
-            birthday: new Date(new Date().valueOf() - (1000 * 60 * 60 * 24 * 365 * 18))
+            birthday: moment().subtract(18, 'years')
         }
         Object.assign(patientUser, request.body.user)
         Object.assign(patient, request.body)
@@ -134,7 +135,7 @@ export default async function(server: fastify.FastifyInstance, options: fastify.
                 email: "user@labmot.us"
             },
             phone: "1234567890",
-            birthday: new Date(new Date().valueOf() - (1000 * 60 * 60 * 24 * 365 * 18))
+            birthday: moment().subtract(18, 'years')
         }
 
         const mockResponse: Response<Patient> = {
@@ -164,7 +165,7 @@ export default async function(server: fastify.FastifyInstance, options: fastify.
             {
                 id: "0",
                 patientId: request.params.patientId,
-                date: new Date(new Date().valueOf() - 1000 * 60 * 60 * 24 * 3),
+                date: moment().subtract(3, 'days'),
                 videoUrl: "https://video.url/",
                 stats: [
                     {
