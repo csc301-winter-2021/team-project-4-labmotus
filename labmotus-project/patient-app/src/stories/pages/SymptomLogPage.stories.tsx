@@ -68,7 +68,8 @@ async function getWeekData(week: Moment = moment()): Promise<Assessment[]> {
                         goalValue: 0,
                         minValue: -10,
                     }
-                ]
+                ],
+                videoUrl: 'wrnch.ai'
             })
     }
     return data;
