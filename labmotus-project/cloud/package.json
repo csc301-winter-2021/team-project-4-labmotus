@@ -17,6 +17,7 @@
     "typescript": "^4.1.5"
   },
   "dependencies": {
-    "fastify": "^3.12.0"
+    "fastify": "^3.12.0",
+    "moment": "^2.29.1"
   }
 }
