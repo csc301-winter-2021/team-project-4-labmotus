@@ -12,9 +12,13 @@ export interface SymptomInstanceProps {
     stats: Array<Stats>;
     graphData: any[];
     graphKeys: Set<string>;
+    changeDay?: (newDay: Moment) => void;
 }
 
-const SymptomInstance: FunctionComponent<SymptomInstanceProps> = ({date, stats, graphData, graphKeys}) => {
+const SymptomInstance: FunctionComponent<SymptomInstanceProps> = ({
+                                                                      date, stats, graphData,
+                                                                      graphKeys, changeDay
+                                                                  }) => {
     const theme = React.useContext(ThemeContext);
     const colors = theme.colors.cycle;
 
@@ -31,8 +35,14 @@ const SymptomInstance: FunctionComponent<SymptomInstanceProps> = ({date, stats, 
         }
     }
 
+    function toToday() {
+        if (changeDay !== undefined) {
+            changeDay(moment());
+        }
+    }
+
     return (<SymptomInstanceDiv className="symptom-instance" {...theme}>
-        <HeaderDiv {...theme}>
+        <HeaderDiv {...theme} onClick={toToday}>
             {date?.format('MMMM Do YYYY')}
         </HeaderDiv>
         <GraphDiv ref={colorLabel}>
