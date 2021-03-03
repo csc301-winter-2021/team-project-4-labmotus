@@ -1,6 +1,4 @@
-import { ProfilePicProps } from "./src/components/ProfilePictureComponent";
+import { ProfilePicProps } from "./components/ProfilePictureComponent";
 
-declare module "@labmotus/ui" {
   // type definitions goes here
-  const ProfilePictureComponent: React.FC<ProfilePicProps>
-}
+export const ProfilePictureComponent: React.FC<ProfilePicProps>
