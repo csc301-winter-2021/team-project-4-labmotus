@@ -1,4 +1,4 @@
-import React, {FunctionComponent, useRef, useState} from "react";
+import React, {FunctionComponent, useEffect, useRef, useState} from "react";
 // @ts-ignore
 import styled from 'styled-components';
 import {Theme, ThemeContext} from "../theme/Theme";
@@ -32,6 +32,21 @@ const Accordion: FunctionComponent<AccordionProps> = ({
     const expanded = expandedParent === undefined ? expandedState : expandedParent;
     const [height, setHeight] = useState(undefined);
     const bodyRef = useRef();
+    const observer = useRef<ResizeObserver>(null);
+
+    useEffect(() => {
+        if (bodyRef.current != null) {
+            observer.current = new ResizeObserver((e: any) => {
+                setHeight(e[0].borderBoxSize[0].blockSize);
+            });
+            observer.current.observe(bodyRef.current);
+        }
+        return function cleanup() {
+            if (observer.current != null) {
+                observer.current.disconnect();
+            }
+        }
+    }, [bodyRef.current]);
 
     function onClick() {
         if (onClickCallback !== undefined)
@@ -41,10 +56,6 @@ const Accordion: FunctionComponent<AccordionProps> = ({
 
     function update(ref: any) {
         bodyRef.current = ref;
-        if (ref != null)
-            new ResizeObserver((e: any) => {
-                setHeight(e[0].borderBoxSize[0].blockSize);
-            }).observe(ref);
     }
 
     return (<AccordionDiv className="accordion">

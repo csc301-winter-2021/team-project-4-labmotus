@@ -18,6 +18,7 @@ import "@ionic/react/css/text-transformation.css";
 import "@ionic/react/css/flex-utils.css";
 import "@ionic/react/css/display.css";
 import MockAPI from "../../mock/MockAPI";
+import {APIContext} from '../../api/API';
 
 export default {
     title: 'Pages/Symptom Log Page',
@@ -25,14 +26,17 @@ export default {
 } as Meta;
 
 const API = new MockAPI();
-const Template: Story<SymptomLogPageProps> = (args) => <RootDiv ref={(ref: any) => {
-    if (ref?.parentNode) {
-        ref.parentNode.style.width = "100%";
-        ref.parentNode.style.height = "100%";
-    }
-}}>
-    <SymptomLogPage {...args} getWeekData={API.getAssessments}/>
-</RootDiv>;
+const Template: Story<SymptomLogPageProps> = (args) =>
+    <APIContext.Provider value={API}>
+        <RootDiv ref={(ref: any) => {
+            if (ref?.parentNode) {
+                ref.parentNode.style.width = "100%";
+                ref.parentNode.style.height = "100%";
+            }
+        }}>
+            <SymptomLogPage {...args}/>
+        </RootDiv>
+    </APIContext.Provider>;
 
 const RootDiv = styled.div`
     width: 100%;

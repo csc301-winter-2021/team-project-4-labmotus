@@ -6,23 +6,25 @@ import {IonSpinner} from "@ionic/react";
 import SymptomInstance from "../components/SymptomInstance";
 import {Assessment} from "../../../common/types/types";
 import moment, {Moment} from "moment";
+import {APIContext} from "../api/API";
 
 export interface SymptomLogPageProps {
-    getWeekData: (week?: Moment) => Promise<Assessment[]>;
 }
 
 const dateFormat = 'YYYY-MM-DD';
 
-const SymptomLogPage: FunctionComponent<SymptomLogPageProps> = ({
-                                                                    getWeekData
-                                                                }) => {
+const SymptomLogPage: FunctionComponent<SymptomLogPageProps> = ({}) => {
+    const API = React.useContext(APIContext);
+    const getWeekData = API.getAssessments;
     const theme = React.useContext(ThemeContext);
+
     const [week, setWeek] = useState<Moment | null>(null);
     const [data, setData] = useState<{ [key: string]: Assessment }>({});
     const [graphData, setGraphData] = useState([]);
     const [graphKeys, setGraphKeys] = useState<Set<string>>(new Set());
     const [index, setIndex] = useState(1);
     const [moving, setMoving] = useState(true);
+
     const now = moment();
     const thisWeek = moment(now).startOf('week');
     const containerRef = useRef();
