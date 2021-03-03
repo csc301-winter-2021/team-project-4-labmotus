@@ -42,9 +42,12 @@ const NavigationBar: FunctionComponent<NavigationBarProps> = ({entries}) => {
 };
 
 const NavigationBarDiv = styled.div`
+    padding: 1%;
     width: 100%;
     display: flex;
     flex-direction: row;
+    position: absolute;
+    bottom: 0;
 `;
 
 const ButtonDiv = styled.div`

@@ -192,6 +192,8 @@ const SymptomLogPage: FunctionComponent<SymptomLogPageProps> = ({}) => {
 
 const SymptomLogPageDiv = styled.div`
     overflow: hidden;
+    width: 100%;
+    height: 100%;
     .swiper-pagination {
         top: 0;
         bottom: unset;
@@ -234,7 +236,7 @@ const InstanceDiv = styled.div`
     width: 100%;
     height: 100%;
     box-sizing: border-box;
-    padding: 5%;
+    padding: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
