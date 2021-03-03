@@ -10,14 +10,14 @@ import {CartesianGrid, Line, LineChart, ReferenceLine, ResponsiveContainer, Tool
 export interface SymptomInstanceProps {
     date: Moment;
     stats: Array<Stats>;
-    graphData: any[];
-    graphKeys: Set<string>;
+    graphData?: any[];
+    graphKeys?: Set<string>;
     changeDay?: (newDay: Moment) => void;
 }
 
 const SymptomInstance: FunctionComponent<SymptomInstanceProps> = ({
-                                                                      date, stats, graphData,
-                                                                      graphKeys, changeDay
+                                                                      date, stats, graphData = [],
+                                                                      graphKeys = new Set(), changeDay
                                                                   }) => {
     const theme = React.useContext(ThemeContext);
     const colors = theme.colors.cycle;

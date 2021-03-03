@@ -1,5 +1,5 @@
 import React from "react";
-import { IonAvatar } from "@ionic/react";
+import {IonAvatar} from "@ionic/react";
 
 export interface ProfilePicProps {
   imageLink: string
