@@ -31,12 +31,7 @@ const Template: Story<SymptomLogProps> = (args) => (
 
 export const Primary = Template.bind({});
 Primary.args = {
-    logs: [        
-        {
-        joint: "Shoulder",
-        angle: 85,
-        goalAngle: 90,
-        },
+    logs: [   
         {
             joint: "Knee",
             angle: 120,
@@ -75,10 +70,7 @@ Primary.args = {
         },
     ]
 };
-// non-angle measurements:
-// Symmetric initial foot contact (Front View) – If one-foot lands before the other or if one-foot lands heel to toe and the other lands tow to heel, score NO. If the feet land symmetrically, score YES.
-// Stance width – Wide (Front View) – Once the entire foot is in contact with the ground, draw a line down from the tip of the shoulders, If the line on the side of the test leg is inside the foot of the test leg then greater than shoulder width (side), score YES. If the test foot is internally or externally rotated, grade the stance width based on heel placement.
-// everything in the squat pattern table
+
 const Container = styled.div`
     .symptom-log {
         height: 300px;
