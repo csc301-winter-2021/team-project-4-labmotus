@@ -1,0 +1,39 @@
+version: 2.1
+parameters:
+  root-dir:
+    type: string
+    default: "labmotus-project"
+  types-dir:
+    type: string
+    default: "labmotus-project/common/types"
+  ui-dir:
+    type: string
+    default: "labmotus-project/common/ui"
+  cloud-dir:
+    type: string
+    default: "labmotus-project/cloud"
+  clinician-dir:
+    type: string
+    default: "labmotus-project/clinician-app"
+  patient-dir:
+    type: string
+    default: "labmotus-project/patient-app"
+jobs:
+  run-tests:
+    docker:
+      - image: cimg/node:15.10.0
+    steps:
+      - checkout
+      - run: npm i --prefix << pipeline.parameters.root-dir >>
+      - run: npm i --prefix << pipeline.parameters.types-dir >>
+      - run: npm i --prefix << pipeline.parameters.cloud-dir >>
+      - run: npm run test --prefix << pipeline.parameters.cloud-dir >>
+      - run: npm i --prefix << pipeline.parameters.ui-dir >>
+      - run: npm i --prefix << pipeline.parameters.clinician-dir >>
+      - run: npm run test --prefix << pipeline.parameters.clinician-dir >>
+      - run: npm i --prefix << pipeline.parameters.patient-dir >>
+      - run: npm run test --prefix << pipeline.parameters.patient-dir >>
+workflows:
+  test-and-deploy:
+    jobs:
+      - run-tests

@@ -7,7 +7,7 @@ server.register(require('./routes/v1/patient'), { prefix: 'v1' })
 server.register(require('./routes/v1/clinician'), { prefix: 'v1' })
 server.register(require('./routes/v1/assessment'), { prefix: 'v1' })
 
-server.listen(8080, (err, address) => {
+server.listen(5000, (err, address) => {
   if (err) {
     console.error(err)
     process.exit(1)
