@@ -1,53 +1,62 @@
-import React, { FunctionComponent, useState } from "react";
-import { IonInput, IonButton, IonAlert } from "@ionic/react";
-
+import React, {FunctionComponent, useContext, useState} from "react";
+import {IonAlert, IonButton, IonInput} from "@ionic/react";
 // @ts-ignore
 import styled from "styled-components";
+import {APIContext} from "../api/API";
+import {useHistory} from "react-router";
 
-export interface ForgotPasswordPageProps {}
+export interface ForgotPasswordPageProps {
+}
 
 const ForgotPasswordPage: FunctionComponent<ForgotPasswordPageProps> = () => {
-  const [email, setEmail] = useState<string>();
-  const [iserror, openAlert] = useState<boolean>(false);
-  const [header, setHeader] = useState<string>();
-  const [message, setMessage] = useState<string>();
+    const API = useContext(APIContext);
+    const [email, setEmail] = useState<string>();
+    const [iserror, openAlert] = useState<boolean>(false);
+    const [header, setHeader] = useState<string>();
+    const [message, setMessage] = useState<string>();
+    const history = useHistory();
 
-  function forgotPassword() {
-    if (!email) {
-      setHeader("Invalid email");
-      setMessage("Please enter your email");
-      openAlert(true);
-      return;
+    async function forgotPassword() {
+        if (!email) {
+            setHeader("Invalid email");
+            setMessage("Please enter your email");
+            openAlert(true);
+            return;
+        }
+        try {
+            await API.forgotPassword(email);
+            history.push('/home');
+        } catch (e) {
+            console.error(e)
+        }
+        // TODO: USE FIREBASE AND CONNECT TO BACKEND
+        // firebase
+        //   .auth()
+        //   .sendPasswordResetEmail(email)
+        //   .then(() => {
+        //     // Email sent.
+        //   })
+        //   .catch((error) => {
+        //     var errorCode = error.code;
+        //     var errorMessage = error.message;
+        //   });
     }
 
-    // TODO: USE FIREBASE AND CONNECT TO BACKEND
-    // firebase
-    //   .auth()
-    //   .sendPasswordResetEmail(email)
-    //   .then(() => {
-    //     // Email sent.
-    //   })
-    //   .catch((error) => {
-    //     var errorCode = error.code;
-    //     var errorMessage = error.message;
-    //   });
-  }
-
-  return (
-    <ForgotPasswordPageDiv>
-      <h1>Reset Password</h1>
-      <p>
-        Enter the email address you used to register and we'll send you the
-        instructions for resetting your password.
-      </p>
-      <IonInput
+    return (
+        <ForgotPasswordPageDiv>
+            <h1>Reset Password</h1>
+            <p>
+                Enter the email address you used to register and we'll send you the
+                instructions for resetting your password.
+            </p>
+            <IonInput
         class="input email"
         placeholder="Email"
         type="email"
         inputmode="email"
         value={email}
         onIonChange={(e) => setEmail(e.detail.value!)}
-      ></IonInput>
+            />
       <IonButton expand="block" shape="round" onClick={forgotPassword}>
         Submit
       </IonButton>

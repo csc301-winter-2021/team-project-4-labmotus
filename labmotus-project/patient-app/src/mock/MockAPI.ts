@@ -1,6 +1,6 @@
 import "firebase/auth"
 import {Assessment, Clinician, Patient} from "../../../common/types/types";
-import API from "../api/API";
+import API, {NO_CACHED_LOGIN} from "../api/API";
 import moment, {Moment} from "moment";
 
 const FakeUser: Patient = {
@@ -32,6 +32,7 @@ class MockAPI extends API {
     }
 
     async cachedLogin(): Promise<void> {
+        return Promise.reject<void>(NO_CACHED_LOGIN);
         if (this.user !== null)
             throw "Already logged In.";
         this.user = FakeUser;
@@ -47,6 +48,17 @@ class MockAPI extends API {
         if (this.user === null)
             throw "Not logged In.";
         this.user = null;
+    }
+
+    async forgotPassword(email: string): Promise<boolean> {
+        return true;
+    }
+
+    async signUp(email: string, pass: string): Promise<void> {
+        if (this.user !== null)
+            throw "Already logged In.";
+        this.user = FakeUser;
+        this.user.user.email = email;
     }
 
     async deleteUser(): Promise<void> {
@@ -104,6 +116,10 @@ class MockAPI extends API {
                 })
         }
         return data;
+    }
+
+    isLoggedIn(): boolean {
+        return this.user !== null
     }
 }
 

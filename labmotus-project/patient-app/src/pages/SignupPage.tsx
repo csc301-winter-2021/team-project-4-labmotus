@@ -1,12 +1,16 @@
-import React, { FunctionComponent, useState } from "react";
-import { IonInput, IonButton, IonAlert } from "@ionic/react";
-
+import React, {FunctionComponent, useContext, useState} from "react";
+import {IonAlert, IonButton, IonInput} from "@ionic/react";
 // @ts-ignore
 import styled from "styled-components";
+import {APIContext} from "../api/API";
+import {useHistory} from "react-router";
 
-export interface SignupPageProps {}
+export interface SignupPageProps {
+}
 
 const SignupPage: FunctionComponent<SignupPageProps> = () => {
+  const API = useContext(APIContext);
+  const history = useHistory();
   const [email, setEmail] = useState<string>();
   const [password, setPassword] = useState<string>();
   const [confirmPassword, setConfirmPassword] = useState<string>();
@@ -14,7 +18,7 @@ const SignupPage: FunctionComponent<SignupPageProps> = () => {
   const [header, setHeader] = useState<string>();
   const [message, setMessage] = useState<string>();
 
-  function signUp() {
+  async function signUp() {
     if (!email) {
       setHeader("Invalid email");
       setMessage("Please enter your email");
@@ -34,6 +38,13 @@ const SignupPage: FunctionComponent<SignupPageProps> = () => {
       setMessage("The passwords don't match. Please try again.");
       openAlert(true);
       return;
+    }
+
+    try {
+      await API.signUp(email, password);
+      history.push('/home');
+    } catch (e) {
+      console.error(e)
     }
 
     // TODO: USE FIREBASE AND CONNECT TO BACKEND
@@ -62,21 +73,21 @@ const SignupPage: FunctionComponent<SignupPageProps> = () => {
           inputmode="email"
           value={email}
           onIonChange={(e) => setEmail(e.detail.value!)}
-        ></IonInput>
+        />
         <IonInput
           class="input password"
           placeholder="Password"
           type="password"
           value={password}
           onIonChange={(e) => setPassword(e.detail.value!)}
-        ></IonInput>
+        />
         <IonInput
           class="input password"
           placeholder="Confirm Password"
           type="password"
           value={confirmPassword}
           onIonChange={(e) => setConfirmPassword(e.detail.value!)}
-        ></IonInput>
+        />
 
         <IonButton expand="block" shape="round" onClick={signUp}>
           Sign Up

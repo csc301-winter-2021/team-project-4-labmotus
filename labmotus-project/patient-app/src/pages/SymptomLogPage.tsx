@@ -216,7 +216,7 @@ const SymptomLogPageDiv = styled.div`
 `;
 
 const InnerDiv = styled.div`
-    position: absolute;
+    position: relative;
     left: -100%;
     top: 0;
     width: 300%;

@@ -22,7 +22,7 @@ const NavigationBar: FunctionComponent<NavigationBarProps> = ({entries}) => {
 
     function generateButtons() {
         return entries.map((value, index) => {
-            const here = location.pathname === value.navigation;
+            const here = value.navigation.startsWith(location.pathname);
             return (
                 <ButtonDiv key={index} onClick={() => history.push(value.navigation)}>
                     <IconDiv here={here} {...theme}>
@@ -36,18 +36,19 @@ const NavigationBar: FunctionComponent<NavigationBarProps> = ({entries}) => {
         })
     }
 
-    return (<NavigationBarDiv className="navigation-bar">
+    return (<NavigationBarDiv className="navigation-bar"
+                              inNav={!entries.every((e: NavigationEntry) => !e.navigation.startsWith(location.pathname))}>
         {generateButtons()}
     </NavigationBarDiv>)
 };
 
 const NavigationBarDiv = styled.div`
+    display: ${({inNav}: { inNav: boolean }) => inNav ? 'unset' : 'none !important'};
     padding: 1%;
     width: 100%;
     display: flex;
     flex-direction: row;
-    position: absolute;
-    bottom: 0;
+    z-index: 1;
 `;
 
 const ButtonDiv = styled.div`

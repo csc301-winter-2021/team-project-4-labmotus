@@ -25,21 +25,28 @@ import MockAPI from "./mock/MockAPI";
 import Routes from "./routes/Routes";
 
 const App: React.FC = () => {
-    const [APIInstance, setAPIInstance] = useState(null);
+    const [APIInstance, setAPIInstance] = useState<API>(null);
 
-    async function loadAPI(): Promise<boolean> {
-        if (!config.mock) {
-            setAPIInstance(new API());
-        } else {
-            setAPIInstance(new MockAPI());
-        }
-        return true;
+    async function loadAPI(): Promise<API> {
+        const api = !config.mock ? new API() : new MockAPI();
+        setAPIInstance(api);
+        return api;
     }
+
+    async function login([api]: [API]): Promise<void> {
+        try {
+            await api.cachedLogin();
+        } catch (e) {
+            console.error(e)
+        }
+    }
+
     return (
         <IonApp>
             <APIContext.Provider value={APIInstance}>
                 <RootDiv>
-                    <LoadingComponent functors={[loadAPI]} loadingScreen={() => <LoadingScreen/>}>
+                    <LoadingComponent functors={[loadAPI, login]} dependencies={{1: [0]}}
+                                      loadingScreen={() => <LoadingScreen/>}>
                         <Routes/>
                     </LoadingComponent>
                 </RootDiv>

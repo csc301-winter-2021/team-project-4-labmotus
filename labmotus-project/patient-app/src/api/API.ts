@@ -23,43 +23,59 @@ class API {
     }
 
     async cachedLogin(): Promise<void> {
+        throw "Not Implemented"
     }
 
     async login(user: string, pass: string): Promise<void> {
-
+        throw "Not Implemented"
     }
 
     async logout(): Promise<void> {
+        throw "Not Implemented"
     }
 
     async deleteUser(): Promise<void> {
+        throw "Not Implemented"
+    }
 
+    async forgotPassword(email: string): Promise<boolean> {
+        throw "Not Implemented"
+    }
+
+    async signUp(email: string, pass: string): Promise<void> {
+        throw "Not Implemented"
     }
 
     async getPatient(): Promise<Patient | null> {
-        return null;
+        throw "Not Implemented"
     }
 
     async updatePatient(patient: Patient): Promise<void> {
-
+        throw "Not Implemented"
     }
 
     async uploadVideo(assessment: Assessment, stat: string): Promise<void> {
-
+        throw "Not Implemented"
     }
 
     async getClinician(patient: Patient): Promise<Clinician> {
-        return null;
+        throw "Not Implemented"
     }
 
     async getAssessments(week: Moment = moment().startOf('day')): Promise<Assessment[]> {
-        return null;
+        throw "Not Implemented"
+    }
+
+    isLoggedIn(): boolean {
+        return false
     }
 }
 
 export const APIContext = React.createContext<API>(null);
 
 export default API;
+
+export const NO_CACHED_LOGIN = "No Login Cached";
 
 /*
 /user API calls (all use auth token passed through Authorization header)
