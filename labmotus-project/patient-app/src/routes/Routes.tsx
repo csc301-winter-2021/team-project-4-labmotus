@@ -1,5 +1,5 @@
-import React, {FunctionComponent, ReactElement, useContext} from "react";
-import {BrowserRouter as Router, Redirect, Route, Switch} from "react-router-dom";
+import React, {FunctionComponent, ReactElement, useContext, useEffect} from "react";
+import {Redirect, Route, Switch, useHistory} from "react-router-dom";
 import SymptomLogPage from "../pages/SymptomLogPage";
 import NavigationBar from "../components/NavigationBar";
 import {home, settings, videocam} from "ionicons/icons";
@@ -33,15 +33,24 @@ const navigationEntries = [
 
 const Routes: FunctionComponent<RoutesProps> = ({}) => {
     const API = useContext(APIContext);
+    const history = useHistory();
 
-    function generateRedirect(): ReactElement {
-        if (API.isLoggedIn())
-            return <Redirect exact from="/" to="/home"/>;
-        else
-            return <Redirect exact from="/" to="/login"/>;
+    useEffect(() => {
+        API.addLoginListener(onLoginChange);
+        return () => {
+            API.removeLoginListener(onLoginChange);
+        }
+    }, [API]);
+
+    function onLoginChange(loggedIn: boolean) {
+        history.push(loggedIn ? '/home' : '/login');
     }
 
-    return (<Router>
+    function generateRedirect(): ReactElement {
+        return <Redirect exact from="/" to="/login"/>;
+    }
+
+    return (<>
         <Switch>
             <Route exact path="/login" render={() => <LoginPage/>}/>
             <Route exact path="/home" render={() => <SymptomLogPage/>}/>
@@ -51,7 +60,7 @@ const Routes: FunctionComponent<RoutesProps> = ({}) => {
             {generateRedirect()}
         </Switch>
         <NavigationBar entries={navigationEntries}/>
-    </Router>);
+    </>);
 };
 
 export default Routes;

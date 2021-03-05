@@ -23,31 +23,29 @@ import config from "../config.json";
 import API, {APIContext} from "./api/API";
 import MockAPI from "./mock/MockAPI";
 import Routes from "./routes/Routes";
+import {BrowserRouter as Router} from "react-router-dom";
 
 const App: React.FC = () => {
     const [APIInstance, setAPIInstance] = useState<API>(null);
 
     async function loadAPI(): Promise<API> {
-        const api = !config.mock ? new API() : new MockAPI();
-        setAPIInstance(api);
-        return api;
-    }
-
-    async function login([api]: [API]): Promise<void> {
-        try {
-            await api.cachedLogin();
-        } catch (e) {
-            console.error(e)
+        if (!APIInstance) {
+            const api = !config.mock ? new API() : new MockAPI();
+            setAPIInstance(api);
+            return api;
         }
+        return APIInstance;
     }
 
     return (
         <IonApp>
             <APIContext.Provider value={APIInstance}>
                 <RootDiv>
-                    <LoadingComponent functors={[loadAPI, login]} dependencies={{1: [0]}}
+                    <LoadingComponent functors={[loadAPI]}
                                       loadingScreen={() => <LoadingScreen/>}>
-                        <Routes/>
+                        <Router>
+                            <Routes/>
+                        </Router>
                     </LoadingComponent>
                 </RootDiv>
             </APIContext.Provider>

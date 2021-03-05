@@ -33,7 +33,6 @@ const LoginPage: FunctionComponent<LoginPageProps> = () => {
         }
         try {
             await API.login(email, password);
-            history.push('/home');
         } catch (e) {
             console.error(e)
         }

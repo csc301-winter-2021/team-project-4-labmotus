@@ -1,6 +1,6 @@
 import "firebase/auth"
 import {Assessment, Clinician, Patient} from "../../../common/types/types";
-import API, {NO_CACHED_LOGIN} from "../api/API";
+import API from "../api/API";
 import moment, {Moment} from "moment";
 
 const FakeUser: Patient = {
@@ -24,30 +24,24 @@ const FakeClinician: Clinician = {
 };
 
 class MockAPI extends API {
-    user?: Patient;
-
     constructor() {
         super(null);
-        this.user = null;
-    }
-
-    async cachedLogin(): Promise<void> {
-        return Promise.reject<void>(NO_CACHED_LOGIN);
-        if (this.user !== null)
-            throw "Already logged In.";
-        this.user = FakeUser;
+        this._user = null;
     }
 
     async login(user: string, pass: string): Promise<void> {
-        if (this.user !== null)
+        if (this._user !== null)
             throw "Already logged In.";
-        this.user = FakeUser;
+        this._user = FakeUser;
+        this._user.user.email = user;
+        this.authChangeListeners.forEach(listener => listener(true))
     }
 
     async logout(): Promise<void> {
-        if (this.user === null)
+        if (this._user === null)
             throw "Not logged In.";
-        this.user = null;
+        this._user = null;
+        this.authChangeListeners.forEach(listener => listener(false))
     }
 
     async forgotPassword(email: string): Promise<boolean> {
@@ -55,24 +49,21 @@ class MockAPI extends API {
     }
 
     async signUp(email: string, pass: string): Promise<void> {
-        if (this.user !== null)
+        if (this._user !== null)
             throw "Already logged In.";
-        this.user = FakeUser;
-        this.user.user.email = email;
+        this._user = FakeUser;
+        this._user.user.email = email;
+        console.log(this._user)
     }
 
     async deleteUser(): Promise<void> {
         throw "Not Implemented"
     }
 
-    async getPatient(): Promise<Patient | null> {
-        return this.user;
-    }
-
     async updatePatient(patient: Patient): Promise<void> {
-        if (this.user === null)
+        if (this._user === null)
             throw "Not logged In.";
-        this.user = patient;
+        this._user = patient;
     }
 
     async uploadVideo(assessment: Assessment, stat: string): Promise<void> {
@@ -118,8 +109,12 @@ class MockAPI extends API {
         return data;
     }
 
+    getCurrentUser(): Patient | null {
+        return this._user;
+    }
+
     isLoggedIn(): boolean {
-        return this.user !== null
+        return this._user !== null
     }
 }
 

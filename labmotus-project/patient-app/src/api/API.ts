@@ -4,6 +4,7 @@ import firebase from 'firebase/app';
 import "firebase/auth"
 import {Assessment, Clinician, Patient} from "../../../common/types/types";
 import moment, {Moment} from "moment";
+import UserCredential = firebase.auth.UserCredential;
 
 export interface FirebaseConfig {
     "apiKey": string;
@@ -14,40 +15,94 @@ export interface FirebaseConfig {
     "appId": string;
 }
 
-class API {
-    firebase: firebase.app.App;
+const FakeUser: Patient = {
+    user: {
+        id: "1",
+        name: "John Smith",
+        username: "john"
+    },
+    birthday: moment(),
+    clinicianID: "2",
+    phone: "123-456-7890",
+};
 
+class API {
+    _firebase: firebase.app.App;
+    _firebaseUser?: firebase.User;
+    _credentials: firebase.auth.UserCredential;
+    _user?: Patient;
+
+    authChangeListeners: Set<(loggedIn: boolean) => void>;
+
+    //@ts-ignore
     constructor(config: (FirebaseConfig | null) = firebaseConfig) {
-        if (config !== null)
-            this.firebase = firebase.initializeApp(config);
+        this._user = null;
+        this.authChangeListeners = new Set();
+        if (config !== null) {
+            this._firebase = firebase.initializeApp(config);
+            this._firebase.auth().onAuthStateChanged(a => {
+                this._firebaseUser = a;
+                if (this._firebaseUser) {
+                    this._user = FakeUser as Patient;
+                    this._user.user.email = this._firebaseUser.email;
+                }
+                this.authChangeListeners.forEach(listener => listener(!!(a as any)))
+            })
+        }
     }
 
-    async cachedLogin(): Promise<void> {
-        throw "Not Implemented"
+    async _firebaseSignInWithEmailAndPassword(user: string, pass: string): Promise<firebase.auth.UserCredential> {
+        return new Promise<firebase.auth.UserCredential>((resolve, reject) => {
+            this._firebase.auth().signInWithEmailAndPassword(user, pass).then(resolve).catch(reject)
+        })
     }
 
     async login(user: string, pass: string): Promise<void> {
-        throw "Not Implemented"
+        this._credentials = await this._firebaseSignInWithEmailAndPassword(user, pass);
+    }
+
+    async _firebaseSignOut(): Promise<void> {
+        return new Promise<void>((resolve, reject) => {
+            this._firebase.auth().signOut().then(resolve).catch(reject)
+        })
     }
 
     async logout(): Promise<void> {
-        throw "Not Implemented"
+        await this._firebaseSignOut();
     }
 
     async deleteUser(): Promise<void> {
         throw "Not Implemented"
     }
 
+    async _firebaseSendPasswordResetEmail(email: string): Promise<void> {
+        return new Promise<void>((resolve, reject) => {
+            this._firebase.auth().sendPasswordResetEmail(email).then(resolve).catch(reject)
+        })
+    }
+
     async forgotPassword(email: string): Promise<boolean> {
-        throw "Not Implemented"
+        try {
+            this._firebaseSendPasswordResetEmail(email);
+            return true;
+        } catch (e) {
+            console.log(e);
+            return false;
+        }
+    }
+
+    async _firebaseCreateUserWithEmailAndPassword(email: string, pass: string): Promise<UserCredential> {
+        return new Promise<UserCredential>((resolve, reject) => {
+            this._firebase.auth().createUserWithEmailAndPassword(email, pass).then(resolve).catch(reject)
+        })
     }
 
     async signUp(email: string, pass: string): Promise<void> {
-        throw "Not Implemented"
-    }
-
-    async getPatient(): Promise<Patient | null> {
-        throw "Not Implemented"
+        try {
+            await this._firebaseCreateUserWithEmailAndPassword(email, pass);
+        } catch (e) {
+            console.log(e);
+        }
     }
 
     async updatePatient(patient: Patient): Promise<void> {
@@ -66,8 +121,21 @@ class API {
         throw "Not Implemented"
     }
 
+    addLoginListener(listener: (loggedIn: boolean) => void) {
+        this.authChangeListeners.add(listener);
+        listener(this.isLoggedIn());
+    }
+
+    removeLoginListener(listener: (loggedIn: boolean) => void) {
+        this.authChangeListeners.delete(listener);
+    }
+
+    getCurrentUser(): Patient | null {
+        return this._user;
+    }
+
     isLoggedIn(): boolean {
-        return false
+        return !!(this._firebaseUser as any)
     }
 }
 

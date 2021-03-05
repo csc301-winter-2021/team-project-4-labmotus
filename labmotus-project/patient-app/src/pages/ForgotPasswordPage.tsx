@@ -3,7 +3,6 @@ import {IonAlert, IonButton, IonInput} from "@ionic/react";
 // @ts-ignore
 import styled from "styled-components";
 import {APIContext} from "../api/API";
-import {useHistory} from "react-router";
 
 export interface ForgotPasswordPageProps {
 }
@@ -14,7 +13,6 @@ const ForgotPasswordPage: FunctionComponent<ForgotPasswordPageProps> = () => {
     const [iserror, openAlert] = useState<boolean>(false);
     const [header, setHeader] = useState<string>();
     const [message, setMessage] = useState<string>();
-    const history = useHistory();
 
     async function forgotPassword() {
         if (!email) {
@@ -25,7 +23,6 @@ const ForgotPasswordPage: FunctionComponent<ForgotPasswordPageProps> = () => {
         }
         try {
             await API.forgotPassword(email);
-            history.push('/home');
         } catch (e) {
             console.error(e)
         }
