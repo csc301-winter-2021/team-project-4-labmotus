@@ -4,7 +4,6 @@ import firebase from 'firebase/app';
 import "firebase/auth"
 import {Assessment, Clinician, Patient} from "../../../common/types/types";
 import moment, {Moment} from "moment";
-import UserCredential = firebase.auth.UserCredential;
 
 export interface FirebaseConfig {
     "apiKey": string;
@@ -58,7 +57,11 @@ class API {
     }
 
     async login(user: string, pass: string): Promise<void> {
-        this._credentials = await this._firebaseSignInWithEmailAndPassword(user, pass);
+        try {
+            this._credentials = await this._firebaseSignInWithEmailAndPassword(user, pass);
+        } catch (e) {
+            console.log(e);
+        }
     }
 
     async _firebaseSignOut(): Promise<void> {
@@ -91,8 +94,8 @@ class API {
         }
     }
 
-    async _firebaseCreateUserWithEmailAndPassword(email: string, pass: string): Promise<UserCredential> {
-        return new Promise<UserCredential>((resolve, reject) => {
+    async _firebaseCreateUserWithEmailAndPassword(email: string, pass: string): Promise<firebase.auth.UserCredential> {
+        return new Promise<firebase.auth.UserCredential>((resolve, reject) => {
             this._firebase.auth().createUserWithEmailAndPassword(email, pass).then(resolve).catch(reject)
         })
     }

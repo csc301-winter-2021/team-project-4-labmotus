@@ -62,15 +62,19 @@ const SignupPage: FunctionComponent<SignupPageProps> = () => {
     //   });
   }
 
+  function toLogin() {
+    history.push("/login")
+  }
+
   return (
-    <SignupPageDiv>
-      <h1>LabMotus</h1>
-      <form>
-        <IonInput
-          class="input email"
-          placeholder="Email"
-          type="email"
-          inputmode="email"
+      <SignupPageDiv>
+        <h1>LabMotus</h1>
+        <form>
+          <IonInput
+              class="input email"
+              placeholder="Email"
+              type="email"
+              inputmode="email"
           value={email}
           onIonChange={(e) => setEmail(e.detail.value!)}
         />
@@ -93,19 +97,19 @@ const SignupPage: FunctionComponent<SignupPageProps> = () => {
           Sign Up
         </IonButton>
       </form>
-      <p>
-        By clicking 'Sign Up' you agree to our <a>Terms of Service</a>
-      </p>
-      <p id="bottom">
-        Already have an account? <a>Login</a>
-      </p>
-      <IonAlert
-        isOpen={iserror}
-        onDidDismiss={() => openAlert(false)}
-        header={header}
-        message={message}
-        buttons={["OK"]}
-      />
+        <p>
+          By clicking 'Sign Up' you agree to our <a>Terms of Service</a>
+        </p>
+        <p id="bottom">
+          Already have an account? <a onClick={toLogin}>Login</a>
+        </p>
+        <IonAlert
+            isOpen={iserror}
+            onDidDismiss={() => openAlert(false)}
+            header={header}
+            message={message}
+            buttons={["OK"]}
+        />
     </SignupPageDiv>
   );
 };
