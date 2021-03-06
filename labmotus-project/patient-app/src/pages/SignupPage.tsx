@@ -42,7 +42,6 @@ const SignupPage: FunctionComponent<SignupPageProps> = () => {
 
 		try {
 			await API.signUp(email, password);
-			history.push('/home');
 		} catch (e) {
 			console.error(e);
 		}
@@ -56,18 +55,19 @@ const SignupPage: FunctionComponent<SignupPageProps> = () => {
     <IonPage>
 		<IonContent fullscreen>
 			<SignupPageDiv>
-				<h1>LabMotus</h1>
-				<div className="main">
-					<form>
-						<IonInput
-						class="input email"
-						placeholder="Email"
-						type="email"
-						inputmode="email"
-						value={email}
-						onIonChange={(e) => setEmail(e.detail.value!)}
-						/>
-						<IonInput
+                <h1>LabMotus</h1>
+                <div className="main-padding">
+                    <div className="main">
+                        <form>
+                            <IonInput
+                                class="input email"
+                                placeholder="Email"
+                                type="email"
+                                inputmode="email"
+                                value={email}
+                                onIonChange={(e) => setEmail(e.detail.value!)}
+                            />
+                            <IonInput
 						class="input password"
 						placeholder="Password"
 						type="password"
@@ -80,19 +80,20 @@ const SignupPage: FunctionComponent<SignupPageProps> = () => {
 						type="password"
 						value={confirmPassword}
 						onIonChange={(e) => setConfirmPassword(e.detail.value!)}
-						/>
+                        />
 
-						<IonButton expand="block" shape="round" onClick={signUp}>
-						Sign Up
-						</IonButton>
-					</form>
-					<p>
-						By clicking 'Sign Up' you agree to our <a>Terms of Service</a>
-					</p>
-				</div>
-				<p className="footer">
-					Already have an account? <a onClick={login}>Login</a>
-				</p>
+                            <IonButton expand="block" shape="round" onClick={signUp}>
+                                Sign Up
+                            </IonButton>
+                        </form>
+                        <p>
+                            By clicking 'Sign Up' you agree to our <a>Terms of Service</a>
+                        </p>
+                    </div>
+                </div>
+                <p className="footer">
+                    Already have an account? <a onClick={login}>Login</a>
+                </p>
 			</SignupPageDiv>
 	  </IonContent>
       <IonAlert
@@ -109,13 +110,14 @@ const SignupPage: FunctionComponent<SignupPageProps> = () => {
 const SignupPageDiv = styled.div`
 overflow: hidden;
 text-align: center;
-.main {
+.main-padding {
 		position: absolute;
 		top: 50%;
 		left: 50%;
 		transform: translate(-50%, -50%);
 		width: 100%;
 		padding: 5%;
+		box-sizing: border-box;
 		.input {
 			margin-bottom: 5%;
 			text-align: left;
@@ -123,6 +125,19 @@ text-align: center;
 			border: 1px solid #ddd;
 			--padding-start: 10px;
 		}
+		pointer-events: none;
+}
+.main {
+		height: 100%;
+		width: 100%;
+		.input {
+			margin-bottom: 5%;
+			text-align: left;
+			border-radius: 5px;
+			border: 1px solid #ddd;
+			--padding-start: 10px;
+		}
+		pointer-events: auto;
 }
 h1 {
 		font-weight: bold;
@@ -130,9 +145,13 @@ h1 {
 }
 .footer {
 		margin-top: 65vh;
+		a {
+			cursor: pointer;
+		}
 }
 a {
 		text-decoration: none;
+		cursor: pointer;
 }
 `;
 

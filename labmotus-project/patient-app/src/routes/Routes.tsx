@@ -32,6 +32,7 @@ const navigationEntries = [
     }
 ];
 
+const loggedInPaths = ["/", "/home", "/assessment", "/settings", "/record"];
 const loggedOutPaths = ["/", "/login", "/sign-up", "/forgot-password"];
 
 
@@ -49,11 +50,13 @@ const Routes: FunctionComponent<RoutesProps> = ({}) => {
 
     function onLoginChange(loggedIn: boolean) {
         if (loggedIn) {
-            if (loggedOutPaths.includes(location.pathname)) {
+            if (!loggedOutPaths.every(path => !location.pathname.startsWith(path))) {
                 history.push('/home')
             }
         } else {
-            history.push('/login');
+            if (!loggedInPaths.every(path => !location.pathname.startsWith(path))) {
+                history.push('/login')
+            }
         }
     }
 

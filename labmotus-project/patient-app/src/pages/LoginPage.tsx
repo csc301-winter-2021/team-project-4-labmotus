@@ -118,6 +118,7 @@ const LoginPageDiv = styled.div`
     }
     a {
             text-decoration: none;
+            cursor: pointer;
     }
 `;
 
