@@ -1,5 +1,5 @@
 import React, {FunctionComponent, useContext, useState} from "react";
-import {IonAlert, IonButton, IonInput} from "@ionic/react";
+import {IonAlert, IonBackButton, IonButton, IonButtons, IonContent, IonHeader, IonInput, IonPage, IonToolbar} from "@ionic/react";
 // @ts-ignore
 import styled from "styled-components";
 import {APIContext} from "../api/API";
@@ -16,8 +16,8 @@ const ForgotPasswordPage: FunctionComponent<ForgotPasswordPageProps> = () => {
 
     async function forgotPassword() {
         if (!email) {
-            setHeader("Invalid email");
-            setMessage("Please enter your email");
+            setHeader("Invalid Email");
+            setMessage("Please enter your email.");
             openAlert(true);
             return;
         }
@@ -26,70 +26,73 @@ const ForgotPasswordPage: FunctionComponent<ForgotPasswordPageProps> = () => {
         } catch (e) {
             console.error(e)
         }
-        // TODO: USE FIREBASE AND CONNECT TO BACKEND
-        // firebase
-        //   .auth()
-        //   .sendPasswordResetEmail(email)
-        //   .then(() => {
-        //     // Email sent.
-        //   })
-        //   .catch((error) => {
-        //     var errorCode = error.code;
-        //     var errorMessage = error.message;
-        //   });
     }
 
     return (
-        <ForgotPasswordPageDiv>
-            <h1>Reset Password</h1>
-            <p>
-                Enter the email address you used to register and we'll send you the
-                instructions for resetting your password.
-            </p>
-            <IonInput
-        class="input email"
-        placeholder="Email"
-        type="email"
-        inputmode="email"
-        value={email}
-        onIonChange={(e) => setEmail(e.detail.value!)}
-            />
-      <IonButton expand="block" shape="round" onClick={forgotPassword}>
-        Submit
-      </IonButton>
-      <IonAlert
-        isOpen={iserror}
-        onDidDismiss={() => openAlert(false)}
-        header={header}
-        message={message}
-        buttons={["OK"]}
-      />
-    </ForgotPasswordPageDiv>
+        <IonPage>
+			<IonHeader>
+				<IonToolbar>
+					<IonButtons slot="start">
+						<IonBackButton defaultHref="/login" />
+					</IonButtons>
+				</IonToolbar>
+			</IonHeader>
+			<IonContent fullscreen>
+				<ForgotPasswordPageDiv>
+					<h1>Reset Password</h1>
+					<div className="main">
+						<p>
+							Enter the email address you used to register and we'll send you the
+							instructions for resetting your password.
+						</p>
+						<IonInput
+						class="input email"
+						placeholder="Email"
+						type="email"
+						inputmode="email"
+						value={email}
+						onIonChange={(e) => setEmail(e.detail.value!)}
+						/>
+						<IonButton expand="block" shape="round" onClick={forgotPassword}>
+							Submit
+						</IonButton>
+					</div>
+				</ForgotPasswordPageDiv>
+			</IonContent>
+		<IonAlert
+			isOpen={iserror}
+			onDidDismiss={() => openAlert(false)}
+			header={header}
+			message={message}
+			buttons={["OK"]}
+		/>
+    </IonPage>
   );
 };
 
 const ForgotPasswordPageDiv = styled.div`
-  overflow: hidden;
-  text-align: center;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 100%;
-  padding: 5%;
-  > * {
-    margin-bottom: 2.5%;
-  }
-  .input {
-    margin-bottom: 5%;
-    text-align: left;
-    border-radius: 5px;
-    border: 1px solid #ddd;
-  }
-  h1 {
-    font-weight: bold;
-    margin: 5vh 0;
-  }
+	overflow: hidden;
+	text-align: center;
+	padding: 5%;
+	.main {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		width: 100%;
+		padding: 5%;
+		.input {
+			margin-bottom: 5%;
+			text-align: left;
+			border-radius: 5px;
+			border: 1px solid #ddd;
+			--padding-start: 10px;
+		}
+	}
+	h1 {
+		font-weight: bold;
+		margin-top: 15vh;
+	}
 `;
 
 export default ForgotPasswordPage;
