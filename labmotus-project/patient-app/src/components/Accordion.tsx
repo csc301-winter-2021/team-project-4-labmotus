@@ -24,7 +24,7 @@ const Accordion: FunctionComponent<AccordionProps> = ({
                                                           labelFont = "primary",
                                                           expanded: expandedParent,
                                                           initialExpanded = true,
-                                                          shadow = true,
+                                                          shadow = false,
                                                           onClick: onClickCallback,
                                                           onExpandEnd,
                                                           children
@@ -64,7 +64,7 @@ const Accordion: FunctionComponent<AccordionProps> = ({
         <Card shadow={shadow}>
             <HeaderDiv expanded={expanded} onClick={onClick}>
                 <IonIcon icon={chevronDown}/>
-                <LabelSpan labelFont={labelFont} theme={theme}>
+                <LabelSpan labelFont={labelFont} theme={theme} className="accordion-label">
                     {label}
                 </LabelSpan>
             </HeaderDiv>

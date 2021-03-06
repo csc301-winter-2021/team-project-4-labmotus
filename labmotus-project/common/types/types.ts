@@ -5,9 +5,16 @@ export interface Assessment {
     patientId: string
     name: string
     date: Moment
+    state: AssessmentState
     videoUrl?: string
     poseData?: any // TODO: Create type for pose data
     stats?: Array<Stats>
+}
+
+export enum AssessmentState {
+    "COMPLETE",
+    "PENDING",
+    "MISSING"
 }
 
 export interface User {
@@ -37,6 +44,7 @@ export interface Stats {
     joint: string
     currValue: number
     goalValue: number
+    unit: string;
     minValue?: number
 }
 

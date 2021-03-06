@@ -67,7 +67,7 @@ const Routes: FunctionComponent<RoutesProps> = ({}) => {
             <Route exact path="/home/:date?" render={() => <SymptomLogPage/>}/>
             <Route exact path="/assessment/:date?" render={() => <AssessmentPage/>}/>
             <Route exact path="/settings" render={() => <SettingsPage/>}/>
-            <Route exact path="/record" render={() => <VideoRecordingPage/>}/>
+            <Route exact path="/record/:id" render={() => <VideoRecordingPage/>}/>
             <Route exact path="/forgot-password" render={() => <ForgotPasswordPage/>}/>
             <Route exact path="/sign-up" render={() => <SignupPage/>}/>
             {generateRedirect()}

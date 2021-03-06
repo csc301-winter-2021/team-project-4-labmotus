@@ -8,6 +8,8 @@ import {Plugins} from "@capacitor/core";
 import {IonIcon} from "@ionic/react";
 // @ts-ignore
 import {sync} from "ionicons/icons";
+import {useHistory, useParams} from "react-router";
+import {APIContext} from "../api/API";
 
 export interface VideoRecordingPageProps {
 }
@@ -26,8 +28,11 @@ const config: VideoRecorderPreviewFrame = {
 
 const VideoRecordingPage: FunctionComponent<VideoRecordingPageProps> = ({}) => {
     const theme = useContext(ThemeContext);
-    const [recording, setRecording] = useState(false);
+    const API = useContext(APIContext);
+    const [recording, setRecording] = useState(null);
     const [camera, setCamera] = useState(0);
+    const {id} = useParams<{ id: string }>();
+    const history = useHistory();
 
     useEffect(() => {
         VideoRecorder.initialize({
@@ -40,10 +45,13 @@ const VideoRecordingPage: FunctionComponent<VideoRecordingPageProps> = ({}) => {
     }, [camera]);
 
     useEffect(() => {
-        if (recording) {
+        if (recording === true) {
             VideoRecorder.startRecording();
-        } else {
-            VideoRecorder.stopRecording().then((value: string) => console.log(value));
+        } else if (recording === false) {
+            VideoRecorder.stopRecording().then(({videoUrl}: { videoUrl: string }) => {
+                API.uploadVideo(id, videoUrl);
+                history.goBack();
+            });
         }
     }, [recording]);
 
@@ -75,7 +83,7 @@ const VideoRecordingDiv = styled.div`
     position: relative;
     box-sizing: border-box;
     border-style: solid;
-    border: ${({recording, colors}: Theme & { recording: boolean }) => "solid " + colors.alert + (recording ? " 5px" : " 0px")};
+    border: ${({recording, theme}: { recording: boolean, theme: Theme }) => "solid " + theme.colors.alert + (recording ? " 5px" : " 0px")};
     transition: border-width 0.3s;
 `;
 
@@ -105,7 +113,9 @@ const RecordBackground = styled.div`
     width: fit-content;
     height: 50%;
     border-radius: 100%;
-    background: ${(theme: Theme) => theme.colors.light};
+    background: ${({theme}: { theme: Theme }) => {
+    return theme.colors.light
+}};
 `;
 
 const RecordCenterImage = styled.img`
@@ -122,7 +132,7 @@ const RecordCenter = styled.div`
     height: ${({recording}: { recording: boolean }) => recording ? "15%" : "45%"};
     border-radius: ${({recording}: { recording: boolean }) => recording ? "20%" : "100%"};
     transition: height 0.3s, border-radius 0.3s;
-    background: ${(theme: Theme) => theme.colors.alert};
+    background: ${({theme}: { theme: Theme }) => theme.colors.alert};
 `;
 
 const ChangeDiv = styled.div`
@@ -141,7 +151,7 @@ const ChangeButton = styled.div`
         top: 0; left: 0; bottom: 0; right: 0;
         width: 55%;
         height: 55%;
-        color: ${(theme: Theme) => theme.colors.light};
+        color: ${({theme}: { theme: Theme }) => theme.colors.light};
         transform: rotate(${({camera}: { camera: number }) => camera * 180}deg);
         transition: transform 0.3s;
     }
@@ -163,7 +173,7 @@ const ChangeBackground = styled.div`
     overflow: hidden;
     padding: 1px;
     width: fit-content;
-    background: ${(theme: Theme) => theme.colors.mediumShade};
+    background: ${({theme}: { theme: Theme }) => theme.colors.mediumShade};
 `;
 
 export default VideoRecordingPage

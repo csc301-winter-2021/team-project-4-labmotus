@@ -8,6 +8,7 @@ export interface SymptomProgressBarProps {
     currValue: number;
     goalValue: number;
     minValue?: number;
+    unit: string;
 }
 
 const SymptomProgressBar: FunctionComponent<SymptomProgressBarProps> = ({
@@ -15,6 +16,7 @@ const SymptomProgressBar: FunctionComponent<SymptomProgressBarProps> = ({
                                                                             currValue,
                                                                             goalValue,
                                                                             minValue = 0,
+                                                                            unit
                                                                         }) => {
 
     const theme = React.useContext(ThemeContext);
@@ -26,7 +28,7 @@ const SymptomProgressBar: FunctionComponent<SymptomProgressBarProps> = ({
                 {label}
             </LabelDiv>
             <CurrentAngleDiv theme={theme}>
-                {currValue}&#176;
+                {currValue}{unit}
             </CurrentAngleDiv>
         </TopDiv>
         <BottomDiv theme={theme}>
@@ -36,7 +38,7 @@ const SymptomProgressBar: FunctionComponent<SymptomProgressBarProps> = ({
                 </BarBackground>
             </BarDiv>
             <GoalAngleDiv theme={theme}>
-                {goalValue}&#176;
+                {goalValue}{unit}
             </GoalAngleDiv>
         </BottomDiv>
     </SymptomProgressBarDiv>)

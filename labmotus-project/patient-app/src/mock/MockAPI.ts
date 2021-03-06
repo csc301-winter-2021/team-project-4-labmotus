@@ -1,6 +1,6 @@
 import "firebase/auth"
-import {Assessment, Clinician, Patient} from "../../../common/types/types";
-import API from "../api/API";
+import {Assessment, AssessmentState, Clinician, Patient} from "../../../common/types/types";
+import API, {INVALID_ASSESSMENT_ID} from "../api/API";
 import moment, {Moment} from "moment";
 
 const FakeUser: Patient = {
@@ -24,9 +24,12 @@ const FakeClinician: Clinician = {
 };
 
 class MockAPI extends API {
+    mockAssessments: { [key: string]: Assessment[] };
+
     constructor() {
         super(null);
         this._user = FakeUser;
+        this.mockAssessments = {}
     }
 
     async login(user: string, pass: string): Promise<void> {
@@ -66,8 +69,30 @@ class MockAPI extends API {
         this._user = patient;
     }
 
-    async uploadVideo(assessment: Assessment, stat: string): Promise<void> {
-
+    async uploadVideo(assessmentID: string, url: string): Promise<void> {
+        for (const assessments of Object.values(this.mockAssessments)) {
+            for (let i = 0; i < assessments.length; i++) {
+                if (assessments[i].id === assessmentID) {
+                    assessments[i].videoUrl = (url === 'some/file/path' ? "https://youtu.be/dQw4w9WgXcQ" : url);
+                    assessments[i].state = AssessmentState.PENDING;
+                    setTimeout(() => {
+                        assessments[i].state = AssessmentState.COMPLETE;
+                        assessments[i].stats = [
+                            {
+                                name: "Hip",
+                                joint: "Hip",
+                                currValue: -5,
+                                goalValue: 0,
+                                minValue: -10,
+                                unit: '\xb0'
+                            }
+                        ]
+                    }, 5000);
+                    return;
+                }
+            }
+        }
+        throw INVALID_ASSESSMENT_ID;
     }
 
     async getClinician(patient: Patient): Promise<Clinician> {
@@ -75,47 +100,54 @@ class MockAPI extends API {
     }
 
     async getAssessments(week: Moment = moment().startOf('day')): Promise<Assessment[]> {
+        const weekStart = moment(week).startOf('week');
+        if (this.mockAssessments.hasOwnProperty(weekStart.format("YYYY-MM-DD")))
+            return this.mockAssessments[weekStart.format("YYYY-MM-DD")];
         const data: Assessment[] = [];
         for (let i = 0; i < 7; i++) {
-            const date = moment(week).startOf('week').add(i, 'd');
+            const date = moment(weekStart).startOf('week').add(i, 'd');
             if (i % 2 == 0) {
                 data.push({
-                    id: "",
+                    id: Math.floor(Math.random() * 1000000).toString(),
                     patientId: "",
                     name: "Knee & Shoulder",
                     date: date,
+                    state: AssessmentState.COMPLETE,
+                    videoUrl: "https://youtu.be/dQw4w9WgXcQ",
                     stats: [
                         {
                             name: "Knee",
                             joint: "Knee",
                             currValue: Math.floor(Math.random() * 180),
                             goalValue: 180,
+                            unit: '\xb0'
                         },
                         {
                             name: "Shoulder",
                             joint: "Shoulder",
                             currValue: Math.floor(Math.random() * 90),
                             goalValue: 90,
+                            unit: '\xb0'
                         },
                     ]
                 });
                 data.push({
-                    id: "",
+                    id: Math.floor(Math.random() * 1000000).toString(),
                     patientId: "",
                     name: "Hip",
                     date: date,
-                    stats: [
-                        {
-                            name: "Hip",
-                            joint: "Hip",
-                            currValue: -5,
-                            goalValue: 0,
-                            minValue: -10,
-                        }
-                    ]
+                    state: AssessmentState.PENDING,
+                });
+                data.push({
+                    id: Math.floor(Math.random() * 1000000).toString(),
+                    patientId: "",
+                    name: "Arm",
+                    date: date,
+                    state: AssessmentState.MISSING,
                 });
             }
         }
+        this.mockAssessments[weekStart.format("YYYY-MM-DD")] = data;
         return data;
     }
 

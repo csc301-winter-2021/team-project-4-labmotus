@@ -112,7 +112,7 @@ class API {
         throw "Not Implemented"
     }
 
-    async uploadVideo(assessment: Assessment, stat: string): Promise<void> {
+    async uploadVideo(assessmentID: string, url: string): Promise<void> {
         throw "Not Implemented"
     }
 
@@ -146,7 +146,7 @@ export const APIContext = React.createContext<API>(null);
 
 export default API;
 
-export const NO_CACHED_LOGIN = "No Login Cached";
+export const INVALID_ASSESSMENT_ID = "Invalid Assessment ID";
 
 /*
 /user API calls (all use auth token passed through Authorization header)
