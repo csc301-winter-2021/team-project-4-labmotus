@@ -32,7 +32,7 @@ const navigationEntries = [
     }
 ];
 
-const loggedOutPaths = ["/login", "/sign-up", "/forgot-password"];
+const loggedOutPaths = ["/", "/login", "/sign-up", "/forgot-password"];
 
 
 const Routes: FunctionComponent<RoutesProps> = ({}) => {
@@ -49,7 +49,7 @@ const Routes: FunctionComponent<RoutesProps> = ({}) => {
 
     function onLoginChange(loggedIn: boolean) {
         if (loggedIn) {
-            if (location.pathname in loggedOutPaths) {
+            if (loggedOutPaths.includes(location.pathname)) {
                 history.push('/home')
             }
         } else {
