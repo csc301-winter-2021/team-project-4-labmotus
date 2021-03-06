@@ -64,7 +64,7 @@ const Accordion: FunctionComponent<AccordionProps> = ({
         <Card shadow={shadow}>
             <HeaderDiv expanded={expanded} onClick={onClick}>
                 <IonIcon icon={chevronDown}/>
-                <LabelSpan labelFont={labelFont} {...theme}>
+                <LabelSpan labelFont={labelFont} theme={theme}>
                     {label}
                 </LabelSpan>
             </HeaderDiv>
@@ -133,7 +133,7 @@ const LabelSpan = styled.span`
     return props[`${props.labelFont}FontFamily`]
 }};
     font-weight: bold;
-    color: ${(props: Theme) => props.colors.contrast};
+    color: ${({theme}: { theme: Theme }) => theme.colors.contrast};
 `;
 
 export default Accordion;

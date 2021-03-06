@@ -1,26 +1,39 @@
-import React, {FunctionComponent} from "react";
+import React, {FunctionComponent, useEffect} from "react";
 // @ts-ignore
 import styled from 'styled-components';
 import {Theme, ThemeContext} from "../theme/Theme";
 import SymptomLog from "./SymptomLog";
-import {Stats} from "../../../common/types/types";
+import {Assessment, Stats} from "../../../common/types/types";
 import moment, {Moment} from "moment";
 import {CartesianGrid, Line, LineChart, ReferenceLine, ResponsiveContainer, Tooltip, XAxis, YAxis} from "recharts";
+import {IonIcon} from "@ionic/react";
+import {chevronForward} from "ionicons/icons";
+import {useHistory} from "react-router";
 
 export interface SymptomInstanceProps {
     date: Moment;
-    stats?: Array<Stats>;
+    data?: Assessment[];
     graphData?: any[];
     graphKeys?: Set<string>;
     changeDay?: (newDay: Moment) => void;
 }
 
 const SymptomInstance: FunctionComponent<SymptomInstanceProps> = ({
-                                                                      date, stats, graphData = [],
+                                                                      date, data, graphData = [],
                                                                       graphKeys = new Set(), changeDay
                                                                   }) => {
     const theme = React.useContext(ThemeContext);
     const colors = theme.colors.cycle;
+    const [stats, setStats] = React.useState([]);
+    const history = useHistory();
+
+    useEffect(() => {
+        const new_stats: Stats[] = [];
+        data?.forEach(assessment => {
+            assessment.stats.forEach(stat => new_stats.push(stat))
+        });
+        setStats(new_stats);
+    }, [data]);
 
     function colorLabel(ref: any) {
         const element: HTMLDivElement = ref;
@@ -41,8 +54,12 @@ const SymptomInstance: FunctionComponent<SymptomInstanceProps> = ({
         }
     }
 
-    return (<SymptomInstanceDiv className="symptom-instance" {...theme}>
-        <HeaderDiv {...theme} onClick={toToday}>
+    function viewAssessment() {
+        history.push(`/assessment/${date.format("YYYY-MM-DD")}`)
+    }
+
+    return (<SymptomInstanceDiv className="symptom-instance" theme={theme}>
+        <HeaderDiv theme={theme} onClick={toToday}>
             {date?.format('MMMM Do YYYY')}
         </HeaderDiv>
         <GraphDiv ref={colorLabel}>
@@ -73,6 +90,12 @@ const SymptomInstance: FunctionComponent<SymptomInstanceProps> = ({
                 </LineChart>
             </ResponsiveContainer>
         </GraphDiv>
+        <ViewAssessmentDiv>
+            <ViewAssessmentButton onClick={viewAssessment} theme={theme}>
+                View Assessments
+                <IonIcon icon={chevronForward}/>
+            </ViewAssessmentButton>
+        </ViewAssessmentDiv>
         <SymptomLog logs={stats}/>
     </SymptomInstanceDiv>)
 };
@@ -90,9 +113,9 @@ const SymptomInstanceDiv = styled.div`
 `;
 
 const HeaderDiv = styled.div`
-    font-size: ${(props: Theme) => props.headerFontSize};
-    font-family: ${(props: Theme) => props.headerFontFamily};
-    color: ${(props: Theme) => props.colors.contrast};
+    font-size: ${({theme}: { theme: Theme }) => theme.headerFontSize};
+    font-family: ${({theme}: { theme: Theme }) => theme.headerFontFamily};
+    color: ${({theme}: { theme: Theme }) => theme.colors.contrast};
     text-align: center;
     margin-bottom: 2%;
 `;
@@ -100,7 +123,24 @@ const HeaderDiv = styled.div`
 const GraphDiv = styled.div`
     flex: 0.7;
     padding: 2%;
-    margin-bottom: 10%;
+`;
+
+const ViewAssessmentDiv = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    margin-top: 3%;
+    margin-bottom: 3%;
+`;
+
+const ViewAssessmentButton = styled.div`
+    font-size: ${({theme}: { theme: Theme }) => theme.primaryFontSize};
+    font-family: ${({theme}: { theme: Theme }) => theme.primaryFontFamily};
+    color: ${({theme}: { theme: Theme }) => theme.colors.contrast}; 
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
 `;
 
 export default SymptomInstance;

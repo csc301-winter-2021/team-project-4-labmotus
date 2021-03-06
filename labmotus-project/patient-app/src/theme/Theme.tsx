@@ -22,6 +22,7 @@ export interface Colors {
     shade: string;
     mediumShade: string;
     darkShade: string;
+    alert: string;
     cycle: string[];
 }
 
@@ -42,6 +43,7 @@ export const PrimaryTheme: Theme = {
         shade: "#d7d8da",
         mediumShade: "#808289",
         darkShade: "#1e2023",
+        alert: "#d62728",
         cycle: [
             '#1f77b4',
             '#ff7f0e',

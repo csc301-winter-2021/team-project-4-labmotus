@@ -3,6 +3,7 @@ import {Moment} from "moment";
 export interface Assessment {
     id: string
     patientId: string
+    name: string
     date: Moment
     videoUrl?: string
     poseData?: any // TODO: Create type for pose data
@@ -33,7 +34,6 @@ export interface Clinician {
 
 export interface Stats {
     name: string
-    videoUrl?: string
     joint: string
     currValue: number
     goalValue: number

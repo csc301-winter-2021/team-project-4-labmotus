@@ -63,9 +63,14 @@ const LoadingComponent: FunctionComponent<LoadingComponentProps> = ({
                 setLoadedItems(new_loaded);
         }
     });
+
+    useEffect(() => {
+        if (loadedItems.every(value => value === true))
+            setLoaded(true);
+    }, [loadedItems]);
     //
     // useEffect(() => {
-    //     console.log(loadedItems)
+    //     console.log(loaded)
     // }, [loadedItems]);
 
     if (!loaded) {

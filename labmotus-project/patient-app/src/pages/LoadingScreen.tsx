@@ -8,7 +8,7 @@ export interface LoadingScreenProps {
 
 const LoadingScreen: FunctionComponent<LoadingScreenProps> = ({}) => {
     const theme = React.useContext(ThemeContext);
-    return (<LoadingScreenDiv classname="loading-screen-div" {...theme}>
+    return (<LoadingScreenDiv classname="loading-screen-div" theme={theme}>
         <img src="/assets/logo.webp" alt=""/>
     </LoadingScreenDiv>)
 };
@@ -20,7 +20,7 @@ const LoadingScreenDiv = styled.div`
     align-items: center;
     justify-content: center;
     img {
-        background-color: ${(props: Theme) => props.colors.primary};
+        background-color: ${({theme}: { theme: Theme }) => theme.colors.primary};
     }
 `;
 

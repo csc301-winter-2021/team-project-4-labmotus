@@ -22,13 +22,13 @@ const NavigationBar: FunctionComponent<NavigationBarProps> = ({entries}) => {
 
     function generateButtons() {
         return entries.map((value, index) => {
-            const here = value.navigation.startsWith(location.pathname);
+            const here = location.pathname.startsWith(value.navigation);
             return (
                 <ButtonDiv key={index} onClick={() => history.push(value.navigation)}>
-                    <IconDiv here={here} {...theme}>
+                    <IconDiv here={here} theme={theme}>
                         <IonIcon icon={value.icon}/>
                     </IconDiv>
-                    <LabelDiv here={here} {...theme}>
+                    <LabelDiv here={here} theme={theme}>
                         {value.name}
                     </LabelDiv>
                 </ButtonDiv>
@@ -37,7 +37,7 @@ const NavigationBar: FunctionComponent<NavigationBarProps> = ({entries}) => {
     }
 
     return (<NavigationBarDiv className="navigation-bar"
-                              inNav={!entries.every((e: NavigationEntry) => !e.navigation.startsWith(location.pathname))}>
+                              inNav={!entries.every((e: NavigationEntry) => !location.pathname.startsWith(e.navigation))}>
         {generateButtons()}
     </NavigationBarDiv>)
 };
@@ -64,14 +64,14 @@ const IconDiv = styled.div`
     align-items: center;
     justify-content: center;
     ion-icon {
-        color: ${(props: Theme & { here: boolean }) => props.here ? props.colors.primary : props.colors.mediumShade};
+        color: ${({theme, here}: { theme: Theme, here: boolean }) => here ? theme.colors.primary : theme.colors.mediumShade};
     }
 `;
 
 const LabelDiv = styled.div`
-    font-size: ${(props: Theme) => props.secondaryFontSize};
-    font-family: ${(props: Theme) => props.secondaryFontFamily};
-    color: ${(props: Theme & { here: boolean }) => props.here ? props.colors.primary : props.colors.mediumShade};
+    font-size: ${({theme}: { theme: Theme }) => theme.secondaryFontSize};
+    font-family: ${({theme}: { theme: Theme }) => theme.secondaryFontFamily};
+    color: ${({theme, here}: { theme: Theme, here: boolean }) => here ? theme.colors.primary : theme.colors.mediumShade};
     text-align: center;
 `;
 

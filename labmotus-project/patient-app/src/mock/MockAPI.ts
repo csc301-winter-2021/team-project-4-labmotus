@@ -26,7 +26,7 @@ const FakeClinician: Clinician = {
 class MockAPI extends API {
     constructor() {
         super(null);
-        this._user = null;
+        this._user = FakeUser;
     }
 
     async login(user: string, pass: string): Promise<void> {
@@ -78,10 +78,11 @@ class MockAPI extends API {
         const data: Assessment[] = [];
         for (let i = 0; i < 7; i++) {
             const date = moment(week).startOf('week').add(i, 'd');
-            if (i % 2 == 0)
+            if (i % 2 == 0) {
                 data.push({
                     id: "",
                     patientId: "",
+                    name: "Knee & Shoulder",
                     date: date,
                     stats: [
                         {
@@ -96,6 +97,14 @@ class MockAPI extends API {
                             currValue: Math.floor(Math.random() * 90),
                             goalValue: 90,
                         },
+                    ]
+                });
+                data.push({
+                    id: "",
+                    patientId: "",
+                    name: "Hip",
+                    date: date,
+                    stats: [
                         {
                             name: "Hip",
                             joint: "Hip",
@@ -104,7 +113,8 @@ class MockAPI extends API {
                             minValue: -10,
                         }
                     ]
-                })
+                });
+            }
         }
         return data;
     }

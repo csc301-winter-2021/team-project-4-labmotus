@@ -1,13 +1,15 @@
 import React, {FunctionComponent, ReactElement, useContext, useEffect} from "react";
-import {Redirect, Route, Switch, useHistory} from "react-router-dom";
+import {Redirect, Route, Switch, useHistory, useLocation} from "react-router-dom";
 import SymptomLogPage from "../pages/SymptomLogPage";
 import NavigationBar from "../components/NavigationBar";
-import {home, settings, videocam} from "ionicons/icons";
+import {barChart, home, settings} from "ionicons/icons";
 import SettingsPage from "../pages/SettingsPage";
 import LoginPage from "../pages/LoginPage";
 import {APIContext} from "../api/API";
 import ForgotPasswordPage from "../pages/ForgotPasswordPage";
 import SignupPage from "../pages/SignupPage";
+import VideoRecordingPage from "../pages/VideoRecordingPage";
+import AssessmentPage from "../pages/AssessmentPage";
 
 export interface RoutesProps {
 }
@@ -19,9 +21,9 @@ const navigationEntries = [
         navigation: "/home"
     },
     {
-        icon: videocam,
-        name: "Record",
-        navigation: "/record"
+        icon: barChart,
+        name: "Assessment",
+        navigation: "/assessment"
     },
     {
         icon: settings,
@@ -30,10 +32,13 @@ const navigationEntries = [
     }
 ];
 
+const loggedOutPaths = ["/login", "/sign-up", "/forgot-password"];
+
 
 const Routes: FunctionComponent<RoutesProps> = ({}) => {
     const API = useContext(APIContext);
     const history = useHistory();
+    const location = useLocation();
 
     useEffect(() => {
         API.addLoginListener(onLoginChange);
@@ -43,7 +48,13 @@ const Routes: FunctionComponent<RoutesProps> = ({}) => {
     }, [API]);
 
     function onLoginChange(loggedIn: boolean) {
-        history.push(loggedIn ? '/home' : '/login');
+        if (loggedIn) {
+            if (location.pathname in loggedOutPaths) {
+                history.push('/home')
+            }
+        } else {
+            history.push('/login');
+        }
     }
 
     function generateRedirect(): ReactElement {
@@ -53,8 +64,10 @@ const Routes: FunctionComponent<RoutesProps> = ({}) => {
     return (<>
         <Switch>
             <Route exact path="/login" render={() => <LoginPage/>}/>
-            <Route exact path="/home" render={() => <SymptomLogPage/>}/>
+            <Route exact path="/home/:date?" render={() => <SymptomLogPage/>}/>
+            <Route exact path="/assessment/:date?" render={() => <AssessmentPage/>}/>
             <Route exact path="/settings" render={() => <SettingsPage/>}/>
+            <Route exact path="/record" render={() => <VideoRecordingPage/>}/>
             <Route exact path="/forgot-password" render={() => <ForgotPasswordPage/>}/>
             <Route exact path="/sign-up" render={() => <SignupPage/>}/>
             {generateRedirect()}
