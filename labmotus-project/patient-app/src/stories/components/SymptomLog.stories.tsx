@@ -33,40 +33,36 @@ export const Primary = Template.bind({});
 Primary.args = {
     logs: [   
         {
-            joint: "Knee",
+            joint: "Trunk",
             angle: 120,
             goalAngle: 180,
         },
         {
-            joint: "Hip",
+            joint: "Pelvis",
             angle: -5,
             goalAngle: 0,
             minAngle: -10,
         },        
         {
-            joint: "Trunk",
+            joint: "Flexion/Extension",
             angle: 85,
             goalAngle: 90,
         },        
         {
-            joint: "Ankle Plantar",
+            joint: "Valgus/Varus",
             angle: 85,
             goalAngle: 90,
         },        
         {
-            joint: "Knee Valgus",
+            joint: "Plantarflexion",
             angle: 85,
             goalAngle: 90,
         },        
         {
-            joint: "Lateral Trunk",
+            joint: "Dorsiflexion",
             angle: 85,
             goalAngle: 90,
-        },        
-        {
-            joint: "Foot Position",
-            angle: 45,
-            goalAngle: 30,
+
         },
     ]
 };
