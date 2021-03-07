@@ -40,22 +40,24 @@ const ForgotPasswordPage: FunctionComponent<ForgotPasswordPageProps> = () => {
 			<IonContent fullscreen>
 				<ForgotPasswordPageDiv>
 					<h1>Reset Password</h1>
-					<div className="main">
-						<p>
-							Enter the email address you used to register and we'll send you the
-							instructions for resetting your password.
-						</p>
-						<IonInput
-						class="input email"
-						placeholder="Email"
-						type="email"
-						inputmode="email"
-						value={email}
-						onIonChange={(e) => setEmail(e.detail.value!)}
-						/>
-						<IonButton expand="block" shape="round" onClick={forgotPassword}>
-							Submit
-						</IonButton>
+					<div className="main-padding">
+                        <div className="main">
+							<p>
+								Enter the email address you used to register and we'll send you the
+								instructions for resetting your password.
+							</p>
+							<IonInput
+							class="input email"
+							placeholder="Email"
+							type="email"
+							inputmode="email"
+							value={email}
+							onIonChange={(e) => setEmail(e.detail.value!)}
+							/>
+							<IonButton expand="block" shape="round" onClick={forgotPassword}>
+								Submit
+							</IonButton>
+						</div>
 					</div>
 				</ForgotPasswordPageDiv>
 			</IonContent>
@@ -73,14 +75,14 @@ const ForgotPasswordPage: FunctionComponent<ForgotPasswordPageProps> = () => {
 const ForgotPasswordPageDiv = styled.div`
 	overflow: hidden;
 	text-align: center;
-	padding: 5%;
-	.main {
+	.main-padding {
 		position: absolute;
 		top: 50%;
 		left: 50%;
 		transform: translate(-50%, -50%);
 		width: 100%;
 		padding: 5%;
+		box-sizing: border-box;
 		.input {
 			margin-bottom: 5%;
 			text-align: left;
@@ -88,6 +90,19 @@ const ForgotPasswordPageDiv = styled.div`
 			border: 1px solid #ddd;
 			--padding-start: 10px;
 		}
+		pointer-events: none;
+	}
+	.main {
+		height: 100%;
+		width: 100%;
+		.input {
+			margin-bottom: 5%;
+			text-align: left;
+			border-radius: 5px;
+			border: 1px solid #ddd;
+			--padding-start: 10px;
+		}
+		pointer-events: auto;
 	}
 	h1 {
 		font-weight: bold;

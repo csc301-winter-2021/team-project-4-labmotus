@@ -2,6 +2,7 @@ import React, {FunctionComponent, useContext, useState} from "react";
 import {IonAlert, IonButton, IonContent, IonInput, IonPage} from "@ionic/react";
 // @ts-ignore
 import styled from "styled-components";
+import {Theme, ThemeContext} from "../theme/Theme";
 import {APIContext} from "../api/API";
 import {useHistory} from "react-router";
 
@@ -10,6 +11,8 @@ export interface SignupPageProps {
 
 const SignupPage: FunctionComponent<SignupPageProps> = () => {
 	const API = useContext(APIContext);
+	const theme = React.useContext(ThemeContext);
+
 	const history = useHistory();
 	const [email, setEmail] = useState<string>();
 	const [password, setPassword] = useState<string>();
@@ -18,6 +21,7 @@ const SignupPage: FunctionComponent<SignupPageProps> = () => {
 	const [header, setHeader] = useState<string>();
 	const [message, setMessage] = useState<string>();
 
+	// When user signs up for an account
 	async function signUp() {
 		if (!email) {
 			setHeader("Invalid Email");
@@ -37,6 +41,7 @@ const SignupPage: FunctionComponent<SignupPageProps> = () => {
 			setHeader("Passwords Don't Match");
 			setMessage("The passwords don't match. Please try again.");
 			openAlert(true);
+			setConfirmPassword("");
 			return;
 		}
 
@@ -47,6 +52,7 @@ const SignupPage: FunctionComponent<SignupPageProps> = () => {
 		}
 	}
 
+	// When user clicks 'Login'
 	function login() {
 		history.push('/login');
 	}
@@ -54,7 +60,7 @@ const SignupPage: FunctionComponent<SignupPageProps> = () => {
   return (
     <IonPage>
 		<IonContent fullscreen>
-			<SignupPageDiv>
+			<SignupPageDiv theme={theme}>
                 <h1>LabMotus</h1>
                 <div className="main-padding">
                     <div className="main">
@@ -68,31 +74,30 @@ const SignupPage: FunctionComponent<SignupPageProps> = () => {
                                 onIonChange={(e) => setEmail(e.detail.value!)}
                             />
                             <IonInput
-						class="input password"
-						placeholder="Password"
-						type="password"
-						value={password}
-						onIonChange={(e) => setPassword(e.detail.value!)}
-						/>
-						<IonInput
-						class="input password"
-						placeholder="Confirm Password"
-						type="password"
-						value={confirmPassword}
-						onIonChange={(e) => setConfirmPassword(e.detail.value!)}
-                        />
-
+								class="input password"
+								placeholder="Password"
+								type="password"
+								value={password}
+								onIonChange={(e) => setPassword(e.detail.value!)}
+								/>
+							<IonInput
+								class="input password"
+								placeholder="Confirm Password"
+								type="password"
+								value={confirmPassword}
+								onIonChange={(e) => setConfirmPassword(e.detail.value!)}
+							/>
                             <IonButton expand="block" shape="round" onClick={signUp}>
                                 Sign Up
                             </IonButton>
                         </form>
                         <p>
-                            By clicking 'Sign Up' you agree to our <a>Terms of Service</a>
+                            By clicking 'Sign Up' you agree to our <span>Terms of Service</span>
                         </p>
                     </div>
                 </div>
                 <p className="footer">
-                    Already have an account? <a onClick={login}>Login</a>
+                    Already have an account? <span onClick={login}>Login</span>
                 </p>
 			</SignupPageDiv>
 	  </IonContent>
@@ -108,9 +113,9 @@ const SignupPage: FunctionComponent<SignupPageProps> = () => {
 };
 
 const SignupPageDiv = styled.div`
-overflow: hidden;
-text-align: center;
-.main-padding {
+	overflow: hidden;
+	text-align: center;
+	.main-padding {
 		position: absolute;
 		top: 50%;
 		left: 50%;
@@ -126,8 +131,8 @@ text-align: center;
 			--padding-start: 10px;
 		}
 		pointer-events: none;
-}
-.main {
+	}
+	.main {
 		height: 100%;
 		width: 100%;
 		.input {
@@ -138,21 +143,18 @@ text-align: center;
 			--padding-start: 10px;
 		}
 		pointer-events: auto;
-}
-h1 {
+	}
+	h1 {
 		font-weight: bold;
 		margin-top: 15vh;
-}
-.footer {
+	}
+	.footer {
 		margin-top: 65vh;
-		a {
-			cursor: pointer;
-		}
-}
-a {
-		text-decoration: none;
+	}
+	span {
 		cursor: pointer;
-}
+		color: ${({theme}: { theme: Theme }) => theme.colors.primary};
+	}
 `;
 
 export default SignupPage;

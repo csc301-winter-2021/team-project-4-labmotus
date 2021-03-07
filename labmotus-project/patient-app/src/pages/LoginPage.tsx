@@ -2,6 +2,7 @@ import React, {FunctionComponent, useContext, useState} from "react";
 import {IonAlert, IonButton, IonContent, IonInput, IonPage} from "@ionic/react";
 // @ts-ignore
 import styled from "styled-components";
+import {Theme, ThemeContext} from "../theme/Theme";
 import {APIContext} from "../api/API";
 import {useHistory} from "react-router";
 
@@ -10,6 +11,8 @@ export interface LoginPageProps {
 
 const LoginPage: FunctionComponent<LoginPageProps> = () => {
     const API = useContext(APIContext);
+    const theme = React.useContext(ThemeContext);
+
     const history = useHistory();
     const [email, setEmail] = useState<string>();
     const [password, setPassword] = useState<string>();
@@ -17,6 +20,7 @@ const LoginPage: FunctionComponent<LoginPageProps> = () => {
     const [header, setHeader] = useState<string>();
     const [message, setMessage] = useState<string>();
 
+    // When user clicks login
     async function login() {
         if (!email) {
             setHeader("Invalid Email");
@@ -38,10 +42,12 @@ const LoginPage: FunctionComponent<LoginPageProps> = () => {
         }
     }
 
+    // When user clicks 'Forgot Password?'
     function forgotPassword() {
         history.push('/forgot-password');
     }
 
+    // When user clicks 'Sign Up'
     function signUp() {
         history.push('/sign-up');
     }
@@ -49,34 +55,36 @@ const LoginPage: FunctionComponent<LoginPageProps> = () => {
     return (
         <IonPage>
             <IonContent fullscreen>
-                <LoginPageDiv>
+                <LoginPageDiv theme={theme}>
                     <h1>LabMotus</h1>
-                    <div className="main">
-                        <form>
-                            <IonInput
-                                class="input email"
-                                placeholder="Email"
-                                type="email"
-                                inputmode="email"
-                                value={email}
-                                onIonChange={(e) => setEmail(e.detail.value!)}
-                            />
-                            <IonInput
-                                class="input password"
-                                placeholder="Password"
-                                type="password"
-                                value={password}
-                                onIonChange={(e) => setPassword(e.detail.value!)}
-                            />
+                    <div className="main-padding">
+                        <div className="main">
+                            <form>
+                                <IonInput
+                                    class="input email"
+                                    placeholder="Email"
+                                    type="email"
+                                    inputmode="email"
+                                    value={email}
+                                    onIonChange={(e) => setEmail(e.detail.value!)}
+                                />
+                                <IonInput
+                                    class="input password"
+                                    placeholder="Password"
+                                    type="password"
+                                    value={password}
+                                    onIonChange={(e) => setPassword(e.detail.value!)}
+                                />
 
-                            <IonButton expand="block" shape="round" onClick={login}>
-                                Login
-                            </IonButton>
-                        </form>
-                        <a onClick={forgotPassword}>Forgot password?</a>
+                                <IonButton expand="block" shape="round" onClick={login}>
+                                    Login
+                                </IonButton>
+                            </form>
+                            <p onClick={forgotPassword}><span>Forgot password?</span></p>
+                        </div>
                     </div>
                     <p className="footer">
-                        Don't have an account? <a onClick={signUp}>Sign Up</a>
+                        Don't have an account? <span onClick={signUp}>Sign Up</span>
                     </p>
                 </LoginPageDiv>
             </IonContent>
@@ -94,31 +102,45 @@ const LoginPage: FunctionComponent<LoginPageProps> = () => {
 const LoginPageDiv = styled.div`
     overflow: hidden;
     text-align: center;
+    .main-padding {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 100%;
+        padding: 5%;
+        box-sizing: border-box;
+        .input {
+            margin-bottom: 5%;
+            text-align: left;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            --padding-start: 10px;
+        }
+        pointer-events: none;
+    }
     .main {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 100%;
-            padding: 5%;
-            .input {
-                margin-bottom: 5%;
-                text-align: left;
-                border-radius: 5px;
-                border: 1px solid #ddd;
-                --padding-start: 10px;
-            }
+        height: 100%;
+        width: 100%;
+        .input {
+            margin-bottom: 5%;
+            text-align: left;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            --padding-start: 10px;
+        }
+        pointer-events: auto;
     }
     h1 {
-            font-weight: bold;
-            margin-top: 15vh;
+        font-weight: bold;
+        margin-top: 15vh;
     }
     .footer {
-            margin-top: 65vh;
+        margin-top: 65vh;
     }
-    a {
-            text-decoration: none;
-            cursor: pointer;
+    span {
+        cursor: pointer;
+        color: ${({theme}: { theme: Theme }) => theme.colors.primary};
     }
 `;
 

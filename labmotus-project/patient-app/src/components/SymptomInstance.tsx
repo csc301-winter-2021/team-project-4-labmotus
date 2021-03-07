@@ -60,11 +60,11 @@ const SymptomInstance: FunctionComponent<SymptomInstanceProps> = ({
         history.push(`/assessment/${date.format("YYYY-MM-DD")}`)
     }
 
-    return (<SymptomInstanceDiv className="symptom-instance" {...theme}>
-        <HeaderDiv {...theme}>
+    return (<SymptomInstanceDiv className="symptom-instance"  theme={theme}>
+        <HeaderDiv theme={theme}>
             {date?.format('MMMM Do YYYY')}
         </HeaderDiv>
-        <DateDisplay date = {date} changeDay = {changeDay}></DateDisplay>
+        <DateDisplay date={date} changeDay={changeDay}></DateDisplay>
         <div {...theme} onClick={toToday}>Go to today</div>
         <GraphDiv ref={colorLabel}>
             <ResponsiveContainer width="100%" height="100%">
