@@ -7,6 +7,7 @@ export interface Assessment {
     date: Moment
     state: AssessmentState
     videoUrl?: string
+    wrnchJob?: string
     poseData?: any // TODO: Create type for pose data
     stats?: Array<Stats>
 }
