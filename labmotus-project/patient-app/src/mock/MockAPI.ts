@@ -110,25 +110,53 @@ class MockAPI extends API {
                 data.push({
                     id: Math.floor(Math.random() * 1000000).toString(),
                     patientId: "",
-                    name: "Knee & Shoulder",
+                    name: "Squat",
                     date: date,
                     state: AssessmentState.COMPLETE,
                     videoUrl: "https://youtu.be/dQw4w9WgXcQ",
                     stats: [
                         {
-                            name: "Knee",
-                            joint: "Knee",
+                            name: "Trunk",
+                            joint: "Trunk",
                             currValue: Math.floor(Math.random() * 180),
                             goalValue: 180,
                             unit: '\xb0'
                         },
                         {
-                            name: "Shoulder",
-                            joint: "Shoulder",
-                            currValue: Math.floor(Math.random() * 90),
-                            goalValue: 90,
+                            name: "Pelvis",
+                            joint: "Pelvis",
+                            currValue: Math.floor(Math.random() * 180),
+                            goalValue: 180,
                             unit: '\xb0'
                         },
+                        {
+                            name: "Flexion/Extension",
+                            joint: "Flexion/Extension",
+                            currValue: Math.floor(Math.random() * 180),
+                            goalValue: 180,
+                            unit: '\xb0'
+                        },                    
+                        {
+                            name: "Valgus/Varus",
+                            joint: "Valgus/Varus",
+                            currValue: Math.floor(Math.random() * 180),
+                            goalValue: 180,
+                            unit: '\xb0'
+                        },
+                        {
+                            name: "Plantarflexion",
+                            joint: "Plantarflexion",
+                            currValue: Math.floor(Math.random() * 180),
+                            goalValue: 180,
+                            unit: '\xb0'
+                        },
+                        {
+                            name: "Dorsiflexion",
+                            joint: "Dorsiflexion",
+                            currValue: Math.floor(Math.random() * 180),
+                            goalValue: 180,
+                            unit: '\xb0'
+                        },        
                     ]
                 });
                 data.push({
