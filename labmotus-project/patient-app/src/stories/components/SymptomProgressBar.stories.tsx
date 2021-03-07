@@ -25,7 +25,7 @@ export default {
                 type: "text"
             }
         },
-        angle: {
+        currValue: {
             defaultValue: 120,
             control: {
                 type: 'range',
@@ -34,7 +34,7 @@ export default {
                 step: 1
             },
         },
-        goalAngle: {
+        goalValue: {
             defaultValue: 180,
             control: {
                 type: 'range',
@@ -43,7 +43,7 @@ export default {
                 step: 1
             },
         },
-        minAngle: {
+        minValue: {
             defaultValue: 1, //Storybook bug: https://github.com/storybookjs/storybook/issues/12767
             control: {
                 type: 'range',

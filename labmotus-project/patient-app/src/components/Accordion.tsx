@@ -1,4 +1,4 @@
-import React, {FunctionComponent, useRef, useState} from "react";
+import React, {FunctionComponent, useEffect, useRef, useState} from "react";
 // @ts-ignore
 import styled from 'styled-components';
 import {Theme, ThemeContext} from "../theme/Theme";
@@ -16,6 +16,7 @@ export interface AccordionProps {
     initialExpanded?: boolean;
     shadow?: boolean;
     onClick?: (expanded: boolean) => void;
+    onExpandEnd?: (expanded: boolean) => void;
 }
 
 const Accordion: FunctionComponent<AccordionProps> = ({
@@ -23,8 +24,9 @@ const Accordion: FunctionComponent<AccordionProps> = ({
                                                           labelFont = "primary",
                                                           expanded: expandedParent,
                                                           initialExpanded = true,
-                                                          shadow = true,
+                                                          shadow = false,
                                                           onClick: onClickCallback,
+                                                          onExpandEnd,
                                                           children
                                                       }) => {
     const theme = React.useContext(ThemeContext);
@@ -32,6 +34,21 @@ const Accordion: FunctionComponent<AccordionProps> = ({
     const expanded = expandedParent === undefined ? expandedState : expandedParent;
     const [height, setHeight] = useState(undefined);
     const bodyRef = useRef();
+    const observer = useRef<ResizeObserver>(null);
+
+    useEffect(() => {
+        if (bodyRef.current != null) {
+            observer.current = new ResizeObserver((e: any) => {
+                setHeight(e[0].borderBoxSize[0].blockSize);
+            });
+            observer.current.observe(bodyRef.current);
+        }
+        return function cleanup() {
+            if (observer.current != null) {
+                observer.current.disconnect();
+            }
+        }
+    }, [bodyRef.current]);
 
     function onClick() {
         if (onClickCallback !== undefined)
@@ -41,21 +58,18 @@ const Accordion: FunctionComponent<AccordionProps> = ({
 
     function update(ref: any) {
         bodyRef.current = ref;
-        if (ref != null)
-            new ResizeObserver((e: any) => {
-                setHeight(e[0].borderBoxSize[0].blockSize);
-            }).observe(ref);
     }
 
     return (<AccordionDiv className="accordion">
         <Card shadow={shadow}>
             <HeaderDiv expanded={expanded} onClick={onClick}>
                 <IonIcon icon={chevronDown}/>
-                <LabelSpan labelFont={labelFont} {...theme}>
+                <LabelSpan labelFont={labelFont} theme={theme} className="accordion-label">
                     {label}
                 </LabelSpan>
             </HeaderDiv>
-            <BodyDiv expanded={expanded} height={height}>
+            <BodyDiv expanded={expanded} height={height}
+                     onTransitionEnd={() => onExpandEnd ? onExpandEnd(expanded) : null}>
                 <IonCardContent ref={(ref) => update(ref)}>
                     {children}
                 </IonCardContent>
@@ -119,7 +133,7 @@ const LabelSpan = styled.span`
     return props[`${props.labelFont}FontFamily`]
 }};
     font-weight: bold;
-    color: ${(props: Theme) => props.colors.contrast};
+    color: ${({theme}: { theme: Theme }) => theme.colors.contrast};
 `;
 
 export default Accordion;

@@ -3,10 +3,18 @@ import {Moment} from "moment";
 export interface Assessment {
     id: string
     patientId: string
+    name: string
     date: Moment
-    videoUrl: string
+    state: AssessmentState
+    videoUrl?: string
     poseData?: any // TODO: Create type for pose data
     stats?: Array<Stats>
+}
+
+export enum AssessmentState {
+    "COMPLETE",
+    "PENDING",
+    "MISSING"
 }
 
 export interface User {
@@ -14,12 +22,13 @@ export interface User {
     firebaseId?: string
     username: string
     name: string
-    email: string
+    email?: string
 }
 
 export interface Patient {
     user: User
     patientCode?: string
+    clinicianID: string;
     phone: string
     birthday: Moment
 }
@@ -32,10 +41,10 @@ export interface Clinician {
 
 export interface Stats {
     name: string
-    videoUrl?: string
     joint: string
     currValue: number
     goalValue: number
+    unit: string;
     minValue?: number
 }
 

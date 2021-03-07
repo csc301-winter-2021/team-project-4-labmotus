@@ -12,6 +12,7 @@ export interface Theme {
     secondaryFontFamily: string;
     colors: Colors;
     locale: string;
+    dateFormat: string;
 }
 
 export interface Colors {
@@ -22,6 +23,9 @@ export interface Colors {
     shade: string;
     mediumShade: string;
     darkShade: string;
+    success: string;
+    warning: string;
+    alert: string;
     cycle: string[];
 }
 
@@ -42,6 +46,9 @@ export const PrimaryTheme: Theme = {
         shade: "#d7d8da",
         mediumShade: "#808289",
         darkShade: "#1e2023",
+        success: "#2fdf75",
+        warning: "#ffd534",
+        alert: "#d62728",
         cycle: [
             '#1f77b4',
             '#ff7f0e',
@@ -56,6 +63,7 @@ export const PrimaryTheme: Theme = {
         ],
     },
     locale: "en-US",
+    dateFormat: "dddd, MMMM Do, YYYY",
 };
 
 export const ThemeContext = React.createContext(PrimaryTheme);

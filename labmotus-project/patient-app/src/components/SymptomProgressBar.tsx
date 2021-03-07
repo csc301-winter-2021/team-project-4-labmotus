@@ -8,6 +8,7 @@ export interface SymptomProgressBarProps {
     currValue: number;
     goalValue: number;
     minValue?: number;
+    unit: string;
 }
 
 const SymptomProgressBar: FunctionComponent<SymptomProgressBarProps> = ({
@@ -15,28 +16,29 @@ const SymptomProgressBar: FunctionComponent<SymptomProgressBarProps> = ({
                                                                             currValue,
                                                                             goalValue,
                                                                             minValue = 0,
+                                                                            unit
                                                                         }) => {
 
     const theme = React.useContext(ThemeContext);
     const percentage = (goalValue - minValue) > 0 ? (currValue - minValue) / (goalValue - minValue) : 0;
 
-    return (<SymptomProgressBarDiv className="symptom-progress-bar" {...theme}>
-        <TopDiv {...theme}>
-            <LabelDiv {...theme}>
+    return (<SymptomProgressBarDiv className="symptom-progress-bar" theme={theme}>
+        <TopDiv theme={theme}>
+            <LabelDiv theme={theme}>
                 {label}
             </LabelDiv>
-            <CurrentAngleDiv {...theme}>
-                {currValue}&#176;
+            <CurrentAngleDiv theme={theme}>
+                {currValue}{unit}
             </CurrentAngleDiv>
         </TopDiv>
-        <BottomDiv {...theme}>
-            <BarDiv {...theme}>
-                <BarBackground {...theme}>
-                    <Bar percentage={percentage} {...theme}/>
+        <BottomDiv theme={theme}>
+            <BarDiv theme={theme}>
+                <BarBackground theme={theme}>
+                    <Bar percentage={percentage} theme={theme}/>
                 </BarBackground>
             </BarDiv>
-            <GoalAngleDiv {...theme}>
-                {goalValue}&#176;
+            <GoalAngleDiv theme={theme}>
+                {goalValue}{unit}
             </GoalAngleDiv>
         </BottomDiv>
     </SymptomProgressBarDiv>)
@@ -54,15 +56,15 @@ const TopDiv = styled.div`
 
 const LabelDiv = styled.div`
     flex: 1;
-    font-size: ${(props: Theme) => props.secondaryFontSize};
-    font-family: ${(props: Theme) => props.secondaryFontFamily};
-    color: ${(props: Theme) => props.colors.contrast};
+    font-size: ${({theme}: { theme: Theme }) => theme.secondaryFontSize};
+    font-family: ${({theme}: { theme: Theme }) => theme.secondaryFontFamily};
+    color: ${({theme}: { theme: Theme }) => theme.colors.contrast};
 `;
 
 const CurrentAngleDiv = styled.span`
-    font-size: ${(props: Theme) => props.primaryFontSize};
-    font-family: ${(props: Theme) => props.primaryFontFamily};
-    color: ${(props: Theme) => props.colors.contrast};
+    font-size: ${({theme}: { theme: Theme }) => theme.primaryFontSize};
+    font-family: ${({theme}: { theme: Theme }) => theme.primaryFontFamily};
+    color: ${({theme}: { theme: Theme }) => theme.colors.contrast};
 `;
 
 const BottomDiv = styled.div`
@@ -78,7 +80,7 @@ const BarDiv = styled.div`
 `;
 
 const BarBackground = styled.div`
-    background-color: ${(props: Theme) => props.colors.shade};
+    background-color: ${({theme}: { theme: Theme }) => theme.colors.shade};
     overflow: hidden;
     border-radius: 9999px;
     height: 50%;
@@ -90,7 +92,7 @@ interface PercentageProps {
 }
 
 const Bar = styled.div`
-    background-color: ${(props: Theme) => props.colors.primary};
+    background-color: ${({theme}: { theme: Theme }) => theme.colors.primary};
     border-radius: 9999px;
     height: 100%;
     width: 100%;
@@ -100,9 +102,9 @@ const Bar = styled.div`
 const GoalAngleDiv = styled.div`
     flex: 2.5;
     text-align: end;
-    font-size: ${(props: Theme) => props.secondaryFontSize};
-    font-family: ${(props: Theme) => props.secondaryFontFamily};
-    color: ${(props: Theme) => props.colors.shade};
+    font-size: ${({theme}: { theme: Theme }) => theme.secondaryFontSize};
+    font-family: ${({theme}: { theme: Theme }) => theme.secondaryFontFamily};
+    color: ${({theme}: { theme: Theme }) => theme.colors.shade};
 `;
 
 export default SymptomProgressBar;
