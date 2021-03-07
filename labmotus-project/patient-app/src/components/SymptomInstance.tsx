@@ -11,7 +11,7 @@ import {chevronForward} from "ionicons/icons";
 import {useHistory} from "react-router";
 
 import {DateDisplay} from "./DateDisplay"
-import { IonButton } from "@ionic/react";
+
 export interface SymptomInstanceProps {
     date: Moment;
     data?: Assessment[];
@@ -30,11 +30,11 @@ const SymptomInstance: FunctionComponent<SymptomInstanceProps> = ({
     const history = useHistory();
 
     useEffect(() => {
-        const new_stats: Stats[] = [];
+        const newStats: Stats[] = [];
         data?.forEach(assessment => {
-            assessment.stats.forEach(stat => new_stats.push(stat))
+            assessment.stats.forEach(stat => newStats.push(stat))
         });
-        setStats(new_stats);
+        setStats(newStats);
     }, [data]);
 
     function colorLabel(ref: any) {
@@ -60,11 +60,11 @@ const SymptomInstance: FunctionComponent<SymptomInstanceProps> = ({
         history.push(`/assessment/${date.format("YYYY-MM-DD")}`)
     }
 
-    return (<SymptomInstanceDiv className="symptom-instance"  theme={theme}>
+    return (<SymptomInstanceDiv className="symptom-instance" theme={theme}>
         <HeaderDiv theme={theme}>
             {date?.format('MMMM Do YYYY')}
         </HeaderDiv>
-        <DateDisplay date={date} changeDay={changeDay}></DateDisplay>
+        <DateDisplay date={date} changeDay={changeDay}/>
         <div {...theme} onClick={toToday}>Go to today</div>
         <GraphDiv ref={colorLabel}>
             <ResponsiveContainer width="100%" height="100%">
@@ -140,7 +140,7 @@ const ViewAssessmentDiv = styled.div`
 const ViewAssessmentButton = styled.div`
     font-size: ${({theme}: { theme: Theme }) => theme.primaryFontSize};
     font-family: ${({theme}: { theme: Theme }) => theme.primaryFontFamily};
-    color: ${({theme}: { theme: Theme }) => theme.colors.contrast}; 
+    color: ${({theme}: { theme: Theme }) => theme.colors.contrast};
     font-weight: bold;
     display: flex;
     align-items: center;

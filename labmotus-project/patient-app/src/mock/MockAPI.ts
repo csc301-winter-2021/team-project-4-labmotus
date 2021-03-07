@@ -34,7 +34,7 @@ class MockAPI extends API {
 
     async login(user: string, pass: string): Promise<void> {
         if (this._user !== null)
-            throw "Already logged In.";
+            throw Error("Already logged In.");
         this._user = FakeUser;
         this._user.user.email = user;
         this.authChangeListeners.forEach(listener => listener(true))
@@ -42,7 +42,7 @@ class MockAPI extends API {
 
     async logout(): Promise<void> {
         if (this._user === null)
-            throw "Not logged In.";
+            throw Error("Not logged In.");
         this._user = null;
         this.authChangeListeners.forEach(listener => listener(false))
     }
@@ -53,19 +53,19 @@ class MockAPI extends API {
 
     async signUp(email: string, pass: string): Promise<void> {
         if (this._user !== null)
-            throw "Already logged In.";
+            throw Error("Already logged In.");
         this._user = FakeUser;
         this._user.user.email = email;
         console.log(this._user)
     }
 
     async deleteUser(): Promise<void> {
-        throw "Not Implemented"
+        throw Error("Not Implemented")
     }
 
     async updatePatient(patient: Patient): Promise<void> {
         if (this._user === null)
-            throw "Not logged In.";
+            throw Error("Not logged In.");
         this._user = patient;
     }
 
@@ -106,7 +106,7 @@ class MockAPI extends API {
         const data: Assessment[] = [];
         for (let i = 0; i < 7; i++) {
             const date = moment(weekStart).startOf('week').add(i, 'd');
-            if (i % 2 == 0) {
+            if (i % 2 === 0) {
                 data.push({
                     id: Math.floor(Math.random() * 1000000).toString(),
                     patientId: "",
@@ -135,7 +135,7 @@ class MockAPI extends API {
                             currValue: Math.floor(Math.random() * 180),
                             goalValue: 180,
                             unit: '\xb0'
-                        },                    
+                        },
                         {
                             name: "Valgus/Varus",
                             joint: "Valgus/Varus",

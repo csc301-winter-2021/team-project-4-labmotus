@@ -33,7 +33,7 @@ class API {
 
     authChangeListeners: Set<(loggedIn: boolean) => void>;
 
-    //@ts-ignore
+    // @ts-ignore
     constructor(config: (FirebaseConfig | null) = firebaseConfig) {
         this._user = null;
         this.authChangeListeners = new Set();
@@ -75,7 +75,7 @@ class API {
     }
 
     async deleteUser(): Promise<void> {
-        throw "Not Implemented"
+        throw Error("Not Implemented")
     }
 
     async _firebaseSendPasswordResetEmail(email: string): Promise<void> {
@@ -109,19 +109,19 @@ class API {
     }
 
     async updatePatient(patient: Patient): Promise<void> {
-        throw "Not Implemented"
+        throw Error("Not Implemented")
     }
 
     async uploadVideo(assessmentID: string, url: string): Promise<void> {
-        throw "Not Implemented"
+        throw Error("Not Implemented")
     }
 
     async getClinician(patient: Patient): Promise<Clinician> {
-        throw "Not Implemented"
+        throw Error("Not Implemented")
     }
 
     async getAssessments(week: Moment = moment().startOf('day')): Promise<Assessment[]> {
-        throw "Not Implemented"
+        throw Error("Not Implemented")
     }
 
     addLoginListener(listener: (loggedIn: boolean) => void) {
