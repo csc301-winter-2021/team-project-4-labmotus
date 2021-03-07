@@ -7,6 +7,8 @@ import {Stats} from "../../../common/types";
 import moment, {Moment} from "moment";
 import {CartesianGrid, Line, LineChart, ReferenceLine, ResponsiveContainer, Tooltip, XAxis, YAxis} from "recharts";
 
+import {DateDisplay} from "./DateDisplay"
+import { IonButton } from "@ionic/react";
 export interface SymptomInstanceProps {
     date: Moment;
     stats?: Array<Stats>;
@@ -42,9 +44,11 @@ const SymptomInstance: FunctionComponent<SymptomInstanceProps> = ({
     }
 
     return (<SymptomInstanceDiv className="symptom-instance" {...theme}>
-        <HeaderDiv {...theme} onClick={toToday}>
+        <HeaderDiv {...theme}>
             {date?.format('MMMM Do YYYY')}
         </HeaderDiv>
+        <DateDisplay date = {date} changeDay = {changeDay}></DateDisplay>
+        <div {...theme} onClick={toToday}>Go to today</div>
         <GraphDiv ref={colorLabel}>
             <ResponsiveContainer width="100%" height="100%">
                 <LineChart data={graphData}>
