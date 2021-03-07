@@ -11,7 +11,7 @@ export interface LoadingComponentProps {
 }
 
 function timeoutFunctor(timeout: number) {
-    return async function (): Promise<boolean> {
+    return async (): Promise<boolean> => {
         return new Promise<boolean>(resolve => setTimeout(() => resolve(true), timeout));
     }
 }
@@ -35,12 +35,12 @@ const LoadingComponent: FunctionComponent<LoadingComponentProps> = ({
             loadedResult.current.push(null);
             timeoutRef.current = -1;
         } else if (!loaded && !loadedItems.every(value => value !== false)) {
-            let new_loaded = undefined;
+            let newLoaded;
             for (let i = 0; i < loadedItems.length; i++) {
                 if (loadedItems[i] === false && (!dependencies.hasOwnProperty(i) || dependencies[i].every(v => loadedItems[v] === true))) {
-                    if (new_loaded === undefined)
-                        new_loaded = [...loadedItems];
-                    new_loaded[i] = undefined;
+                    if (newLoaded === undefined)
+                        newLoaded = [...loadedItems];
+                    newLoaded[i] = undefined;
                     const params = dependencies.hasOwnProperty(i) ? dependencies[i].map(v => loadedResult.current[v]) : [];
                     functorsRef.current[i](params).then((value) => {
                         setLoadedItems(prevLoaded => {
@@ -59,8 +59,8 @@ const LoadingComponent: FunctionComponent<LoadingComponentProps> = ({
                     });
                 }
             }
-            if (new_loaded !== undefined)
-                setLoadedItems(new_loaded);
+            if (newLoaded !== undefined)
+                setLoadedItems(newLoaded);
         }
     });
 

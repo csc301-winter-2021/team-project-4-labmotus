@@ -5,7 +5,10 @@
   ],
   "jsRules": {},
   "rules": {
-    "no-console": false
+    "no-console": false,
+    "no-empty-interface": false,
+    "prefer-for-of": false,
+    "object-literal-shorthand": false
   },
   "rulesDirectory": []
 }

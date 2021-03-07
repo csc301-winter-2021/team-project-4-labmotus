@@ -36,7 +36,7 @@ const VideoRecordingPage: FunctionComponent<VideoRecordingPageProps> = ({}) => {
 
     useEffect(() => {
         VideoRecorder.initialize({
-            camera: camera % 2 == 0 ? VideoRecorderCamera.FRONT : VideoRecorderCamera.BACK,
+            camera: camera % 2 === 0 ? VideoRecorderCamera.FRONT : VideoRecorderCamera.BACK,
             previewFrames: [config]
         });
         return () => {

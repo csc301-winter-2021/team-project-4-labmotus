@@ -52,7 +52,7 @@
     "build": "react-app-rewired build",
     "test": "react-app-rewired test",
     "eject": "react-scripts eject",
-    "lint": "node node_modules/tslint/bin/tslint src/*",
+    "lint": "node node_modules/tslint/bin/tslint src/**/*.ts{,x}",
     "android": "ionic capacitor run android --livereload",
     "storybook": "start-storybook -p 6006 -s public",
     "build-storybook": "build-storybook -s public"

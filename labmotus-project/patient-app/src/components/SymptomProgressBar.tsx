@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import {Theme, ThemeContext} from "../theme/Theme";
 
 export interface SymptomProgressBarProps {
-    label?: String;
+    label?: string;
     currValue: number;
     goalValue: number;
     minValue?: number;
@@ -49,7 +49,7 @@ const SymptomProgressBarDiv = styled.div`
     flex-direction: column;
 `;
 
-const TopDiv = styled.div`    
+const TopDiv = styled.div`
     display: flex;
     flex-direction: row;
 `;

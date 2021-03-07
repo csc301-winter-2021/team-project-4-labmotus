@@ -44,7 +44,7 @@ export default {
             },
         },
         minValue: {
-            defaultValue: 1, //Storybook bug: https://github.com/storybookjs/storybook/issues/12767
+            defaultValue: 1, // Storybook bug: https://github.com/storybookjs/storybook/issues/12767
             control: {
                 type: 'range',
                 min: 0,
