@@ -1,6 +1,6 @@
-import * as fastify from 'fastify'
+import {FastifyInstance, FastifyPluginOptions} from 'fastify'
 import moment from 'moment'
-import {Assessment, AssessmentState, Patient, Response, User} from '../../../common/types/types'
+import {Assessment, AssessmentState, Patient, Response, User} from '../../../../common/types/types'
 import {RequestHeaders} from '../../types';
 
 
@@ -12,7 +12,7 @@ interface PatientIdParams {
     patientId: string
 }
 
-export default async function (server: fastify.FastifyInstance, options: fastify.FastifyPluginOptions, done: () => void) {
+export default async function (server: FastifyInstance & { test: () => boolean }, options: FastifyPluginOptions, done: () => void) {
     /**
      * POST /patientcode
      *
