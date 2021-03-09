@@ -87,6 +87,7 @@ const SymptomLogPage: FunctionComponent<SymptomLogPageProps> = ({}) => {
             setMoving(false);
             goto(newWeek, newIndex);
         })).catch(reason => {
+            console.error(reason)
         })
     }
 
@@ -145,7 +146,7 @@ const SymptomLogPage: FunctionComponent<SymptomLogPageProps> = ({}) => {
     }
 
     useEffect(() => {
-        if (week !== null && data.hasOwnProperty(week.format(dateFormat))) {
+        if (day.current !== null) {
             const container: { style: { transform: string, transition: string } } = containerRef.current;
             if (container != null) {
                 container.style.transition = `unset`;

@@ -170,12 +170,57 @@ export default async function (server: FastifyInstance & { database: Database },
      *
      * Parameters:
      *  patientId: Patient ID
+     *  start: Start of Query
+     *  duration: Duration of query range
+     *  unit: Units of duration. Default 1w
      * Response: List of patient assessments
      */
     server.get<{
+        Query: { start: string, duration: string, unit: string }
         Headers: RequestHeaders,
-        Params: PatientIdParams
+        Params: { patientId: string },
     }>('/patient/:patientId/assessments', {}, async (request, reply) => {
+        const headers: { authorization?: string } = request.headers as any;
+        const patientID = request.params.patientId;
+        const query: { start: string, duration: string, unit: string } = request.query as any;
+        const start = query?.start;
+        const duration = query?.duration === undefined ? "1" : query.duration;
+        const unit = query?.unit === undefined ? "w" : query?.unit;
+        if (start === undefined) {
+            reply.code(400).send("No Start Time specified")
+        }
+        try {
+            const permissions = await authenticateUser(server.database, headers.authorization.split('Bearer ')[1]);
+            try {
+                const patient = await server.database.getPatientByID(patientID);
+                if (permissions.getAssessments(patient)) {
+                    try {
+                        const results = await server.database.getAssessments(patientID, moment(start), Number(duration), unit);
+                        const response: Response<Assessment[]> = {
+                            success: true,
+                            body: results
+                        };
+                        reply.code(200)
+                            .header('Content-Type', 'application/json')
+                            .send(response)
+                    } catch (e) {
+                        reply.code(400).send("Bad Request")
+                    }
+                } else {
+                    reply.code(403).send("Forbidden");
+                }
+            } catch (e) {
+                if (permissions.getPatient()) {
+                    reply.code(404).send("No Such Patient");
+                } else {
+                    reply.code(403).send("Forbidden");
+                }
+            }
+        } catch (e) {
+            reply.code(401).send("Not Authorized");
+            return;
+        }
+
         const assessments: Assessment[] = [
             {
                 id: "0",

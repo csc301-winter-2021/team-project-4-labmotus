@@ -111,6 +111,7 @@ class API {
 
     async getPatient(patientID?: string): Promise<Patient> {
         const token = await firebase.auth().currentUser.getIdToken() as any;
+        // @ts-ignore
         const response = await fetch(config.api + `/patient/${patientID === undefined ? '-1' : patientID}`, {
             method: "GET",
             mode: 'cors',
@@ -139,7 +140,23 @@ class API {
     }
 
     async getAssessments(week: Moment = moment().startOf('day')): Promise<Assessment[]> {
-        throw Error("Not Implemented")
+        if (!this.isLoggedIn())
+            return Promise.reject("Not Logged In");
+        const token = await firebase.auth().currentUser.getIdToken() as any;
+        // @ts-ignore
+        const response = await fetch(config.api + `/patient/${this._user.user.id}/assessments?start=${week.toISOString()}`, {
+            method: "GET",
+            mode: 'cors',
+            headers: {
+                "Authorization": "Bearer " + token,
+            }
+        });
+        if (response.ok) {
+            const body: [] = JSON.parse(await response.text()).body;
+            return body.map((ass: { date: string }) => ({...ass, date: moment(ass.date)})) as Assessment[];
+        } else {
+            console.error(response);
+        }
     }
 
     addLoginListener(listener: (loggedIn: boolean) => void) {

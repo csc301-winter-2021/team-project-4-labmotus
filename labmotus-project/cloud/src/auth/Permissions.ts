@@ -9,6 +9,12 @@ export abstract class Permissions {
     abstract getPatient(target?: Patient): boolean;
 
     /**
+     * Whether or not access should be granted for target's assessment
+     * @param target The patient to query access for.
+     */
+    abstract getAssessments(target: Patient): boolean;
+
+    /**
      * Returns the UserID this permissions belongs to.
      */
     abstract getUserID(): string;
@@ -28,6 +34,12 @@ export class PatientPermissions extends Permissions {
         return this.patient.user.id === target.user.id;
     }
 
+    getAssessments(target?: Patient): boolean {
+        if (target === undefined)
+            return false;
+        return this.patient.user.id === target.user.id;
+    }
+
     getUserID(): string {
         return this.patient.user.id;
     }
@@ -42,6 +54,12 @@ export class ClinicianPermissions extends Permissions {
     }
 
     getPatient(target?: Patient): boolean {
+        if (target === undefined)
+            return false;
+        return this.clinician.user.id === target.clinicianID;
+    }
+
+    getAssessments(target?: Patient): boolean {
         if (target === undefined)
             return false;
         return this.clinician.user.id === target.clinicianID;
