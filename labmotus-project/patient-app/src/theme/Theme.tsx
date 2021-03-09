@@ -13,6 +13,7 @@ export interface Theme {
     colors: Colors;
     locale: string;
     dateFormat: string;
+    birthdayFormat: string;
 }
 
 export interface Colors {
@@ -64,6 +65,7 @@ export const PrimaryTheme: Theme = {
     },
     locale: "en-US",
     dateFormat: "dddd, MMMM Do, YYYY",
+    birthdayFormat: "MMMM Do, YYYY",
 };
 
 export const ThemeContext = React.createContext(PrimaryTheme);
