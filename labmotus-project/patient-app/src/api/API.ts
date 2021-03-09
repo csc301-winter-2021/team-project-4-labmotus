@@ -1,4 +1,5 @@
 import React from "react";
+import config from "../../config.json"
 import firebaseConfig from "../../firebase.json"
 import firebase from 'firebase/app';
 import "firebase/auth"
@@ -33,17 +34,17 @@ class API {
 
     authChangeListeners: Set<(loggedIn: boolean) => void>;
 
-    //@ts-ignore
-    constructor(config: (FirebaseConfig | null) = firebaseConfig) {
+    // @ts-ignore
+    constructor(fbConfig: (FirebaseConfig | null) = firebaseConfig) {
         this._user = null;
         this.authChangeListeners = new Set();
-        if (config !== null) {
-            this._firebase = firebase.initializeApp(config);
-            this._firebase.auth().onAuthStateChanged(a => {
+        if (fbConfig !== null) {
+            this._firebase = firebase.initializeApp(fbConfig);
+            this._firebase.auth().onAuthStateChanged(async a => {
                 this._firebaseUser = a;
                 if (this._firebaseUser) {
-                    this._user = FakeUser as Patient;
-                    this._user.user.email = this._firebaseUser.email;
+                    this._user = await this.getPatient();
+                    console.log(this._user);
                 }
                 this.authChangeListeners.forEach(listener => listener(!!(a as any)))
             })
@@ -75,7 +76,7 @@ class API {
     }
 
     async deleteUser(): Promise<void> {
-        throw "Not Implemented"
+        throw Error("Not Implemented")
     }
 
     async _firebaseSendPasswordResetEmail(email: string): Promise<void> {
@@ -108,20 +109,54 @@ class API {
         }
     }
 
+    async getPatient(patientID?: string): Promise<Patient> {
+        const token = await firebase.auth().currentUser.getIdToken() as any;
+        // @ts-ignore
+        const response = await fetch(config.api + `/patient/${patientID === undefined ? '-1' : patientID}`, {
+            method: "GET",
+            mode: 'cors',
+            headers: {
+                "Authorization": "Bearer " + token,
+            }
+        });
+        if (response.ok) {
+            const body = JSON.parse(await response.text()).body;
+            return {...body, birthday: moment(body?.birthday)}
+        } else {
+            console.error(response);
+        }
+    }
+
     async updatePatient(patient: Patient): Promise<void> {
-        throw "Not Implemented"
+        throw Error("Not Implemented")
     }
 
     async uploadVideo(assessmentID: string, url: string): Promise<void> {
-        throw "Not Implemented"
+        throw Error("Not Implemented")
     }
 
     async getClinician(patient: Patient): Promise<Clinician> {
-        throw "Not Implemented"
+        throw Error("Not Implemented")
     }
 
     async getAssessments(week: Moment = moment().startOf('day')): Promise<Assessment[]> {
-        throw "Not Implemented"
+        if (!this.isLoggedIn())
+            return Promise.reject("Not Logged In");
+        const token = await firebase.auth().currentUser.getIdToken() as any;
+        // @ts-ignore
+        const response = await fetch(config.api + `/patient/${this._user.user.id}/assessments?start=${week.toISOString()}`, {
+            method: "GET",
+            mode: 'cors',
+            headers: {
+                "Authorization": "Bearer " + token,
+            }
+        });
+        if (response.ok) {
+            const body: [] = JSON.parse(await response.text()).body;
+            return body.map((ass: { date: string }) => ({...ass, date: moment(ass.date)})) as Assessment[];
+        } else {
+            console.error(response);
+        }
     }
 
     addLoginListener(listener: (loggedIn: boolean) => void) {

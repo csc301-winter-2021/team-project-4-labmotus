@@ -1,7 +1,9 @@
-import * as fastify from 'fastify'
+import {FastifyInstance, FastifyPluginOptions} from 'fastify'
 import moment from 'moment'
-import {Assessment, AssessmentState, Patient, Response, User} from '../../../common/types/types'
+import {Assessment, AssessmentState, Patient, Response, User} from '../../../../common/types/types'
 import {RequestHeaders} from '../../types';
+import {authenticateUser} from "../../auth/Authenticator";
+import Database from "../../data/Database";
 
 
 interface PatientCodeParams {
@@ -12,7 +14,7 @@ interface PatientIdParams {
     patientId: string
 }
 
-export default async function (server: fastify.FastifyInstance, options: fastify.FastifyPluginOptions, done: () => void) {
+export default async function (server: FastifyInstance & { database: Database }, options: FastifyPluginOptions, done: () => void) {
     /**
      * POST /patientcode
      *
@@ -128,27 +130,37 @@ export default async function (server: fastify.FastifyInstance, options: fastify
         Headers: RequestHeaders,
         Params: PatientIdParams
     }>('/patient/:patientId', {}, async (request, reply) => {
-        const patient: Patient = {
-            user: {
-                id: request.params.patientId,
-                firebaseId: "firebase:0",
-                username: "labmotus",
-                name: "LabMotus User",
-                email: "user@labmot.us",
-            },
-            phone: "1234567890",
-            clinicianID: '0',
-            birthday: moment().subtract(18, 'years')
-        };
-
-        const mockResponse: Response<Patient> = {
-            success: true,
-            body: patient
-        };
-        reply
-            .code(200)
-            .header('Content-Type', 'application/json')
-            .send(mockResponse)
+        const headers: { authorization?: string } = request.headers as any;
+        let patientID = Number.isSafeInteger(request.params.patientId) &&
+        Number(request.params.patientId) >= 0 ? request.params.patientId : undefined;
+        try {
+            const permissions = await authenticateUser(server.database, headers.authorization.split('Bearer ')[1]);
+            if (patientID === undefined)
+                patientID = permissions.getUserID();
+            try {
+                const patient = await server.database.getPatientByID(patientID);
+                const response: Response<Patient> = {
+                    success: true,
+                    body: patient
+                };
+                if (permissions.getPatient(patient)) {
+                    reply.code(200)
+                        .header('Content-Type', 'application/json')
+                        .send(response)
+                } else {
+                    reply.code(403).send("Forbidden");
+                }
+            } catch (e) {
+                if (permissions.getPatient()) {
+                    reply.code(404).send("No Such Patient");
+                } else {
+                    reply.code(403).send("Forbidden");
+                }
+            }
+        } catch (e) {
+            reply.code(401).send("Not Authorized");
+            return;
+        }
     });
 
     /**
@@ -158,12 +170,57 @@ export default async function (server: fastify.FastifyInstance, options: fastify
      *
      * Parameters:
      *  patientId: Patient ID
+     *  start: Start of Query
+     *  duration: Duration of query range
+     *  unit: Units of duration. Default 1w
      * Response: List of patient assessments
      */
     server.get<{
+        Query: { start: string, duration: string, unit: string }
         Headers: RequestHeaders,
-        Params: PatientIdParams
+        Params: { patientId: string },
     }>('/patient/:patientId/assessments', {}, async (request, reply) => {
+        const headers: { authorization?: string } = request.headers as any;
+        const patientID = request.params.patientId;
+        const query: { start: string, duration: string, unit: string } = request.query as any;
+        const start = query?.start;
+        const duration = query?.duration === undefined ? "1" : query.duration;
+        const unit = query?.unit === undefined ? "w" : query?.unit;
+        if (start === undefined) {
+            reply.code(400).send("No Start Time specified")
+        }
+        try {
+            const permissions = await authenticateUser(server.database, headers.authorization.split('Bearer ')[1]);
+            try {
+                const patient = await server.database.getPatientByID(patientID);
+                if (permissions.getAssessments(patient)) {
+                    try {
+                        const results = await server.database.getAssessments(patientID, moment(start), Number(duration), unit);
+                        const response: Response<Assessment[]> = {
+                            success: true,
+                            body: results
+                        };
+                        reply.code(200)
+                            .header('Content-Type', 'application/json')
+                            .send(response)
+                    } catch (e) {
+                        reply.code(400).send("Bad Request")
+                    }
+                } else {
+                    reply.code(403).send("Forbidden");
+                }
+            } catch (e) {
+                if (permissions.getPatient()) {
+                    reply.code(404).send("No Such Patient");
+                } else {
+                    reply.code(403).send("Forbidden");
+                }
+            }
+        } catch (e) {
+            reply.code(401).send("Not Authorized");
+            return;
+        }
+
         const assessments: Assessment[] = [
             {
                 id: "0",

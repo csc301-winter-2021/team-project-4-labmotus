@@ -52,13 +52,13 @@ const SymptomLogPage: FunctionComponent<SymptomLogPageProps> = ({}) => {
             }
         }
         if (page.current !== 0) {
-            const day = date.day() + 1;
-            setShift([date.startOf('week'), day]);
+            const newDay = date.day() + 1;
+            setShift([date.startOf('week'), newDay]);
         }
     }
 
-    function updateData(week: Moment, index: number) {
-        API.getAssessments(week).then(((assessments: Assessment[]) => {
+    function updateData(newWeek: Moment, newIndex: number) {
+        API.getAssessments(newWeek).then(((assessments: Assessment[]) => {
             const assessmentsByDay: { [key: string]: Assessment[] } = {};
             for (let i = 0; i < assessments.length; i++) if (assessments[i].state === AssessmentState.COMPLETE) {
                 const key = assessments[i].date.format(dateFormat);
@@ -75,7 +75,7 @@ const SymptomLogPage: FunctionComponent<SymptomLogPageProps> = ({}) => {
                         const stat = dayAssessments[i].stats[j];
                         const goal = stat.goalValue;
                         const min = stat.minValue ? stat.minValue : 0;
-                        dict[stat.name] = (goal == min) ? 1 : (stat.currValue - min) / (goal - min);
+                        dict[stat.name] = (goal === min) ? 1 : (stat.currValue - min) / (goal - min);
                     }
                 }
                 newGraphData.push(dict);
@@ -85,8 +85,10 @@ const SymptomLogPage: FunctionComponent<SymptomLogPageProps> = ({}) => {
             setGraphData([...graphData, ...newGraphData].sort((a: { date: number }, b: { date: number }) => a.date - b.date));
             setGraphKeys(graphKeys);
             setMoving(false);
-            goto(week, index);
-        }))
+            goto(newWeek, newIndex);
+        })).catch(reason => {
+            console.error(reason)
+        })
     }
 
     useEffect(() => {
@@ -95,8 +97,8 @@ const SymptomLogPage: FunctionComponent<SymptomLogPageProps> = ({}) => {
         }
     }, [data]);
 
-    function goto(week: Moment, index: number) {
-        history.push(`/home/${moment(week).add(index - 1, 'd').format(dateFormat)}`)
+    function goto(newWeek: Moment, newIndex: number) {
+        history.push(`/home/${moment(newWeek).add(newIndex - 1, 'd').format(dateFormat)}`)
     }
 
     useEffect(() => {
@@ -125,10 +127,10 @@ const SymptomLogPage: FunctionComponent<SymptomLogPageProps> = ({}) => {
             page.current = 0;
             setShift(null);
         } else if (week !== null && page.current !== 0) {
-            const week = moment(day.current).startOf('week');
-            const index = day.current.day() + 1;
-            const currIndex = index + page.current;
-            const nextWeek = moment(week);
+            const newWeek = moment(day.current).startOf('week');
+            const newIndex = day.current.day() + 1;
+            const currIndex = newIndex + page.current;
+            const nextWeek = moment(newWeek);
             if (currIndex === 8 || currIndex === 0) {
                 nextWeek.add(currIndex === 8 ? 7 : -7, 'd');
                 if (!data.hasOwnProperty(nextWeek.format(dateFormat))) {
@@ -137,14 +139,14 @@ const SymptomLogPage: FunctionComponent<SymptomLogPageProps> = ({}) => {
                     goto(nextWeek, (currIndex + 6) % 7 + 1);
                 }
             } else {
-                goto(week, (currIndex + 6) % 7 + 1);
+                goto(newWeek, (currIndex + 6) % 7 + 1);
             }
             page.current = 0;
         }
     }
 
     useEffect(() => {
-        if (week !== null && data.hasOwnProperty(week.format(dateFormat))) {
+        if (day.current !== null) {
             const container: { style: { transform: string, transition: string } } = containerRef.current;
             if (container != null) {
                 container.style.transition = `unset`;
@@ -155,10 +157,10 @@ const SymptomLogPage: FunctionComponent<SymptomLogPageProps> = ({}) => {
 
     function generateInstances() {
         if (week !== null) {
-            const day = moment(week).add(index - 1, 'd');
-            const dayData = data[day.format(dateFormat)];
+            const newDay = moment(week).add(index - 1, 'd');
+            const dayData = data[newDay.format(dateFormat)];
             return <InstanceDiv>
-                <SymptomInstance changeDay={setDate} date={day} graphData={graphData}
+                <SymptomInstance changeDay={setDate} date={newDay} graphData={graphData}
                                  graphKeys={graphKeys} data={dayData}/>
             </InstanceDiv>
         } else {
@@ -179,7 +181,7 @@ const SymptomLogPage: FunctionComponent<SymptomLogPageProps> = ({}) => {
         if (moving) {
             const container: { style: { transform: string, transition: string } } = containerRef.current;
             const current = e?.clientX;
-            if (current != null && container != null && current != 0) {
+            if (current != null && container != null && current !== 0) {
                 container.style.transition = 'unset';
                 container.style.transform = `translate3d(${current - offset.current}px, 0, 0)`;
                 last.current = current;

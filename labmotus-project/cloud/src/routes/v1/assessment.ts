@@ -1,6 +1,6 @@
 import * as fastify from 'fastify'
 import moment from 'moment'
-import {Assessment, AssessmentState, Response} from '../../../common/types/types'
+import {Assessment, AssessmentState, Response} from '../../../../common/types/types'
 import {RequestHeaders} from '../../types'
 
 

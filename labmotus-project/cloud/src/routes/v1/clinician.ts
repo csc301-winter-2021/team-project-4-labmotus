@@ -1,6 +1,6 @@
 import * as fastify from 'fastify'
 import moment from 'moment'
-import {Clinician, Patient, Response, User} from '../../../common/types/types'
+import {Clinician, Patient, Response, User} from '../../../../common/types/types'
 import {RequestHeaders} from '../../types';
 
 

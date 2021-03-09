@@ -1,14 +1,15 @@
+// @ts-ignore
 import React from "react";
 import {IonAvatar} from "@ionic/react";
 
 export interface ProfilePicProps {
-  imageLink: string
+    imageLink: string
 }
 
 export const ProfilePictureComponent: React.FC<ProfilePicProps> = (props: ProfilePicProps) => {
-  return (
-    <IonAvatar>
-      <img src={props.imageLink} />
-    </IonAvatar>
-  )
-}
+    return (
+        <IonAvatar>
+            <img src={props.imageLink} alt="Profile Picture"/>
+        </IonAvatar>
+    )
+};

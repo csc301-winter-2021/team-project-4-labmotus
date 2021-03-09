@@ -28,9 +28,13 @@ const AssessmentPage: FunctionComponent<AssessmentPageProps> = ({}) => {
     useEffect(() => {
         setAssessments(null);
         API.getAssessments(day).then(value => {
-            const assessments = value.filter(ass => ass.date.format('YYYY-MM-DD') === day.format('YYYY-MM-DD'));
-            setAssessments(assessments);
-            setExpanded(assessments.map(ass => ass.state === AssessmentState.COMPLETE))
+            const tAssessments = value.filter(ass => ass.date.format('YYYY-MM-DD') === day.format('YYYY-MM-DD'));
+            setAssessments(tAssessments);
+            setExpanded(tAssessments.map(ass => ass.state === AssessmentState.COMPLETE))
+        }).catch(reason => {
+            console.error(reason);
+            setAssessments([]);
+            setExpanded([]);
         });
     }, [date]);
 
@@ -40,9 +44,9 @@ const AssessmentPage: FunctionComponent<AssessmentPageProps> = ({}) => {
 
     function onClick(index: number) {
         if (assessments[index].state !== AssessmentState.MISSING) {
-            const new_expanded = [...expanded];
-            new_expanded[index] = !expanded[index];
-            setExpanded(new_expanded);
+            const newExpanded = [...expanded];
+            newExpanded[index] = !expanded[index];
+            setExpanded(newExpanded);
         }
     }
 
@@ -72,8 +76,8 @@ const AssessmentPage: FunctionComponent<AssessmentPageProps> = ({}) => {
                     return (<AccordionContainer color={color} key={index}>
                         <Accordion label={value.name} expanded={expanded[index]} onClick={() => onClick(index)}>
                             {value.state !== AssessmentState.MISSING && value.stats ?
-                                value.stats.map((stat, index) => (
-                                    <StatDiv theme={theme} key={index}>
+                                value.stats.map((stat, i) => (
+                                    <StatDiv theme={theme} key={i}>
                                         {`${stat.name}: ${stat.currValue}${stat.unit}\t Goal: ${stat.goalValue}${stat.unit}`}
                                     </StatDiv>
                                 )) : null
@@ -165,20 +169,20 @@ const HeaderText = styled.div`
     flex: 1;
     font-size: ${({theme}: { theme: Theme }) => theme.headerFontSize};
     font-family: ${({theme}: { theme: Theme }) => theme.headerFontFamily};
-    color: ${({theme}: { theme: Theme }) => theme.colors.contrast}; 
+    color: ${({theme}: { theme: Theme }) => theme.colors.contrast};
 `;
 
 const NoneDiv = styled.div`
     font-size: ${({theme}: { theme: Theme }) => theme.headerFontSize};
     font-family: ${({theme}: { theme: Theme }) => theme.headerFontFamily};
-    color: ${({theme}: { theme: Theme }) => theme.colors.contrast}; 
+    color: ${({theme}: { theme: Theme }) => theme.colors.contrast};
 `;
 
 const StatDiv = styled.div`
     margin-left: 20px;
     font-size: ${({theme}: { theme: Theme }) => theme.subheaderFontSize};
     font-family: ${({theme}: { theme: Theme }) => theme.subheaderFontFamily};
-    color: ${({theme}: { theme: Theme }) => theme.colors.contrast}; 
+    color: ${({theme}: { theme: Theme }) => theme.colors.contrast};
 `;
 
 const BodyDiv = styled.div`
