@@ -2,7 +2,7 @@
     "name": "@labmotus/types",
     "version": "1.0.0",
     "private": true,
-    "typings": "types.d.ts",
+    "typings": "types.ts",
     "dependencies": {
         "moment": "^2.29.1"
     }
