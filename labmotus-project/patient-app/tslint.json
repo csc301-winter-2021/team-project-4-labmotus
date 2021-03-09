@@ -8,7 +8,10 @@
     "no-console": false,
     "no-empty-interface": false,
     "prefer-for-of": false,
-    "object-literal-shorthand": false
+    "object-literal-shorthand": false,
+    "max-classes-per-file": false,
+    "no-empty": false,
+    "no-trailing-whitespace": false
   },
   "rulesDirectory": []
 }

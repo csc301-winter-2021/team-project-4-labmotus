@@ -65,7 +65,7 @@ const SymptomInstance: FunctionComponent<SymptomInstanceProps> = ({
             {date?.format('MMMM Do YYYY')}
         </HeaderDiv>
         <DateDisplay date={date} changeDay={changeDay}/>
-        <div {...theme} onClick={toToday}>Go to today</div>
+        <div onClick={toToday}>Go to today</div>
         <GraphDiv ref={colorLabel}>
             <ResponsiveContainer width="100%" height="100%">
                 <LineChart data={graphData}>

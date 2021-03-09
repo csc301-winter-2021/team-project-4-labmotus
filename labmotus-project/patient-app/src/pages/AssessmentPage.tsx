@@ -31,6 +31,10 @@ const AssessmentPage: FunctionComponent<AssessmentPageProps> = ({}) => {
             const tAssessments = value.filter(ass => ass.date.format('YYYY-MM-DD') === day.format('YYYY-MM-DD'));
             setAssessments(tAssessments);
             setExpanded(tAssessments.map(ass => ass.state === AssessmentState.COMPLETE))
+        }).catch(reason => {
+            console.error(reason);
+            setAssessments([]);
+            setExpanded([]);
         });
     }, [date]);
 

@@ -18,11 +18,13 @@ import styled from "styled-components";
 import {calendar, call, lockClosed, logOut, mail, person,} from "ionicons/icons";
 import {APIContext} from "../api/API";
 import {Patient} from "../../../common/types/types";
+import {ThemeContext} from "../theme/Theme";
 
 export interface SettingsPageProps {
 }
 
 const SettingsPage: FunctionComponent<SettingsPageProps> = () => {
+    const theme = useContext(ThemeContext);
     const API = useContext(APIContext);
     const [searchText, setSearchText] = useState("");
     const patient: Patient = API.getCurrentUser();
@@ -49,7 +51,7 @@ const SettingsPage: FunctionComponent<SettingsPageProps> = () => {
                         <IonListHeader>Profile</IonListHeader>
                         <IonItem>
                             <IonIcon slot="start" icon={person}/>
-                            <IonLabel>Full Name</IonLabel>
+                            <IonLabel>{patient?.user?.name}</IonLabel>
                         </IonItem>
                         <IonItem>
                             <IonIcon slot="start" icon={mail}/>
@@ -57,11 +59,11 @@ const SettingsPage: FunctionComponent<SettingsPageProps> = () => {
                         </IonItem>
                         <IonItem>
                             <IonIcon slot="start" icon={call}/>
-                            <IonLabel>(416) 932-3883</IonLabel>
+                            <IonLabel>{patient?.phone}</IonLabel>
                         </IonItem>
                         <IonItem>
                             <IonIcon slot="start" icon={calendar}/>
-                            <IonLabel>January 1, 1900</IonLabel>
+                            <IonLabel>{patient?.birthday?.format(theme.dateFormat)}</IonLabel>
                         </IonItem>
                         <IonListHeader>Password</IonListHeader>
                         <IonItem>

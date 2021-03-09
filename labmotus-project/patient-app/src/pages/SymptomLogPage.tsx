@@ -86,7 +86,8 @@ const SymptomLogPage: FunctionComponent<SymptomLogPageProps> = ({}) => {
             setGraphKeys(graphKeys);
             setMoving(false);
             goto(newWeek, newIndex);
-        }))
+        })).catch(reason => {
+        })
     }
 
     useEffect(() => {

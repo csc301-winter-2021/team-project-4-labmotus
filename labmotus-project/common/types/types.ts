@@ -8,7 +8,7 @@ export interface Assessment {
     state: AssessmentState
     videoUrl?: string
     poseData?: any // TODO: Create type for pose data
-    stats?: Array<Stats>
+    stats?: Stats[]
 }
 
 export enum AssessmentState {
@@ -36,7 +36,7 @@ export interface Patient {
 export interface Clinician {
     user: User
     clinic: string
-    patientIDs?: Array<string> // UserIds
+    patientIDs?: string[] // UserIds
 }
 
 export interface Stats {

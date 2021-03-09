@@ -1,4 +1,5 @@
 import React from "react";
+import config from "../../config.json"
 import firebaseConfig from "../../firebase.json"
 import firebase from 'firebase/app';
 import "firebase/auth"
@@ -34,16 +35,16 @@ class API {
     authChangeListeners: Set<(loggedIn: boolean) => void>;
 
     // @ts-ignore
-    constructor(config: (FirebaseConfig | null) = firebaseConfig) {
+    constructor(fbConfig: (FirebaseConfig | null) = firebaseConfig) {
         this._user = null;
         this.authChangeListeners = new Set();
-        if (config !== null) {
-            this._firebase = firebase.initializeApp(config);
-            this._firebase.auth().onAuthStateChanged(a => {
+        if (fbConfig !== null) {
+            this._firebase = firebase.initializeApp(fbConfig);
+            this._firebase.auth().onAuthStateChanged(async a => {
                 this._firebaseUser = a;
                 if (this._firebaseUser) {
-                    this._user = FakeUser as Patient;
-                    this._user.user.email = this._firebaseUser.email;
+                    this._user = await this.getPatient();
+                    console.log(this._user);
                 }
                 this.authChangeListeners.forEach(listener => listener(!!(a as any)))
             })
@@ -105,6 +106,23 @@ class API {
             await this._firebaseCreateUserWithEmailAndPassword(email, pass);
         } catch (e) {
             console.log(e);
+        }
+    }
+
+    async getPatient(patientID?: string): Promise<Patient> {
+        const token = await firebase.auth().currentUser.getIdToken() as any;
+        const response = await fetch(config.api + `/patient/${patientID === undefined ? '-1' : patientID}`, {
+            method: "GET",
+            mode: 'cors',
+            headers: {
+                "Authorization": "Bearer " + token,
+            }
+        });
+        if (response.ok) {
+            const body = JSON.parse(await response.text()).body;
+            return {...body, birthday: moment(body?.birthday)}
+        } else {
+            console.error(response);
         }
     }
 
