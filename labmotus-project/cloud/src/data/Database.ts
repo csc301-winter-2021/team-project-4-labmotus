@@ -83,7 +83,7 @@ class Database {
         });
     }
 
-    async getPatientByID(ID?: string): Promise<Patient> {
+    async getPatientByID(ID: string): Promise<Patient> {
         return new Promise<Patient>((fulfill, reject) => {
             DynamoDB.getItem({
                 TableName: PATIENTS_TABLE,
@@ -103,7 +103,7 @@ class Database {
         });
     }
 
-    async getClinicianByID(ID?: string): Promise<Clinician> {
+    async getClinicianByID(ID: string): Promise<Clinician> {
         return new Promise<Clinician>((fulfill, reject) => {
             DynamoDB.getItem({
                 TableName: CLINICIANS_TABLE,

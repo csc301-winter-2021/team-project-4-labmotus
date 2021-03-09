@@ -146,7 +146,7 @@ class MockDatabase extends Database {
         }
     }
 
-    async getPatientByID(ID?: string): Promise<Patient> {
+    async getPatientByID(ID: string): Promise<Patient> {
         const matches = this.patientDatabase.filter(patient => patient.user.id === ID);
         if (matches.length > 0) {
             return matches[0];
@@ -155,7 +155,7 @@ class MockDatabase extends Database {
         }
     }
 
-    async getClinicianByID(ID?: string): Promise<Clinician> {
+    async getClinicianByID(ID: string): Promise<Clinician> {
         const matches = this.clinicianDatabase.filter(clinician => clinician.user.id === ID);
         if (matches.length > 0) {
             return matches[0];
