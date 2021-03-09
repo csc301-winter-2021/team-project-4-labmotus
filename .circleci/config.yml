@@ -1,4 +1,6 @@
 version: 2.1
+orbs:
+  eb: circleci/aws-elastic-beanstalk@1.0.1
 parameters:
   root-dir:
     type: string
@@ -37,3 +39,11 @@ workflows:
   test-and-deploy:
     jobs:
       - run-tests
+      - eb/deploy:
+          context: labmotus-aws
+          environment-name: labmotus-api
+          filters:
+            branches:
+              only:
+                - main
+          label: version-<<pipeline.number>>
