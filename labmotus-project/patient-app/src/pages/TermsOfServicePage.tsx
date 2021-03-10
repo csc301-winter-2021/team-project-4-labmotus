@@ -30,7 +30,10 @@ const TermsOfServicePage: FunctionComponent<TermsOfServicePageProps> = () => {
                     </IonToolbar>
                 </IonHeader>
                 <IonContent>
-                    <p className="main">Will be written in a future version!</p>
+                    <div className="main-padding">
+                        <h1>Sample Header</h1>
+                        <p>Sample test under header. Actual Terms of Service will be written in a future version!</p>
+                    </div>
                 </IonContent>
             </IonPage>
         </TermsOfServicePageDiv>
@@ -41,11 +44,8 @@ const TermsOfServicePageDiv = styled.div`
     overflow: hidden;
     width: 100%;
     height: 100%;
-    .main {
+    .main-padding {
         padding: 5%;
-    }
-    ion-input {
-        background-color: ${({ theme }: { theme: Theme }) => theme.colors.light};
     }
     ion-buttons {
         color: ${({ theme }: { theme: Theme }) => theme.colors.primary};

@@ -64,7 +64,7 @@ const LoginPage: FunctionComponent<LoginPageProps> = () => {
                                     class="input email"
                                     placeholder="Email"
                                     type="email"
-                                    inputmode="email"
+                                    clearInput={true}
                                     value={email}
                                     onIonChange={(e) => setEmail(e.detail.value!)}
                                 />
@@ -72,6 +72,7 @@ const LoginPage: FunctionComponent<LoginPageProps> = () => {
                                     class="input password"
                                     placeholder="Password"
                                     type="password"
+                                    clearInput={true}
                                     value={password}
                                     onIonChange={(e) => setPassword(e.detail.value!)}
                                 />

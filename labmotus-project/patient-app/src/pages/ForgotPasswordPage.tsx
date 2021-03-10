@@ -71,10 +71,10 @@ const ForgotPasswordPage: FunctionComponent<ForgotPasswordPageProps> = () => {
                                 resetting your password.
                             </p>
                             <IonInput
-                                class="input email"
+                                class="input"
                                 placeholder="Email"
                                 type="email"
-                                inputmode="email"
+                                clearInput={true}
                                 value={email}
                                 onIonChange={(e) => setEmail(e.detail.value!)}
                             />

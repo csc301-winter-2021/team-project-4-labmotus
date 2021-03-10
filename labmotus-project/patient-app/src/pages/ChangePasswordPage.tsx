@@ -79,20 +79,21 @@ const ChangePasswordPage: FunctionComponent<ChangePasswordPageProps> = () => {
                         type="password"
                         placeholder="Current Password"
                         autofocus={true}
+                        clearInput={true}
                         value={currPassword}
                         onIonChange={(e) => setCurrPassword(e.detail.value!)}
                     ></IonInput>
                     <IonInput
                         type="password"
                         placeholder="New Password"
-                        autofocus={true}
+                        clearInput={true}
                         value={newPassword}
                         onIonChange={(e) => setNewPassword(e.detail.value!)}
                     ></IonInput>
                     <IonInput
                         type="password"
                         placeholder="Confirm New Password"
-                        autofocus={true}
+                        clearInput={true}
                         value={confirmPassword}
                         onIonChange={(e) => setConfirmPassword(e.detail.value!)}
                     ></IonInput>
@@ -114,6 +115,7 @@ const ChangePasswordPageDiv = styled.div`
     width: 100%;
     height: 100%;
     ion-input {
+        margin: 10px 0;
         background-color: ${({ theme }: { theme: Theme }) => theme.colors.light};
     }
     ion-buttons {

@@ -1,14 +1,5 @@
 import { FunctionComponent, useContext, useState } from "react";
-import {
-    IonButtons,
-    IonContent,
-    IonHeader,
-    IonIcon,
-    IonInput,
-    IonPage,
-    IonTitle,
-    IonToolbar,
-} from "@ionic/react";
+import { IonButtons, IonContent, IonHeader, IonIcon, IonInput, IonPage, IonTitle, IonToolbar } from "@ionic/react";
 // @ts-ignore
 import styled from "styled-components";
 import { Theme, getThemeContext } from "../../../common/ui/theme/Theme";
@@ -62,6 +53,7 @@ const EditEmailPage: FunctionComponent<EditEmailPageProps> = () => {
                     <IonInput
                         type="email"
                         autofocus={true}
+                        clearInput={true}
                         value={email}
                         onIonChange={(e) => setEmail(e.detail.value!)}
                     ></IonInput>
@@ -76,6 +68,8 @@ const EditEmailPageDiv = styled.div`
     width: 100%;
     height: 100%;
     ion-input {
+        text-align: center;
+        margin: 10px 0;
         background-color: ${({ theme }: { theme: Theme }) => theme.colors.light};
     }
     ion-buttons {

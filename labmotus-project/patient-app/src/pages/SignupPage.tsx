@@ -69,24 +69,26 @@ const SignupPage: FunctionComponent<SignupPageProps> = () => {
                         <div className="main">
                             <form>
                                 <IonInput
-                                    class="input email"
+                                    class="input"
                                     placeholder="Email"
                                     type="email"
-                                    inputmode="email"
+                                    clearInput={true}
                                     value={email}
                                     onIonChange={(e) => setEmail(e.detail.value!)}
                                 />
                                 <IonInput
-                                    class="input password"
+                                    class="input"
                                     placeholder="Password"
                                     type="password"
+									clearInput={true}
                                     value={password}
                                     onIonChange={(e) => setPassword(e.detail.value!)}
                                 />
                                 <IonInput
-                                    class="input password"
+                                    class="input"
                                     placeholder="Confirm Password"
                                     type="password"
+									clearInput={true}
                                     value={confirmPassword}
                                     onIonChange={(e) => setConfirmPassword(e.detail.value!)}
                                 />
