@@ -45,3 +45,4 @@ workflows:
     jobs:
       - run-tests
       - deploy-cloud
+          context: labmotus-aws
