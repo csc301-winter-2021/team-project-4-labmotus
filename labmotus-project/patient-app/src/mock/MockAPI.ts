@@ -59,10 +59,6 @@ class MockAPI extends API {
         console.log(this._user)
     }
 
-    async deleteUser(): Promise<void> {
-        throw Error("Not Implemented")
-    }
-
     async updatePatient(patient: Patient): Promise<Patient> {
         if (this._user === null)
             throw Error("Not logged In.");

@@ -15,17 +15,6 @@ export interface FirebaseConfig {
     "appId": string;
 }
 
-const FakeUser: Patient = {
-    user: {
-        id: "1",
-        name: "John Smith",
-        username: "john"
-    },
-    birthday: moment(),
-    clinicianID: "2",
-    phone: "123-456-7890",
-};
-
 class API {
     _firebase: firebase.app.App;
     _firebaseUser?: firebase.User;
@@ -72,10 +61,6 @@ class API {
 
     async logout(): Promise<void> {
         await this._firebaseSignOut();
-    }
-
-    async deleteUser(): Promise<void> {
-        throw Error("Not Implemented")
     }
 
     async _firebaseSendPasswordResetEmail(email: string): Promise<void> {
