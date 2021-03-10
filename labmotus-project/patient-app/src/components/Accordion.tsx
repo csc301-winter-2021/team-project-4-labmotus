@@ -1,7 +1,7 @@
 import React, {FunctionComponent, useEffect, useRef, useState} from "react";
 // @ts-ignore
 import styled from 'styled-components';
-import {Theme, ThemeContext} from "../theme/Theme";
+import {Theme, getThemeContext} from "../../../common/ui/theme/Theme";
 // @ts-ignore
 import {chevronDown} from "ionicons/icons";
 import {IonCard, IonCardContent, IonCardHeader, IonIcon} from "@ionic/react";
@@ -29,7 +29,7 @@ const Accordion: FunctionComponent<AccordionProps> = ({
                                                           onExpandEnd,
                                                           children
                                                       }) => {
-    const theme = React.useContext(ThemeContext);
+    const theme = React.useContext(getThemeContext());
     const [expandedState, setExpanded] = useState(initialExpanded);
     const expanded = expandedParent === undefined ? expandedState : expandedParent;
     const [height, setHeight] = useState(undefined);

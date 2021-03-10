@@ -17,14 +17,14 @@ import styled from "styled-components";
 import { calendar, call, lockClosed, logOut, mail, person } from "ionicons/icons";
 import { APIContext } from "../api/API";
 import { Patient } from "../../../common/types/types";
-import { ThemeContext } from "../theme/Theme";
+import {Theme, getThemeContext} from "../../../common/ui/theme/Theme";
 
 import { useHistory } from "react-router";
 
 export interface SettingsPageProps {}
 
 const SettingsPage: FunctionComponent<SettingsPageProps> = () => {
-    const theme = useContext(ThemeContext);
+    const theme: Theme = useContext(getThemeContext());
     const API = useContext(APIContext);
     const patient: Patient = API.getCurrentUser();
     const history = useHistory();
