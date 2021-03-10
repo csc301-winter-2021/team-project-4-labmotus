@@ -1,8 +1,7 @@
-import React from 'react';
 import { render } from '@testing-library/react';
-import App from './App';
+import LoginPage from './pages/LoginPage';
 
-test('renders without crashing', () => {
-  const { baseElement } = render(<App />);
+test('renders login page without crashing', () => {
+  const { baseElement } = render(<LoginPage />);
   expect(baseElement).toBeDefined();
 });
