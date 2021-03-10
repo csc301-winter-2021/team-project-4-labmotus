@@ -1,10 +1,11 @@
 import React, {FunctionComponent, useContext, useState} from "react";
-import {IonAlert, IonButton, IonContent, IonInput, IonPage} from "@ionic/react";
+import {IonAlert, IonContent, IonPage} from "@ionic/react";
 // @ts-ignore
 import styled from "styled-components";
 import {Theme, getThemeContext} from "../../../common/ui/theme/Theme";
 import {APIContext} from "../api/API";
 import {useHistory} from "react-router";
+import LoginForm from "../components/LoginForm";
 
 export interface LoginPageProps {
 }
@@ -58,31 +59,14 @@ const LoginPage: FunctionComponent<LoginPageProps> = () => {
                 <LoginPageDiv theme={theme}>
                     <h1>LabMotus</h1>
                     <div className="main-padding">
-                        <div className="main">
-                            <form>
-                                <IonInput
-                                    class="input email"
-                                    placeholder="Email"
-                                    type="email"
-                                    clearInput={true}
-                                    value={email}
-                                    onIonChange={(e) => setEmail(e.detail.value!)}
-                                />
-                                <IonInput
-                                    class="input password"
-                                    placeholder="Password"
-                                    type="password"
-                                    clearInput={true}
-                                    value={password}
-                                    onIonChange={(e) => setPassword(e.detail.value!)}
-                                />
-
-                                <IonButton expand="block" shape="round" onClick={login}>
-                                    Login
-                                </IonButton>
-                            </form>
-                            <p onClick={forgotPassword}><span>Forgot password?</span></p>
-                        </div>
+                        <LoginForm
+                            email={email}
+                            setEmail={setEmail}
+                            password={password}
+                            setPassword={setPassword}
+                            onLogin={login}
+                            onForgotPassword={forgotPassword}
+                        />
                     </div>
                     <p className="footer">
                         Don't have an account? <span onClick={signUp}>Sign Up</span>
@@ -119,18 +103,6 @@ const LoginPageDiv = styled.div`
             --padding-start: 10px;
         }
         pointer-events: none;
-    }
-    .main {
-        height: 100%;
-        width: 100%;
-        .input {
-            margin-bottom: 5%;
-            text-align: left;
-            border-radius: 5px;
-            border: 1px solid #ddd;
-            --padding-start: 10px;
-        }
-        pointer-events: auto;
     }
     h1 {
         font-weight: bold;
