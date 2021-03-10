@@ -10,7 +10,7 @@ parameters:
     default: "labmotus-project/common/types"
   ui-dir:
     type: string
-    default: "labmotus-project/common/ui"
+    default: "labmotus-project/common"
   cloud-dir:
     type: string
     default: "labmotus-project/cloud"
