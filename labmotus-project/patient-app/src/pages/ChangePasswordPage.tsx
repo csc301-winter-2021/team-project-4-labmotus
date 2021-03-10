@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useContext, useState } from "react";
+import React, {FunctionComponent, useContext, useState} from "react";
 import {
     IonAlert,
     IonButtons,
@@ -17,7 +17,8 @@ import { APIContext } from "../api/API";
 import { useHistory } from "react-router";
 import { chevronBack } from "ionicons/icons";
 
-export interface ChangePasswordPageProps {}
+export interface ChangePasswordPageProps {
+}
 
 const ChangePasswordPage: FunctionComponent<ChangePasswordPageProps> = () => {
     const theme = useContext(getThemeContext());
@@ -46,9 +47,8 @@ const ChangePasswordPage: FunctionComponent<ChangePasswordPageProps> = () => {
             setConfirmPassword("");
             return;
         }
-        alert("new password is " + newPassword);
         try {
-            // await API.changePassword(password);
+            await API.changePassword(currPassword, newPassword);
             history.push(`/settings`);
         } catch (e) {
             console.error(e);

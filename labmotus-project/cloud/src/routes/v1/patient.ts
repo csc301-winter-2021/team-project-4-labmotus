@@ -1,6 +1,6 @@
 import {FastifyInstance, FastifyPluginOptions} from 'fastify'
 import moment from 'moment'
-import {Assessment, AssessmentState, Patient, Response, User} from '../../../../common/types/types'
+import {Assessment, AssessmentState, Patient, Response} from '../../../../common/types/types'
 import {RequestHeaders} from '../../types';
 import {authenticateUser} from "../../auth/Authenticator";
 import Database from "../../data/Database";
@@ -88,33 +88,43 @@ export default async function (server: FastifyInstance & { database: Database },
     server.patch<{
         Headers: RequestHeaders,
         Params: PatientIdParams,
-        Body: Patient
+        Body: string
     }>('/patient/:patientId', {}, async (request, reply) => {
-        const patientUser: User = {
-            id: request.params.patientId,
-            firebaseId: "firebase:0",
-            username: "labmotus",
-            name: "LabMotus User",
-            email: "user@labmot.us"
-        };
-        const patient: Patient = {
-            user: patientUser,
-            phone: "1234567890",
-            clinicianID: '0',
-            birthday: moment().subtract(18, 'years')
-        };
-        Object.assign(patientUser, request.body.user);
-        Object.assign(patient, request.body);
-        Object.assign(patient.user, patientUser);
-
-        const mockResponse: Response<Patient> = {
-            success: true,
-            body: patient
-        };
-        reply
-            .code(200)
-            .header('Content-Type', 'application/json')
-            .send(mockResponse)
+        const headers: { authorization?: string } = request.headers as any;
+        let patientID = Number.isSafeInteger(Number(request.params.patientId)) &&
+        Number(request.params.patientId) >= 0 ? request.params.patientId : undefined;
+        try {
+            const permissions = await authenticateUser(server.database, headers.authorization.split('Bearer ')[1]);
+            if (patientID === undefined)
+                patientID = permissions.getUserID();
+            const mods = JSON.parse(request.body);
+            if (mods.hasOwnProperty('birthday'))
+                mods.birthday = moment(mods.birthday);
+            try {
+                const patient = await server.database.getPatientByID(patientID);
+                if (permissions.modifyPatient(patient, mods)) {
+                    const result = await server.database.updatePatient(patientID, mods);
+                    const response: Response<Patient> = {
+                        success: true,
+                        body: result
+                    };
+                    reply.code(200)
+                        .header('Content-Type', 'application/json')
+                        .send(response)
+                } else {
+                    reply.code(403).send("Forbidden");
+                }
+            } catch (e) {
+                if (permissions.getPatient()) {
+                    reply.code(404).send("No Such Patient");
+                } else {
+                    reply.code(403).send("Forbidden");
+                }
+            }
+        } catch (e) {
+            reply.code(401).send("Not Authorized");
+            return;
+        }
     });
 
     /**
@@ -131,7 +141,7 @@ export default async function (server: FastifyInstance & { database: Database },
         Params: PatientIdParams
     }>('/patient/:patientId', {}, async (request, reply) => {
         const headers: { authorization?: string } = request.headers as any;
-        let patientID = Number.isSafeInteger(request.params.patientId) &&
+        let patientID = Number.isSafeInteger(Number(request.params.patientId)) &&
         Number(request.params.patientId) >= 0 ? request.params.patientId : undefined;
         try {
             const permissions = await authenticateUser(server.database, headers.authorization.split('Bearer ')[1]);

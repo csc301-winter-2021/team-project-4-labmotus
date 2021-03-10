@@ -38,7 +38,6 @@ const SymptomLogPage: FunctionComponent<SymptomLogPageProps> = ({}) => {
     const week = moment(day.current).startOf('week');
     const index = day.current.day() + 1;
 
-
     function setDate(datetime: Moment) {
         const date = moment(datetime).startOf('day');
         page.current = 0;
@@ -171,16 +170,34 @@ const SymptomLogPage: FunctionComponent<SymptomLogPageProps> = ({}) => {
     }
 
     function dragStart(e: SyntheticEvent & { clientX: number, dataTransfer: any }) {
-        offset.current = e?.clientX;
-        last.current = e?.clientX;
         e.dataTransfer.setDragImage(new Image(), 0, 0);
+        click(e?.clientX)
+    }
+
+    function touchStart(e: SyntheticEvent & { touches: { clientX: number }[] }) {
+        click(e?.touches[0]?.clientX)
+    }
+
+    function click(x: number) {
+        offset.current = x;
+        last.current = x;
         setMoving(true);
     }
 
-    function onDrag(e: SyntheticEvent & { clientX: number, target: { clientWidth: number } }) {
+    function release(e: SyntheticEvent & { target: { clientWidth: number } }) {
+        setMoving(false);
+        const pct = 3 * (last.current - offset.current) / e.target.clientWidth;
+        if (pct > 0.5) {
+            page.current = -1;
+        } else if (pct < -0.5) {
+            page.current = 1;
+        }
+    }
+
+    function drag(x: number) {
         if (moving) {
             const container: { style: { transform: string, transition: string } } = containerRef.current;
-            const current = e?.clientX;
+            const current = x;
             if (current != null && container != null && current !== 0) {
                 container.style.transition = 'unset';
                 container.style.transform = `translate3d(${current - offset.current}px, 0, 0)`;
@@ -189,20 +206,18 @@ const SymptomLogPage: FunctionComponent<SymptomLogPageProps> = ({}) => {
         }
     }
 
-    function dragEnd(e: SyntheticEvent) {
-        setMoving(false);
-        const target: EventTarget & { clientWidth: number } = e.target as EventTarget & { clientWidth: number };
-        const pct = 3 * (last.current - offset.current) / target.clientWidth;
-        if (pct > 0.5) {
-            page.current = -1;
-        } else if (pct < -0.5) {
-            page.current = 1;
-        }
+    function onDrag(e: SyntheticEvent & { clientX: number }) {
+        drag(e?.clientX)
+    }
+
+    function touchMove(e: SyntheticEvent & { touches: { clientX: number }[] }) {
+        drag(e?.touches[0]?.clientX)
     }
 
 
     return (<SymptomLogPageDiv className="symptom-log-page" theme={theme}>
-        <InnerDiv ref={containerRef} onDrag={onDrag} onDragStart={dragStart} onDragEnd={dragEnd} draggable>
+        <InnerDiv ref={containerRef} onTouchMove={touchMove} onTouchStart={touchStart} onTouchEnd={release}
+                  onDragStart={dragStart} onDrag={onDrag} onDragEnd={release} draggable>
             <SpinnerDiv>
                 <IonSpinner/>
             </SpinnerDiv>

@@ -19,7 +19,7 @@ class MockDatabase extends Database {
                 email: "user@labmot.us",
             },
             phone: "1234567890",
-            clinicianID: '0',
+            clinicianID: '2',
             birthday: moment().subtract(18, 'years')
         }, {
             user: {
@@ -30,9 +30,10 @@ class MockDatabase extends Database {
                 email: "user1@labmot.us",
             },
             phone: "1234567890",
-            clinicianID: '0',
+            clinicianID: '2',
             birthday: moment().subtract(18, 'years')
-        }, {
+        }];
+        this.clinicianDatabase = [{
             user: {
                 id: "2",
                 firebaseId: "mp0eWztKWdbj0BWDN60ehEKpUj32",
@@ -40,9 +41,8 @@ class MockDatabase extends Database {
                 name: "LabMotus User2",
                 email: "user2@labmot.us",
             },
-            phone: "1234567890",
-            clinicianID: '0',
-            birthday: moment().subtract(18, 'years')
+            clinic: "Lab Motus",
+            patientIDs: ['0', '1']
         }];
         this.assessmentsDatabase = {};
         for (const patient of this.patientDatabase) {
@@ -131,7 +131,7 @@ class MockDatabase extends Database {
     async getPatientByFirebaseID(firebaseID: string): Promise<Patient> {
         const matches = this.patientDatabase.filter(patient => patient.user.firebaseId === firebaseID);
         if (matches.length > 0) {
-            return matches[0];
+            return matches[matches.length - 1];
         } else {
             return Promise.reject("No Patient With That ID")
         }
@@ -140,7 +140,7 @@ class MockDatabase extends Database {
     async getClinicianByFirebaseID(firebaseID: string, create: boolean = true): Promise<Clinician> {
         const matches = this.clinicianDatabase.filter(clinician => clinician.user.firebaseId === firebaseID);
         if (matches.length > 0) {
-            return matches[0];
+            return matches[matches.length - 1];
         } else {
             return Promise.reject("No Patient With That ID")
         }
@@ -149,7 +149,7 @@ class MockDatabase extends Database {
     async getPatientByID(ID: string): Promise<Patient> {
         const matches = this.patientDatabase.filter(patient => patient.user.id === ID);
         if (matches.length > 0) {
-            return matches[0];
+            return matches[matches.length - 1];
         } else {
             return Promise.reject("No Patient With That ID")
         }
@@ -158,10 +158,17 @@ class MockDatabase extends Database {
     async getClinicianByID(ID: string): Promise<Clinician> {
         const matches = this.clinicianDatabase.filter(clinician => clinician.user.id === ID);
         if (matches.length > 0) {
-            return matches[0];
+            return matches[matches.length - 1];
         } else {
-            return Promise.reject("No Patient With That ID")
+            return Promise.reject("No Clinician With That ID")
         }
+    }
+
+    async updatePatient(ID: string, modifications: {}): Promise<Patient> {
+        const patient = await this.getPatientByID(ID);
+        const updated = mergeObjects(patient, modifications);
+        this.patientDatabase.push(updated);
+        return updated;
     }
 
     async getAssessments(ID: string, start: Moment, duration: number, unit: string): Promise<Assessment[]> {
@@ -173,6 +180,20 @@ class MockDatabase extends Database {
         const endUnix = end.unix();
         return assessments.filter(ass => startUnix <= ass.date.unix() && ass.date.unix() <= endUnix);
     }
+}
+
+function mergeObjects<T>(src: T, mod: {}): T {
+    const res = {};
+    for (const key of Object.keys(src)) {
+        if (!mod.hasOwnProperty(key)) {
+            res[key] = src[key]
+        } else if (typeof mod[key] !== 'object') {
+            res[key] = mod[key];
+        } else {
+            res[key] = mergeObjects(src[key], mod[key]);
+        }
+    }
+    return res as T;
 }
 
 export default MockDatabase;

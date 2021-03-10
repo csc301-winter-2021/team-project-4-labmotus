@@ -8,12 +8,13 @@ import { useHistory } from "react-router";
 import { chevronBack } from "ionicons/icons";
 import { Patient } from "../../../common/types/types";
 
-export interface EditPhonePageProps {}
+export interface EditPhonePageProps {
+}
 
 const EditPhonePage: FunctionComponent<EditPhonePageProps> = () => {
     const theme = useContext(getThemeContext());
     const API = useContext(APIContext);
-    const patient: Patient = API.getCurrentUser();
+    let patient: Patient = API.getCurrentUser();
     const history = useHistory();
 
     const patientNumber = patient?.phone;
@@ -22,9 +23,9 @@ const EditPhonePage: FunctionComponent<EditPhonePageProps> = () => {
 
     async function editPhoneNumber() {
         const phone = phoneNumber.replace(/(\d{3})(\d{3})(\d{4})/, "$1-$2-$3");
-        alert("new number is " + phone);
         try {
-            // await API.changePhoneNumber(phone);
+            patient.phone = phone;
+            patient = await API.updatePatient(patient);
             history.push(`/settings`);
         } catch (e) {
             console.error(e);
