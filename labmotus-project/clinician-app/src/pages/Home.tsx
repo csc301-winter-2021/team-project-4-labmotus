@@ -12,10 +12,12 @@ const Home: React.FC = () => {
       id: "sayanfaraz",
       firebaseId: "lolid",
       name: "Sayan Faraz",
-      email: "sayan96@hotmail.com"
+      email: "sayan96@hotmail.com",
+      username: "sayanfaraz"
     },
     phone: "6474718287",
-    birthday: moment().set({'year': 1996, 'month': 6, 'day': 30})
+    birthday: moment().set({'year': 1996, 'month': 6, 'day': 30}),
+    clinicianID: "adsfaf"
   }]
 
   return (
