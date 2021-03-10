@@ -44,5 +44,5 @@ workflows:
   test-and-deploy:
     jobs:
       - run-tests
-      - deploy-cloud
+      - deploy-cloud:
           context: labmotus-aws
