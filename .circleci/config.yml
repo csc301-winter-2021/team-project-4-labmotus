@@ -44,6 +44,7 @@ jobs:
           command: |
             pip install awsebcli
             echo $FIREBASE_SERVICE_KEY > labmotus-project/cloud/firebase-service-key.json
+            ls -l labmotus-project/cloud
             eb deploy labmotus-api
 workflows:
   test-and-deploy:
