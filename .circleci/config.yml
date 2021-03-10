@@ -24,23 +24,27 @@ jobs:
       - image: cimg/node:15.10.0
     steps:
       - checkout
-      - run: npm i --prefix << pipeline.parameters.root-dir >>
-      - run: npm i --prefix << pipeline.parameters.types-dir >>
-      - run: npm i --prefix << pipeline.parameters.cloud-dir >>
-      - run: npm run test --prefix << pipeline.parameters.cloud-dir >>
-      - run: npm i --prefix << pipeline.parameters.ui-dir >>
-      - run: npm i --prefix << pipeline.parameters.patient-dir >>
-      - run: npm run test --prefix << pipeline.parameters.patient-dir >>
-      - run: npm i --prefix << pipeline.parameters.clinician-dir >>
-      - run: npm run test --prefix << pipeline.parameters.clinician-dir >>
+      - run:
+          command: |
+            npm i --prefix << pipeline.parameters.root-dir >>
+            npm i --prefix << pipeline.parameters.types-dir >>
+            npm i --prefix << pipeline.parameters.cloud-dir >>
+            npm run test --prefix << pipeline.parameters.cloud-dir >>
+            npm i --prefix << pipeline.parameters.ui-dir >>
+            npm i --prefix << pipeline.parameters.patient-dir >>
+            npm run test --prefix << pipeline.parameters.patient-dir >>
+            npm i --prefix << pipeline.parameters.clinician-dir >>
+            npm run test --prefix << pipeline.parameters.clinician-dir >>
   deploy-cloud:
     docker:
       - image: cimg/python:3.9
     steps:
       - checkout
-      - run: pip install awsebcli
-      - run: echo $FIREBASE_SERVICE_KEY > labmotus-project/cloud/firebase-service-key.json
-      - run: eb deploy labmotus-api
+      - run:
+          command: |
+            pip install awsebcli
+            echo $FIREBASE_SERVICE_KEY > labmotus-project/cloud/firebase-service-key.json
+            eb deploy labmotus-api
 workflows:
   test-and-deploy:
     jobs:
