@@ -63,10 +63,11 @@ class MockAPI extends API {
         throw Error("Not Implemented")
     }
 
-    async updatePatient(patient: Patient): Promise<void> {
+    async updatePatient(patient: Patient): Promise<Patient> {
         if (this._user === null)
             throw Error("Not logged In.");
         this._user = patient;
+        return this._user;
     }
 
     async uploadVideo(assessmentID: string, url: string): Promise<void> {

@@ -1,28 +1,20 @@
-import { FunctionComponent, useContext, useState } from "react";
-import {
-    IonButtons,
-    IonContent,
-    IonHeader,
-    IonIcon,
-    IonInput,
-    IonPage,
-    IonTitle,
-    IonToolbar,
-} from "@ionic/react";
+import {FunctionComponent, useContext, useState} from "react";
+import {IonButtons, IonContent, IonHeader, IonIcon, IonInput, IonPage, IonTitle, IonToolbar,} from "@ionic/react";
 // @ts-ignore
 import styled from "styled-components";
-import { Theme, ThemeContext } from "../theme/Theme";
-import { APIContext } from "../api/API";
-import { useHistory } from "react-router";
-import { chevronBack } from "ionicons/icons";
-import { Patient } from "../../../common/types/types";
+import {Theme, ThemeContext} from "../theme/Theme";
+import {APIContext} from "../api/API";
+import {useHistory} from "react-router";
+import {chevronBack} from "ionicons/icons";
+import {Patient} from "../../../common/types/types";
 
-export interface EditEmailPageProps {}
+export interface EditEmailPageProps {
+}
 
 const EditEmailPage: FunctionComponent<EditEmailPageProps> = () => {
     const theme = useContext(ThemeContext);
     const API = useContext(APIContext);
-    const patient: Patient = API.getCurrentUser();
+    let patient: Patient = API.getCurrentUser();
     const history = useHistory();
 
     const patientEmail = patient?.user?.email;
@@ -30,9 +22,9 @@ const EditEmailPage: FunctionComponent<EditEmailPageProps> = () => {
     const [email, setEmail] = useState<string>(patientEmail);
 
     async function editEmail() {
-        alert("new email is " + email);
         try {
-            // await API.changeEmail(email);
+            patient.user.email = email;
+            patient = await API.updatePatient(patient);
             history.push(`/settings`);
         } catch (e) {
             console.error(e);
