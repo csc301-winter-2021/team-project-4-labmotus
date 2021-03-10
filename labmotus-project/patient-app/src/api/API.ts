@@ -1,6 +1,6 @@
 import React from "react";
-import config from "../../config.json"
-import firebaseConfig from "../../firebase.json"
+// import config from "../../config.json"
+
 import firebase from 'firebase/app';
 import "firebase/auth"
 import {Assessment, Clinician, Patient} from "../../../common/types/types";
@@ -15,7 +15,13 @@ export interface FirebaseConfig {
     "appId": string;
 }
 
+export interface APIConfig {
+    mock: boolean
+    api: string
+}
+
 class API {
+    _config: APIConfig;
     _firebase: firebase.app.App;
     _firebaseUser?: firebase.User;
     _credentials: firebase.auth.UserCredential;
@@ -24,7 +30,8 @@ class API {
     authChangeListeners: Set<(loggedIn: boolean) => void>;
 
     // @ts-ignore
-    constructor(fbConfig: (FirebaseConfig | null) = firebaseConfig) {
+    constructor(fbConfig: (FirebaseConfig | null), apiConfig: APIConfig) {
+        this._config = apiConfig
         this._user = null;
         this.authChangeListeners = new Set();
         if (fbConfig !== null) {
@@ -96,7 +103,7 @@ class API {
     async getPatient(patientID?: string): Promise<Patient> {
         const token = await firebase.auth().currentUser.getIdToken() as any;
         // @ts-ignore
-        const response = await fetch(config.api + `/patient/${patientID === undefined ? '-1' : patientID}`, {
+        const response = await fetch(this._config.api + `/patient/${patientID === undefined ? '-1' : patientID}`, {
             method: "GET",
             mode: 'cors',
             headers: {
@@ -142,7 +149,7 @@ class API {
         }
         const token = await firebase.auth().currentUser.getIdToken() as any;
         // @ts-ignore
-        const response = await fetch(config.api + `/patient/${(patient ?? this._user).user.id ?? '-1'}`, {
+        const response = await fetch(this._config.api + `/patient/${(patient ?? this._user).user.id ?? '-1'}`, {
             method: "PATCH",
             mode: 'cors',
             headers: {
@@ -167,7 +174,7 @@ class API {
     async getClinician(patient?: Patient): Promise<Clinician> {
         const token = await firebase.auth().currentUser.getIdToken() as any;
         // @ts-ignore
-        const response = await fetch(config.api + `/clinician/${(patient ?? this._user).clinicianID ?? '-1'}`, {
+        const response = await fetch(this._config.api + `/clinician/${(patient ?? this._user).clinicianID ?? '-1'}`, {
             method: "GET",
             mode: 'cors',
             headers: {
@@ -186,7 +193,7 @@ class API {
             return Promise.reject("Not Logged In");
         const token = await firebase.auth().currentUser.getIdToken() as any;
         // @ts-ignore
-        const response = await fetch(config.api + `/patient/${this._user.user.id}/assessments?start=${week.toISOString()}`, {
+        const response = await fetch(this._config.api + `/patient/${this._user.user.id}/assessments?start=${week.toISOString()}`, {
             method: "GET",
             mode: 'cors',
             headers: {
