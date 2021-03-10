@@ -131,7 +131,7 @@ export default async function (server: FastifyInstance & { database: Database },
         Params: PatientIdParams
     }>('/patient/:patientId', {}, async (request, reply) => {
         const headers: { authorization?: string } = request.headers as any;
-        let patientID = Number.isSafeInteger(request.params.patientId) &&
+        let patientID = Number.isSafeInteger(Number(request.params.patientId)) &&
         Number(request.params.patientId) >= 0 ? request.params.patientId : undefined;
         try {
             const permissions = await authenticateUser(server.database, headers.authorization.split('Bearer ')[1]);

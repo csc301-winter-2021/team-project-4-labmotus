@@ -44,7 +44,7 @@ class API {
                 this._firebaseUser = a;
                 if (this._firebaseUser) {
                     this._user = await this.getPatient();
-                    console.log(this._user);
+                    console.log(await this.getClinician());
                 }
                 this.authChangeListeners.forEach(listener => listener(!!(a as any)))
             })
@@ -135,8 +135,21 @@ class API {
         throw Error("Not Implemented")
     }
 
-    async getClinician(patient: Patient): Promise<Clinician> {
-        throw Error("Not Implemented")
+    async getClinician(patient?: Patient): Promise<Clinician> {
+        const token = await firebase.auth().currentUser.getIdToken() as any;
+        // @ts-ignore
+        const response = await fetch(config.api + `/clinician/${(patient ?? this._user).clinicianID ?? '-1'}`, {
+            method: "GET",
+            mode: 'cors',
+            headers: {
+                "Authorization": "Bearer " + token,
+            }
+        });
+        if (response.ok) {
+            return JSON.parse(await response.text()).body;
+        } else {
+            console.error(response);
+        }
     }
 
     async getAssessments(week: Moment = moment().startOf('day')): Promise<Assessment[]> {

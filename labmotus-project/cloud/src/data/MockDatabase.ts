@@ -19,7 +19,7 @@ class MockDatabase extends Database {
                 email: "user@labmot.us",
             },
             phone: "1234567890",
-            clinicianID: '0',
+            clinicianID: '2',
             birthday: moment().subtract(18, 'years')
         }, {
             user: {
@@ -30,9 +30,10 @@ class MockDatabase extends Database {
                 email: "user1@labmot.us",
             },
             phone: "1234567890",
-            clinicianID: '0',
+            clinicianID: '2',
             birthday: moment().subtract(18, 'years')
-        }, {
+        }];
+        this.clinicianDatabase = [{
             user: {
                 id: "2",
                 firebaseId: "mp0eWztKWdbj0BWDN60ehEKpUj32",
@@ -40,9 +41,8 @@ class MockDatabase extends Database {
                 name: "LabMotus User2",
                 email: "user2@labmot.us",
             },
-            phone: "1234567890",
-            clinicianID: '0',
-            birthday: moment().subtract(18, 'years')
+            clinic: "Lab Motus",
+            patientIDs: ['0', '1']
         }];
         this.assessmentsDatabase = {};
         for (const patient of this.patientDatabase) {
@@ -160,7 +160,7 @@ class MockDatabase extends Database {
         if (matches.length > 0) {
             return matches[0];
         } else {
-            return Promise.reject("No Patient With That ID")
+            return Promise.reject("No Clinician With That ID")
         }
     }
 
