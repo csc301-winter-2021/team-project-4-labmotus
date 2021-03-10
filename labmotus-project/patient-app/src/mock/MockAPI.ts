@@ -34,7 +34,7 @@ class MockAPI extends API {
 
     async login(user: string, pass: string): Promise<void> {
         if (this._user !== null)
-            throw Error("Already logged In.");
+            throw Error("Already logged In. ");
         this._user = FakeUser;
         this._user.user.email = user;
         this.authChangeListeners.forEach(listener => listener(true))
