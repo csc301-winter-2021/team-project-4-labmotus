@@ -1,7 +1,7 @@
 import React, {FunctionComponent, useEffect, useState} from "react";
 // @ts-ignore
 import styled from 'styled-components';
-import {Theme, ThemeContext} from "../theme/Theme";
+import {Theme, getThemeContext} from "../../../common/ui/theme/Theme";
 import {IonIcon, IonPopover, IonSpinner} from "@ionic/react";
 import {chevronBack, film, videocam} from "ionicons/icons";
 import {useHistory, useParams} from "react-router";
@@ -17,7 +17,7 @@ export interface AssessmentPageProps {
 
 const AssessmentPage: FunctionComponent<AssessmentPageProps> = ({}) => {
     const API = React.useContext(APIContext);
-    const theme = React.useContext(ThemeContext);
+    const theme: Theme = React.useContext(getThemeContext());
     const {date}: { date: string } = useParams();
     const day = date ? moment(date, 'YYYY-MM-DD') : moment();
     const history = useHistory();

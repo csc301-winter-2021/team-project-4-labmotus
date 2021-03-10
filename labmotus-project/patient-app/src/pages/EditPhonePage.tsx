@@ -11,7 +11,7 @@ import {
 } from "@ionic/react";
 // @ts-ignore
 import styled from "styled-components";
-import { Theme, ThemeContext } from "../theme/Theme";
+import { Theme, getThemeContext } from "../../../common/ui/theme/Theme";
 import { APIContext } from "../api/API";
 import { useHistory } from "react-router";
 import { chevronBack } from "ionicons/icons";
@@ -20,7 +20,7 @@ import { Patient } from "../../../common/types/types";
 export interface EditPhonePageProps {}
 
 const EditPhonePage: FunctionComponent<EditPhonePageProps> = () => {
-    const theme = useContext(ThemeContext);
+    const theme = useContext(getThemeContext());
     const API = useContext(APIContext);
     const patient: Patient = API.getCurrentUser();
     const history = useHistory();

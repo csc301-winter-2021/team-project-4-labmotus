@@ -2,7 +2,7 @@ import React, {FunctionComponent, useContext, useState} from "react";
 import {IonAlert, IonButton, IonContent, IonInput, IonPage} from "@ionic/react";
 // @ts-ignore
 import styled from "styled-components";
-import {Theme, ThemeContext} from "../theme/Theme";
+import {Theme, getThemeContext} from "../../../common/ui/theme/Theme";
 import {APIContext} from "../api/API";
 import {useHistory} from "react-router";
 
@@ -11,7 +11,7 @@ export interface LoginPageProps {
 
 const LoginPage: FunctionComponent<LoginPageProps> = () => {
     const API = useContext(APIContext);
-    const theme = React.useContext(ThemeContext);
+    const theme = React.useContext(getThemeContext());
 
     const history = useHistory();
     const [email, setEmail] = useState<string>();

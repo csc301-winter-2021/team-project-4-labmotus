@@ -1,7 +1,7 @@
 import React, {FunctionComponent, useEffect} from "react";
 // @ts-ignore
 import styled from 'styled-components';
-import {Theme, ThemeContext} from "../theme/Theme";
+import {Theme, getThemeContext} from "../../../common/ui/theme/Theme";
 import SymptomLog from "./SymptomLog";
 import {Assessment, Stats} from "../../../common/types/types";
 import moment, {Moment} from "moment";
@@ -24,7 +24,7 @@ const SymptomInstance: FunctionComponent<SymptomInstanceProps> = ({
                                                                       date, data, graphData = [],
                                                                       graphKeys = new Set(), changeDay
                                                                   }) => {
-    const theme = React.useContext(ThemeContext);
+    const theme: Theme = React.useContext(getThemeContext());
     const colors = theme.colors.cycle;
     const [stats, setStats] = React.useState([]);
     const history = useHistory();

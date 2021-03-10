@@ -1,4 +1,4 @@
-import React from "react";
+import React, { createContext } from 'react';
 import "../fonts/fonts.css"
 
 export interface Theme {
@@ -68,4 +68,8 @@ export const PrimaryTheme: Theme = {
     birthdayFormat: "MMMM Do, YYYY",
 };
 
-export const ThemeContext = React.createContext(PrimaryTheme);
+export function getThemeContext(): React.Context<Theme> {
+    return createContext(PrimaryTheme)
+}
+
+// export const ThemeContext: React.Context<Theme> = React.createContext(PrimaryTheme);
