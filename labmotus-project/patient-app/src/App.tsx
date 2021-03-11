@@ -18,7 +18,7 @@ import '@ionic/react/css/display.css';
 /* Theme variables */
 import '../../common/ui/theme/variables.css';
 import LoadingComponent from "./components/LoadingComponent";
-import LoadingScreen from "./pages/LoadingScreen";
+import LoadingScreen from "../../common/ui/pages/LoadingScreen";
 import API, { getAPIContext } from "../../common/api/API";
 import MockAPI from "./mock/MockAPI";
 import Routes from "./routes/Routes";
@@ -45,7 +45,7 @@ const App: React.FC = () => {
             <APIContext.Provider value={APIInstance}>
                 <RootDiv>
                     <LoadingComponent functors={[loadAPI]}
-                                      loadingScreen={() => <LoadingScreen/>} timeout={-1}>
+                                      loadingScreen={() => <LoadingScreen />} timeout={-1}>
                         <Router>
                             <Routes/>
                         </Router>
