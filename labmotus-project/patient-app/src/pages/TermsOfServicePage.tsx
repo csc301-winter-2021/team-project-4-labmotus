@@ -8,7 +8,7 @@ import { chevronBack } from "ionicons/icons";
 // import {PatientTermsOfServiceComponent} from "../components/PatientTermsOfServiceComponent";
 
 export interface TermsOfServicePageProps {
-    getTermsOfService: any
+    getTermsOfService: () => JSX.Element
 }
 
 const TermsOfServicePage: FunctionComponent<TermsOfServicePageProps> = (props: TermsOfServicePageProps) => {

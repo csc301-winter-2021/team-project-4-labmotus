@@ -15,6 +15,7 @@ import "@ionic/react/css/text-alignment.css";
 import "@ionic/react/css/text-transformation.css";
 import "@ionic/react/css/flex-utils.css";
 import "@ionic/react/css/display.css";
+import {PatientTermsOfServiceContent} from "../../components/PatientTermsOfServiceContent";
 
 export default {
     title: 'Pages/Terms of Service Page',
@@ -24,4 +25,6 @@ export default {
 const Template: Story<TermsOfServicePageProps> = (args) => <TermsOfServicePage {...args} />;
 
 export const Default = Template.bind({});
-Default.args = {};
+Default.args = {
+    getTermsOfService: () => {return <PatientTermsOfServiceContent />}
+};
