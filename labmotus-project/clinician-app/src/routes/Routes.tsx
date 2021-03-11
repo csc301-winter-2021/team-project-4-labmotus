@@ -28,7 +28,7 @@ const Routes: FunctionComponent<RoutesProps> = ({}) => {
     function onLoginChange(loggedIn: boolean) {
         if (loggedIn) {
             if (!loggedOutPaths.every((path) => !location.pathname.startsWith(path))) {
-                history.push("/login");
+                history.push("/home");
             }
         } else {
             if (!loggedInPaths.every((path) => !location.pathname.startsWith(path))) {
