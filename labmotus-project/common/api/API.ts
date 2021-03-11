@@ -243,8 +243,7 @@ class API {
     }
 }
 
-export const APIContext: React.Context<API> = React.createContext<API>(null);
-
+const APIContext: React.Context<API> = React.createContext<API>(null);
 export function getAPIContext(): React.Context<API> {
     return APIContext
 }
