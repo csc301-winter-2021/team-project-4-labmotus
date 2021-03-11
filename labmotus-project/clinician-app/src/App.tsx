@@ -17,8 +17,8 @@ import '@ionic/react/css/flex-utils.css';
 import '@ionic/react/css/display.css';
 /* Theme variables */
 import '../../common/ui/theme/variables.css';
-import LoadingComponent from "../../common/ui/components/LoadingComponent";
-import LoadingScreen from "../../common/ui/pages/LoadingScreen";
+import LoadingComponent from "../src/components/LoadingComponent";
+import LoadingScreen from "../src/pages/LoadingScreen";
 import MockAPI from "../../patient-app/src/api/MockAPI";
 import Routes from "./routes/Routes";
 import {BrowserRouter as Router} from "react-router-dom";

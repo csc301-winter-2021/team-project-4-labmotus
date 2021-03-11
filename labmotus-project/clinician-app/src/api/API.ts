@@ -2,7 +2,7 @@ import {Context, createContext} from "react";
 
 import firebase from 'firebase/app';
 import "firebase/auth"
-import {Assessment, Clinician, Patient} from "@labmotus/types";
+import {Assessment, Clinician, Patient} from "../../../common/types/types";
 import moment, {Moment} from "moment";
 import {APIConfig, BaseAPI, FirebaseConfig} from "../../../common/api/BaseAPI";
 
@@ -17,7 +17,7 @@ class API extends BaseAPI {
         this._user = null;
 
         if (fbConfig !== null) {
-            this._firebase.auth().onAuthStateChanged(async a => {
+            this._firebase.auth().onAuthStateChanged(async (a: any) => {
                 this._firebaseUser = a;
                 if (this._firebaseUser) {
                     this._user = await this.getPatient();
