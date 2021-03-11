@@ -5,7 +5,7 @@ import styled from "styled-components";
 import {Theme, getThemeContext} from "../../../common/ui/theme/Theme";
 import API, { getAPIContext } from "../../../common/api/API";
 import {useHistory} from "react-router";
-import LoginForm from "../components/LoginForm";
+import LoginForm from "../../../common/ui/components/LoginForm";
 
 export interface LoginPageProps {
 }
