@@ -1,4 +1,4 @@
-import React, {FunctionComponent} from "react";
+import {FunctionComponent, useContext} from "react";
 // @ts-ignore
 import styled from 'styled-components';
 import {Theme, getThemeContext} from "../theme/Theme";
@@ -8,7 +8,7 @@ export interface LoadingScreenProps {
 }
 
 const LoadingScreen: FunctionComponent<LoadingScreenProps> = ({}) => {
-    const theme = React.useContext(getThemeContext());
+    const theme = useContext(getThemeContext());
     return (<LoadingScreenDiv classname="loading-screen-div" theme={theme}>
         <img src={logo} alt=""/>
     </LoadingScreenDiv>)
