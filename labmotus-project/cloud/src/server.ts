@@ -14,6 +14,13 @@ import fastify_cors from "fastify-cors";
 
 const server: FastifyInstance<Server, IncomingMessage, ServerResponse> = fastify();
 
+server.get('/', async (request, reply) => {
+    reply
+        .code(200)
+        .header('Content-Type', 'text/plain')
+        .send("online");
+});
+
 server.register(fastify_cors, {origin: true});
 server.register(patient, {prefix: 'v1'});
 server.register(clinician, {prefix: 'v1'});
