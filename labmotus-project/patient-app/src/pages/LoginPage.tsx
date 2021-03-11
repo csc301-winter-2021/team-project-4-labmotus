@@ -3,7 +3,7 @@ import {IonAlert, IonContent, IonPage} from "@ionic/react";
 // @ts-ignore
 import styled from "styled-components";
 import {Theme, getThemeContext} from "../../../common/ui/theme/Theme";
-import API, { getAPIContext } from "../../../common/api/API";
+import API, { getAPIContext } from "../api/API";
 import {useHistory} from "react-router";
 import LoginForm from "../../../common/ui/components/LoginForm";
 

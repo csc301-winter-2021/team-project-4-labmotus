@@ -17,8 +17,8 @@ import "@ionic/react/css/text-alignment.css";
 import "@ionic/react/css/text-transformation.css";
 import "@ionic/react/css/flex-utils.css";
 import "@ionic/react/css/display.css";
-import MockAPI from "../../../../common/api/MockAPI";
-import API, {getAPIContext} from '../../../../common/api/API';
+import MockAPI from "../../api/MockAPI";
+import API, {getAPIContext} from '../../api/API';
 
 import config from "../../../config.json"
 

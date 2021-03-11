@@ -7,7 +7,7 @@ import {chevronBack, film, videocam} from "ionicons/icons";
 import {useHistory, useParams} from "react-router";
 import moment from "moment";
 import {Assessment, AssessmentState} from "../../../common/types/types";
-import API, { getAPIContext } from "../../../common/api/API";
+import API, { getAPIContext } from "../api/API";
 import Scrollbar from "react-scrollbars-custom";
 import Accordion from "../components/Accordion";
 import ReactPlayer from "react-player";

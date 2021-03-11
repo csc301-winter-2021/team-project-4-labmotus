@@ -6,7 +6,7 @@ import {IonSpinner} from "@ionic/react";
 import SymptomInstance from "../components/SymptomInstance";
 import {Assessment, AssessmentState} from "../../../common/types/types";
 import moment, {Moment} from "moment";
-import API, { getAPIContext } from "../../../common/api/API";
+import API, { getAPIContext } from "../api/API";
 import {useHistory, useParams} from "react-router";
 
 export interface SymptomLogPageProps {

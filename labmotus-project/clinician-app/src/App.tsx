@@ -19,8 +19,8 @@ import '@ionic/react/css/display.css';
 import '../../common/ui/theme/variables.css';
 import LoadingComponent from "../../common/ui/components/LoadingComponent";
 import LoadingScreen from "../../common/ui/pages/LoadingScreen";
-import API, { getAPIContext } from "../../common/api/API";
-import MockAPI from "../../common/api/MockAPI";
+import API, { getAPIContext } from "../../patient-app/src/api/API";
+import MockAPI from "../../patient-app/src/api/MockAPI";
 import Routes from "./routes/Routes";
 import {BrowserRouter as Router} from "react-router-dom";
 

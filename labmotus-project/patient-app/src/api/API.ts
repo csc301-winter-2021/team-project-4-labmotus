@@ -1,40 +1,22 @@
-import { Context, createContext } from "react";
+import {Context, createContext} from "react";
 
 import firebase from 'firebase/app';
 import "firebase/auth"
-import {Assessment, Clinician, Patient} from "../types";
+import {Assessment, Clinician, Patient} from "@labmotus/types";
 import moment, {Moment} from "moment";
+import {APIConfig, BaseAPI, FirebaseConfig} from "../../../common/api/BaseAPI";
 
-export interface FirebaseConfig {
-    "apiKey": string;
-    "authDomain": string;
-    "projectId": string;
-    "storageBucket": string;
-    "messagingSenderId": string;
-    "appId": string;
-}
+class API extends BaseAPI {
 
-export interface APIConfig {
-    mock: boolean
-    api: string
-}
-
-class API {
-    _config: APIConfig;
-    _firebase: firebase.app.App;
-    _firebaseUser?: firebase.User;
-    _credentials: firebase.auth.UserCredential;
     _user?: Patient;
-
-    authChangeListeners: Set<(loggedIn: boolean) => void>;
 
     // @ts-ignore
     constructor(fbConfig: (FirebaseConfig | null), apiConfig: APIConfig) {
-        this._config = apiConfig
+        super(fbConfig, apiConfig)
+
         this._user = null;
-        this.authChangeListeners = new Set();
+
         if (fbConfig !== null) {
-            this._firebase = firebase.initializeApp(fbConfig);
             this._firebase.auth().onAuthStateChanged(async a => {
                 this._firebaseUser = a;
                 if (this._firebaseUser) {

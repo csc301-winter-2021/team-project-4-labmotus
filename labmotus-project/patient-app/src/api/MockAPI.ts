@@ -1,7 +1,8 @@
 import "firebase/auth"
-import {Assessment, AssessmentState, Clinician, Patient} from "../types/types";
-import API, {APIConfig, INVALID_ASSESSMENT_ID} from "./API";
+import {Assessment, AssessmentState, Clinician, Patient} from "../../../common/types/types";
+import API, {INVALID_ASSESSMENT_ID} from "./API";
 import moment, {Moment} from "moment";
+import {APIConfig} from "../../../common/api/BaseAPI";
 
 const FakeUser: Patient = {
     user: {

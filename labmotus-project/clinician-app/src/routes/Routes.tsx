@@ -1,7 +1,7 @@
 import React, {FunctionComponent, ReactElement, useContext, useEffect} from "react";
 import {Redirect, Route, Switch, useHistory, useLocation} from "react-router-dom";
 
-import API, {getAPIContext} from "../../../common/api/API";
+import API, {getAPIContext} from "../../../patient-app/src/api/API";
 
 import ForgotPasswordPage from "../pages/ForgotPasswordPage";
 import SignupPage from "../pages/SignupPage";
