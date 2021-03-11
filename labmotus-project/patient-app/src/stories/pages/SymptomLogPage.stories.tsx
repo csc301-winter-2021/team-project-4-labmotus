@@ -18,7 +18,7 @@ import "@ionic/react/css/text-transformation.css";
 import "@ionic/react/css/flex-utils.css";
 import "@ionic/react/css/display.css";
 import MockAPI from "../../mock/MockAPI";
-import {APIContext} from '../../api/API';
+import { getAPIContext } from '../../../../common/api/API';
 
 export default {
     title: 'Pages/Symptom Log Page',
@@ -26,6 +26,8 @@ export default {
 } as Meta;
 
 const API = new MockAPI();
+const APIContext = getAPIContext();
+
 const Template: Story<SymptomLogPageProps> = (args) =>
     <APIContext.Provider value={API}>
         <RootDiv ref={(ref: any) => {
