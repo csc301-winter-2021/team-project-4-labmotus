@@ -81,7 +81,8 @@ const Routes: FunctionComponent<RoutesProps> = ({}) => {
                 <Route exact path="/forgot-password" render={() => <ForgotPasswordPage />} />
                 <Route exact path="/sign-up" render={() => <SignupPage />} />
                 <Route exact path="/terms-of-service"
-                       render={() => <TermsOfServicePage getTermsOfService={() => {return <PatientTermsOfServiceContent />}} />} />
+                       render={() => <TermsOfServicePage getTermsOfService={() => {return <PatientTermsOfServiceContent />}} />}
+                />
                 {generateRedirect()}
             </Switch>
             <NavigationBar entries={navigationEntries} />
