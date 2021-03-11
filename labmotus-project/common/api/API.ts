@@ -1,4 +1,4 @@
-import React from "react";
+import { Context, createContext } from "react";
 
 import firebase from 'firebase/app';
 import "firebase/auth"
@@ -243,8 +243,8 @@ class API {
     }
 }
 
-const APIContext: React.Context<API> = React.createContext<API>(null);
-export function getAPIContext(): React.Context<API> {
+const APIContext: Context<API> = createContext<API>(null);
+export function getAPIContext(): Context<API> {
     return APIContext
 }
 
