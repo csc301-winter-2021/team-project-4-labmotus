@@ -47,8 +47,8 @@ jobs:
             npm i --prefix << pipeline.parameters.root-dir >>
             npm i --prefix << pipeline.parameters.types-dir >>
             npm i -D --prefix << pipeline.parameters.cloud-dir >>
-            npm run build --prefix << pipeline.parameters.cloud-dir >>
             echo $FIREBASE_SERVICE_KEY > << pipeline.parameters.cloud-dir >>/firebase-service-key.json
+            npm run build --prefix << pipeline.parameters.cloud-dir >>
             git config user.email "circleci@circleci.com"
             git config user.name "CircleCI"
             git add -f *
