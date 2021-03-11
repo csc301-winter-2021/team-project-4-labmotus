@@ -17,8 +17,8 @@ import '@ionic/react/css/flex-utils.css';
 import '@ionic/react/css/display.css';
 /* Theme variables */
 import '../../common/ui/theme/variables.css';
-import LoadingComponent from "./components/LoadingComponent";
-import LoadingScreen from "./pages/LoadingScreen";
+import LoadingComponent from "../../common/ui/components/LoadingComponent";
+import LoadingScreen from "../../common/ui/pages/LoadingScreen";
 import API, { getAPIContext } from "./api/API";
 import MockAPI from "./api/MockAPI";
 import Routes from "./routes/Routes";
