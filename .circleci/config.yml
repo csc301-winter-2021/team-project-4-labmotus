@@ -58,6 +58,9 @@ workflows:
   test-and-deploy:
     jobs:
       - deploy-cloud:
+          filters:
+            branches:
+              only: main
           context:
             - labmotus-aws
             - labmotus-firebase
