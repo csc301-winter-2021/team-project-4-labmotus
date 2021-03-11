@@ -76,7 +76,7 @@ const LoginFormDiv = styled.div`
         }
         @media only screen and (min-width: 768px) {
             form {
-                margin 0 auto;
+                margin: 0 auto;
                 max-width: 60vw;
             }
             .login-button {

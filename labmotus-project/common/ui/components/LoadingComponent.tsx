@@ -1,6 +1,7 @@
 import {FunctionComponent, ReactElement, useEffect, useRef, useState} from "react";
 // @ts-ignore
 import styled from 'styled-components';
+// @ts-ignore
 import {IonSpinner} from "@ionic/react";
 
 export interface LoadingComponentProps {

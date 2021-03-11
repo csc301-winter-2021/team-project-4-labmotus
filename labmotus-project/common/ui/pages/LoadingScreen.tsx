@@ -1,8 +1,8 @@
 import {FunctionComponent, useContext} from "react";
 // @ts-ignore
 import styled from 'styled-components';
-import {Theme, getThemeContext} from "../../../common/ui/theme/Theme";
-import logo from "../../../common/ui/assets/logo.webp"
+import {Theme, getThemeContext} from "../theme/Theme";
+import logo from "../assets/logo.webp"
 
 export interface LoadingScreenProps {
 }
