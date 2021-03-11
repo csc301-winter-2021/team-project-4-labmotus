@@ -1,7 +1,7 @@
 import React, {FunctionComponent, SyntheticEvent, useEffect, useRef, useState} from "react";
 // @ts-ignore
 import styled from 'styled-components';
-import {Theme, ThemeContext} from "../theme/Theme";
+import {Theme, getThemeContext} from "../../../common/ui/theme/Theme";
 import {IonSpinner} from "@ionic/react";
 import SymptomInstance from "../components/SymptomInstance";
 import {Assessment, AssessmentState} from "../../../common/types/types";
@@ -16,7 +16,7 @@ const dateFormat = 'YYYY-MM-DD';
 
 const SymptomLogPage: FunctionComponent<SymptomLogPageProps> = ({}) => {
     const API = React.useContext(APIContext);
-    const theme = React.useContext(ThemeContext);
+    const theme = React.useContext(getThemeContext());
 
     const [data, setData] = useState<{ [key: string]: Assessment[] }>({});
     const [graphData, setGraphData] = useState([]);

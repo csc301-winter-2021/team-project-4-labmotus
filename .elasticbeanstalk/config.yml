@@ -1,0 +1,9 @@
+branch-defaults:
+  main:
+    environment: labmotus-api
+global:
+  application_name: labmotus-api
+  default_ec2_keyname: null
+  default_platform: Docker running on 64bit Amazon Linux 2
+  default_region: us-east-1
+  sc: git

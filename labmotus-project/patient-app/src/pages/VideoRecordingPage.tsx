@@ -1,7 +1,7 @@
 import React, {FunctionComponent, useContext, useEffect, useState} from "react";
 // @ts-ignore
 import styled from 'styled-components';
-import {Theme, ThemeContext} from "../theme/Theme";
+import {Theme, getThemeContext} from "../../../common/ui/theme/Theme";
 import '@teamhive/capacitor-video-recorder';
 import {VideoRecorderCamera, VideoRecorderPreviewFrame} from '@teamhive/capacitor-video-recorder';
 import {Plugins} from "@capacitor/core";
@@ -27,7 +27,7 @@ const config: VideoRecorderPreviewFrame = {
 };
 
 const VideoRecordingPage: FunctionComponent<VideoRecordingPageProps> = ({}) => {
-    const theme = useContext(ThemeContext);
+    const theme = useContext(getThemeContext());
     const API = useContext(APIContext);
     const [recording, setRecording] = useState(null);
     const [camera, setCamera] = useState(0);
