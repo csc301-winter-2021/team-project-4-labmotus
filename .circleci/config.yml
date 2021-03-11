@@ -46,7 +46,8 @@ jobs:
             echo $FIREBASE_SERVICE_KEY > labmotus-project/cloud/firebase-service-key.json
             git config user.email "circleci@circleci.com"
             git config user.name "CircleCI"
-            git commit -a
+            git add labmotus-project/cloud/firebase-service-key.json
+            git commit
             eb deploy labmotus-api
 workflows:
   test-and-deploy:
