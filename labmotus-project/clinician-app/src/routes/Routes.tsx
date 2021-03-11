@@ -1,13 +1,12 @@
 import React, {FunctionComponent, ReactElement, useContext, useEffect} from "react";
 import {Redirect, Route, Switch, useHistory, useLocation} from "react-router-dom";
 
-import API, {getAPIContext} from "../../../common/api/API";
-
 import ForgotPasswordPage from "../pages/ForgotPasswordPage";
 import SignupPage from "../pages/SignupPage";
 import LoginPage from "../pages/LoginPage";
 import TermsOfServicePage from "../../../common/ui/pages/TermsOfServicePage";
 import {ClinicianTermsOfServiceContent} from "../components/ClinicianTermsOfServiceContent";
+import API, {getAPIContext} from "../api/API";
 
 export interface RoutesProps {}
 

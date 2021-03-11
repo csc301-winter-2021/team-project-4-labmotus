@@ -24,6 +24,7 @@
   },
   "include": [
     "types",
-    "ui"
+    "ui",
+    "api"
   ]
 }
