@@ -1,6 +1,6 @@
 import "firebase/auth"
 import {Assessment, AssessmentState, Clinician, Patient} from "../../../common/types/types";
-import API, {INVALID_ASSESSMENT_ID} from "../api/API";
+import API, {INVALID_ASSESSMENT_ID} from "../../../common/api/API";
 import moment, {Moment} from "moment";
 import config from "../../config.json";
 

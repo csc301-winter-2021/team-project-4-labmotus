@@ -9,7 +9,7 @@ import {IonIcon} from "@ionic/react";
 // @ts-ignore
 import {sync} from "ionicons/icons";
 import {useHistory, useParams} from "react-router";
-import {APIContext} from "../api/API";
+import API, { getAPIContext } from "../../../common/api/API";
 
 export interface VideoRecordingPageProps {
 }
@@ -28,7 +28,7 @@ const config: VideoRecorderPreviewFrame = {
 
 const VideoRecordingPage: FunctionComponent<VideoRecordingPageProps> = ({}) => {
     const theme = useContext(getThemeContext());
-    const API = useContext(APIContext);
+    const UseAPI: API = useContext(getAPIContext());
     const [recording, setRecording] = useState(null);
     const [camera, setCamera] = useState(0);
     const {id} = useParams<{ id: string }>();
@@ -49,7 +49,7 @@ const VideoRecordingPage: FunctionComponent<VideoRecordingPageProps> = ({}) => {
             VideoRecorder.startRecording();
         } else if (recording === false) {
             VideoRecorder.stopRecording().then(({videoUrl}: { videoUrl: string }) => {
-                API.uploadVideo(id, videoUrl);
+                UseAPI.uploadVideo(id, videoUrl);
                 history.goBack();
             });
         }
