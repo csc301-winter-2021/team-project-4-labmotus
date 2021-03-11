@@ -8,7 +8,7 @@ import EditEmailPage from "../pages/EditEmailPage";
 import EditPhonePage from "../pages/EditPhonePage";
 import ChangePasswordPage from "../pages/ChangePasswordPage";
 import LoginPage from "../pages/LoginPage";
-import API, { getAPIContext } from "../../../common/api/API";
+import { APIContext } from "../api/API";
 import ForgotPasswordPage from "../pages/ForgotPasswordPage";
 import SignupPage from "../pages/SignupPage";
 import VideoRecordingPage from "../pages/VideoRecordingPage";
@@ -39,16 +39,16 @@ const loggedInPaths = ["/", "/home", "/assessment", "/settings/*", "/record", "/
 const loggedOutPaths = ["/", "/login", "/sign-up", "/forgot-password", "/terms-of-service"];
 
 const Routes: FunctionComponent<RoutesProps> = ({}) => {
-    const UseAPI: API = useContext(getAPIContext());
+    const API = useContext(APIContext);
     const history = useHistory();
     const location = useLocation();
 
     useEffect(() => {
-        UseAPI.addLoginListener(onLoginChange);
+        API.addLoginListener(onLoginChange);
         return () => {
-            UseAPI.removeLoginListener(onLoginChange);
+            API.removeLoginListener(onLoginChange);
         };
-    }, [UseAPI]);
+    }, [API]);
 
     function onLoginChange(loggedIn: boolean) {
         if (loggedIn) {

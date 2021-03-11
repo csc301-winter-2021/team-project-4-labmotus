@@ -13,7 +13,7 @@ import {
 // @ts-ignore
 import styled from "styled-components";
 import { Theme, getThemeContext } from "../../../common/ui/theme/Theme";
-import API, { getAPIContext } from "../../../common/api/API";
+import { APIContext } from "../api/API";
 import { useHistory } from "react-router";
 import { chevronBack } from "ionicons/icons";
 
@@ -22,7 +22,7 @@ export interface ChangePasswordPageProps {
 
 const ChangePasswordPage: FunctionComponent<ChangePasswordPageProps> = () => {
     const theme = useContext(getThemeContext());
-    const UseAPI: API = useContext(getAPIContext());
+    const API = useContext(APIContext);
     const history = useHistory();
 
     const [currPassword, setCurrPassword] = useState<string>();
@@ -48,7 +48,7 @@ const ChangePasswordPage: FunctionComponent<ChangePasswordPageProps> = () => {
             return;
         }
         try {
-            await UseAPI.changePassword(currPassword, newPassword);
+            await API.changePassword(currPassword, newPassword);
             history.push(`/settings`);
         } catch (e) {
             console.error(e);
