@@ -1,9 +1,8 @@
-import React from "react";
-// import config from "../../config.json"
+import { Context, createContext } from "react";
 
 import firebase from 'firebase/app';
 import "firebase/auth"
-import {Assessment, Clinician, Patient} from "../../../common/types/types";
+import {Assessment, Clinician, Patient} from "../types";
 import moment, {Moment} from "moment";
 
 export interface FirebaseConfig {
@@ -244,7 +243,10 @@ class API {
     }
 }
 
-export const APIContext = React.createContext<API>(null);
+const APIContext: Context<API> = createContext<API>(null);
+export function getAPIContext(): Context<API> {
+    return APIContext
+}
 
 export default API;
 

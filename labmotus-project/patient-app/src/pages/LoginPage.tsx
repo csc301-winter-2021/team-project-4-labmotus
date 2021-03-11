@@ -3,7 +3,7 @@ import {IonAlert, IonContent, IonPage} from "@ionic/react";
 // @ts-ignore
 import styled from "styled-components";
 import {Theme, getThemeContext} from "../../../common/ui/theme/Theme";
-import {APIContext} from "../api/API";
+import API, { getAPIContext } from "../../../common/api/API";
 import {useHistory} from "react-router";
 import LoginForm from "../components/LoginForm";
 
@@ -11,7 +11,7 @@ export interface LoginPageProps {
 }
 
 const LoginPage: FunctionComponent<LoginPageProps> = () => {
-    const API = useContext(APIContext);
+    const UseAPI: API = useContext(getAPIContext());
     const theme = React.useContext(getThemeContext());
 
     const history = useHistory();
@@ -37,7 +37,7 @@ const LoginPage: FunctionComponent<LoginPageProps> = () => {
             return;
         }
         try {
-            await API.login(email, password);
+            await UseAPI.login(email, password);
         } catch (e) {
             console.error(e);
         }
