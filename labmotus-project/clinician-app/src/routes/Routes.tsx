@@ -5,8 +5,9 @@ import API, {getAPIContext} from "../../../common/api/API";
 
 import ForgotPasswordPage from "../pages/ForgotPasswordPage";
 import SignupPage from "../pages/SignupPage";
-import TermsOfServicePage from "../pages/TermsOfServicePage";
 import LoginPage from "../pages/LoginPage";
+import TermsOfServicePage from "../../../common/ui/pages/TermsOfServicePage";
+import {ClinicianTermsOfServiceContent} from "../components/ClinicianTermsOfServiceContent";
 
 export interface RoutesProps {}
 
@@ -47,7 +48,9 @@ const Routes: FunctionComponent<RoutesProps> = ({}) => {
                 <Route exact path="/login" render={() => <LoginPage />} />
                 <Route exact path="/forgot-password" render={() => <ForgotPasswordPage />} />
                 <Route exact path="/sign-up" render={() => <SignupPage />} />
-                <Route exact path="/terms-of-service" render={() => <TermsOfServicePage />} />
+                <Route exact path="/terms-of-service"
+                       render={() => <TermsOfServicePage getTermsOfService={() => {return <ClinicianTermsOfServiceContent />}} />}
+                />
                 {generateRedirect()}
             </Switch>
         </>
