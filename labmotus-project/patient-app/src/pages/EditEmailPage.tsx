@@ -1,28 +1,20 @@
 import { FunctionComponent, useContext, useState } from "react";
-import {
-    IonButtons,
-    IonContent,
-    IonHeader,
-    IonIcon,
-    IonInput,
-    IonPage,
-    IonTitle,
-    IonToolbar,
-} from "@ionic/react";
+import { IonButtons, IonContent, IonHeader, IonIcon, IonInput, IonPage, IonTitle, IonToolbar } from "@ionic/react";
 // @ts-ignore
 import styled from "styled-components";
-import { Theme, ThemeContext } from "../theme/Theme";
-import { APIContext } from "../api/API";
+import { Theme, getThemeContext } from "../../../common/ui/theme/Theme";
+import API, { getAPIContext } from "../../../common/api/API";
 import { useHistory } from "react-router";
 import { chevronBack } from "ionicons/icons";
 import { Patient } from "../../../common/types/types";
 
-export interface EditEmailPageProps {}
+export interface EditEmailPageProps {
+}
 
 const EditEmailPage: FunctionComponent<EditEmailPageProps> = () => {
-    const theme = useContext(ThemeContext);
-    const API = useContext(APIContext);
-    const patient: Patient = API.getCurrentUser();
+    const theme = useContext(getThemeContext());
+    const UseAPI: API = useContext(getAPIContext());
+    let patient: Patient = UseAPI.getCurrentUser();
     const history = useHistory();
 
     const patientEmail = patient?.user?.email;
@@ -30,9 +22,9 @@ const EditEmailPage: FunctionComponent<EditEmailPageProps> = () => {
     const [email, setEmail] = useState<string>(patientEmail);
 
     async function editEmail() {
-        alert("new email is " + email);
         try {
-            // await API.changeEmail(email);
+            patient.user.email = email;
+            patient = await UseAPI.updatePatient(patient);
             history.push(`/settings`);
         } catch (e) {
             console.error(e);
@@ -62,6 +54,7 @@ const EditEmailPage: FunctionComponent<EditEmailPageProps> = () => {
                     <IonInput
                         type="email"
                         autofocus={true}
+                        clearInput={true}
                         value={email}
                         onIonChange={(e) => setEmail(e.detail.value!)}
                     ></IonInput>
@@ -76,6 +69,8 @@ const EditEmailPageDiv = styled.div`
     width: 100%;
     height: 100%;
     ion-input {
+        text-align: center;
+        margin: 10px 0;
         background-color: ${({ theme }: { theme: Theme }) => theme.colors.light};
     }
     ion-buttons {

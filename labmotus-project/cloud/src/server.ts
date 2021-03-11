@@ -32,7 +32,7 @@ function init() {
 
 init();
 
-server.listen(5000, (err, address) => {
+server.listen(5000, '0.0.0.0', (err, address) => {
     if (err) {
         console.error(err);
         process.exit(1)

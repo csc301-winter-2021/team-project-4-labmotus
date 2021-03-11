@@ -1,28 +1,20 @@
 import { FunctionComponent, useContext, useState } from "react";
-import {
-    IonButtons,
-    IonContent,
-    IonHeader,
-    IonIcon,
-    IonInput,
-    IonPage,
-    IonTitle,
-    IonToolbar,
-} from "@ionic/react";
+import { IonButtons, IonContent, IonHeader, IonIcon, IonInput, IonPage, IonTitle, IonToolbar } from "@ionic/react";
 // @ts-ignore
 import styled from "styled-components";
-import { Theme, ThemeContext } from "../theme/Theme";
-import { APIContext } from "../api/API";
+import { Theme, getThemeContext } from "../../../common/ui/theme/Theme";
+import API, { getAPIContext } from "../../../common/api/API";
 import { useHistory } from "react-router";
 import { chevronBack } from "ionicons/icons";
 import { Patient } from "../../../common/types/types";
 
-export interface EditPhonePageProps {}
+export interface EditPhonePageProps {
+}
 
 const EditPhonePage: FunctionComponent<EditPhonePageProps> = () => {
-    const theme = useContext(ThemeContext);
-    const API = useContext(APIContext);
-    const patient: Patient = API.getCurrentUser();
+    const theme = useContext(getThemeContext());
+    const UseAPI: API = useContext(getAPIContext());
+    let patient: Patient = UseAPI.getCurrentUser();
     const history = useHistory();
 
     const patientNumber = patient?.phone;
@@ -31,9 +23,9 @@ const EditPhonePage: FunctionComponent<EditPhonePageProps> = () => {
 
     async function editPhoneNumber() {
         const phone = phoneNumber.replace(/(\d{3})(\d{3})(\d{4})/, "$1-$2-$3");
-        alert("new number is " + phone);
         try {
-            // await API.changePhoneNumber(phone);
+            patient.phone = phone;
+            patient = await UseAPI.updatePatient(patient);
             history.push(`/settings`);
         } catch (e) {
             console.error(e);
@@ -63,6 +55,7 @@ const EditPhonePage: FunctionComponent<EditPhonePageProps> = () => {
                     <IonInput
                         type="tel"
                         autofocus={true}
+                        clearInput={true}
                         value={phoneNumber}
                         minlength={10}
                         maxlength={10}
@@ -79,6 +72,8 @@ const EditPhonePageDiv = styled.div`
     width: 100%;
     height: 100%;
     ion-input {
+        text-align: center;
+        margin: 10px 0;
         background-color: ${({ theme }: { theme: Theme }) => theme.colors.light};
     }
     ion-buttons {

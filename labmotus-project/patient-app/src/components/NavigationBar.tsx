@@ -1,7 +1,7 @@
 import React, {FunctionComponent} from "react";
 // @ts-ignore
 import styled from 'styled-components';
-import {Theme, ThemeContext} from "../theme/Theme";
+import {Theme, getThemeContext} from "../../../common/ui/theme/Theme";
 import {useHistory, useLocation} from "react-router";
 import {IonIcon} from "@ionic/react";
 
@@ -16,7 +16,7 @@ export interface NavigationBarProps {
 }
 
 const NavigationBar: FunctionComponent<NavigationBarProps> = ({entries}) => {
-    const theme = React.useContext(ThemeContext);
+    const theme = React.useContext(getThemeContext());
     const location = useLocation();
     const history = useHistory();
 

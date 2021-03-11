@@ -1,9 +1,8 @@
-import React from "react";
-import config from "../../config.json"
-import firebaseConfig from "../../firebase.json"
+import { Context, createContext } from "react";
+
 import firebase from 'firebase/app';
 import "firebase/auth"
-import {Assessment, Clinician, Patient} from "../../../common/types/types";
+import {Assessment, Clinician, Patient} from "../types";
 import moment, {Moment} from "moment";
 
 export interface FirebaseConfig {
@@ -15,18 +14,13 @@ export interface FirebaseConfig {
     "appId": string;
 }
 
-const FakeUser: Patient = {
-    user: {
-        id: "1",
-        name: "John Smith",
-        username: "john"
-    },
-    birthday: moment(),
-    clinicianID: "2",
-    phone: "123-456-7890",
-};
+export interface APIConfig {
+    mock: boolean
+    api: string
+}
 
 class API {
+    _config: APIConfig;
     _firebase: firebase.app.App;
     _firebaseUser?: firebase.User;
     _credentials: firebase.auth.UserCredential;
@@ -35,7 +29,8 @@ class API {
     authChangeListeners: Set<(loggedIn: boolean) => void>;
 
     // @ts-ignore
-    constructor(fbConfig: (FirebaseConfig | null) = firebaseConfig) {
+    constructor(fbConfig: (FirebaseConfig | null), apiConfig: APIConfig) {
+        this._config = apiConfig
         this._user = null;
         this.authChangeListeners = new Set();
         if (fbConfig !== null) {
@@ -44,7 +39,6 @@ class API {
                 this._firebaseUser = a;
                 if (this._firebaseUser) {
                     this._user = await this.getPatient();
-                    console.log(this._user);
                 }
                 this.authChangeListeners.forEach(listener => listener(!!(a as any)))
             })
@@ -73,10 +67,6 @@ class API {
 
     async logout(): Promise<void> {
         await this._firebaseSignOut();
-    }
-
-    async deleteUser(): Promise<void> {
-        throw Error("Not Implemented")
     }
 
     async _firebaseSendPasswordResetEmail(email: string): Promise<void> {
@@ -112,7 +102,7 @@ class API {
     async getPatient(patientID?: string): Promise<Patient> {
         const token = await firebase.auth().currentUser.getIdToken() as any;
         // @ts-ignore
-        const response = await fetch(config.api + `/patient/${patientID === undefined ? '-1' : patientID}`, {
+        const response = await fetch(this._config.api + `/patient/${patientID === undefined ? '-1' : patientID}`, {
             method: "GET",
             mode: 'cors',
             headers: {
@@ -127,16 +117,74 @@ class API {
         }
     }
 
-    async updatePatient(patient: Patient): Promise<void> {
-        throw Error("Not Implemented")
+    async updatePatient(patient: Patient): Promise<Patient> {
+        const mods = {};
+        for (const key of Object.keys(patient)) if (key !== 'user') {
+            // @ts-ignore
+            if (key === 'birthday') {
+                if (this._user.birthday.format("YYYY-MM-DD") !== patient.birthday.format("YYYY-MM-DD")) {
+                    // @ts-ignore
+                    mods.birthday = patient[key];
+                }
+            } else {
+                // @ts-ignore
+                if (this._user[key] !== patient[key]) {
+                    // @ts-ignore
+                    mods[key] = patient[key];
+                }
+            }
+        }
+        for (const key of Object.keys(patient.user)) {
+            // @ts-ignore
+            if (this._user.user[key] !== patient.user[key]) {
+                // @ts-ignore
+                if (mods.user === undefined) {
+                    // @ts-ignore
+                    mods.user = {};
+                }
+                // @ts-ignore
+                mods.user[key] = patient.user[key];
+            }
+        }
+        const token = await firebase.auth().currentUser.getIdToken() as any;
+        // @ts-ignore
+        const response = await fetch(this._config.api + `/patient/${(patient ?? this._user).user.id ?? '-1'}`, {
+            method: "PATCH",
+            mode: 'cors',
+            headers: {
+                "Authorization": "Bearer " + token,
+            },
+            body: JSON.stringify(mods)
+        });
+        if (response.ok) {
+            const newPatient = JSON.parse(await response.text()).body;
+            this._user = newPatient;
+            console.log(this._user);
+            return newPatient;
+        } else {
+            console.error(response);
+        }
     }
 
     async uploadVideo(assessmentID: string, url: string): Promise<void> {
         throw Error("Not Implemented")
     }
 
-    async getClinician(patient: Patient): Promise<Clinician> {
-        throw Error("Not Implemented")
+    async getClinician(patient?: Patient): Promise<Clinician> {
+        const token = await firebase.auth().currentUser.getIdToken() as any;
+        // @ts-ignore
+        const response = await fetch(this._config.api + `/clinician/${(patient ?? this._user).clinicianID ?? '-1'}`, {
+            method: "GET",
+            mode: 'cors',
+            headers: {
+                "Authorization": "Bearer " + token,
+            }
+        });
+        if (response.ok) {
+            return JSON.parse(await response.text()).body;
+        } else {
+            console.error(response);
+        }
     }
 
     async getAssessments(week: Moment = moment().startOf('day')): Promise<Assessment[]> {
@@ -144,7 +192,7 @@ class API {
             return Promise.reject("Not Logged In");
         const token = await firebase.auth().currentUser.getIdToken() as any;
         // @ts-ignore
-        const response = await fetch(config.api + `/patient/${this._user.user.id}/assessments?start=${week.toISOString()}`, {
+        const response = await fetch(this._config.api + `/patient/${this._user.user.id}/assessments?start=${week.toISOString()}`, {
             method: "GET",
             mode: 'cors',
             headers: {
@@ -159,6 +207,22 @@ class API {
         }
     }
 
+    async _firebaseChangePassword(newPassword: string): Promise<void> {
+        return new Promise<void>((resolve, reject) => {
+            this._firebase.auth().currentUser.updatePassword(newPassword).then(resolve).catch(reject)
+        })
+    }
+
+    async changePassword(currPassword: string, newPassword: string): Promise<void> {
+        try {
+            await this._firebaseSignInWithEmailAndPassword(this._user?.user.email, currPassword);
+            await this._firebaseChangePassword(newPassword);
+            await this.logout();
+        } catch (e) {
+            return Promise.reject("Authentication Failed")
+        }
+    }
+
     addLoginListener(listener: (loggedIn: boolean) => void) {
         this.authChangeListeners.add(listener);
         listener(this.isLoggedIn());
@@ -169,7 +233,9 @@ class API {
     }
 
     getCurrentUser(): Patient | null {
-        return this._user;
+        if (this._user != null)
+            return {...this._user, user: {...this._user.user}, birthday: moment(this._user.birthday)};
+        return null;
     }
 
     isLoggedIn(): boolean {
@@ -177,7 +243,10 @@ class API {
     }
 }
 
-export const APIContext = React.createContext<API>(null);
+const APIContext: Context<API> = createContext<API>(null);
+export function getAPIContext(): Context<API> {
+    return APIContext
+}
 
 export default API;
 

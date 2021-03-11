@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useContext, useState } from "react";
+import React, {FunctionComponent, useContext, useState} from "react";
 import {
     IonAlert,
     IonButtons,
@@ -12,16 +12,17 @@ import {
 } from "@ionic/react";
 // @ts-ignore
 import styled from "styled-components";
-import { Theme, ThemeContext } from "../theme/Theme";
-import { APIContext } from "../api/API";
+import { Theme, getThemeContext } from "../../../common/ui/theme/Theme";
+import API, { getAPIContext } from "../../../common/api/API";
 import { useHistory } from "react-router";
 import { chevronBack } from "ionicons/icons";
 
-export interface ChangePasswordPageProps {}
+export interface ChangePasswordPageProps {
+}
 
 const ChangePasswordPage: FunctionComponent<ChangePasswordPageProps> = () => {
-    const theme = useContext(ThemeContext);
-    const API = useContext(APIContext);
+    const theme = useContext(getThemeContext());
+    const UseAPI: API = useContext(getAPIContext());
     const history = useHistory();
 
     const [currPassword, setCurrPassword] = useState<string>();
@@ -46,9 +47,8 @@ const ChangePasswordPage: FunctionComponent<ChangePasswordPageProps> = () => {
             setConfirmPassword("");
             return;
         }
-        alert("new password is " + newPassword);
         try {
-            // await API.changePassword(password);
+            await UseAPI.changePassword(currPassword, newPassword);
             history.push(`/settings`);
         } catch (e) {
             console.error(e);
@@ -79,20 +79,21 @@ const ChangePasswordPage: FunctionComponent<ChangePasswordPageProps> = () => {
                         type="password"
                         placeholder="Current Password"
                         autofocus={true}
+                        clearInput={true}
                         value={currPassword}
                         onIonChange={(e) => setCurrPassword(e.detail.value!)}
                     ></IonInput>
                     <IonInput
                         type="password"
                         placeholder="New Password"
-                        autofocus={true}
+                        clearInput={true}
                         value={newPassword}
                         onIonChange={(e) => setNewPassword(e.detail.value!)}
                     ></IonInput>
                     <IonInput
                         type="password"
                         placeholder="Confirm New Password"
-                        autofocus={true}
+                        clearInput={true}
                         value={confirmPassword}
                         onIonChange={(e) => setConfirmPassword(e.detail.value!)}
                     ></IonInput>
@@ -114,6 +115,7 @@ const ChangePasswordPageDiv = styled.div`
     width: 100%;
     height: 100%;
     ion-input {
+        margin: 10px 0;
         background-color: ${({ theme }: { theme: Theme }) => theme.colors.light};
     }
     ion-buttons {

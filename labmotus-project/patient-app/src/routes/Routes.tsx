@@ -8,11 +8,13 @@ import EditEmailPage from "../pages/EditEmailPage";
 import EditPhonePage from "../pages/EditPhonePage";
 import ChangePasswordPage from "../pages/ChangePasswordPage";
 import LoginPage from "../pages/LoginPage";
-import { APIContext } from "../api/API";
+import API, { getAPIContext } from "../../../common/api/API";
 import ForgotPasswordPage from "../pages/ForgotPasswordPage";
 import SignupPage from "../pages/SignupPage";
 import VideoRecordingPage from "../pages/VideoRecordingPage";
 import AssessmentPage from "../pages/AssessmentPage";
+import TermsOfServicePage from "../../../common/ui/pages/TermsOfServicePage";
+import { PatientTermsOfServiceContent } from "../components/PatientTermsOfServiceContent";
 
 export interface RoutesProps {}
 
@@ -34,20 +36,20 @@ const navigationEntries = [
     },
 ];
 
-const loggedInPaths = ["/", "/home", "/assessment", "/settings/*", "/record"];
-const loggedOutPaths = ["/", "/login", "/sign-up", "/forgot-password"];
+const loggedInPaths = ["/", "/home", "/assessment", "/settings/*", "/record", "/terms-of-service"];
+const loggedOutPaths = ["/", "/login", "/sign-up", "/forgot-password", "/terms-of-service"];
 
 const Routes: FunctionComponent<RoutesProps> = ({}) => {
-    const API = useContext(APIContext);
+    const UseAPI: API = useContext(getAPIContext());
     const history = useHistory();
     const location = useLocation();
 
     useEffect(() => {
-        API.addLoginListener(onLoginChange);
+        UseAPI.addLoginListener(onLoginChange);
         return () => {
-            API.removeLoginListener(onLoginChange);
+            UseAPI.removeLoginListener(onLoginChange);
         };
-    }, [API]);
+    }, [UseAPI]);
 
     function onLoginChange(loggedIn: boolean) {
         if (loggedIn) {
@@ -74,19 +76,18 @@ const Routes: FunctionComponent<RoutesProps> = ({}) => {
                 <Route exact path="/settings" render={() => <SettingsPage />} />
                 <Route exact path="/settings/edit-email" render={() => <EditEmailPage />} />
                 <Route exact path="/settings/edit-phone" render={() => <EditPhonePage />} />
-                <Route
-                    exact
-                    path="/settings/change-password"
-                    render={() => <ChangePasswordPage />}
-                />
+                <Route exact path="/settings/change-password" render={() => <ChangePasswordPage />} />
                 <Route exact path="/record/:id" render={() => <VideoRecordingPage />} />
                 <Route exact path="/forgot-password" render={() => <ForgotPasswordPage />} />
                 <Route exact path="/sign-up" render={() => <SignupPage />} />
+                <Route exact path="/terms-of-service"
+                       render={() => <TermsOfServicePage getTermsOfService={() => {return <PatientTermsOfServiceContent />}} />}
+                />
                 {generateRedirect()}
             </Switch>
             <NavigationBar entries={navigationEntries} />
         </>
     );
-};
+}
 
-export default Routes;
+export default Routes

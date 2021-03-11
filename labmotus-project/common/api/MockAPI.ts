@@ -1,6 +1,6 @@
 import "firebase/auth"
-import {Assessment, AssessmentState, Clinician, Patient} from "../../../common/types/types";
-import API, {INVALID_ASSESSMENT_ID} from "../api/API";
+import {Assessment, AssessmentState, Clinician, Patient} from "../types/types";
+import API, {APIConfig, INVALID_ASSESSMENT_ID} from "./API";
 import moment, {Moment} from "moment";
 
 const FakeUser: Patient = {
@@ -26,15 +26,15 @@ const FakeClinician: Clinician = {
 class MockAPI extends API {
     mockAssessments: { [key: string]: Assessment[] };
 
-    constructor() {
-        super(null);
+    constructor(config: APIConfig) {
+        super(null, config);
         this._user = FakeUser;
         this.mockAssessments = {}
     }
 
     async login(user: string, pass: string): Promise<void> {
         if (this._user !== null)
-            throw Error("Already logged In.");
+            throw Error("Already logged In. ");
         this._user = FakeUser;
         this._user.user.email = user;
         this.authChangeListeners.forEach(listener => listener(true))
@@ -59,17 +59,15 @@ class MockAPI extends API {
         console.log(this._user)
     }
 
-    async deleteUser(): Promise<void> {
-        throw Error("Not Implemented")
-    }
-
-    async updatePatient(patient: Patient): Promise<void> {
+    async updatePatient(patient: Patient): Promise<Patient> {
         if (this._user === null)
             throw Error("Not logged In.");
         this._user = patient;
+        return this._user;
     }
 
     async uploadVideo(assessmentID: string, url: string): Promise<void> {
+        console.log(url);
         for (const assessments of Object.values(this.mockAssessments)) {
             for (let i = 0; i < assessments.length; i++) {
                 if (assessments[i].id === assessmentID) {

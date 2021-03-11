@@ -1,6 +1,4 @@
 version: 2.1
-orbs:
-  eb: circleci/aws-elastic-beanstalk@1.0.1
 parameters:
   root-dir:
     type: string
@@ -10,7 +8,7 @@ parameters:
     default: "labmotus-project/common/types"
   ui-dir:
     type: string
-    default: "labmotus-project/common/ui"
+    default: "labmotus-project/common"
   cloud-dir:
     type: string
     default: "labmotus-project/cloud"
@@ -26,24 +24,41 @@ jobs:
       - image: cimg/node:15.10.0
     steps:
       - checkout
-      - run: npm i --prefix << pipeline.parameters.root-dir >>
-      - run: npm i --prefix << pipeline.parameters.types-dir >>
-      - run: npm i --prefix << pipeline.parameters.cloud-dir >>
-      - run: npm run test --prefix << pipeline.parameters.cloud-dir >>
-      - run: npm i --prefix << pipeline.parameters.ui-dir >>
-      - run: npm i --prefix << pipeline.parameters.clinician-dir >>
-      - run: npm run test --prefix << pipeline.parameters.clinician-dir >>
-      - run: npm i --prefix << pipeline.parameters.patient-dir >>
-      - run: npm run test --prefix << pipeline.parameters.patient-dir >>
+      - run:
+          command: |
+            npm i --prefix << pipeline.parameters.root-dir >>
+            npm i --prefix << pipeline.parameters.types-dir >>
+            npm i --prefix << pipeline.parameters.cloud-dir >>
+            npm run test --prefix << pipeline.parameters.cloud-dir >>
+            npm i --prefix << pipeline.parameters.ui-dir >>
+            npm i --prefix << pipeline.parameters.patient-dir >>
+            npm run test --prefix << pipeline.parameters.patient-dir >>
+            npm i --prefix << pipeline.parameters.clinician-dir >>
+            npm run test --prefix << pipeline.parameters.clinician-dir >>
+  deploy-cloud:
+    docker:
+      - image: cimg/python:3.9-node
+    steps:
+      - checkout
+      - run:
+          name: Build and deploy API
+          command: |
+            pip install awsebcli
+            npm i --prefix << pipeline.parameters.root-dir >>
+            npm i --prefix << pipeline.parameters.types-dir >>
+            npm i -D --prefix << pipeline.parameters.cloud-dir >>
+            echo $FIREBASE_SERVICE_KEY > << pipeline.parameters.cloud-dir >>/firebase-service-key.json
+            npm run build --prefix << pipeline.parameters.cloud-dir >>
+            git config user.email "circleci@circleci.com"
+            git config user.name "CircleCI"
+            git add -f *
+            git commit -m "Build API"
+            eb deploy labmotus-api
 workflows:
   test-and-deploy:
     jobs:
       - run-tests
-      - eb/deploy:
-          context: labmotus-aws
-          environment-name: labmotus-api
-          filters:
-            branches:
-              only:
-                - main
-          label: version-<<pipeline.number>>
+      - deploy-cloud:
+          context:
+            - labmotus-aws
+            - labmotus-firebase
