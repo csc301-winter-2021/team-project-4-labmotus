@@ -1,5 +1,5 @@
 // @ts-ignore
-import React, {FunctionComponent} from "react";
+import {FunctionComponent} from "react";
 // @ts-ignore
 import {IonButton, IonInput} from "@ionic/react";
 // @ts-ignore
