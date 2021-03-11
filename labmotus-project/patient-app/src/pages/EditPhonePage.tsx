@@ -3,7 +3,7 @@ import { IonButtons, IonContent, IonHeader, IonIcon, IonInput, IonPage, IonTitle
 // @ts-ignore
 import styled from "styled-components";
 import { Theme, getThemeContext } from "../../../common/ui/theme/Theme";
-import API, { getAPIContext } from "../../../common/api/API";
+import { APIContext } from "../api/API";
 import { useHistory } from "react-router";
 import { chevronBack } from "ionicons/icons";
 import { Patient } from "../../../common/types/types";
@@ -13,8 +13,8 @@ export interface EditPhonePageProps {
 
 const EditPhonePage: FunctionComponent<EditPhonePageProps> = () => {
     const theme = useContext(getThemeContext());
-    const UseAPI: API = useContext(getAPIContext());
-    let patient: Patient = UseAPI.getCurrentUser();
+    const API = useContext(APIContext);
+    let patient: Patient = API.getCurrentUser();
     const history = useHistory();
 
     const patientNumber = patient?.phone;
@@ -25,7 +25,7 @@ const EditPhonePage: FunctionComponent<EditPhonePageProps> = () => {
         const phone = phoneNumber.replace(/(\d{3})(\d{3})(\d{4})/, "$1-$2-$3");
         try {
             patient.phone = phone;
-            patient = await UseAPI.updatePatient(patient);
+            patient = await API.updatePatient(patient);
             history.push(`/settings`);
         } catch (e) {
             console.error(e);

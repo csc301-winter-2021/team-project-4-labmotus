@@ -3,13 +3,13 @@ import { IonAlert, IonButton, IonContent, IonInput, IonPage } from "@ionic/react
 // @ts-ignore
 import styled from "styled-components";
 import { Theme, getThemeContext } from "../../../common/ui/theme/Theme";
-import API, { getAPIContext } from "../../../common/api/API";
+import { APIContext } from "../api/API";
 import { useHistory } from "react-router";
 
 export interface SignupPageProps {}
 
 const SignupPage: FunctionComponent<SignupPageProps> = () => {
-    const UseAPI: API = useContext(getAPIContext());
+    const API = useContext(APIContext);
     const theme = React.useContext(getThemeContext());
 
     const history = useHistory();
@@ -45,7 +45,7 @@ const SignupPage: FunctionComponent<SignupPageProps> = () => {
         }
 
         try {
-            await UseAPI.signUp(email, password);
+            await API.signUp(email, password);
         } catch (e) {
             console.error(e);
         }

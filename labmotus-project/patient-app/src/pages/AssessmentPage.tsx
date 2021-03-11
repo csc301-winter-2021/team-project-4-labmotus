@@ -7,7 +7,7 @@ import {chevronBack, film, videocam} from "ionicons/icons";
 import {useHistory, useParams} from "react-router";
 import moment from "moment";
 import {Assessment, AssessmentState} from "../../../common/types/types";
-import API, { getAPIContext } from "../../../common/api/API";
+import {APIContext} from "../api/API";
 import Scrollbar from "react-scrollbars-custom";
 import Accordion from "../components/Accordion";
 import ReactPlayer from "react-player";
@@ -16,7 +16,7 @@ export interface AssessmentPageProps {
 }
 
 const AssessmentPage: FunctionComponent<AssessmentPageProps> = ({}) => {
-    const UseAPI: API = React.useContext(getAPIContext());
+    const API = React.useContext(APIContext);
     const theme: Theme = React.useContext(getThemeContext());
     const {date}: { date: string } = useParams();
     const day = date ? moment(date, 'YYYY-MM-DD') : moment();
@@ -27,7 +27,7 @@ const AssessmentPage: FunctionComponent<AssessmentPageProps> = ({}) => {
 
     useEffect(() => {
         setAssessments(null);
-        UseAPI.getAssessments(day).then(value => {
+        API.getAssessments(day).then(value => {
             const tAssessments = value.filter(ass => ass.date.format('YYYY-MM-DD') === day.format('YYYY-MM-DD'));
             setAssessments(tAssessments);
             setExpanded(tAssessments.map(ass => ass.state === AssessmentState.COMPLETE))
