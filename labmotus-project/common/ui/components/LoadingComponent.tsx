@@ -1,3 +1,4 @@
+// @ts-ignore
 import {FunctionComponent, ReactElement, useEffect, useRef, useState} from "react";
 // @ts-ignore
 import styled from 'styled-components';

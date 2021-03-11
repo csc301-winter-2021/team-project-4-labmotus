@@ -6,7 +6,7 @@
         "build": "tsc --build",
         "clean": "tsc --build --clean"
     },
-    "dependencies": {
+    "peer-dependencies": {
         "@ionic/react": "^5.6.0",
         "firebase": "^8.3.0",
         "moment": "^2.29.1",
@@ -16,5 +16,14 @@
         "plugins": [
             "react-require"
         ]
+    },
+    "eslintConfig": {
+        "extends": [
+            "plugin:react-hooks/recommended"
+        ]
+    },
+    "devDependencies": {
+        "eslint": "^7.21.0",
+        "eslint-plugin-react-hooks": "^4.2.0"
     }
 }

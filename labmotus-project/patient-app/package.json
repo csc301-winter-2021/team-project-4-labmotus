@@ -61,7 +61,8 @@
   "eslintConfig": {
     "extends": [
       "react-app",
-      "react-app/jest"
+      "react-app/jest",
+      "plugin:react-hooks/recommended"
     ]
   },
   "browserslist": {
@@ -87,6 +88,7 @@
     "@storybook/react": "^6.1.19",
     "customize-cra": "^1.0.0",
     "eslint": "^7.21.0",
+    "eslint-plugin-react-hooks": "^4.2.0",
     "react-app-rewired": "^2.1.8",
     "tslint": "^6.1.3"
   },
