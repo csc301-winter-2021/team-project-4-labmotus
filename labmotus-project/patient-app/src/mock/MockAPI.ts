@@ -92,6 +92,10 @@ class MockAPI extends API {
         throw INVALID_ASSESSMENT_ID;
     }
 
+    async getVideo(url: string): Promise<string> {
+        return "https://youtu.be/dQw4w9WgXcQ";
+    }
+
     async getClinician(patient: Patient): Promise<Clinician> {
         return FakeClinician;
     }

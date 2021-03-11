@@ -34,6 +34,12 @@ export abstract class Permissions {
     abstract uploadVideo(assessment: Assessment): boolean;
 
     /**
+     * Whether or not access should be granted for this video request
+     * @param assessment The assessment to view video for
+     */
+    abstract viewVideo(assessment: Assessment): boolean;
+
+    /**
      * Returns the UserID this permissions belongs to.
      */
     abstract getUserID(): string;
@@ -103,6 +109,10 @@ export class PatientPermissions extends Permissions {
         return assessment.patientId === this.patient.user.id && assessment.state === AssessmentState.MISSING;
     }
 
+    viewVideo(assessment: Assessment): boolean {
+        return assessment.patientId === this.patient.user.id && assessment.state !== AssessmentState.MISSING;
+    }
+
     getUserID(): string {
         return this.patient.user.id;
     }
@@ -155,6 +165,10 @@ export class ClinicianPermissions extends Permissions {
 
     uploadVideo(assessment: Assessment): boolean {
         return false;
+    }
+
+    viewVideo(assessment: Assessment): boolean {
+        return this.clinician.patientIDs.includes(assessment.patientId) && assessment.state !== AssessmentState.MISSING;
     }
 
     getUserID(): string {

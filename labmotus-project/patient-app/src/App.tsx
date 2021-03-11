@@ -42,7 +42,7 @@ const App: React.FC = () => {
             <APIContext.Provider value={APIInstance}>
                 <RootDiv>
                     <LoadingComponent functors={[loadAPI]}
-                                      loadingScreen={() => <LoadingScreen/>} timeout={-1}>
+                                      loadingScreen={() => <LoadingScreen/>}>
                         <Router>
                             <Routes/>
                         </Router>

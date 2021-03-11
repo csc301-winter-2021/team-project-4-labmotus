@@ -17,10 +17,16 @@ import fastify_formbody from "fastify-formbody";
 
 import fastify_multipart from "fastify-multipart";
 
+import fastify_static from "fastify-static";
+import path from "path";
+
 const server: FastifyInstance<Server, IncomingMessage, ServerResponse> = fastify();
 
 server.register(fastify_formbody);
 server.register(fastify_multipart);
+server.register(fastify_static, {
+    root: __dirname
+});
 server.register(fastify_cors, {origin: true});
 server.register(patient, {prefix: 'v1'});
 server.register(clinician, {prefix: 'v1'});
@@ -28,14 +34,14 @@ server.register(assessment, {prefix: 'v1'});
 let database: Database;
 
 function init() {
-    firebaseAdmin.initializeApp({credential: firebaseAdmin.credential.cert(serviceAccount as firebaseAdmin.ServiceAccount)})
+    firebaseAdmin.initializeApp({credential: firebaseAdmin.credential.cert(serviceAccount as firebaseAdmin.ServiceAccount)});
     if (config.mock) {
         database = new MockDatabase();
     } else {
         database = new Database();
     }
     server.decorate('database', database);
-    fs.mkdirSync(config.videoPath, {recursive: true});
+    fs.mkdirSync(path.join(config.videoPath), {recursive: true});
 }
 
 init();
@@ -45,5 +51,6 @@ server.listen(5000, (err, address) => {
         console.error(err);
         process.exit(1)
     }
+    console.log("Saving videos to: " + path.resolve(config.videoPath));
     console.log(`Server listening at ${address}`);
 });

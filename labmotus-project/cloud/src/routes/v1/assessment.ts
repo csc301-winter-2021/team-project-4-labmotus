@@ -1,15 +1,10 @@
 import * as fastify from 'fastify'
 import {Assessment, AssessmentState, Response} from '../../../../common/types/types'
 import {RequestHeaders} from '../../types'
-import * as fs from "fs";
-import * as util from "util";
-import {pipeline} from "stream";
 import {authenticateUser} from "../../auth/Authenticator";
 import Database from "../../data/Database";
-import path from 'path';
-import config from "../../../config.json"
-
-const pump = util.promisify(pipeline);
+import path from "path";
+import config from "../../../config.json";
 
 
 interface AssessmentIdParams {
@@ -38,9 +33,7 @@ export default async function (server: fastify.FastifyInstance & { database: Dat
                 const assessment = await server.database.getAssessmentByID(permissions.getUserID(), assessmentId);
                 if (permissions.uploadVideo(assessment)) {
                     const data = await request.file();
-                    console.log(data.mimetype);
-                    await pump(data.file, fs.createWriteStream(path.join(config.videoPath, assessmentId + ".mp4")));
-                    assessment.videoUrl = `/video/${assessmentId}`;
+                    assessment.videoUrl = await server.database.saveVideo(assessmentId, data.file);
                     assessment.state = AssessmentState.PENDING;
                     const response: Response<Assessment> = {
                         success: true,
@@ -86,19 +79,8 @@ export default async function (server: fastify.FastifyInstance & { database: Dat
             const permissions = await authenticateUser(server.database, headers.authorization.split('Bearer ')[1]);
             try {
                 const assessment = await server.database.getAssessmentByID(permissions.getUserID(), assessmentId);
-                if (permissions.uploadVideo(assessment)) {
-                    const data = await request.file();
-                    console.log(data.mimetype);
-                    await pump(data.file, fs.createWriteStream(path.join(config.videoPath, assessmentId + ".mp4")));
-                    assessment.videoUrl = `/video/${assessmentId}`;
-                    const response: Response<Assessment> = {
-                        success: true,
-                        body: assessment
-                    };
-                    reply
-                        .code(200)
-                        .header('Content-Type', 'application/json')
-                        .send(response)
+                if (permissions.viewVideo(assessment)) {
+                    reply.code(200).sendFile(assessmentId + ".mp4", path.resolve(config.videoPath))
                 } else {
                     reply.code(403).send("Forbidden");
                 }

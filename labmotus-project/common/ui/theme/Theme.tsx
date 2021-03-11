@@ -1,4 +1,4 @@
-import { createContext } from 'react';
+import {createContext} from 'react';
 import "../fonts/fonts.css"
 
 export interface Theme {
@@ -20,6 +20,7 @@ export interface Colors {
     primary: string;
     secondary: string;
     light: string;
+    background: string;
     contrast: string;
     shade: string;
     mediumShade: string;
@@ -43,6 +44,7 @@ export const PrimaryTheme: Theme = {
         primary: "#3880ff",
         secondary: "#3dc2ff",
         light: "#f4f5f8",
+        background: "#FFFFFF",
         contrast: "#000000",
         shade: "#d7d8da",
         mediumShade: "#808289",

@@ -1,6 +1,13 @@
 import {Assessment, AssessmentState, Clinician, Patient} from "../../../common/types/types";
 import Database from "./Database";
 import moment, {Moment} from "moment";
+import * as fs from "fs";
+import path from "path";
+import config from "../../config.json";
+import {pipeline} from "stream";
+import * as util from "util";
+
+const pump = util.promisify(pipeline);
 
 class MockDatabase extends Database {
 
@@ -188,6 +195,11 @@ class MockDatabase extends Database {
         } else {
             return Promise.reject("No Assessment With That ID")
         }
+    }
+
+    async saveVideo(assessmentID: string, video: NodeJS.ReadableStream): Promise<string> {
+        await pump(video, fs.createWriteStream(path.join(config.videoPath, assessmentID + ".mp4")));
+        return `/video/${assessmentID}`;
     }
 }
 
