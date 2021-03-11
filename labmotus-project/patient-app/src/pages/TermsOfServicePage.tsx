@@ -5,10 +5,13 @@ import styled from "styled-components";
 import { Theme, getThemeContext } from "../../../common/ui/theme/Theme";
 import { useHistory } from "react-router";
 import { chevronBack } from "ionicons/icons";
+// import {PatientTermsOfServiceComponent} from "../components/PatientTermsOfServiceComponent";
 
-export interface TermsOfServicePageProps {}
+export interface TermsOfServicePageProps {
+    getTermsOfService: any
+}
 
-const TermsOfServicePage: FunctionComponent<TermsOfServicePageProps> = () => {
+const TermsOfServicePage: FunctionComponent<TermsOfServicePageProps> = (props: TermsOfServicePageProps) => {
     const theme = useContext(getThemeContext());
     const history = useHistory();
 
@@ -30,10 +33,7 @@ const TermsOfServicePage: FunctionComponent<TermsOfServicePageProps> = () => {
                     </IonToolbar>
                 </IonHeader>
                 <IonContent>
-                    <div className="main-padding">
-                        <h1>Sample Header</h1>
-                        <p>Sample test under header. Actual Terms of Service will be written in a future version!</p>
-                    </div>
+                    {props.getTermsOfService()}
                 </IonContent>
             </IonPage>
         </TermsOfServicePageDiv>

@@ -14,6 +14,7 @@ import SignupPage from "../pages/SignupPage";
 import VideoRecordingPage from "../pages/VideoRecordingPage";
 import AssessmentPage from "../pages/AssessmentPage";
 import TermsOfServicePage from "../pages/TermsOfServicePage";
+import { PatientTermsOfServiceContent } from "../components/PatientTermsOfServiceContent";
 
 export interface RoutesProps {}
 
@@ -79,12 +80,13 @@ const Routes: FunctionComponent<RoutesProps> = ({}) => {
                 <Route exact path="/record/:id" render={() => <VideoRecordingPage />} />
                 <Route exact path="/forgot-password" render={() => <ForgotPasswordPage />} />
                 <Route exact path="/sign-up" render={() => <SignupPage />} />
-                <Route exact path="/terms-of-service" render={() => <TermsOfServicePage />} />
+                <Route exact path="/terms-of-service"
+                       render={() => <TermsOfServicePage getTermsOfService={() => {return <PatientTermsOfServiceContent />}} />} />
                 {generateRedirect()}
             </Switch>
             <NavigationBar entries={navigationEntries} />
         </>
     );
-};
+}
 
-export default Routes;
+export default Routes
