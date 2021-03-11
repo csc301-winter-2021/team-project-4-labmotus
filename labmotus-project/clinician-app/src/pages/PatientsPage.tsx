@@ -23,7 +23,7 @@ const AllPatientsPage: FunctionComponent<AllPatientsPageProps> = () => {
                 <AllPatientsPageDiv theme={theme}>
                     <h1>LabMotus</h1>
                     <h3>Clinician Portal</h3>
-                    <PatientListComponent patientList={} />
+                    {/*<PatientListComponent patientList={} />*/}
                 </AllPatientsPageDiv>
             </IonContent>
         </IonPage>

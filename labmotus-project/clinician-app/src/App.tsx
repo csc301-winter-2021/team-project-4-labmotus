@@ -19,13 +19,13 @@ import '@ionic/react/css/display.css';
 import '../../common/ui/theme/variables.css';
 import LoadingComponent from "../../common/ui/components/LoadingComponent";
 import LoadingScreen from "../../common/ui/pages/LoadingScreen";
-import API, { getAPIContext } from "../../patient-app/src/api/API";
 import MockAPI from "../../patient-app/src/api/MockAPI";
 import Routes from "./routes/Routes";
 import {BrowserRouter as Router} from "react-router-dom";
 
 import config from "../config.json";
 import firebaseConfig from "../firebase.json"
+import API, {getAPIContext} from "./api/API";
 
 const App: React.FC = () => {
     const [APIInstance, setAPIInstance] = useState<API>(null);
