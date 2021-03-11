@@ -17,7 +17,7 @@ export interface LoginFormProps {
 export const LoginForm: FunctionComponent<LoginFormProps> = (props: LoginFormProps) => {
     return (
         <LoginFormDiv>
-            <div>
+            <div className="main-padding">
                 <form>
                     <IonInput
                         class="input email"
@@ -48,14 +48,23 @@ export const LoginForm: FunctionComponent<LoginFormProps> = (props: LoginFormPro
 const LoginFormDiv = styled.div`
     height: 100%;
     width: 100%;
-    .input {
-        margin-bottom: 5%;
-        text-align: left;
-        border-radius: 5px;
-        border: 1px solid #ddd;
-        --padding-start: 10px;
+    .main-padding {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 100%;
+        padding: 5%;
+        box-sizing: border-box;
+        .input {
+            margin-bottom: 5%;
+            text-align: left;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            --padding-start: 10px;
+        }
+        pointer-events: auto;
     }
-    pointer-events: auto;
 `;
 
 export default LoginForm;
