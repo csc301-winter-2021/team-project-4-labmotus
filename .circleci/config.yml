@@ -41,13 +41,18 @@ jobs:
     steps:
       - checkout
       - run:
+          name: Build and deploy API
           command: |
             pip install awsebcli
-            echo $FIREBASE_SERVICE_KEY > labmotus-project/cloud/firebase-service-key.json
+            npm i --prefix << pipeline.parameters.root-dir >>
+            npm i --prefix << pipeline.parameters.types-dir >>
+            npm i -D --prefix << pipeline.parameters.cloud-dir >>
+            npm run build --prefix << pipeline.parameters.cloud-dir >>
+            echo $FIREBASE_SERVICE_KEY > << pipeline.parameters.cloud-dir >>/firebase-service-key.json
             git config user.email "circleci@circleci.com"
             git config user.name "CircleCI"
-            git add -f labmotus-project/cloud/firebase-service-key.json
-            git commit -m "service key"
+            git add -f *
+            git commit -m "Build API"
             eb deploy labmotus-api
 workflows:
   test-and-deploy:
