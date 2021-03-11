@@ -3,7 +3,7 @@ import { IonButtons, IonContent, IonHeader, IonIcon, IonInput, IonPage, IonTitle
 // @ts-ignore
 import styled from "styled-components";
 import { Theme, getThemeContext } from "../../../common/ui/theme/Theme";
-import { APIContext } from "../api/API";
+import API, { getAPIContext } from "../../../common/api/API";
 import { useHistory } from "react-router";
 import { chevronBack } from "ionicons/icons";
 import { Patient } from "../../../common/types/types";
@@ -13,8 +13,8 @@ export interface EditEmailPageProps {
 
 const EditEmailPage: FunctionComponent<EditEmailPageProps> = () => {
     const theme = useContext(getThemeContext());
-    const API = useContext(APIContext);
-    let patient: Patient = API.getCurrentUser();
+    const UseAPI: API = useContext(getAPIContext());
+    let patient: Patient = UseAPI.getCurrentUser();
     const history = useHistory();
 
     const patientEmail = patient?.user?.email;
@@ -24,7 +24,7 @@ const EditEmailPage: FunctionComponent<EditEmailPageProps> = () => {
     async function editEmail() {
         try {
             patient.user.email = email;
-            patient = await API.updatePatient(patient);
+            patient = await UseAPI.updatePatient(patient);
             history.push(`/settings`);
         } catch (e) {
             console.error(e);

@@ -2,7 +2,7 @@ import { Context, createContext } from "react";
 
 import firebase from 'firebase/app';
 import "firebase/auth"
-import {Assessment, Clinician, Patient} from "../../../common/types/types";
+import {Assessment, Clinician, Patient} from "../types";
 import moment, {Moment} from "moment";
 
 export interface FirebaseConfig {

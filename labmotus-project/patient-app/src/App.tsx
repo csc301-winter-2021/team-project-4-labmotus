@@ -19,7 +19,7 @@ import '@ionic/react/css/display.css';
 import '../../common/ui/theme/variables.css';
 import LoadingComponent from "./components/LoadingComponent";
 import LoadingScreen from "./pages/LoadingScreen";
-import API, {APIContext} from "./api/API";
+import API, { getAPIContext } from "../../common/api/API";
 import MockAPI from "./mock/MockAPI";
 import Routes from "./routes/Routes";
 import {BrowserRouter as Router} from "react-router-dom";
@@ -29,6 +29,7 @@ import firebaseConfig from "../firebase.json"
 
 const App: React.FC = () => {
     const [APIInstance, setAPIInstance] = useState<API>(null);
+    const APIContext = getAPIContext()
 
     async function loadAPI(): Promise<API> {
         if (!APIInstance) {
