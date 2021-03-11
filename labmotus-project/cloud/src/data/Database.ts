@@ -26,7 +26,11 @@ class Database {
         throw new Error("Not Implemented")
     }
 
-    async getAssessments(ID: string, start: Moment, duration: number, unit: string): Promise<Assessment[]> {
+    async getAssessmentsByPatient(ID: string, start: Moment, duration: number, unit: string): Promise<Assessment[]> {
+        throw new Error("Not Implemented")
+    }
+
+    async getAssessmentByID(patientID: string, assessmentID: string): Promise<Assessment> {
         throw new Error("Not Implemented")
     }
 }

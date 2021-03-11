@@ -205,7 +205,7 @@ export default async function (server: FastifyInstance & { database: Database },
                 const patient = await server.database.getPatientByID(patientID);
                 if (permissions.getAssessments(patient)) {
                     try {
-                        const results = await server.database.getAssessments(patientID, moment(start), Number(duration), unit);
+                        const results = await server.database.getAssessmentsByPatient(patientID, moment(start), Number(duration), unit);
                         const response: Response<Assessment[]> = {
                             success: true,
                             body: results

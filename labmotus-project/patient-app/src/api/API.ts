@@ -161,7 +161,23 @@ class API {
     }
 
     async uploadVideo(assessmentID: string, url: string): Promise<void> {
-        throw Error("Not Implemented")
+        if (url !== '/some/file/path') {
+            const token = await firebase.auth().currentUser.getIdToken() as any;
+            const videoResp = await fetch(url);
+            // @ts-ignore
+            alert(videoResp.headers);
+            const video = await videoResp.blob();
+            const formData = new FormData();
+            formData.append("file", video);
+            const response = await fetch(config.api + `/video/${assessmentID}`, {
+                method: "POST",
+                mode: 'cors',
+                body: formData,
+                headers: {
+                    "Authorization": "Bearer " + token,
+                }
+            });
+        }
     }
 
     async getClinician(patient?: Patient): Promise<Clinician> {

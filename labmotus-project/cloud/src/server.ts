@@ -3,6 +3,7 @@ import {IncomingMessage, Server, ServerResponse} from 'http'
 import * as firebaseAdmin from 'firebase-admin';
 import serviceAccount from "../firebase-service-key.json";
 import config from "../config.json"
+import * as fs from "fs";
 
 import patient from "./routes/v1/patient";
 import clinician from "./routes/v1/clinician";
@@ -12,8 +13,14 @@ import MockDatabase from "./data/MockDatabase";
 
 import fastify_cors from "fastify-cors";
 
+import fastify_formbody from "fastify-formbody";
+
+import fastify_multipart from "fastify-multipart";
+
 const server: FastifyInstance<Server, IncomingMessage, ServerResponse> = fastify();
 
+server.register(fastify_formbody);
+server.register(fastify_multipart);
 server.register(fastify_cors, {origin: true});
 server.register(patient, {prefix: 'v1'});
 server.register(clinician, {prefix: 'v1'});
@@ -28,6 +35,7 @@ function init() {
         database = new Database();
     }
     server.decorate('database', database);
+    fs.mkdirSync(config.videoPath, {recursive: true});
 }
 
 init();
