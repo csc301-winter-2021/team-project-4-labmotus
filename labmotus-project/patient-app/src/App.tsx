@@ -20,7 +20,7 @@ import '../../common/ui/theme/variables.css';
 import LoadingComponent from "../../common/ui/components/LoadingComponent";
 import LoadingScreen from "../../common/ui/pages/LoadingScreen";
 import API, { getAPIContext } from "../../common/api/API";
-import MockAPI from "./mock/MockAPI";
+import MockAPI from "../../common/api/MockAPI";
 import Routes from "./routes/Routes";
 import {BrowserRouter as Router} from "react-router-dom";
 
@@ -33,7 +33,7 @@ const App: React.FC = () => {
 
     async function loadAPI(): Promise<API> {
         if (!APIInstance) {
-            const api = !config.mock ? new API(firebaseConfig, config) : new MockAPI();
+            const api = !config.mock ? new API(firebaseConfig, config) : new MockAPI(config);
             setAPIInstance(api);
             return api;
         }

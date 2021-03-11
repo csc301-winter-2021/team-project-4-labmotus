@@ -17,18 +17,20 @@ import "@ionic/react/css/text-alignment.css";
 import "@ionic/react/css/text-transformation.css";
 import "@ionic/react/css/flex-utils.css";
 import "@ionic/react/css/display.css";
-import MockAPI from "../../mock/MockAPI";
-import {getAPIContext} from '../../../../common/api/API';
+import MockAPI from "../../../../common/api/MockAPI";
+import API, {getAPIContext} from '../../../../common/api/API';
+
+import config from "../../../config.json"
 
 export default {
     title: 'Pages/Symptom Log Page',
     component: SymptomLogPage,
 } as Meta;
 
-const API = new MockAPI();
-const APIContext = getAPIContext()
+const UseAPI: API = new MockAPI(config);
+const APIContext: React.Context<API> = getAPIContext()
 const Template: Story<SymptomLogPageProps> = (args) =>
-    <APIContext.Provider value={API}>
+    <APIContext.Provider value={UseAPI}>
         <RootDiv ref={(ref: any) => {
             if (ref?.parentNode) {
                 ref.parentNode.style.width = "100%";
