@@ -15,7 +15,7 @@ import "@ionic/react/css/text-alignment.css";
 import "@ionic/react/css/text-transformation.css";
 import "@ionic/react/css/flex-utils.css";
 import "@ionic/react/css/display.css";
-import {PatientTermsOfServiceContent} from "../../components/PatientTermsOfServiceContent";
+import {PatientTermsOfServiceContent} from "../../../../patient-app/src/components/PatientTermsOfServiceContent";
 
 export default {
     title: 'Pages/Terms of Service Page',

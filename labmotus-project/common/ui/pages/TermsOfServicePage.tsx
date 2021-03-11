@@ -2,10 +2,9 @@ import { FunctionComponent, useContext } from "react";
 import { IonButtons, IonContent, IonHeader, IonIcon, IonPage, IonTitle, IonToolbar } from "@ionic/react";
 // @ts-ignore
 import styled from "styled-components";
-import { Theme, getThemeContext } from "../../../common/ui/theme/Theme";
+import { Theme, getThemeContext } from "../theme/Theme";
 import { useHistory } from "react-router";
 import { chevronBack } from "ionicons/icons";
-// import {PatientTermsOfServiceComponent} from "../components/PatientTermsOfServiceComponent";
 
 export interface TermsOfServicePageProps {
     getTermsOfService: () => JSX.Element

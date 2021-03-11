@@ -13,7 +13,7 @@ import ForgotPasswordPage from "../pages/ForgotPasswordPage";
 import SignupPage from "../pages/SignupPage";
 import VideoRecordingPage from "../pages/VideoRecordingPage";
 import AssessmentPage from "../pages/AssessmentPage";
-import TermsOfServicePage from "../pages/TermsOfServicePage";
+import TermsOfServicePage from "../../../common/ui/pages/TermsOfServicePage";
 import { PatientTermsOfServiceContent } from "../components/PatientTermsOfServiceContent";
 
 export interface RoutesProps {}
