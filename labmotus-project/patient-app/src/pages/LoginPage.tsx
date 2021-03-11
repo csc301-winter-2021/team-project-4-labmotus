@@ -89,6 +89,10 @@ const LoginPageDiv = styled.div`
         font-weight: bold;
         margin-top: 15vh;
     }
+    .login-button {
+        background-color: ${({theme}: { theme: Theme }) => theme.colors.primary};
+        color: white;
+    }
     .footer {
         margin-top: 65vh;
     }

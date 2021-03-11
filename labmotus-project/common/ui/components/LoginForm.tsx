@@ -1,17 +1,17 @@
 // @ts-ignore
-import {FunctionComponent} from "react";
+import { FunctionComponent } from "react";
 // @ts-ignore
-import {IonButton, IonInput} from "@ionic/react";
+import { IonInput } from "@ionic/react";
 // @ts-ignore
 import styled from "styled-components";
 
 export interface LoginFormProps {
-    email: string,
-    setEmail: any,
-    password: string,
-    setPassword: any,
-    onLogin: any,
-    onForgotPassword: any
+    email: string;
+    setEmail: any;
+    password: string;
+    setPassword: any;
+    onLogin: any;
+    onForgotPassword: any;
 }
 
 export const LoginForm: FunctionComponent<LoginFormProps> = (props: LoginFormProps) => {
@@ -34,16 +34,17 @@ export const LoginForm: FunctionComponent<LoginFormProps> = (props: LoginFormPro
                         value={props.password}
                         onIonChange={(e) => props.setPassword(e.detail.value!)}
                     />
-
-                    <IonButton expand="block" shape="round" onClick={props.onLogin}>
+                    <button className="login-button" onClick={props.onLogin}>
                         Login
-                    </IonButton>
+                    </button>
                 </form>
-                <p onClick={props.onForgotPassword}><span>Forgot password?</span></p>
+                <p onClick={props.onForgotPassword}>
+                    <span>Forgot password?</span>
+                </p>
             </div>
         </LoginFormDiv>
-    )
-}
+    );
+};
 
 const LoginFormDiv = styled.div`
     height: 100%;
@@ -57,11 +58,35 @@ const LoginFormDiv = styled.div`
         padding: 5%;
         box-sizing: border-box;
         .input {
-            margin-bottom: 5%;
+            margin-bottom: 10px;
             text-align: left;
             border-radius: 5px;
             border: 1px solid #ddd;
             --padding-start: 10px;
+        }
+        .login-button {
+            width: 100%;
+            border-radius: 25px;
+            max-width: 490px;
+            font-size: 0.8em;
+            padding: 14px;
+            font-weight: 500;
+            outline: none;
+            box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.1);
+        }
+        @media only screen and (min-width: 768px) {
+            form {
+                margin 0 auto;
+                max-width: 60vw;
+            }
+            .login-button {
+                font-size: 1.1em;
+            }
+        }
+        @media only screen and (min-width: 1024px) {
+            form {
+                max-width: 40vw;
+            }
         }
         pointer-events: auto;
     }
