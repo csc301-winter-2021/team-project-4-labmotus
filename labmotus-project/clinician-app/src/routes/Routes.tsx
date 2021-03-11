@@ -50,7 +50,6 @@ const Routes: FunctionComponent<RoutesProps> = ({}) => {
                 <Route exact path="/terms-of-service"
                        render={() => <TermsOfServicePage getTermsOfService={() => {return <ClinicianTermsOfServiceContent />}} />}
                 />
-                <Route exact path="/home" render={() => <LoginPage />} />
                 {generateRedirect()}
             </Switch>
         </>
