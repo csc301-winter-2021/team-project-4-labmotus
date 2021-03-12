@@ -9,7 +9,8 @@ import {ClinicianTermsOfServiceContent} from "../components/ClinicianTermsOfServ
 import API, {getAPIContext} from "../api/API";
 import AllPatientsPage from "../pages/AllPatientsPage";
 
-export interface RoutesProps {}
+export interface RoutesProps {
+}
 
 const loggedInPaths = ["/", "/home", "/assessment", "/settings/*", "/record", "/terms-of-service"];
 const loggedOutPaths = ["/", "/login", "/sign-up", "/forgot-password", "/terms-of-service"];
@@ -39,7 +40,7 @@ const Routes: FunctionComponent<RoutesProps> = ({}) => {
     }
 
     function generateRedirect(): ReactElement {
-        return <Redirect exact from="/" to="/login" />;
+        return <Redirect exact from="/" to="/login"/>;
     }
 
     return (

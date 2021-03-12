@@ -48,18 +48,17 @@ const AllPatientsPage: FunctionComponent<AllPatientsPageProps> = () => {
 };
 
 const AllPatientsPageDiv = styled.div`
-    overflow: hidden;
-    text-align: center;
-    h1 {
-        font-weight: bold;
-        margin-top: 15vh;
-    }
-    .footer {
-        margin-top: 65vh;
-    }
-    span {
-        cursor: pointer;
-        color: ${({theme}: { theme: Theme }) => theme.colors.primary};
+  overflow: hidden;
+  text-align: center;
+
+  h1 {
+    font-weight: bold;
+    margin-top: 10vh;
+  }
+
+  span {
+    cursor: pointer;
+    color: ${({theme}: { theme: Theme }) => theme.colors.primary};
     }
 `;
 
