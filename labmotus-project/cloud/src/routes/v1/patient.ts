@@ -60,7 +60,6 @@ export default async function (server: FastifyInstance & { database: Database },
                 user: {
                     id: "0",
                     firebaseId: "firebase:0",
-                    username: "labmotus",
                     name: "LabMotus User",
                     email: "user@labmot.us"
                 },

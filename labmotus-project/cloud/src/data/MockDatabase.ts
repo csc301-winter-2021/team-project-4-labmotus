@@ -21,7 +21,6 @@ class MockDatabase extends Database {
             user: {
                 id: "0",
                 firebaseId: "Pcq6ISTb2scT7pC2oSonZxOyQqg2",
-                username: "labmotus",
                 name: "LabMotus User",
                 email: "user@labmot.us",
             },
@@ -32,7 +31,6 @@ class MockDatabase extends Database {
             user: {
                 id: "1",
                 firebaseId: "kYArwSdCQdgCGjuIjV19flEiolv1",
-                username: "labmotus1",
                 name: "LabMotus User1",
                 email: "user1@labmot.us",
             },
@@ -44,7 +42,6 @@ class MockDatabase extends Database {
             user: {
                 id: "2",
                 firebaseId: "mp0eWztKWdbj0BWDN60ehEKpUj32",
-                username: "labmotus2",
                 name: "LabMotus User2",
                 email: "user2@labmot.us",
             },

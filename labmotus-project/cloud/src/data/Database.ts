@@ -16,7 +16,6 @@ class Database {
         return {
             id: item.id.S,
             firebaseId: item.firebaseId.S || undefined,
-            username: item.username.S,
             name: item.name.S,
             email: item.email.S || undefined
         }
