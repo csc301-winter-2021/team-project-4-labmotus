@@ -20,7 +20,7 @@ class API extends BaseAPI {
             this._firebase.auth().onAuthStateChanged(async (a: any) => {
                 this._firebaseUser = a;
                 if (this._firebaseUser) {
-                    this._user = await this.getClinician();
+                    this._user = await this.getClinician(this._firebaseUser.uid);
                 }
                 this.authChangeListeners.forEach(listener => listener(!!(a as any)))
             })
@@ -81,7 +81,7 @@ class API extends BaseAPI {
         // }
     }
 
-    async getClinician(clinicianId: string): Promise<Clinician> {
+    async getClinician(clinicianFirebaseId: string): Promise<Clinician> {
         throw Error("Not Implemented")
         // const token = await firebase.auth().currentUser.getIdToken() as any;
         // // @ts-ignore
