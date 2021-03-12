@@ -49,7 +49,6 @@ class MockAPI extends API {
     }
 
     async uploadVideo(assessmentID: string, url: string): Promise<void> {
-        console.log(url);
         for (const assessments of Object.values(this.mockAssessments)) {
             for (let i = 0; i < assessments.length; i++) {
                 if (assessments[i].id === assessmentID) {
@@ -73,6 +72,10 @@ class MockAPI extends API {
             }
         }
         throw INVALID_ASSESSMENT_ID;
+    }
+
+    async getVideo(url: string): Promise<string> {
+        return "https://youtu.be/dQw4w9WgXcQ";
     }
 
     async getClinician(patient: Patient): Promise<Clinician> {

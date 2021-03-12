@@ -1,4 +1,4 @@
-import {Clinician, Patient} from "../../../common/types/types";
+import {Assessment, AssessmentState, Clinician, Patient} from "../../../common/types/types";
 
 export abstract class Permissions {
     /**
@@ -12,7 +12,7 @@ export abstract class Permissions {
      * Whether or not access should be granted for target's assessment
      * @param target The patient to query access for.
      */
-    abstract getAssessments(target: Patient): boolean;
+    abstract getAssessments(target?: Patient): boolean;
 
     /**
      * Whether or not access should be granted for target clinician
@@ -26,6 +26,18 @@ export abstract class Permissions {
      * @param updates The updates to make
      */
     abstract modifyPatient(target: Patient, updates: {}): boolean;
+
+    /**
+     * Whether or not access should be granted for this video upload
+     * @param assessment The assessment to upload for
+     */
+    abstract uploadVideo(assessment: Assessment): boolean;
+
+    /**
+     * Whether or not access should be granted for this video request
+     * @param assessment The assessment to view video for
+     */
+    abstract viewVideo(assessment: Assessment): boolean;
 
     /**
      * Returns the UserID this permissions belongs to.
@@ -93,6 +105,14 @@ export class PatientPermissions extends Permissions {
         return checkModification(updates, this.editablePatientFields);
     }
 
+    uploadVideo(assessment: Assessment): boolean {
+        return assessment.patientId === this.patient.user.id && assessment.state === AssessmentState.MISSING;
+    }
+
+    viewVideo(assessment: Assessment): boolean {
+        return assessment.patientId === this.patient.user.id && assessment.state !== AssessmentState.MISSING;
+    }
+
     getUserID(): string {
         return this.patient.user.id;
     }
@@ -141,6 +161,14 @@ export class ClinicianPermissions extends Permissions {
         if (target.clinicianID !== this.clinician.user.id)
             return false;
         return checkModification(updates, this.editablePatientFields);
+    }
+
+    uploadVideo(assessment: Assessment): boolean {
+        return false;
+    }
+
+    viewVideo(assessment: Assessment): boolean {
+        return this.clinician.patientIDs.includes(assessment.patientId) && assessment.state !== AssessmentState.MISSING;
     }
 
     getUserID(): string {

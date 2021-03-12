@@ -60,7 +60,6 @@ export default async function (server: FastifyInstance & { database: Database },
                 user: {
                     id: "0",
                     firebaseId: "firebase:0",
-                    username: "labmotus",
                     name: "LabMotus User",
                     email: "user@labmot.us"
                 },
@@ -205,7 +204,7 @@ export default async function (server: FastifyInstance & { database: Database },
                 const patient = await server.database.getPatientByID(patientID);
                 if (permissions.getAssessments(patient)) {
                     try {
-                        const results = await server.database.getAssessments(patientID, moment(start), Number(duration), unit);
+                        const results = await server.database.getAssessmentsByPatient(patientID, moment(start), Number(duration), unit);
                         const response: Response<Assessment[]> = {
                             success: true,
                             body: results

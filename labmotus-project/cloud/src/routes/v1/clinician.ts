@@ -55,7 +55,6 @@ export default async function (server: fastify.FastifyInstance & { database: Dat
         const clinicianUser: User = {
             id: request.params.clinicianId,
             firebaseId: "firebase:0",
-            username: "labmotus",
             name: "LabMotus Clinician",
             email: "clinician@labmot.us"
         };

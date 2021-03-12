@@ -2,6 +2,10 @@
     "name": "@labmotus/ui",
     "version": "1.0.0",
     "typings": "./index.d.ts",
+    "scripts": {
+        "build": "tsc --build",
+        "clean": "tsc --build --clean"
+    },
     "babel": {
         "plugins": [
             "react-require"

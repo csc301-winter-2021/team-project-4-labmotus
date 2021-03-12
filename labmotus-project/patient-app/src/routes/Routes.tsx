@@ -1,22 +1,26 @@
-import React, { FunctionComponent, ReactElement, useContext, useEffect } from "react";
-import { Redirect, Route, Switch, useHistory, useLocation } from "react-router-dom";
+import React, {FunctionComponent, ReactElement, useContext, useEffect} from "react";
+import {Redirect, Route, Switch, useHistory, useLocation} from "react-router-dom";
 import SymptomLogPage from "../pages/SymptomLogPage";
 import NavigationBar from "../components/NavigationBar";
-import { barChart, home, settings } from "ionicons/icons";
+import {barChart, home, settings} from "ionicons/icons";
 import SettingsPage from "../pages/SettingsPage";
 import EditEmailPage from "../pages/EditEmailPage";
 import EditPhonePage from "../pages/EditPhonePage";
 import ChangePasswordPage from "../pages/ChangePasswordPage";
 import LoginPage from "../pages/LoginPage";
-import API, { getAPIContext } from "../api/API";
+import API, {getAPIContext} from "../api/API";
 import ForgotPasswordPage from "../pages/ForgotPasswordPage";
 import SignupPage from "../pages/SignupPage";
 import VideoRecordingPage from "../pages/VideoRecordingPage";
 import AssessmentPage from "../pages/AssessmentPage";
+import {getThemeContext, Theme} from "../../../common/ui/theme/Theme";
+// @ts-ignore
+import styled from 'styled-components';
 import TermsOfServicePage from "../../../common/ui/pages/TermsOfServicePage";
-import { PatientTermsOfServiceContent } from "../components/PatientTermsOfServiceContent";
+import {PatientTermsOfServiceContent} from "../components/PatientTermsOfServiceContent";
 
-export interface RoutesProps {}
+export interface RoutesProps {
+}
 
 const navigationEntries = [
     {
@@ -43,6 +47,7 @@ const Routes: FunctionComponent<RoutesProps> = ({}) => {
     const UseAPI: API = useContext(getAPIContext());
     const history = useHistory();
     const location = useLocation();
+    const theme = useContext(getThemeContext());
 
     useEffect(() => {
         UseAPI.addLoginListener(onLoginChange);
@@ -68,7 +73,7 @@ const Routes: FunctionComponent<RoutesProps> = ({}) => {
     }
 
     return (
-        <>
+        <BackgroundDiv theme={theme}>
             <Switch>
                 <Route exact path="/login" render={() => <LoginPage />} />
                 <Route exact path="/home/:date?" render={() => <SymptomLogPage />} />
@@ -85,9 +90,15 @@ const Routes: FunctionComponent<RoutesProps> = ({}) => {
                 />
                 {generateRedirect()}
             </Switch>
-            <NavigationBar entries={navigationEntries} />
-        </>
+            <NavigationBar entries={navigationEntries}/>
+        </BackgroundDiv>
     );
-}
+};
 
-export default Routes
+const BackgroundDiv = styled.div`
+    background-color: ${({theme}: { theme: Theme }) => theme.colors.background};
+    width: 100%;
+    height: 100%;
+`;
+
+export default Routes;
