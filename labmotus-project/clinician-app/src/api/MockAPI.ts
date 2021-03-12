@@ -3,7 +3,7 @@ import {Assessment, AssessmentState, Clinician, Patient} from "../../../common/t
 import API from "./API";
 import moment, {Moment} from "moment";
 import {APIConfig} from "../../../common/api/BaseAPI";
-import {FakeClinician} from "../../../common/api/MockAPIData";
+import {FakeClinician, patientList} from "../../../common/api/MockAPIData";
 
 class MockAPI extends API {
     mockAssessments: { [key: string]: Assessment[] };
@@ -147,7 +147,7 @@ class MockAPI extends API {
     }
 
     async getAllPatients(): Promise<Patient[]> {
-        throw Error("Not Implemented")
+        return patientList;
     }
 
     isLoggedIn(): boolean {

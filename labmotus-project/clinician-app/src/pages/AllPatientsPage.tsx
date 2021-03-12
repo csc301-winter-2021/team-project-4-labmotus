@@ -1,33 +1,38 @@
-import React, {FunctionComponent} from "react";
+import React, {FunctionComponent, useContext, useEffect, useState} from "react";
 import {IonContent, IonPage} from "@ionic/react";
 // @ts-ignore
 import styled from "styled-components";
 import {Theme, getThemeContext} from "../../../common/ui/theme/Theme";
 import {PatientListComponent} from "../components/PatientsListComponent";
 import {Patient} from "../../../common/types";
-import moment from "moment";
+import API, {getAPIContext} from "../api/API";
 
 export interface AllPatientsPageProps {
 }
 
-let patientList: Array<Patient> = [{
-    user: {
-        id: "sayanfaraz",
-        firebaseId: "lolid",
-        name: "Sayan Faraz",
-        email: "sayan96@hotmail.com"
-    },
-    phone: "6474718287",
-    birthday: moment().set({'year': 1996, 'month': 6, 'day': 30}),
-    clinicianID: "adsfaf"
-}]
-
 const AllPatientsPage: FunctionComponent<AllPatientsPageProps> = () => {
-    // const UseAPI: API = useContext(getAPIContext());
-    const theme = React.useContext(getThemeContext());
+    const UseAPI: API = useContext(getAPIContext());
+    const theme = useContext(getThemeContext());
+
+    const emptyPatientsList: Patient[] = []
+    const [allPatients, setAllPatients] = useState(emptyPatientsList)
 
     // const history = useHistory();
 
+    function getAllPatients(): void {
+        UseAPI.getAllPatients().then(
+            (patients: Patient[]) => {
+                setAllPatients(patients)
+            },
+            () => {
+                // pass
+            }
+        )
+    }
+
+    useEffect(() => {
+        getAllPatients()
+    }, [])
 
     return (
         <IonPage>
@@ -35,7 +40,7 @@ const AllPatientsPage: FunctionComponent<AllPatientsPageProps> = () => {
                 <AllPatientsPageDiv theme={theme}>
                     <h1>LabMotus</h1>
                     <h3>Clinician Portal</h3>
-                    <PatientListComponent patientList={patientList}/>
+                    <PatientListComponent patientList={allPatients}/>
                 </AllPatientsPageDiv>
             </IonContent>
         </IonPage>

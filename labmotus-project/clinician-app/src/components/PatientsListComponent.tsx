@@ -6,7 +6,7 @@ import { useHistory } from "react-router-dom";
 import { chevronForward } from 'ionicons/icons';
 
 export interface PatientListProp {
-  patientList: Array<Patient>
+  patientList: Patient[]
 }
 
 export const PatientListComponent: React.FC<PatientListProp> = (props: PatientListProp) => { 
