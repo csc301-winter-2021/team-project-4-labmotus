@@ -1,6 +1,4 @@
 version: 2.1
-orbs:
-  discord: antonioned/discord@0.1.0
 parameters:
   root-dir:
     type: string
@@ -56,7 +54,6 @@ jobs:
             git add -f *
             git commit -m "Build API"
             eb deploy labmotus-api
-      - discord/status
 workflows:
   test-and-deploy:
     jobs:
