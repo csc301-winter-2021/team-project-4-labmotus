@@ -1,23 +1,23 @@
 import "firebase/auth"
 import {Assessment, AssessmentState, Clinician, Patient} from "../../../common/types/types";
-import API, {INVALID_ASSESSMENT_ID} from "./API";
+import API from "./API";
 import moment, {Moment} from "moment";
 import {APIConfig} from "../../../common/api/BaseAPI";
-import {FakeClinician, FakeUser} from "../../../common/api/MockAPIData";
+import {FakeClinician} from "../../../common/api/MockAPIData";
 
 class MockAPI extends API {
     mockAssessments: { [key: string]: Assessment[] };
 
     constructor(config: APIConfig) {
         super(null, config);
-        this._user = FakeUser;
+        this._user = FakeClinician;
         this.mockAssessments = {}
     }
 
     async login(user: string, pass: string): Promise<void> {
         if (this._user !== null)
             throw Error("Already logged In. ");
-        this._user = FakeUser;
+        this._user = FakeClinician;
         this._user.user.email = user;
         this.authChangeListeners.forEach(listener => listener(true))
     }
@@ -36,50 +36,32 @@ class MockAPI extends API {
     async signUp(email: string, pass: string): Promise<void> {
         if (this._user !== null)
             throw Error("Already logged In.");
-        this._user = FakeUser;
+        this._user = FakeClinician;
         this._user.user.email = email;
         console.log(this._user)
     }
 
+    async createPatient(patient: Patient): Promise<Response> {
+        throw Error("Not Implemented")
+    }
+
     async updatePatient(patient: Patient): Promise<Patient> {
-        if (this._user === null)
-            throw Error("Not logged In.");
-        this._user = patient;
-        return this._user;
+        throw Error("Not Implemented")
     }
 
-    async uploadVideo(assessmentID: string, url: string): Promise<void> {
-        console.log(url);
-        for (const assessments of Object.values(this.mockAssessments)) {
-            for (let i = 0; i < assessments.length; i++) {
-                if (assessments[i].id === assessmentID) {
-                    assessments[i].videoUrl = (url === 'some/file/path' ? "https://youtu.be/dQw4w9WgXcQ" : url);
-                    assessments[i].state = AssessmentState.PENDING;
-                    setTimeout(() => {
-                        assessments[i].state = AssessmentState.COMPLETE;
-                        assessments[i].stats = [
-                            {
-                                name: "Hip",
-                                joint: "Hip",
-                                currValue: -5,
-                                goalValue: 0,
-                                minValue: -10,
-                                unit: '\xb0'
-                            }
-                        ]
-                    }, 5000);
-                    return;
-                }
-            }
-        }
-        throw INVALID_ASSESSMENT_ID;
+    async getClinician(clinicianId?: string): Promise<Clinician> {
+        throw Error("Not Implemented")
     }
 
-    async getClinician(patient: Patient): Promise<Clinician> {
-        return FakeClinician;
+    async updateClinician(clinician: Clinician) {
+        throw Error("Not Implemented")
     }
 
-    async getAssessments(week: Moment = moment().startOf('day')): Promise<Assessment[]> {
+    async createAssessment(patientID: string, assessment: Assessment): Promise<Response> {
+        throw Error("Not Implemented")
+    }
+
+    async getAssessments(patientID: string, week: Moment = moment().startOf('day')): Promise<Assessment[]> {
         const weekStart = moment(week).startOf('week');
         if (this.mockAssessments.hasOwnProperty(weekStart.format("YYYY-MM-DD")))
             return this.mockAssessments[weekStart.format("YYYY-MM-DD")];
@@ -160,8 +142,12 @@ class MockAPI extends API {
         return data;
     }
 
-    getCurrentUser(): Patient | null {
+    getCurrentUser(): Clinician | null {
         return this._user;
+    }
+
+    async getAllPatients(): Promise<Patient[]> {
+        throw Error("Not Implemented")
     }
 
     isLoggedIn(): boolean {

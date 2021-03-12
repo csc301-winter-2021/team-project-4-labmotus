@@ -37,7 +37,7 @@ export interface Patient {
 export interface Clinician {
     user: User
     clinic: string
-    patientIDs?: string[] // UserIds
+    patientIDs: string[] // UserIds
 }
 
 export interface Stats {
