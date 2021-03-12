@@ -1,6 +1,13 @@
 import {Assessment, AssessmentState, Clinician, Patient} from "../../../common/types/types";
 import Database from "./Database";
 import moment, {Moment} from "moment";
+import * as fs from "fs";
+import path from "path";
+import config from "../../config.json";
+import {pipeline} from "stream";
+import * as util from "util";
+
+const pump = util.promisify(pipeline);
 
 class MockDatabase extends Database {
 
@@ -58,7 +65,7 @@ class MockDatabase extends Database {
             const date = moment(now).subtract(i, 'd');
             assessments.push({
                 id: Math.floor(Math.random() * 1000000).toString(),
-                patientId: "",
+                patientId: id,
                 name: "Squat",
                 date: date,
                 state: AssessmentState.COMPLETE,
@@ -111,14 +118,14 @@ class MockDatabase extends Database {
             });
             assessments.push({
                 id: Math.floor(Math.random() * 1000000).toString(),
-                patientId: "",
+                patientId: id,
                 name: "Hip",
                 date: date,
                 state: AssessmentState.PENDING,
             });
             assessments.push({
                 id: Math.floor(Math.random() * 1000000).toString(),
-                patientId: "",
+                patientId: id,
                 name: "Arm",
                 date: date,
                 state: AssessmentState.MISSING,
@@ -171,7 +178,7 @@ class MockDatabase extends Database {
         return updated;
     }
 
-    async getAssessments(ID: string, start: Moment, duration: number, unit: string): Promise<Assessment[]> {
+    async getAssessmentsByPatient(ID: string, start: Moment, duration: number, unit: string): Promise<Assessment[]> {
         if (!this.assessmentsDatabase.hasOwnProperty(ID))
             return [];
         const assessments = this.assessmentsDatabase[ID];
@@ -179,6 +186,20 @@ class MockDatabase extends Database {
         const startUnix = start.unix();
         const endUnix = end.unix();
         return assessments.filter(ass => startUnix <= ass.date.unix() && ass.date.unix() <= endUnix);
+    }
+
+    async getAssessmentByID(patientID: string, assessmentID: string): Promise<Assessment> {
+        const matches = this.assessmentsDatabase[patientID]?.filter(ass => ass.id === assessmentID);
+        if (matches.length > 0) {
+            return matches[matches.length - 1];
+        } else {
+            return Promise.reject("No Assessment With That ID")
+        }
+    }
+
+    async saveVideo(assessmentID: string, video: NodeJS.ReadableStream): Promise<string> {
+        await pump(video, fs.createWriteStream(path.join(config.videoPath, assessmentID + ".mp4")));
+        return `/video/${assessmentID}`;
     }
 }
 

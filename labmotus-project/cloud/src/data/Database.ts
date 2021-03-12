@@ -1,5 +1,5 @@
 import {Assessment, Clinician, Patient, User} from "../../../common/types/types";
-import moment from "moment";
+import moment, {Moment} from "moment";
 import AWS from 'aws-sdk';
 
 const DynamoDB = new AWS.DynamoDB({ region: 'us-east-1' });
@@ -14,28 +14,28 @@ class Database {
 
     private static _buildUserFromItem(item: AWS.DynamoDB.AttributeMap): User {
         return {
-            id: item['id'].S,
-            firebaseId: item['firebaseId'].S || undefined,
-            username: item['username'].S,
-            name: item['name'].S,
-            email: item['email'].S || undefined
+            id: item.id.S,
+            firebaseId: item.firebaseId.S || undefined,
+            username: item.username.S,
+            name: item.name.S,
+            email: item.email.S || undefined
         }
     }
 
     private static _buildPatientFromItem(item: AWS.DynamoDB.AttributeMap): Patient {
         return {
             user: Database._buildUserFromItem(item),
-            patientCode: item['patientCode'].S || undefined,
-            clinicianID: item['clinicianId'].S,
-            phone: item['phone'].S,
-            birthday: moment(item['birthday'].S)
+            patientCode: item.patientCode.S || undefined,
+            clinicianID: item.clinicianId.S,
+            phone: item.phone.S,
+            birthday: moment(item.birthday.S)
         }
     }
 
     private static _buildClinicianFromItem(item: AWS.DynamoDB.AttributeMap): Clinician {
         return {
             user: Database._buildUserFromItem(item),
-            clinic: item['clinic'].S
+            clinic: item.clinic.S
         }
     }
 
@@ -127,7 +127,15 @@ class Database {
         throw new Error("Not Implemented")
     }
 
-    async getAssessments(ID: string, start: moment.Moment, duration: number, unit: string): Promise<Assessment[]> {
+    async getAssessmentsByPatient(ID: string, start: Moment, duration: number, unit: string): Promise<Assessment[]> {
+        throw new Error("Not Implemented")
+    }
+
+    async getAssessmentByID(patientID: string, assessmentID: string): Promise<Assessment> {
+        throw new Error("Not Implemented")
+    }
+
+    async saveVideo(assessmentID: string, video: NodeJS.ReadableStream): Promise<string> {
         throw new Error("Not Implemented")
     }
 }

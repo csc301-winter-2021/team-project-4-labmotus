@@ -1,3 +1,5 @@
 {
-  "mock": true
+  "mock": true,
+  "videoPath": "videos",
+  "address": "0.0.0.0"
 }

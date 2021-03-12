@@ -1,13 +1,13 @@
 import React, {FunctionComponent, useEffect, useState} from "react";
 // @ts-ignore
 import styled from 'styled-components';
-import {Theme, getThemeContext} from "../../../common/ui/theme/Theme";
+import {getThemeContext, Theme} from "../../../common/ui/theme/Theme";
 import {IonIcon, IonPopover, IonSpinner} from "@ionic/react";
 import {chevronBack, film, videocam} from "ionicons/icons";
 import {useHistory, useParams} from "react-router";
 import moment from "moment";
 import {Assessment, AssessmentState} from "../../../common/types/types";
-import API, { getAPIContext } from "../api/API";
+import API, {getAPIContext} from "../api/API";
 import Scrollbar from "react-scrollbars-custom";
 import Accordion from "../components/Accordion";
 import ReactPlayer from "react-player";
@@ -52,7 +52,7 @@ const AssessmentPage: FunctionComponent<AssessmentPageProps> = ({}) => {
 
     function onWatch(index: number) {
         if (assessments[index].videoUrl !== undefined) {
-            setVideo(assessments[index].videoUrl);
+            UseAPI.getVideo(assessments[index].videoUrl).then(videoURL => setVideo(videoURL));
         }
     }
 
@@ -123,7 +123,7 @@ const AssessmentPage: FunctionComponent<AssessmentPageProps> = ({}) => {
             onDidDismiss={() => setVideo(null)}
         >
             <VideoDiv>
-                <ReactPlayer width="100%" height="100%" url={video}/>
+                <ReactPlayer width="100%" height="100%" url={video} playing/>
             </VideoDiv>
         </PopOver>
     </AssessmentPageDiv>)
