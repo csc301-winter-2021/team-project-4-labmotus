@@ -7,8 +7,7 @@ import {APIConfig} from "../../../common/api/BaseAPI";
 const FakeUser: Patient = {
     user: {
         id: "1",
-        name: "John Smith",
-        username: "john"
+        name: "John Smith"
     },
     birthday: moment(),
     clinicianID: "2",
@@ -18,8 +17,7 @@ const FakeUser: Patient = {
 const FakeClinician: Clinician = {
     user: {
         id: "2",
-        name: "Alfonzo",
-        username: "alfonzo_poggers"
+        name: "Alfonzo"
     },
     clinic: "UofTears"
 };
