@@ -7,7 +7,7 @@
       "esnext"
     ],
     "allowJs": true,
-    "noImplicitAny": true,
+    "noImplicitAny": false,
     "skipLibCheck": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
@@ -24,6 +24,7 @@
   },
   "include": [
     "types",
-    "ui"
+    "ui",
+    "api"
   ]
 }

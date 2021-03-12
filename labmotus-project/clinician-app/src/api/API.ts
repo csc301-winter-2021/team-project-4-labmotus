@@ -76,41 +76,6 @@ class API extends BaseAPI {
         }
     }
 
-    async uploadVideo(assessmentID: string, url: string): Promise<void> {
-        if (url !== '/some/file/path') {
-            const token = await firebase.auth().currentUser.getIdToken() as any;
-            const videoResp = await fetch(url);
-            const video = await videoResp.blob();
-            const formData = new FormData();
-            formData.append("file", video);
-            fetch(this._config.api + `/video/${assessmentID}`, {
-                method: "POST",
-                mode: 'cors',
-                body: formData,
-                headers: {
-                    "Authorization": "Bearer " + token,
-                }
-            });
-        }
-    }
-
-    async getVideo(url: string): Promise<string> {
-        if (url !== '/some/file/path') {
-            const token = await firebase.auth().currentUser.getIdToken() as any;
-            const response = await fetch(this._config.api + url, {
-                method: "GET",
-                mode: 'cors',
-                headers: {
-                    "Authorization": "Bearer " + token,
-                }
-            });
-            const blob = await response.blob();
-            if (blob) {
-                return URL.createObjectURL(blob);
-            }
-        }
-    }
-
     async getClinician(patient?: Patient): Promise<Clinician> {
         const token = await firebase.auth().currentUser.getIdToken() as any;
         // @ts-ignore
@@ -171,43 +136,3 @@ export function getAPIContext(): Context<API> {
 }
 
 export default API;
-
-export const INVALID_ASSESSMENT_ID = "Invalid Assessment ID";
-
-/*
-/user API calls (all use auth token passed through Authorization header)
-post /patient (sign up patient)
-    clinician authentication
-    takes info for new signup, and clinician ID
-    returns patient document
-get /login
-    creates login session and returns patient/doctor document
-get /logout
-    logs out of session
-delete /patient
-    takes ID
-    deletes patient account
-patch /patient (update patient)
-    takes patient ID and new changes
-    update patient document
-post /video
-    takes video
-    returns url
-post /assessment
-    takes assessment info
-get /clinician (get clinician info)
-    takes clinician ID
-    returns clinician document
-get /video
-    takes url
-    returns video
-get /assessments
-    takes patient ID
-    returns assessments of patient
-post /doctor (sign up doctor)
-    takes info for new signup
-    returns doctor document
-get /patients
-    takes clinician ID
-    returns all documents of clinician’s patients
- */

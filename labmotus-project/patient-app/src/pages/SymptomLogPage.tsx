@@ -6,7 +6,7 @@ import {IonSpinner} from "@ionic/react";
 import SymptomInstance from "../components/SymptomInstance";
 import {Assessment, AssessmentState} from "../../../common/types/types";
 import moment, {Moment} from "moment";
-import {APIContext} from "../api/API";
+import API, { getAPIContext } from "../api/API";
 import {useHistory, useParams} from "react-router";
 
 export interface SymptomLogPageProps {
@@ -15,7 +15,7 @@ export interface SymptomLogPageProps {
 const dateFormat = 'YYYY-MM-DD';
 
 const SymptomLogPage: FunctionComponent<SymptomLogPageProps> = ({}) => {
-    const API = React.useContext(APIContext);
+    const UseAPI: API = React.useContext(getAPIContext());
     const theme = React.useContext(getThemeContext());
 
     const [data, setData] = useState<{ [key: string]: Assessment[] }>({});
@@ -57,7 +57,7 @@ const SymptomLogPage: FunctionComponent<SymptomLogPageProps> = ({}) => {
     }
 
     function updateData(newWeek: Moment, newIndex: number) {
-        API.getAssessments(newWeek).then(((assessments: Assessment[]) => {
+        UseAPI.getAssessments(newWeek).then(((assessments: Assessment[]) => {
             const assessmentsByDay: { [key: string]: Assessment[] } = {};
             for (let i = 0; i < assessments.length; i++) if (assessments[i].state === AssessmentState.COMPLETE) {
                 const key = assessments[i].date.format(dateFormat);

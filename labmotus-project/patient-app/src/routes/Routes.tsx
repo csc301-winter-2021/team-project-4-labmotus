@@ -8,7 +8,7 @@ import EditEmailPage from "../pages/EditEmailPage";
 import EditPhonePage from "../pages/EditPhonePage";
 import ChangePasswordPage from "../pages/ChangePasswordPage";
 import LoginPage from "../pages/LoginPage";
-import {APIContext} from "../api/API";
+import API, { getAPIContext } from "../api/API";
 import ForgotPasswordPage from "../pages/ForgotPasswordPage";
 import SignupPage from "../pages/SignupPage";
 import VideoRecordingPage from "../pages/VideoRecordingPage";
@@ -17,6 +17,8 @@ import TermsOfServicePage from "../pages/TermsOfServicePage";
 import {getThemeContext, Theme} from "../../../common/ui/theme/Theme";
 // @ts-ignore
 import styled from 'styled-components';
+import TermsOfServicePage from "../../../common/ui/pages/TermsOfServicePage";
+import { PatientTermsOfServiceContent } from "../components/PatientTermsOfServiceContent";
 
 export interface RoutesProps {
 }
@@ -43,17 +45,17 @@ const loggedInPaths = ["/", "/home", "/assessment", "/settings/*", "/record", "/
 const loggedOutPaths = ["/", "/login", "/sign-up", "/forgot-password", "/terms-of-service"];
 
 const Routes: FunctionComponent<RoutesProps> = ({}) => {
-    const API = useContext(APIContext);
+    const UseAPI: API = useContext(getAPIContext());
     const history = useHistory();
     const location = useLocation();
     const theme = useContext(getThemeContext());
 
     useEffect(() => {
-        API.addLoginListener(onLoginChange);
+        UseAPI.addLoginListener(onLoginChange);
         return () => {
-            API.removeLoginListener(onLoginChange);
+            UseAPI.removeLoginListener(onLoginChange);
         };
-    }, [API]);
+    }, [UseAPI]);
 
     function onLoginChange(loggedIn: boolean) {
         if (loggedIn) {
@@ -74,17 +76,19 @@ const Routes: FunctionComponent<RoutesProps> = ({}) => {
     return (
         <BackgroundDiv theme={theme}>
             <Switch>
-                <Route exact path="/login" render={() => <LoginPage/>}/>
-                <Route exact path="/home/:date?" render={() => <SymptomLogPage/>}/>
-                <Route exact path="/assessment/:date?" render={() => <AssessmentPage/>}/>
-                <Route exact path="/settings" render={() => <SettingsPage/>}/>
-                <Route exact path="/settings/edit-email" render={() => <EditEmailPage/>}/>
-                <Route exact path="/settings/edit-phone" render={() => <EditPhonePage/>}/>
-                <Route exact path="/settings/change-password" render={() => <ChangePasswordPage/>}/>
-                <Route exact path="/record/:id" render={() => <VideoRecordingPage/>}/>
-                <Route exact path="/forgot-password" render={() => <ForgotPasswordPage/>}/>
-                <Route exact path="/sign-up" render={() => <SignupPage/>}/>
-                <Route exact path="/terms-of-service" render={() => <TermsOfServicePage/>}/>
+                <Route exact path="/login" render={() => <LoginPage />} />
+                <Route exact path="/home/:date?" render={() => <SymptomLogPage />} />
+                <Route exact path="/assessment/:date?" render={() => <AssessmentPage />} />
+                <Route exact path="/settings" render={() => <SettingsPage />} />
+                <Route exact path="/settings/edit-email" render={() => <EditEmailPage />} />
+                <Route exact path="/settings/edit-phone" render={() => <EditPhonePage />} />
+                <Route exact path="/settings/change-password" render={() => <ChangePasswordPage />} />
+                <Route exact path="/record/:id" render={() => <VideoRecordingPage />} />
+                <Route exact path="/forgot-password" render={() => <ForgotPasswordPage />} />
+                <Route exact path="/sign-up" render={() => <SignupPage />} />
+                <Route exact path="/terms-of-service"
+                       render={() => <TermsOfServicePage getTermsOfService={() => {return <PatientTermsOfServiceContent />}} />}
+                />
                 {generateRedirect()}
             </Switch>
             <NavigationBar entries={navigationEntries}/>

@@ -1,7 +1,8 @@
 import "firebase/auth"
 import {Assessment, AssessmentState, Clinician, Patient} from "../../../common/types/types";
-import API, {INVALID_ASSESSMENT_ID} from "../api/API";
+import API, {INVALID_ASSESSMENT_ID} from "./API";
 import moment, {Moment} from "moment";
+import {APIConfig} from "../../../common/api/BaseAPI";
 
 const FakeUser: Patient = {
     user: {
@@ -26,8 +27,8 @@ const FakeClinician: Clinician = {
 class MockAPI extends API {
     mockAssessments: { [key: string]: Assessment[] };
 
-    constructor() {
-        super(null);
+    constructor(config: APIConfig) {
+        super(null, config);
         this._user = FakeUser;
         this.mockAssessments = {}
     }

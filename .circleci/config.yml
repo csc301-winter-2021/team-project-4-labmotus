@@ -24,28 +24,43 @@ jobs:
       - image: cimg/node:15.10.0
     steps:
       - checkout
-      - run: npm i --prefix << pipeline.parameters.root-dir >>
-      - run: npm i --prefix << pipeline.parameters.types-dir >>
-      - run: npm i --prefix << pipeline.parameters.cloud-dir >>
-      - run: npm run test --prefix << pipeline.parameters.cloud-dir >>
-      - run: npm i --prefix << pipeline.parameters.ui-dir >>
-      - run: npm i --prefix << pipeline.parameters.patient-dir >>
-      - run: npm run test --prefix << pipeline.parameters.patient-dir >>
-      - run: npm i --prefix << pipeline.parameters.clinician-dir >>
-      - run: npm run test --prefix << pipeline.parameters.clinician-dir >>
+      - run:
+          command: |
+            npm i --prefix << pipeline.parameters.root-dir >>
+            npm i --prefix << pipeline.parameters.types-dir >>
+            npm i --prefix << pipeline.parameters.cloud-dir >>
+            npm run test --prefix << pipeline.parameters.cloud-dir >>
+            npm i --prefix << pipeline.parameters.ui-dir >>
+            npm i --prefix << pipeline.parameters.patient-dir >>
+            npm run test --prefix << pipeline.parameters.patient-dir >>
+            npm i --prefix << pipeline.parameters.clinician-dir >>
+            npm run test --prefix << pipeline.parameters.clinician-dir >>
   deploy-cloud:
     docker:
-      - image: cimg/python:3.9
+      - image: cimg/python:3.9-node
     steps:
       - checkout
-      - run: pip install awsebcli
-      - run: echo $FIREBASE_SERVICE_KEY > labmotus-project/cloud/firebase-service-key.json
-      - run: eb deploy labmotus-api
+      - run:
+          name: Build and deploy API
+          command: |
+            pip install awsebcli
+            npm i --prefix << pipeline.parameters.root-dir >>
+            npm i --prefix << pipeline.parameters.types-dir >>
+            npm i -D --prefix << pipeline.parameters.cloud-dir >>
+            echo $FIREBASE_SERVICE_KEY > << pipeline.parameters.cloud-dir >>/firebase-service-key.json
+            npm run build --prefix << pipeline.parameters.cloud-dir >>
+            git config user.email "circleci@circleci.com"
+            git config user.name "CircleCI"
+            git add -f *
+            git commit -m "Build API"
+            eb deploy labmotus-api
 workflows:
   test-and-deploy:
     jobs:
-      - run-tests
       - deploy-cloud:
+          filters:
+            branches:
+              only: main
           context:
             - labmotus-aws
             - labmotus-firebase

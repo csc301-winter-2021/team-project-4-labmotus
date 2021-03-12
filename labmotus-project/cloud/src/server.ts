@@ -22,6 +22,13 @@ import path from "path";
 
 const server: FastifyInstance<Server, IncomingMessage, ServerResponse> = fastify();
 
+server.get('/', async (request, reply) => {
+    reply
+        .code(200)
+        .header('Content-Type', 'text/plain')
+        .send("online");
+});
+
 server.register(fastify_formbody);
 server.register(fastify_multipart);
 server.register(fastify_static, {
@@ -46,7 +53,7 @@ function init() {
 
 init();
 
-server.listen(5000, (err, address) => {
+server.listen(5000, '0.0.0.0', (err, address) => {
     if (err) {
         console.error(err);
         process.exit(1)

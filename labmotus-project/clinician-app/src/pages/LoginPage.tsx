@@ -58,6 +58,7 @@ const LoginPage: FunctionComponent<LoginPageProps> = () => {
             <IonContent fullscreen>
                 <LoginPageDiv theme={theme}>
                     <h1>LabMotus</h1>
+                    <h3>Clinician Portal</h3>
                     <LoginForm
                         email={email}
                         setEmail={setEmail}
@@ -79,7 +80,7 @@ const LoginPage: FunctionComponent<LoginPageProps> = () => {
                 buttons={["OK"]}
             />
         </IonPage>
-  );
+    );
 };
 
 const LoginPageDiv = styled.div`

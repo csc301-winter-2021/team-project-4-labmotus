@@ -17,20 +17,23 @@ import '@ionic/react/css/flex-utils.css';
 import '@ionic/react/css/display.css';
 /* Theme variables */
 import '../../common/ui/theme/variables.css';
-import LoadingComponent from "./components/LoadingComponent";
-import LoadingScreen from "./pages/LoadingScreen";
-import config from "../config.json";
-import API, {APIContext} from "./api/API";
-import MockAPI from "./mock/MockAPI";
+import LoadingComponent from "../../common/ui/components/LoadingComponent";
+import LoadingScreen from "../../common/ui/pages/LoadingScreen";
+import API, {getAPIContext} from "./api/API";
+import MockAPI from "./api/MockAPI";
 import Routes from "./routes/Routes";
 import {BrowserRouter as Router} from "react-router-dom";
 
+import config from "../config.json";
+import firebaseConfig from "../firebase.json"
+
 const App: React.FC = () => {
     const [APIInstance, setAPIInstance] = useState<API>(null);
+    const APIContext = getAPIContext();
 
     async function loadAPI(): Promise<API> {
         if (!APIInstance) {
-            const api = !config.mock ? new API() : new MockAPI();
+            const api = !config.mock ? new API(firebaseConfig, config) : new MockAPI(config);
             setAPIInstance(api);
             return api;
         }
@@ -42,7 +45,7 @@ const App: React.FC = () => {
             <APIContext.Provider value={APIInstance}>
                 <RootDiv>
                     <LoadingComponent functors={[loadAPI]}
-                                      loadingScreen={() => <LoadingScreen/>}>
+                                      loadingScreen={() => <LoadingScreen />} timeout={1500}>
                         <Router>
                             <Routes/>
                         </Router>

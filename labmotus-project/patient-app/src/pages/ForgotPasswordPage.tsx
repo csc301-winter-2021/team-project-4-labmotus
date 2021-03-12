@@ -12,7 +12,7 @@ import {
 } from "@ionic/react";
 // @ts-ignore
 import styled from "styled-components";
-import { APIContext } from "../api/API";
+import API, { getAPIContext } from "../api/API";
 import { Theme, getThemeContext } from "../../../common/ui/theme/Theme";
 import { useHistory } from "react-router";
 import { chevronBack } from "ionicons/icons";
@@ -21,7 +21,7 @@ export interface ForgotPasswordPageProps {}
 
 const ForgotPasswordPage: FunctionComponent<ForgotPasswordPageProps> = () => {
     const theme: Theme = useContext(getThemeContext());
-    const API = useContext(APIContext);
+    const UseAPI: API = useContext(getAPIContext());
     const history = useHistory();
 
     const [email, setEmail] = useState<string>();
@@ -38,7 +38,7 @@ const ForgotPasswordPage: FunctionComponent<ForgotPasswordPageProps> = () => {
             return;
         }
         try {
-            await API.forgotPassword(email);
+            await UseAPI.forgotPassword(email);
         } catch (e) {
             console.error(e);
         }

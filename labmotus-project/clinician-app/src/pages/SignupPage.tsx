@@ -6,8 +6,9 @@ import { Theme, getThemeContext } from "../../../common/ui/theme/Theme";
 import API, { getAPIContext } from "../api/API";
 import { useHistory } from "react-router";
 
-export interface SignupPageProps {}
+export interface SignupPageProps {
 
+}
 const SignupPage: FunctionComponent<SignupPageProps> = () => {
     const UseAPI: API = useContext(getAPIContext());
     const theme = React.useContext(getThemeContext());
@@ -60,7 +61,7 @@ const SignupPage: FunctionComponent<SignupPageProps> = () => {
     function termsOfService() {
         history.push("/terms-of-service");
     }
-    return (
+    return(
         <IonPage>
             <IonContent fullscreen>
                 <SignupPageDiv theme={theme}>
@@ -115,8 +116,8 @@ const SignupPage: FunctionComponent<SignupPageProps> = () => {
                 buttons={["OK"]}
             />
         </IonPage>
-    );
-};
+    )
+}
 
 const SignupPageDiv = styled.div`
     overflow: hidden;
@@ -163,4 +164,4 @@ const SignupPageDiv = styled.div`
     }
 `;
 
-export default SignupPage;
+export default SignupPage

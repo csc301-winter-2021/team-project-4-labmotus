@@ -15,7 +15,7 @@ import {
 // @ts-ignore
 import styled from "styled-components";
 import { calendar, call, chevronForward, helpCircleOutline, lockClosed, logOut, mail, person } from "ionicons/icons";
-import { APIContext } from "../api/API";
+import API, { getAPIContext } from "../api/API";
 import { Patient } from "../../../common/types/types";
 import { Theme, getThemeContext } from "../../../common/ui/theme/Theme";
 
@@ -25,13 +25,13 @@ export interface SettingsPageProps {}
 
 const SettingsPage: FunctionComponent<SettingsPageProps> = () => {
     const theme: Theme = useContext(getThemeContext());
-    const API = useContext(APIContext);
-    const patient: Patient = API.getCurrentUser();
+    const UseAPI: API = useContext(getAPIContext());
+    const patient: Patient = UseAPI.getCurrentUser();
     const history = useHistory();
 
     // When user logs out
     async function onLogOut() {
-        await API.logout();
+        await UseAPI.logout();
     }
 
     // When user clicks on their email
