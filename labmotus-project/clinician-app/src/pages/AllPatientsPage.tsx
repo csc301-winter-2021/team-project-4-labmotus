@@ -1,20 +1,32 @@
-import React, {FunctionComponent, useContext, useState} from "react";
-import {IonAlert, IonContent, IonPage} from "@ionic/react";
+import React, {FunctionComponent} from "react";
+import {IonContent, IonPage} from "@ionic/react";
 // @ts-ignore
 import styled from "styled-components";
 import {Theme, getThemeContext} from "../../../common/ui/theme/Theme";
-import API, { getAPIContext } from "../../../patient-app/src/api/API";
-import {useHistory} from "react-router";
 import {PatientListComponent} from "../components/PatientsListComponent";
+import {Patient} from "../../../common/types";
+import moment from "moment";
 
 export interface AllPatientsPageProps {
 }
 
+let patientList: Array<Patient> = [{
+    user: {
+        id: "sayanfaraz",
+        firebaseId: "lolid",
+        name: "Sayan Faraz",
+        email: "sayan96@hotmail.com"
+    },
+    phone: "6474718287",
+    birthday: moment().set({'year': 1996, 'month': 6, 'day': 30}),
+    clinicianID: "adsfaf"
+}]
+
 const AllPatientsPage: FunctionComponent<AllPatientsPageProps> = () => {
-    const UseAPI: API = useContext(getAPIContext());
+    // const UseAPI: API = useContext(getAPIContext());
     const theme = React.useContext(getThemeContext());
 
-    const history = useHistory();
+    // const history = useHistory();
 
 
     return (
@@ -23,7 +35,7 @@ const AllPatientsPage: FunctionComponent<AllPatientsPageProps> = () => {
                 <AllPatientsPageDiv theme={theme}>
                     <h1>LabMotus</h1>
                     <h3>Clinician Portal</h3>
-                    {/*<PatientListComponent patientList={} />*/}
+                    <PatientListComponent patientList={patientList}/>
                 </AllPatientsPageDiv>
             </IonContent>
         </IonPage>
