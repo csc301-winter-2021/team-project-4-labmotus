@@ -64,4 +64,3 @@ workflows:
           context:
             - labmotus-aws
             - labmotus-firebase
-            - labmotus-discord
