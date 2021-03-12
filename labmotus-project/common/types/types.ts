@@ -21,7 +21,6 @@ export enum AssessmentState {
 export interface User {
     id: string
     firebaseId?: string
-    username: string
     name: string
     email?: string
 }
