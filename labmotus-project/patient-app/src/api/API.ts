@@ -76,41 +76,6 @@ class API extends BaseAPI {
         }
     }
 
-    async uploadVideo(assessmentID: string, url: string): Promise<void> {
-        if (url !== '/some/file/path') {
-            const token = await firebase.auth().currentUser.getIdToken() as any;
-            const videoResp = await fetch(url);
-            const video = await videoResp.blob();
-            const formData = new FormData();
-            formData.append("file", video);
-            fetch(this._config.api + `/video/${assessmentID}`, {
-                method: "POST",
-                mode: 'cors',
-                body: formData,
-                headers: {
-                    "Authorization": "Bearer " + token,
-                }
-            });
-        }
-    }
-
-    async getVideo(url: string): Promise<string> {
-        if (url !== '/some/file/path') {
-            const token = await firebase.auth().currentUser.getIdToken() as any;
-            const response = await fetch(this._config.api + url, {
-                method: "GET",
-                mode: 'cors',
-                headers: {
-                    "Authorization": "Bearer " + token,
-                }
-            });
-            const blob = await response.blob();
-            if (blob) {
-                return URL.createObjectURL(blob);
-            }
-        }
-    }
-
     async getClinician(patient?: Patient): Promise<Clinician> {
         const token = await firebase.auth().currentUser.getIdToken() as any;
         // @ts-ignore

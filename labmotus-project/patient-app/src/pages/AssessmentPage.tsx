@@ -7,7 +7,7 @@ import {chevronBack, film, videocam} from "ionicons/icons";
 import {useHistory, useParams} from "react-router";
 import moment from "moment";
 import {Assessment, AssessmentState} from "../../../common/types/types";
-import API, { getAPIContext } from "../api/API";
+import API, {getAPIContext} from "../api/API";
 import Scrollbar from "react-scrollbars-custom";
 import Accordion from "../components/Accordion";
 import ReactPlayer from "react-player";
@@ -52,7 +52,7 @@ const AssessmentPage: FunctionComponent<AssessmentPageProps> = ({}) => {
 
     function onWatch(index: number) {
         if (assessments[index].videoUrl !== undefined) {
-            API.getVideo(assessments[index].videoUrl).then(videoURL => setVideo(videoURL));
+            UseAPI.getVideo(assessments[index].videoUrl).then(videoURL => setVideo(videoURL));
         }
     }
 

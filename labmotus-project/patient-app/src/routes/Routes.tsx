@@ -8,17 +8,16 @@ import EditEmailPage from "../pages/EditEmailPage";
 import EditPhonePage from "../pages/EditPhonePage";
 import ChangePasswordPage from "../pages/ChangePasswordPage";
 import LoginPage from "../pages/LoginPage";
-import API, { getAPIContext } from "../api/API";
+import API, {getAPIContext} from "../api/API";
 import ForgotPasswordPage from "../pages/ForgotPasswordPage";
 import SignupPage from "../pages/SignupPage";
 import VideoRecordingPage from "../pages/VideoRecordingPage";
 import AssessmentPage from "../pages/AssessmentPage";
-import TermsOfServicePage from "../pages/TermsOfServicePage";
 import {getThemeContext, Theme} from "../../../common/ui/theme/Theme";
 // @ts-ignore
 import styled from 'styled-components';
 import TermsOfServicePage from "../../../common/ui/pages/TermsOfServicePage";
-import { PatientTermsOfServiceContent } from "../components/PatientTermsOfServiceContent";
+import {PatientTermsOfServiceContent} from "../components/PatientTermsOfServiceContent";
 
 export interface RoutesProps {
 }
