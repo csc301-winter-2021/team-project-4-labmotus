@@ -1,14 +1,14 @@
-import React, { FunctionComponent, useContext, useState } from "react";
-import { IonAlert, IonButton, IonContent, IonInput, IonPage } from "@ionic/react";
+import React, {FunctionComponent, useContext, useState} from "react";
+import {IonAlert, IonContent, IonInput, IonPage} from "@ionic/react";
 // @ts-ignore
 import styled from "styled-components";
-import { Theme, getThemeContext } from "../../../common/ui/theme/Theme";
-import API, { getAPIContext } from "../api/API";
-import { useHistory } from "react-router";
+import {Theme, getThemeContext} from "../../../common/ui/theme/Theme";
+import API, {getAPIContext} from "../api/API";
+import {useHistory} from "react-router";
 
 export interface SignupPageProps {
-
 }
+
 const SignupPage: FunctionComponent<SignupPageProps> = () => {
     const UseAPI: API = useContext(getAPIContext());
     const theme = React.useContext(getThemeContext());
@@ -61,11 +61,13 @@ const SignupPage: FunctionComponent<SignupPageProps> = () => {
     function termsOfService() {
         history.push("/terms-of-service");
     }
-    return(
+
+    return (
         <IonPage>
             <IonContent fullscreen>
                 <SignupPageDiv theme={theme}>
                     <h1>LabMotus</h1>
+                    <h3>Clinician Portal</h3>
                     <div className="main-padding">
                         <div className="main">
                             <form>
@@ -81,7 +83,7 @@ const SignupPage: FunctionComponent<SignupPageProps> = () => {
                                     class="input"
                                     placeholder="Password"
                                     type="password"
-									clearInput={true}
+                                    clearInput={true}
                                     value={password}
                                     onIonChange={(e) => setPassword(e.detail.value!)}
                                 />
@@ -89,16 +91,16 @@ const SignupPage: FunctionComponent<SignupPageProps> = () => {
                                     class="input"
                                     placeholder="Confirm Password"
                                     type="password"
-									clearInput={true}
+                                    clearInput={true}
                                     value={confirmPassword}
                                     onIonChange={(e) => setConfirmPassword(e.detail.value!)}
                                 />
-                                <IonButton expand="block" shape="round" onClick={signUp}>
+                                <button className="signup-button" onClick={signUp}>
                                     Sign Up
-                                </IonButton>
+                                </button>
                             </form>
                             <p>
-                                By clicking 'Sign Up' you agree to our {" "}
+                                By clicking 'Sign Up' you agree to our{" "}
                                 <span onClick={termsOfService}>Terms of Service</span>
                             </p>
                         </div>
@@ -116,52 +118,80 @@ const SignupPage: FunctionComponent<SignupPageProps> = () => {
                 buttons={["OK"]}
             />
         </IonPage>
-    )
-}
+    );
+};
 
 const SignupPageDiv = styled.div`
-    overflow: hidden;
-    text-align: center;
-    .main-padding {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        width: 100%;
-        padding: 5%;
-        box-sizing: border-box;
-        .input {
-            margin-bottom: 5%;
-            text-align: left;
-            border-radius: 5px;
-            border: 1px solid #ddd;
-            --padding-start: 10px;
-        }
-        pointer-events: none;
+  overflow: hidden;
+  text-align: center;
+
+  .main-padding {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    padding: 5%;
+    box-sizing: border-box;
+
+    .input {
+      margin-bottom: 10px;
+      text-align: left;
+      border-radius: 5px;
+      border: 1px solid #ddd;
+      --padding-start: 10px;
     }
-    .main {
-        height: 100%;
-        width: 100%;
-        .input {
-            margin-bottom: 5%;
-            text-align: left;
-            border-radius: 5px;
-            border: 1px solid #ddd;
-            --padding-start: 10px;
-        }
-        pointer-events: auto;
+
+    .signup-button {
+      width: 100%;
+      border-radius: 25px;
+      max-width: 490px;
+      font-size: 0.8em;
+      padding: 14px;
+      font-weight: 500;
+      outline: none;
+      box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.1);
+      background-color: ${({theme}: { theme: Theme }) => theme.colors.primary};
+      color: white;
     }
-    h1 {
-        font-weight: bold;
-        margin-top: 15vh;
+
+    @media only screen and (min-width: 768px) {
+      form {
+        margin: 0 auto;
+        max-width: 60vw;
+      }
+
+      .signup-button {
+        font-size: 1.1em;
+      }
     }
-    .footer {
-        margin-top: 65vh;
+    @media only screen and (min-width: 1024px) {
+      form {
+        max-width: 40vw;
+      }
     }
-    span {
-        cursor: pointer;
-        color: ${({ theme }: { theme: Theme }) => theme.colors.primary};
-    }
+    pointer-events: none;
+  }
+
+  .main {
+    height: 100%;
+    width: 100%;
+    pointer-events: auto;
+  }
+
+  h1 {
+    font-weight: bold;
+    margin-top: 15vh;
+  }
+
+  .footer {
+    margin-top: 65vh;
+  }
+
+  span {
+    cursor: pointer;
+    color: ${({theme}: { theme: Theme }) => theme.colors.primary};
+  }
 `;
 
-export default SignupPage
+export default SignupPage;
