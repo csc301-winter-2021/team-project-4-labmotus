@@ -15,8 +15,8 @@ const SignupPage: FunctionComponent<SignupPageProps> = () => {
 
     const history = useHistory();
     const [email, setEmail] = useState<string>();
-    const [password, setPassword] = useState<string>();
-    const [confirmPassword, setConfirmPassword] = useState<string>();
+    // const [password, setPassword] = useState<string>();
+    // const [confirmPassword, setConfirmPassword] = useState<string>();
     const [iserror, openAlert] = useState<boolean>(false);
     const [header, setHeader] = useState<string>();
     const [message, setMessage] = useState<string>();
@@ -30,24 +30,25 @@ const SignupPage: FunctionComponent<SignupPageProps> = () => {
             return;
         }
 
-        if (!password) {
-            setHeader("Invalid Password");
-            setMessage("Please enter a password.");
-            openAlert(true);
-            return;
-        }
+        // if (!password) {
+        //     setHeader("Invalid Password");
+        //     setMessage("Please enter a password.");
+        //     openAlert(true);
+        //     return;
+        // }
 
-        if (password !== confirmPassword) {
-            setHeader("Passwords Don't Match");
-            setMessage("The passwords don't match. Please try again.");
-            openAlert(true);
-            setConfirmPassword("");
-            return;
-        }
+        // if (password !== confirmPassword) {
+        //     setHeader("Passwords Don't Match");
+        //     setMessage("The passwords don't match. Please try again.");
+        //     openAlert(true);
+        //     setConfirmPassword("");
+        //     return;
+        // }
 
         try {
-            await UseAPI.signUp(email, password);
-        } catch (e) {
+            // await UseAPI.signUp(email, password);
+            await UseAPI.createPatient;
+          } catch (e) {
             console.error(e);
         }
     }
@@ -79,7 +80,7 @@ const SignupPage: FunctionComponent<SignupPageProps> = () => {
                                     value={email}
                                     onIonChange={(e) => setEmail(e.detail.value!)}
                                 />
-                                <IonInput
+                                {/* <IonInput
                                     class="input"
                                     placeholder="Password"
                                     type="password"
@@ -94,7 +95,7 @@ const SignupPage: FunctionComponent<SignupPageProps> = () => {
                                     clearInput={true}
                                     value={confirmPassword}
                                     onIonChange={(e) => setConfirmPassword(e.detail.value!)}
-                                />
+                                /> */}
                                 <button className="signup-button" onClick={signUp}>
                                     Sign Up
                                 </button>
