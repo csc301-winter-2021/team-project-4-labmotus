@@ -1,9 +1,10 @@
 import {FastifyInstance, FastifyPluginOptions} from 'fastify'
 import moment from 'moment'
-import {Assessment, AssessmentState, Patient, Response} from '../../../../common/types/types'
+import {Assessment, Patient, Response} from '../../../../common/types/types'
 import {RequestHeaders} from '../../types';
 import {authenticateUser} from "../../auth/Authenticator";
 import Database from "../../data/Database";
+import {computePatientMods} from "../../data/Util";
 
 
 interface PatientCodeParams {
@@ -16,7 +17,7 @@ interface PatientIdParams {
 
 export default async function (server: FastifyInstance & { database: Database }, options: FastifyPluginOptions, done: () => void) {
     /**
-     * POST /patientcode
+     * POST /patient
      *
      * Create a new patient document, with a patient invite code instead of a Firebase ID
      *
@@ -26,52 +27,70 @@ export default async function (server: FastifyInstance & { database: Database },
     server.post<{
         Headers: RequestHeaders,
         Body: Patient
-    }>('/patientcode', async (request, reply) => {
-        const patient = request.body;
-        patient.user.id = "0";
-        patient.patientCode = "01234567";
-
-        const mockResponse: Response<Patient> = {
-            success: true,
-            body: patient
-        };
-        reply
-            .code(200)
-            .header('Content-Type', 'application/json')
-            .send(mockResponse)
+    }>('/patient', async (request, reply) => {
+        const headers: { authorization?: string } = request.headers as any;
+        try {
+            const permissions = await authenticateUser(server.database, headers.authorization.split('Bearer ')[1]);
+            const patient = request.body;
+            try {
+                if (permissions.createPatient()) {
+                    const clinician = await server.database.getClinicianByID(permissions.getUserID());
+                    const result = await server.database.createPatient(clinician, patient);
+                    const response: Response<Patient> = {
+                        success: true,
+                        body: result
+                    };
+                    reply.code(200)
+                        .header('Content-Type', 'application/json')
+                        .send(response)
+                } else {
+                    reply.code(403).send("Forbidden");
+                }
+            } catch (e) {
+                reply.code(403).send("Creation Failed");
+            }
+        } catch (e) {
+            reply.code(401).send("Not Authorized");
+            return;
+        }
     });
 
     /**
-     * POST /patient/:patientCode
+     * POST /patient/finalize
      *
-     * Assign Firebase ID to patient document with given patient invite code
+     * Finalize Patient Sign Up
      *
-     * Parameters:
-     *  patientCode: Patient invite code
-     * Response: Patient document
+     * Body: Patient
+     * Response: Patient
      */
     server.post<{
         Headers: RequestHeaders,
-        Params: PatientCodeParams
-    }>('/patient/:patientCode', {}, async (request, reply) => {
-        const mockResponse: Response<Patient> = {
-            success: true,
-            body: {
-                user: {
-                    id: "0",
-                    firebaseId: "firebase:0",
-                    name: "LabMotus User",
-                    email: "user@labmot.us"
-                },
-                clinicianID: "0",
-                phone: "1234567890",
-                birthday: moment().subtract(18, 'years')
+        Body: Patient
+    }>('/patient/finalize', async (request, reply) => {
+        const headers: { authorization?: string } = request.headers as any;
+        try {
+            const permissions = await authenticateUser(server.database, headers.authorization.split('Bearer ')[1]);
+            const patient = request.body;
+            try {
+                if (permissions.finalizePatient()) {
+                    const result = await server.database.finalizePatient(patient);
+                    const response: Response<Patient> = {
+                        success: true,
+                        body: result
+                    };
+                    reply.code(200)
+                        .header('Content-Type', 'application/json')
+                        .send(response)
+                } else {
+                    reply.code(403).send("Forbidden");
+                }
+            } catch (e) {
+                reply.code(403).send("Creation Failed");
             }
-        };
-        reply
-            .code(200)
-            .header('Content-Type', 'application/json')
-            .send(mockResponse)
+        } catch (e) {
+            reply.code(401).send("Not Authorized");
+            return;
+        }
     });
 
     /**
@@ -87,7 +106,7 @@ export default async function (server: FastifyInstance & { database: Database },
     server.patch<{
         Headers: RequestHeaders,
         Params: PatientIdParams,
-        Body: string
+        Body: Patient
     }>('/patient/:patientId', {}, async (request, reply) => {
         const headers: { authorization?: string } = request.headers as any;
         let patientID = Number.isSafeInteger(Number(request.params.patientId)) &&
@@ -96,11 +115,12 @@ export default async function (server: FastifyInstance & { database: Database },
             const permissions = await authenticateUser(server.database, headers.authorization.split('Bearer ')[1]);
             if (patientID === undefined)
                 patientID = permissions.getUserID();
-            const mods = JSON.parse(request.body);
-            if (mods.hasOwnProperty('birthday'))
-                mods.birthday = moment(mods.birthday);
+            const newPatient = request.body;
             try {
                 const patient = await server.database.getPatientByID(patientID);
+                if (newPatient.hasOwnProperty('birthday'))
+                    newPatient.birthday = moment(newPatient.birthday);
+                const mods = computePatientMods(patient, newPatient);
                 if (permissions.modifyPatient(patient, mods)) {
                     const result = await server.database.updatePatient(patientID, mods);
                     const response: Response<Patient> = {
@@ -229,55 +249,5 @@ export default async function (server: FastifyInstance & { database: Database },
             reply.code(401).send("Not Authorized");
             return;
         }
-
-        const assessments: Assessment[] = [
-            {
-                id: "0",
-                name: "General Assessment",
-                state: AssessmentState.COMPLETE,
-                patientId: request.params.patientId,
-                date: moment().subtract(3, 'days'),
-                videoUrl: "https://video.url/",
-                stats: [
-                    {
-                        name: "Angle 0",
-                        joint: "Joint 0",
-                        unit: "\xb0",
-                        currValue: Math.random() * Math.PI,
-                        goalValue: Math.random() * Math.PI
-                    },
-                    {
-                        name: "Angle 1",
-                        joint: "Joint 0",
-                        unit: "\xb0",
-                        currValue: Math.random() * Math.PI,
-                        goalValue: Math.random() * Math.PI
-                    },
-                    {
-                        name: "Angle 2",
-                        joint: "Joint 1",
-                        unit: "\xb0",
-                        currValue: Math.random() * Math.PI,
-                        goalValue: Math.random() * Math.PI
-                    },
-                    {
-                        name: "Angle 3",
-                        joint: "Joint 1",
-                        unit: "\xb0",
-                        currValue: Math.random() * Math.PI,
-                        goalValue: Math.random() * Math.PI
-                    }
-                ]
-            }
-        ];
-
-        const mockResponse: Response<Assessment[]> = {
-            success: true,
-            body: assessments
-        };
-        reply
-            .code(200)
-            .header('Content-Type', 'application/json')
-            .send(mockResponse)
     })
 }

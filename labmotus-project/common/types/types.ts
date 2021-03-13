@@ -9,6 +9,7 @@ export interface Assessment {
     videoUrl?: string
     wrnchJob?: string
     poseData?: any // TODO: Create type for pose data
+    joints: string[]
     stats?: Stats[]
 }
 
@@ -28,9 +29,10 @@ export interface User {
 export interface Patient {
     user: User
     patientCode?: string
-    clinicianID: string;
+    clinicianID: string
     phone: string
     birthday: Moment
+    incomplete?: boolean
 }
 
 export interface Clinician {

@@ -1,11 +1,11 @@
-import {FunctionComponent, ReactElement, useEffect, useRef, useState} from "react";
+import {FunctionComponent, useEffect, useRef, useState} from "react";
 // @ts-ignore
 import styled from 'styled-components';
 // @ts-ignore
 import {IonSpinner} from "@ionic/react";
 
 export interface LoadingComponentProps {
-    loadingScreen?: () => ReactElement;
+    LoadingScreen?: any;
     timeout?: number;
     functors?: ((dep?: any[]) => Promise<any>)[];
     dependencies?: { [key: number]: number[] };
@@ -18,7 +18,7 @@ function timeoutFunctor(timeout: number) {
 }
 
 const LoadingComponent: FunctionComponent<LoadingComponentProps> = ({
-                                                                        loadingScreen,
+                                                                        LoadingScreen,
                                                                         functors = [],
                                                                         timeout = 1500,
                                                                         dependencies = {},
@@ -77,7 +77,7 @@ const LoadingComponent: FunctionComponent<LoadingComponentProps> = ({
     if (!loaded) {
         return <LoadingDiv className="loading-div" loaded={loadedItems.every(value => value === true)}
                            onTransitionEnd={() => setLoaded(loadedItems.every(value => value === true))}>
-            {loadingScreen !== undefined ? loadingScreen() : <IonSpinner/>}
+            {LoadingScreen !== undefined ? <LoadingScreen/> : <IonSpinner/>}
         </LoadingDiv>;
     } else {
         return <LoadingDiv className="loading-div">

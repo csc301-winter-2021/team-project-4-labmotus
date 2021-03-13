@@ -12,7 +12,7 @@ class API extends BaseAPI {
 
     // @ts-ignore
     constructor(fbConfig: (FirebaseConfig | null), apiConfig: APIConfig) {
-        super(fbConfig, apiConfig)
+        super(fbConfig, apiConfig);
 
         this._user = null;
 
@@ -20,91 +20,138 @@ class API extends BaseAPI {
             this._firebase.auth().onAuthStateChanged(async (a: any) => {
                 this._firebaseUser = a;
                 if (this._firebaseUser) {
-                    this._user = await this.getClinician(this._firebaseUser.uid);
+                    this._user = await this.getClinician();
                 }
                 this.authChangeListeners.forEach(listener => listener(!!(a as any)))
             })
         }
     }
 
-    async createPatient(patient: Patient): Promise<Response> {
-        throw Error("Not Implemented")
+    async createPatient(patient: Patient): Promise<Patient> {
+        const token = await firebase.auth().currentUser.getIdToken() as any;
+        // @ts-ignore
+        const response = await fetch(this._config.api + `/patient`, {
+            method: "POST",
+            mode: 'cors',
+            headers: {
+                "Authorization": "Bearer " + token,
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(patient)
+        });
+        if (response.ok) {
+            const newPatient: Patient = JSON.parse(await response.text()).body;
+            newPatient.birthday = moment(newPatient.birthday);
+            return newPatient;
+        } else {
+            console.error(response);
+        }
+    }
+
+    async _firebaseConfirmPasswordReset(code: string, pass: string): Promise<void> {
+        return new Promise<void>((resolve, reject) => {
+            this._firebase.auth().confirmPasswordReset(code, pass).then(resolve).catch(reject)
+        })
+    }
+
+    async finishSignUp(user: string, pass: string, code: string): Promise<Patient> {
+        await this._firebaseConfirmPasswordReset(code, pass);
+        await this._firebaseSignInWithEmailAndPassword(user, pass);
+        const token = await firebase.auth().currentUser.getIdToken() as any;
+        // @ts-ignore
+        const response = await fetch(this._config.api + `/patient/finalize`, {
+            method: "POST",
+            mode: 'cors',
+            headers: {
+                "Authorization": "Bearer " + token,
+            },
+        });
+        if (response.ok) {
+            const newPatient: Patient = JSON.parse(await response.text()).body;
+            newPatient.birthday = moment(newPatient.birthday);
+            return newPatient;
+        } else {
+            console.error(response);
+        }
     }
 
     async updatePatient(patient: Patient): Promise<Patient> {
-        throw Error("Not Implemented")
-        // const mods = {};
-        // for (const key of Object.keys(patient)) if (key !== 'user') {
-        //     // @ts-ignore
-        //     if (key === 'birthday') {
-        //         if (this._user.birthday.format("YYYY-MM-DD") !== patient.birthday.format("YYYY-MM-DD")) {
-        //             // @ts-ignore
-        //             mods.birthday = patient[key];
-        //         }
-        //     } else {
-        //         // @ts-ignore
-        //         if (this._user[key] !== patient[key]) {
-        //             // @ts-ignore
-        //             mods[key] = patient[key];
-        //         }
-        //     }
-        // }
-        // for (const key of Object.keys(patient.user)) {
-        //     // @ts-ignore
-        //     if (this._user.user[key] !== patient.user[key]) {
-        //         // @ts-ignore
-        //         if (mods.user === undefined) {
-        //             // @ts-ignore
-        //             mods.user = {};
-        //         }
-        //         // @ts-ignore
-        //         mods.user[key] = patient.user[key];
-        //     }
-        // }
-        // const token = await firebase.auth().currentUser.getIdToken() as any;
-        // // @ts-ignore
-        // const response = await fetch(this._config.api + `/patient/${(patient ?? this._user).user.id ?? '-1'}`, {
-        //     method: "PATCH",
-        //     mode: 'cors',
-        //     headers: {
-        //         "Authorization": "Bearer " + token,
-        //     },
-        //     body: JSON.stringify(mods)
-        // });
-        // if (response.ok) {
-        //     const newPatient = JSON.parse(await response.text()).body;
-        //     this._user = newPatient;
-        //     console.log(this._user);
-        //     return newPatient;
-        // } else {
-        //     console.error(response);
-        // }
+        const token = await firebase.auth().currentUser.getIdToken() as any;
+        // @ts-ignore
+        const response = await fetch(this._config.api + `/patient/${patient?.user?.id ?? '-1'}`, {
+            method: "PATCH",
+            mode: 'cors',
+            headers: {
+                "Authorization": "Bearer " + token,
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(patient)
+        });
+        if (response.ok) {
+            const newPatient = JSON.parse(await response.text()).body;
+            this._user = newPatient;
+            return newPatient;
+        } else {
+            console.error(response);
+        }
     }
 
-    async getClinician(clinicianFirebaseId: string): Promise<Clinician> {
-        throw Error("Not Implemented")
-        // const token = await firebase.auth().currentUser.getIdToken() as any;
-        // // @ts-ignore
-        // const response = await fetch(this._config.api + `/clinician/${(patient ?? this._user).clinicianID ?? '-1'}`, {
-        //     method: "GET",
-        //     mode: 'cors',
-        //     headers: {
-        //         "Authorization": "Bearer " + token,
-        //     }
-        // });
-        // if (response.ok) {
-        //     return JSON.parse(await response.text()).body;
-        // } else {
-        //     console.error(response);
-        // }
+    async getClinician(clinicianId?: string): Promise<Clinician> {
+        const token = await firebase.auth().currentUser.getIdToken() as any;
+        // @ts-ignore
+        const response = await fetch(this._config.api + `/clinician/${clinicianId ?? (this._user?.clinicianID ?? '-1')}`, {
+            method: "GET",
+            mode: 'cors',
+            headers: {
+                "Authorization": "Bearer " + token,
+            }
+        });
+        if (response.ok) {
+            return JSON.parse(await response.text()).body;
+        } else {
+            console.error(response);
+        }
     }
 
     async updateClinician(clinician: Clinician) {
-        throw Error("Not Implemented")
+        const token = await firebase.auth().currentUser.getIdToken() as any;
+        // @ts-ignore
+        const response = await fetch(this._config.api + `/clinician/${clinician?.user?.id ?? '-1'}`, {
+            method: "PATCH",
+            mode: 'cors',
+            headers: {
+                "Authorization": "Bearer " + token,
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(clinician)
+        });
+        if (response.ok) {
+            const newClinician = JSON.parse(await response.text()).body;
+            this._user = newClinician;
+            return newClinician;
+        } else {
+            console.error(response);
+        }
     }
 
-    async createAssessment(patientID: string, assessment: Assessment): Promise<Response> {
-        throw Error("Not Implemented")
+    async createAssessment(assessment: Assessment): Promise<Assessment> {
+        const token = await firebase.auth().currentUser.getIdToken() as any;
+        // @ts-ignore
+        const response = await fetch(this._config.api + `/assessments`, {
+            method: "POST",
+            mode: 'cors',
+            headers: {
+                "Authorization": "Bearer " + token,
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(assessment)
+        });
+        if (response.ok) {
+            const res = JSON.parse(await response.text()).body;
+            return {...res, date: moment(res)};
+        } else {
+            console.error(response);
+        }
     }
 
     async getAssessments(patientID: string, week: Moment = moment().startOf('day')): Promise<Assessment[]> {
@@ -128,39 +175,20 @@ class API extends BaseAPI {
     }
 
     getCurrentUser(): Clinician | null {
-        throw Error("Not Implemented")
-        //
-        // if (!this.isLoggedIn()) {
-        //
-        // }
-        // if (this._user == null) {
-        //     return null
-        // }
-        //
-        //
-        //     return Promise.reject("Not Logged In");
-        // const token = await firebase.auth().currentUser.getIdToken() as any;
-        // // @ts-ignore
-        // const response = await fetch(this._config.api + `/patient/${this._user.user.id}/assessments?start=${week.toISOString()}`, {
-        //     method: "GET",
-        //     mode: 'cors',
-        //     headers: {
-        //         "Authorization": "Bearer " + token,
-        //     }
-        // });
-        // if (response.ok) {
-        //     const body: [] = JSON.parse(await response.text()).body;
-        //     return body.map((ass: { date: string }) => ({...ass, date: moment(ass.date)})) as Assessment[];
-        // } else {
-        //     console.error(response);
-        // }
-        //
-        //
-        // return null;
+        return this._user != null ? {...this._user, user: {...this._user.user}} : null
     }
 
     async getAllPatients(): Promise<Patient[]> {
-        throw Error()
+        const patients: Patient[] = [];
+        if (this._user != null) {
+            const promises = [];
+            const patientIds = this._user.patientIDs;
+            for (const id of patientIds) {
+                promises.push(this.getPatient(id).then(patient => patients.push(patient)));
+            }
+            await Promise.allSettled(promises);
+        }
+        return patients;
     }
 
     async changePassword(currPassword: string, newPassword: string): Promise<void> {

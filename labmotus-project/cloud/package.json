@@ -27,6 +27,7 @@
     "moment": "^2.29.1",
     "aws-sdk": "^2.861.0",
     "fastify-cors": "^5.2.0",
-    "firebase-admin": "^9.5.0"
+    "firebase-admin": "^9.5.0",
+    "firebase": "^8.3.0"
   }
 }

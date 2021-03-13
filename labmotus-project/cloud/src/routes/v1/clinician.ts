@@ -1,9 +1,10 @@
 import * as fastify from 'fastify'
 import moment from 'moment'
-import {Clinician, Patient, Response, User} from '../../../../common/types/types'
+import {Clinician, Patient, Response} from '../../../../common/types/types'
 import {RequestHeaders} from '../../types';
 import {authenticateUser} from "../../auth/Authenticator";
 import Database from "../../data/Database";
+import {computeClinicianMods} from "../../data/Util";
 
 
 interface ClinicianIdParams {
@@ -52,28 +53,40 @@ export default async function (server: fastify.FastifyInstance & { database: Dat
         Params: ClinicianIdParams,
         Body: Clinician
     }>('/clinician/:clinicianId', {}, async (request, reply) => {
-        const clinicianUser: User = {
-            id: request.params.clinicianId,
-            firebaseId: "firebase:0",
-            name: "LabMotus Clinician",
-            email: "clinician@labmot.us"
-        };
-        const clinician: Clinician = {
-            user: clinicianUser,
-            clinic: "LabMotus Clinic"
-        };
-        Object.assign(clinicianUser, request.body.user);
-        Object.assign(clinician, request.body);
-        Object.assign(clinician.user, clinicianUser);
-
-        const mockResponse: Response<Clinician> = {
-            success: true,
-            body: clinician
-        };
-        reply
-            .code(200)
-            .header('Content-Type', 'application/json')
-            .send(mockResponse)
+        const headers: { authorization?: string } = request.headers as any;
+        let clinicianId = Number.isSafeInteger(Number(request.params.clinicianId)) &&
+        Number(request.params.clinicianId) >= 0 ? request.params.clinicianId : undefined;
+        try {
+            const permissions = await authenticateUser(server.database, headers.authorization.split('Bearer ')[1]);
+            if (clinicianId === undefined)
+                clinicianId = permissions.getUserID();
+            const newClinician = request.body;
+            try {
+                const clinician = await server.database.getClinicianByID(clinicianId);
+                const mods = computeClinicianMods(clinician, newClinician);
+                if (permissions.modifyClinician(clinician, mods)) {
+                    const result = await server.database.updateClinician(clinicianId, mods);
+                    const response: Response<Clinician> = {
+                        success: true,
+                        body: result
+                    };
+                    reply.code(200)
+                        .header('Content-Type', 'application/json')
+                        .send(response)
+                } else {
+                    reply.code(403).send("Forbidden");
+                }
+            } catch (e) {
+                if (permissions.getPatient()) {
+                    reply.code(404).send("No Such Patient");
+                } else {
+                    reply.code(403).send("Forbidden");
+                }
+            }
+        } catch (e) {
+            reply.code(401).send("Not Authorized");
+            return;
+        }
     });
 
     /**
