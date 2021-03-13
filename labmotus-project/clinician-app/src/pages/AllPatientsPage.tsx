@@ -2,11 +2,12 @@ import React, {FunctionComponent, useContext, useEffect, useState} from "react";
 import {IonContent, IonPage} from "@ionic/react";
 // @ts-ignore
 import styled from "styled-components";
-import {Theme, getThemeContext} from "../../../common/ui/theme/Theme";
+import {getThemeContext, Theme} from "../../../common/ui/theme/Theme";
 import {PatientListComponent} from "../components/PatientsListComponent";
 import {Patient} from "../../../common/types";
 import API, {getAPIContext} from "../api/API";
 import {useHistory} from "react-router";
+import {PatientSearchComponent} from "../components/PatientSearchComponent";
 
 export interface AllPatientsPageProps {
 }
@@ -18,6 +19,7 @@ const AllPatientsPage: FunctionComponent<AllPatientsPageProps> = () => {
 
     const emptyPatientsList: Patient[] = []
     const [allPatients, setAllPatients] = useState(emptyPatientsList)
+    const [patientsToShow, setPatientsToShow] = useState(allPatients)
 
     // const history = useHistory();
 
@@ -25,6 +27,7 @@ const AllPatientsPage: FunctionComponent<AllPatientsPageProps> = () => {
         UseAPI.getAllPatients().then(
             (patients: Patient[]) => {
                 setAllPatients(patients)
+                setPatientsToShow(patients)
             },
             () => {
                 // pass
@@ -45,11 +48,12 @@ const AllPatientsPage: FunctionComponent<AllPatientsPageProps> = () => {
             <IonContent fullscreen>
                 <AllPatientsPageDiv theme={theme}>
                     <h1>LabMotus</h1>
-                    <h3>Clinician Portal</h3>
-                    <PatientListComponent patientList={allPatients}/>                
+                    <h3>Clinician Portal</h3>              
                     <button className="signup-button" onClick={signupPatient}>
                         Add Patient
                     </button>
+                    <PatientSearchComponent allPatients={allPatients} setPatientsToShow={setPatientsToShow}/>
+                    <PatientListComponent patientList={patientsToShow}/>
                 </AllPatientsPageDiv>
             </IonContent>
         </IonPage>
