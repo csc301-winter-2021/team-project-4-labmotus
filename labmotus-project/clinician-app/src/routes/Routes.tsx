@@ -9,6 +9,7 @@ import {ClinicianTermsOfServiceContent} from "../components/ClinicianTermsOfServ
 import API, {getAPIContext} from "../api/API";
 import AllPatientsPage from "../pages/AllPatientsPage";
 import FinalizeSignupPage from "../pages/FinalizeSignupPage";
+import SignupPatientPage from "../pages/SignupPatientPage";
 
 export interface RoutesProps {
 }
@@ -60,6 +61,7 @@ const Routes: FunctionComponent<RoutesProps> = ({}) => {
                            return <ClinicianTermsOfServiceContent/>
                        }}/>}
                 />
+                <Route exact path="/sign-up-patient" render={() => <SignupPatientPage/>}/>
                 {generateRedirect()}
             </Switch>
         </>

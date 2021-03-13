@@ -6,6 +6,7 @@ import {Theme, getThemeContext} from "../../../common/ui/theme/Theme";
 import {PatientListComponent} from "../components/PatientsListComponent";
 import {Patient} from "../../../common/types";
 import API, {getAPIContext} from "../api/API";
+import {useHistory} from "react-router";
 
 export interface AllPatientsPageProps {
 }
@@ -13,6 +14,7 @@ export interface AllPatientsPageProps {
 const AllPatientsPage: FunctionComponent<AllPatientsPageProps> = () => {
     const UseAPI: API = useContext(getAPIContext());
     const theme = useContext(getThemeContext());
+    const history = useHistory();
 
     const emptyPatientsList: Patient[] = []
     const [allPatients, setAllPatients] = useState(emptyPatientsList)
@@ -30,6 +32,10 @@ const AllPatientsPage: FunctionComponent<AllPatientsPageProps> = () => {
         )
     }
 
+    function signupPatient(): void {
+        history.push('/sign-up-patient');
+    }
+
     useEffect(() => {
         getAllPatients()
     }, [])
@@ -40,7 +46,10 @@ const AllPatientsPage: FunctionComponent<AllPatientsPageProps> = () => {
                 <AllPatientsPageDiv theme={theme}>
                     <h1>LabMotus</h1>
                     <h3>Clinician Portal</h3>
-                    <PatientListComponent patientList={allPatients}/>
+                    <PatientListComponent patientList={allPatients}/>                
+                    <button className="signup-button" onClick={signupPatient}>
+                        Add Patient
+                    </button>
                 </AllPatientsPageDiv>
             </IonContent>
         </IonPage>
@@ -59,6 +68,19 @@ const AllPatientsPageDiv = styled.div`
   span {
     cursor: pointer;
     color: ${({theme}: { theme: Theme }) => theme.colors.primary};
+    }
+
+  .signup-button {
+    width: 100%;
+    border-radius: 25px;
+    max-width: 490px;
+    font-size: 0.8em;
+    padding: 14px;
+    font-weight: 500;
+    outline: none;
+    box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.1);
+    background-color: ${({theme}: { theme: Theme }) => theme.colors.primary};
+    color: white;
     }
 `;
 

@@ -10,7 +10,7 @@ import {IonIcon} from "@ionic/react";
 import {chevronForward} from "ionicons/icons";
 import {useHistory} from "react-router";
 
-import {DateDisplay} from "./DateDisplay"
+import {AssessmentDateDisplay} from "./AssessmentDateDisplay"
 
 export interface SymptomInstanceProps {
     date: Moment;
@@ -64,7 +64,7 @@ const SymptomInstance: FunctionComponent<SymptomInstanceProps> = ({
         <HeaderDiv theme={theme}>
             {date?.format('MMMM Do YYYY')}
         </HeaderDiv>
-        <DateDisplay date={date} changeDay={changeDay}/>
+        <AssessmentDateDisplay date={date} changeDay={changeDay}/>
         <div onClick={toToday}>Go to today</div>
         <GraphDiv ref={colorLabel}>
             <ResponsiveContainer width="100%" height="100%">

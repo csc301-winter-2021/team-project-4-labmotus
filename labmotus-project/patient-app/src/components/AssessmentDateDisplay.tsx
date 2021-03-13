@@ -2,12 +2,12 @@ import {useState} from 'react';
 import {IonDatetime} from '@ionic/react';
 import moment, {Moment} from "moment";
 
-export interface DateDisplayProps {
+export interface AssessmentDateDisplayProps {
     date: Moment;
     changeDay?: (newDay: Moment) => void;
 }
 
-export const DateDisplay: React.FC<DateDisplayProps> = ({date, changeDay}) => {
+export const AssessmentDateDisplay: React.FC<AssessmentDateDisplayProps> = ({date, changeDay}) => {
     const [selectedDate, setSelectedDate] = useState<string>(date.format("YYYY-MM-DD"));
     return (
         <IonDatetime displayFormat="DDD" pickerFormat="MMMM DD YYYY"

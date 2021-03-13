@@ -5,7 +5,7 @@ import {ProfilePictureComponent} from "../../../common/ui/components/ProfilePict
 import {useHistory} from "react-router-dom";
 import {chevronForward} from 'ionicons/icons';
 import styled from "styled-components";
-import {Theme} from "../../../common/ui/theme/Theme";
+// import {Theme} from "../../../common/ui/theme/Theme";
 
 export interface PatientListProp {
     patientList: Patient[]
