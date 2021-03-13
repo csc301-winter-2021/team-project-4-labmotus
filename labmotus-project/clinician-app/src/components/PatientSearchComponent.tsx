@@ -27,5 +27,6 @@ export const PatientSearchComponent: FunctionComponent<PatientSearchProps> = (pr
     return (
         <IonSearchbar value={searchText} onIonChange={e => onSearch(e.detail.value!)} showCancelButton="focus"
                       animated/>
+
     )
 }

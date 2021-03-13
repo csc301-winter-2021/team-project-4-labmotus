@@ -43,8 +43,12 @@ const AllPatientsPage: FunctionComponent<AllPatientsPageProps> = () => {
                 <AllPatientsPageDiv theme={theme}>
                     <h1>LabMotus</h1>
                     <h3>Clinician Portal</h3>
-                    <PatientSearchComponent allPatients={allPatients} setPatientsToShow={setPatientsToShow}/>
-                    <PatientListComponent patientList={patientsToShow}/>
+
+                    <PatientsViewDiv>
+                        <PatientSearchComponent allPatients={allPatients} setPatientsToShow={setPatientsToShow}/>
+                        <PatientListComponent patientList={patientsToShow}/>
+                    </PatientsViewDiv>
+
                 </AllPatientsPageDiv>
             </IonContent>
         </IonPage>
@@ -63,7 +67,16 @@ const AllPatientsPageDiv = styled.div`
   span {
     cursor: pointer;
     color: ${({theme}: { theme: Theme }) => theme.colors.primary};
-    }
+  }
 `;
+
+const PatientsViewDiv = styled.div`
+  overflow: hidden;
+  text-align: center;
+
+  width: 80vw;
+  margin-top: 5vh;
+  margin-left: 10vw;
+`
 
 export default AllPatientsPage;
