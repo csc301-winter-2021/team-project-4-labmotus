@@ -3,10 +3,11 @@ import {FunctionComponent} from "react";
 export interface ForgotPasswordPageProps {
 
 }
+
 const ForgotPasswordPage: FunctionComponent<ForgotPasswordPageProps> = () => {
-    return(
+    return (
         <></>
     )
-}
+};
 
 export default ForgotPasswordPage

@@ -1,12 +1,14 @@
 import React, {FunctionComponent, useContext, useState} from "react";
-import {IonAlert, IonContent, IonInput, IonItem, IonPage} from "@ionic/react";
+import {IonAlert, IonButtons, IonContent, IonIcon, IonInput, IonPage} from "@ionic/react";
 // @ts-ignore
 import styled from "styled-components";
-import {Theme, getThemeContext} from "../../../common/ui/theme/Theme";
+import {getThemeContext, Theme} from "../../../common/ui/theme/Theme";
 import {DateDisplay} from "../components/DateDisplay";
 import API, {getAPIContext} from "../api/API";
 import moment, {Moment} from "moment";
 import {Clinician, Patient} from "../../../common/types/types";
+import { useHistory } from "react-router";
+import { chevronBack } from "ionicons/icons";
 
 export interface SignupPatientPageProps {
 }
@@ -23,9 +25,16 @@ const SignupPatientPage: FunctionComponent<SignupPatientPageProps> = () => {
     const [message, setMessage] = useState<string>();
     const [birthday, setBirthday] = useState<Moment>(moment());
 
+    const history = useHistory();
+    // When user clicks 'Back'
+
+    function back() {
+      history.goBack();
+    }
+
     // When user signs up for an account
-    async function signUp() {
-        console.log("email",email, "phone",phone, "name",name)
+    async function signUpPatient() {
+
         if (!email) {
             setHeader("Invalid Email");
             setMessage("Please enter patient's email.");
@@ -62,24 +71,22 @@ const SignupPatientPage: FunctionComponent<SignupPatientPageProps> = () => {
               incomplete: true,
             };
 
-            //add patient to database 
+            // add patient to database
             await UseAPI.createPatient(patient);
-
-            // Add patient to clinician patientIds, and update clinician in database
-            clinician.patientIDs.push(patientId);
-            await UseAPI.updateClinician(clinician);
 
         } catch (e) {
             console.error(e);
         }
     }
 
-    //
-
     return (
         <IonPage>
             <IonContent fullscreen>
                 <SignupPatientPageDiv theme={theme}>
+                    <IonButtons slot="start" onClick={back}>
+                        <IonIcon icon={chevronBack} />
+                        Back
+                    </IonButtons>
                     <h1>LabMotus</h1>
                     <h3>Clinician Portal</h3>
                     <div className="main-padding">
@@ -116,7 +123,7 @@ const SignupPatientPage: FunctionComponent<SignupPatientPageProps> = () => {
                                     value={phone}
                                     onIonChange={(e) => setPhone(e.detail.value!)}
                                 />
-                                <button className="signup-button" onClick={signUp}>
+                                <button className="signup-button" onClick={signUpPatient}>
                                     Send confirmation email to patient
                                 </button>
                             </form>
