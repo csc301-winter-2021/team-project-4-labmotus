@@ -1,13 +1,12 @@
-import React, {FunctionComponent, useEffect, useRef, useState} from "react";
+import {FunctionComponent, useContext, useEffect, useRef, useState} from "react";
 // @ts-ignore
 import styled from 'styled-components';
-import {Theme, getThemeContext} from "../../../common/ui/theme/Theme";
+import {Theme, getThemeContext} from "../theme/Theme";
 // @ts-ignore
 import {chevronDown} from "ionicons/icons";
 import {IonCard, IonCardContent, IonCardHeader, IonIcon} from "@ionic/react";
 // @ts-ignore
 import ResizeObserver from 'resize-observer-polyfill';
-
 
 export interface AccordionProps {
     label: string;
@@ -29,7 +28,7 @@ const Accordion: FunctionComponent<AccordionProps> = ({
                                                           onExpandEnd,
                                                           children
                                                       }) => {
-    const theme = React.useContext(getThemeContext());
+    const theme = useContext(getThemeContext());
     const [expandedState, setExpanded] = useState(initialExpanded);
     const expanded = expandedParent === undefined ? expandedState : expandedParent;
     const [height, setHeight] = useState(undefined);

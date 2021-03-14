@@ -2,11 +2,12 @@ import React, {FunctionComponent, useContext, useEffect, useState} from "react";
 import {IonContent, IonPage} from "@ionic/react";
 // @ts-ignore
 import styled from "styled-components";
-import {Theme, getThemeContext} from "../../../common/ui/theme/Theme";
+import {getThemeContext, Theme} from "../../../common/ui/theme/Theme";
 import {PatientListComponent} from "../components/PatientsListComponent";
 import {Patient} from "../../../common/types";
 import API, {getAPIContext} from "../api/API";
 import {useHistory} from "react-router";
+import {PatientSearchComponent} from "../components/PatientSearchComponent";
 
 export interface AllPatientsPageProps {
 }
@@ -18,13 +19,13 @@ const AllPatientsPage: FunctionComponent<AllPatientsPageProps> = () => {
 
     const emptyPatientsList: Patient[] = []
     const [allPatients, setAllPatients] = useState(emptyPatientsList)
-
-    // const history = useHistory();
+    const [patientsToShow, setPatientsToShow] = useState(allPatients)
 
     function getAllPatients(): void {
         UseAPI.getAllPatients().then(
             (patients: Patient[]) => {
                 setAllPatients(patients)
+                setPatientsToShow(patients)
             },
             () => {
                 // pass
@@ -46,10 +47,14 @@ const AllPatientsPage: FunctionComponent<AllPatientsPageProps> = () => {
                 <AllPatientsPageDiv theme={theme}>
                     <h1>LabMotus</h1>
                     <h3>Clinician Portal</h3>
-                    <PatientListComponent patientList={allPatients}/>                
                     <button className="signup-button" onClick={signupPatient}>
                         Add Patient
                     </button>
+                    <PatientsViewDiv>
+                        <PatientSearchComponent allPatients={allPatients} setPatientsToShow={setPatientsToShow}/>
+                        <PatientListComponent patientList={patientsToShow}/>
+                    </PatientsViewDiv>
+
                 </AllPatientsPageDiv>
             </IonContent>
         </IonPage>
@@ -81,7 +86,16 @@ const AllPatientsPageDiv = styled.div`
     box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.1);
     background-color: ${({theme}: { theme: Theme }) => theme.colors.primary};
     color: white;
-    }
+  }
 `;
+
+const PatientsViewDiv = styled.div`
+  overflow: hidden;
+  text-align: center;
+
+  width: 80vw;
+  margin-top: 5vh;
+  margin-left: 10vw;
+`
 
 export default AllPatientsPage;

@@ -9,7 +9,7 @@ import moment from "moment";
 import {Assessment, AssessmentState} from "../../../common/types/types";
 import API, {getAPIContext} from "../api/API";
 import Scrollbar from "react-scrollbars-custom";
-import Accordion from "../components/Accordion";
+import Accordion from "../../../common/ui/components/Accordion";
 import ReactPlayer from "react-player";
 
 export interface AssessmentPageProps {

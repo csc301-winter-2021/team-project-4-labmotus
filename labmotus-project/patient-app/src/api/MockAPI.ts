@@ -141,7 +141,8 @@ class MockAPI extends API {
                             unit: '\xb0'
                         },
 
-                    ]
+                    ],
+                    joints: []
                 });
                 data.push({
                     id: Math.floor(Math.random() * 1000000).toString(),
@@ -149,6 +150,7 @@ class MockAPI extends API {
                     name: "Hip",
                     date: date,
                     state: AssessmentState.PENDING,
+                    joints: []
                 });
                 data.push({
                     id: Math.floor(Math.random() * 1000000).toString(),
@@ -156,6 +158,7 @@ class MockAPI extends API {
                     name: "Arm",
                     date: date,
                     state: AssessmentState.MISSING,
+                    joints: []
                 });
             }
         }

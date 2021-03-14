@@ -1,7 +1,8 @@
-import React, {FunctionComponent} from "react";
+// @ts-ignore
+import {FunctionComponent, useContext} from "react";
 // @ts-ignore
 import styled from 'styled-components';
-import {Theme, getThemeContext} from "../../../common/ui/theme/Theme";
+import {Theme, getThemeContext} from "../theme/Theme";
 
 export interface SymptomProgressBarProps {
     label?: string;
@@ -19,7 +20,7 @@ const SymptomProgressBar: FunctionComponent<SymptomProgressBarProps> = ({
                                                                             unit
                                                                         }) => {
 
-    const theme = React.useContext(getThemeContext());
+    const theme = useContext(getThemeContext());
     const percentage = (goalValue - minValue) > 0 ? (currValue - minValue) / (goalValue - minValue) : 0;
 
     return (<SymptomProgressBarDiv className="symptom-progress-bar" theme={theme}>
