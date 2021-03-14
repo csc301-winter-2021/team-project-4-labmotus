@@ -1,12 +1,12 @@
-import React, {FunctionComponent} from "react";
+import {FunctionComponent, useContext} from "react";
 // @ts-ignore
 import styled from 'styled-components';
-import {Theme, getThemeContext} from "../../../common/ui/theme/Theme";
+import {Theme, getThemeContext} from "../theme/Theme";
 // @ts-ignore
 import Accordion from "./Accordion";
 import SymptomProgressBar from "./SymptomProgressBar";
 import Scrollbar from "react-scrollbars-custom";
-import {Stats} from "../../../common/types/types";
+import {Stats} from "../../types";
 
 export interface SymptomLogProps {
     logs?: Stats[]
@@ -14,7 +14,7 @@ export interface SymptomLogProps {
 }
 
 const SymptomLog: FunctionComponent<SymptomLogProps> = ({logs, shadow = false}) => {
-    const theme = React.useContext(getThemeContext());
+    const theme = useContext(getThemeContext());
 
     function generateAccordions() {
         if (logs == null || logs.length === 0) {

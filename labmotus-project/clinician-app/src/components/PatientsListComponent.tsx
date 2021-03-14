@@ -50,25 +50,19 @@ export const PatientListing: React.FC<Patient> = (patient: Patient) => {
 }
 
 const PatientListingDiv = styled.div`
-  overflow: hidden;
-  text-align: center;
-
-  width: 80vw;
-  margin-left: 10vw;
-
   .patient-label {
-      margin: 10px;
+    margin: 2vw;
   }
 
   .patient-name {
-      font-weight: bold;
-      font-size: 2em;
-      line-height: 2em;
-      color: ${({theme}: { theme: Theme }) => theme.colors.contrast};
+    font-weight: bold;
+    font-size: 1.3em;
+    line-height: 1.3em;
+    color: ${({theme}: { theme: Theme }) => theme.colors.contrast};
   }
 
   .patient-phone {
-      font-size: 1.2em;
-      color: ${({theme}: { theme: Theme }) => theme.colors.secondary};
+    font-size: 1em;
+    color: ${({theme}: { theme: Theme }) => theme.colors.secondary};
   }
 `;

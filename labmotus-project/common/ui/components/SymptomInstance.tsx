@@ -1,16 +1,16 @@
-import React, {FunctionComponent, useEffect} from "react";
+import {FunctionComponent, useState, useEffect, useContext} from "react";
 // @ts-ignore
 import styled from 'styled-components';
-import {Theme, getThemeContext} from "../../../common/ui/theme/Theme";
+import {Theme, getThemeContext} from "../theme/Theme";
 import SymptomLog from "./SymptomLog";
-import {Assessment, Stats} from "../../../common/types/types";
+import {Assessment, Stats} from "../../types";
 import moment, {Moment} from "moment";
 import {CartesianGrid, Line, LineChart, ReferenceLine, ResponsiveContainer, Tooltip, XAxis, YAxis} from "recharts";
 import {IonIcon} from "@ionic/react";
 import {chevronForward} from "ionicons/icons";
 import {useHistory} from "react-router";
 
-import {AssessmentDateDisplay} from "./AssessmentDateDisplay"
+import {DateDisplay} from "./DateDisplay";
 
 export interface SymptomInstanceProps {
     date: Moment;
@@ -24,9 +24,9 @@ const SymptomInstance: FunctionComponent<SymptomInstanceProps> = ({
                                                                       date, data, graphData = [],
                                                                       graphKeys = new Set(), changeDay
                                                                   }) => {
-    const theme: Theme = React.useContext(getThemeContext());
+    const theme: Theme = useContext(getThemeContext());
     const colors = theme.colors.cycle;
-    const [stats, setStats] = React.useState([]);
+    const [stats, setStats] = useState([]);
     const history = useHistory();
 
     useEffect(() => {
@@ -64,7 +64,7 @@ const SymptomInstance: FunctionComponent<SymptomInstanceProps> = ({
         <HeaderDiv theme={theme}>
             {date?.format('MMMM Do YYYY')}
         </HeaderDiv>
-        <AssessmentDateDisplay date={date} changeDay={changeDay}/>
+        <DateDisplay date={date} changeDay={changeDay}/>
         <div onClick={toToday}>Go to today</div>
         <GraphDiv ref={colorLabel}>
             <ResponsiveContainer width="100%" height="100%">

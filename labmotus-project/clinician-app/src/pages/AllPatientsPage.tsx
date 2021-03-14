@@ -21,8 +21,6 @@ const AllPatientsPage: FunctionComponent<AllPatientsPageProps> = () => {
     const [allPatients, setAllPatients] = useState(emptyPatientsList)
     const [patientsToShow, setPatientsToShow] = useState(allPatients)
 
-    // const history = useHistory();
-
     function getAllPatients(): void {
         UseAPI.getAllPatients().then(
             (patients: Patient[]) => {
@@ -48,12 +46,15 @@ const AllPatientsPage: FunctionComponent<AllPatientsPageProps> = () => {
             <IonContent fullscreen>
                 <AllPatientsPageDiv theme={theme}>
                     <h1>LabMotus</h1>
-                    <h3>Clinician Portal</h3>              
+                    <h3>Clinician Portal</h3>
                     <button className="signup-button" onClick={signupPatient}>
                         Add Patient
                     </button>
-                    <PatientSearchComponent allPatients={allPatients} setPatientsToShow={setPatientsToShow}/>
-                    <PatientListComponent patientList={patientsToShow}/>
+                    <PatientsViewDiv>
+                        <PatientSearchComponent allPatients={allPatients} setPatientsToShow={setPatientsToShow}/>
+                        <PatientListComponent patientList={patientsToShow}/>
+                    </PatientsViewDiv>
+
                 </AllPatientsPageDiv>
             </IonContent>
         </IonPage>
@@ -85,7 +86,16 @@ const AllPatientsPageDiv = styled.div`
     box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.1);
     background-color: ${({theme}: { theme: Theme }) => theme.colors.primary};
     color: white;
-    }
+  }
 `;
+
+const PatientsViewDiv = styled.div`
+  overflow: hidden;
+  text-align: center;
+
+  width: 80vw;
+  margin-top: 5vh;
+  margin-left: 10vw;
+`
 
 export default AllPatientsPage;
