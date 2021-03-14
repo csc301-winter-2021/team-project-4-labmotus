@@ -54,6 +54,8 @@
     "eject": "react-scripts eject",
     "lint": "node node_modules/tslint/bin/tslint src/**/*.ts{,x}",
     "android": "ionic capacitor run android -l --address=192.168.1.183 --external",
+    "android-build-windows": "android\\gradlew assembleRelease",
+    "android-build-linux": "android/gradlew assembleRelease",
     "android-static": "ionic capacitor run android",
     "ionic:serve": "react-app-rewired start",
     "ionic:build": "react-app-rewired build",
