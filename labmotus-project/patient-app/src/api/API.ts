@@ -28,34 +28,6 @@ class API extends BaseAPI {
     }
 
     async updatePatient(patient: Patient): Promise<Patient> {
-        const mods = {};
-        for (const key of Object.keys(patient)) if (key !== 'user') {
-            // @ts-ignore
-            if (key === 'birthday') {
-                if (this._user.birthday.format("YYYY-MM-DD") !== patient.birthday.format("YYYY-MM-DD")) {
-                    // @ts-ignore
-                    mods.birthday = patient[key];
-                }
-            } else {
-                // @ts-ignore
-                if (this._user[key] !== patient[key]) {
-                    // @ts-ignore
-                    mods[key] = patient[key];
-                }
-            }
-        }
-        for (const key of Object.keys(patient.user)) {
-            // @ts-ignore
-            if (this._user.user[key] !== patient.user[key]) {
-                // @ts-ignore
-                if (mods.user === undefined) {
-                    // @ts-ignore
-                    mods.user = {};
-                }
-                // @ts-ignore
-                mods.user[key] = patient.user[key];
-            }
-        }
         const token = await firebase.auth().currentUser.getIdToken() as any;
         // @ts-ignore
         const response = await fetch(this._config.api + `/patient/${(patient ?? this._user).user.id ?? '-1'}`, {
@@ -63,16 +35,34 @@ class API extends BaseAPI {
             mode: 'cors',
             headers: {
                 "Authorization": "Bearer " + token,
+                'Content-Type': 'application/json',
             },
-            body: JSON.stringify(mods)
+            body: JSON.stringify(patient)
         });
         if (response.ok) {
             const newPatient = JSON.parse(await response.text()).body;
             this._user = newPatient;
-            console.log(this._user);
             return newPatient;
         } else {
             console.error(response);
+        }
+    }
+
+    async uploadVideo(assessmentID: string, url: string): Promise<void> {
+        if (url !== '/some/file/path') {
+            const token = await firebase.auth().currentUser.getIdToken() as any;
+            const videoResp = await fetch(url);
+            const video = await videoResp.blob();
+            const formData = new FormData();
+            formData.append("file", video);
+            fetch(this._config.api + `/video/${assessmentID}`, {
+                method: "POST",
+                mode: 'cors',
+                body: formData,
+                headers: {
+                    "Authorization": "Bearer " + token,
+                }
+            });
         }
     }
 

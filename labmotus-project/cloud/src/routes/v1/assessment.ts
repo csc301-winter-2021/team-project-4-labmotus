@@ -13,9 +13,50 @@ interface AssessmentIdParams {
 
 export default async function (server: fastify.FastifyInstance & { database: Database }, options: fastify.FastifyPluginOptions, done: () => void) {
     /**
+     * POST /assessments
+     *
+     * Create new assessment for a patient
+     *
+     * Response: Completed assessment document
+     */
+    server.post<{
+        Headers: RequestHeaders,
+        Body: Assessment
+    }>('/assessments', {}, async (request, reply) => {
+        const headers: { authorization?: string } = request.headers as any;
+        try {
+            const permissions = await authenticateUser(server.database, headers.authorization.split('Bearer ')[1]);
+            const assessment = request.body;
+            try {
+                if (permissions.createAssessment(assessment)) {
+                    const completeAssessment = await server.database.createAssessment(assessment);
+                    const response: Response<Assessment> = {
+                        success: true,
+                        body: completeAssessment
+                    };
+                    reply
+                        .code(200)
+                        .header('Content-Type', 'application/json')
+                        .send(response)
+                } else {
+                    reply.code(403).send("Forbidden");
+                }
+            } catch (e) {
+                if (permissions.getAssessments()) {
+                    reply.code(404).send("No Such Assessment");
+                } else {
+                    reply.code(403).send("Forbidden");
+                }
+            }
+        } catch (e) {
+            reply.code(401).send("Not Authorized");
+            return;
+        }
+    });
+    /**
      * POST /video/:assessmentId
      *
-     * Create new assessment document associated w/ uploaded video
+     * Uploaded video
      *
      * Upload File: Video
      * Response: Assessment document (no pose data or stats)

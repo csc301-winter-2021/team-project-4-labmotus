@@ -10,7 +10,7 @@ import {IonIcon} from "@ionic/react";
 import {chevronForward} from "ionicons/icons";
 import {useHistory} from "react-router";
 
-import {DateDisplay} from "./DateDisplay"
+import {DateDisplay} from "./DateDisplay";
 
 export interface SymptomInstanceProps {
     date: Moment;

@@ -6,6 +6,8 @@ import path from "path";
 import config from "../../config.json";
 import {pipeline} from "stream";
 import * as util from "util";
+import * as firebaseAdmin from 'firebase-admin';
+import firebase from 'firebase/app';
 
 const pump = util.promisify(pipeline);
 
@@ -14,12 +16,18 @@ class MockDatabase extends Database {
     patientDatabase: Patient[];
     clinicianDatabase: Clinician[];
     assessmentsDatabase: { [key: string]: Assessment[] };
+    assessmentIDs: number;
+    userIDs: number;
+    firebaseClient: firebase.app.App;
 
-    constructor() {
+    constructor(firebaseClient: firebase.app.App) {
         super();
+        this.assessmentIDs = 0;
+        this.userIDs = 0;
+        this.firebaseClient = firebaseClient;
         this.patientDatabase = [{
             user: {
-                id: "0",
+                id: this._generateUserID(),
                 firebaseId: "Pcq6ISTb2scT7pC2oSonZxOyQqg2",
                 name: "LabMotus User",
                 email: "user@labmot.us",
@@ -29,7 +37,7 @@ class MockDatabase extends Database {
             birthday: moment().subtract(18, 'years')
         }, {
             user: {
-                id: "1",
+                id: this._generateUserID(),
                 firebaseId: "kYArwSdCQdgCGjuIjV19flEiolv1",
                 name: "LabMotus User1",
                 email: "user1@labmot.us",
@@ -40,7 +48,7 @@ class MockDatabase extends Database {
         }];
         this.clinicianDatabase = [{
             user: {
-                id: "2",
+                id: this._generateUserID(),
                 firebaseId: "mp0eWztKWdbj0BWDN60ehEKpUj32",
                 name: "LabMotus User2",
                 email: "user2@labmot.us",
@@ -54,6 +62,14 @@ class MockDatabase extends Database {
         }
     }
 
+    _generateAssessmentID(): string {
+        return (this.assessmentIDs++).toString();
+    }
+
+    _generateUserID(): string {
+        return (this.userIDs++).toString();
+    }
+
     _generateMockAssessments(id: string) {
         const assessments = [];
 
@@ -61,12 +77,13 @@ class MockDatabase extends Database {
         for (let i = 0; i < 100; i++) if (i % 2 === 0) {
             const date = moment(now).subtract(i, 'd');
             assessments.push({
-                id: Math.floor(Math.random() * 1000000).toString(),
+                id: this._generateAssessmentID(),
                 patientId: id,
                 name: "Squat",
                 date: date,
                 state: AssessmentState.COMPLETE,
                 videoUrl: "https://youtu.be/dQw4w9WgXcQ",
+                joints: ["Trunk", "Pelvis", "Flexion/Extension", "Valgus/Varus", "Plantarflexion", "Dorsiflexion"],
                 stats: [
                     {
                         name: "Trunk",
@@ -114,17 +131,19 @@ class MockDatabase extends Database {
                 ]
             });
             assessments.push({
-                id: Math.floor(Math.random() * 1000000).toString(),
+                id: this._generateAssessmentID(),
                 patientId: id,
                 name: "Hip",
                 date: date,
+                joints: ["Hip"],
                 state: AssessmentState.PENDING,
             });
             assessments.push({
-                id: Math.floor(Math.random() * 1000000).toString(),
+                id: this._generateAssessmentID(),
                 patientId: id,
                 name: "Arm",
                 date: date,
+                joints: ["Arm"],
                 state: AssessmentState.MISSING,
             });
         }
@@ -175,6 +194,13 @@ class MockDatabase extends Database {
         return updated;
     }
 
+    async updateClinician(ID: string, modifications: {}): Promise<Clinician> {
+        const clinician = await this.getClinicianByID(ID);
+        const updated = mergeObjects(clinician, modifications);
+        this.clinicianDatabase.push(updated);
+        return updated;
+    }
+
     async getAssessmentsByPatient(ID: string, start: Moment, duration: number, unit: string): Promise<Assessment[]> {
         if (!this.assessmentsDatabase.hasOwnProperty(ID))
             return [];
@@ -194,9 +220,69 @@ class MockDatabase extends Database {
         }
     }
 
+    async createAssessment(assessment: Assessment): Promise<Assessment> {
+        assessment = {...assessment};
+        assessment.state = AssessmentState.MISSING;
+        assessment.videoUrl = undefined;
+        assessment.id = this._generateAssessmentID();
+        assessment.date = moment(assessment.date);
+        assessment.stats = undefined;
+        assessment.poseData = undefined;
+        assessment.wrnchJob = undefined;
+        if (!this.assessmentsDatabase.hasOwnProperty(assessment.patientId))
+            this.assessmentsDatabase[assessment.patientId] = [assessment];
+        else
+            this.assessmentsDatabase[assessment.patientId].push(assessment);
+        return assessment;
+    }
+
     async saveVideo(assessmentID: string, video: NodeJS.ReadableStream): Promise<string> {
         await pump(video, fs.createWriteStream(path.join(config.videoPath, assessmentID + ".mp4")));
         return `/video/${assessmentID}`;
+    }
+
+    async _firebaseCreateUser(properties: firebaseAdmin.auth.CreateRequest): Promise<firebaseAdmin.auth.UserRecord> {
+        return new Promise<firebaseAdmin.auth.UserRecord>((resolve, reject) => {
+            firebaseAdmin.auth().createUser(properties).then(resolve).catch(reject)
+        })
+    }
+
+    async _firebaseSignIn(user: string, password: string): Promise<firebase.auth.UserCredential> {
+        return new Promise<firebase.auth.UserCredential>((resolve, reject) => {
+            this.firebaseClient.auth().signInWithEmailAndPassword(user, password).then(resolve).catch(reject)
+        })
+    }
+
+    async _firebaseSendPasswordReset(user: string): Promise<void> {
+        return new Promise<void>((resolve, reject) => {
+            this.firebaseClient.auth().sendPasswordResetEmail(user).then(resolve).catch(reject)
+        })
+    }
+
+    async createPatient(clinician: Clinician, patient: Patient): Promise<Patient> {
+        const email = patient.user.email;
+        if (this.patientDatabase.filter(p => p.user.email === email).length > 0)
+            return Promise.reject("Email in use");
+        patient = {...patient, birthday: moment(patient.birthday), user: {...patient.user}};
+        patient.user.id = this._generateUserID();
+        patient.clinicianID = clinician.user.id;
+        patient.incomplete = true;
+        const userRecord = await this._firebaseCreateUser({
+            email: patient.user.email,
+            password: '1234567890',
+        });
+        await this._firebaseSignIn(patient.user.email, '1234567890');
+        patient.user.firebaseId = this.firebaseClient.auth().currentUser.uid;
+        await this._firebaseSendPasswordReset(patient.user.email);
+        this.patientDatabase.push(patient);
+        clinician.patientIDs.push(patient.user.id);
+        return patient;
+    }
+
+    async finalizePatient(patient: Patient): Promise<Patient> {
+        const databasePatient = await this.getPatientByID(patient.user.id);
+        databasePatient.incomplete = false;
+        return databasePatient;
     }
 }
 

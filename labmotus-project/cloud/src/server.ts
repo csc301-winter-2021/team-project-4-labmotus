@@ -1,9 +1,12 @@
 import {fastify, FastifyInstance} from 'fastify'
 import {IncomingMessage, Server, ServerResponse} from 'http'
-import * as firebaseAdmin from 'firebase-admin';
+import firebaseAdmin from 'firebase-admin';
+import firebase from "firebase";
+import "firebase/auth"
 import serviceAccount from "../firebase-service-key.json";
 import config from "../config.json"
-import * as fs from "fs";
+import firebaseConfig from "../firebase.json"
+import fs from "fs";
 
 import patient from "./routes/v1/patient";
 import clinician from "./routes/v1/clinician";
@@ -42,12 +45,14 @@ let database: Database;
 
 function init() {
     firebaseAdmin.initializeApp({credential: firebaseAdmin.credential.cert(serviceAccount as firebaseAdmin.ServiceAccount)});
+    const firebaseClient = firebase.initializeApp(firebaseConfig);
     if (config.mock) {
-        database = new MockDatabase();
+        database = new MockDatabase(firebaseClient);
     } else {
         database = new Database();
     }
     server.decorate('database', database);
+    server.decorate('firebaseClient', firebaseClient);
     fs.mkdirSync(path.join(config.videoPath), {recursive: true});
 }
 

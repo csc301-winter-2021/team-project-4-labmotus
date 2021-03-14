@@ -33,6 +33,7 @@ class Database {
 
     private static _buildClinicianFromItem(item: AWS.DynamoDB.AttributeMap): Clinician {
         return {
+            patientIDs: [],
             user: Database._buildUserFromItem(item),
             clinic: item.clinic.S
         }
@@ -115,7 +116,7 @@ class Database {
                 if(err) {
                     console.error(err);
                     reject("Database query failed");
-                }else {
+                } else {
                     fulfill(Database._buildClinicianFromItem(data.Item));
                 }
             });
@@ -123,6 +124,14 @@ class Database {
     }
 
     async updatePatient(ID: string, modifications: {}): Promise<Patient> {
+        throw new Error("Not Implemented")
+    }
+
+    async updateClinician(ID: string, modifications: {}): Promise<Clinician> {
+        throw new Error("Not Implemented")
+    }
+
+    async createAssessment(assessment: Assessment): Promise<Assessment> {
         throw new Error("Not Implemented")
     }
 
@@ -135,6 +144,14 @@ class Database {
     }
 
     async saveVideo(assessmentID: string, video: NodeJS.ReadableStream): Promise<string> {
+        throw new Error("Not Implemented")
+    }
+
+    async createPatient(clinician: Clinician, patient: Patient): Promise<Patient> {
+        throw new Error("Not Implemented")
+    }
+
+    async finalizePatient(patient: Patient): Promise<Patient> {
         throw new Error("Not Implemented")
     }
 }

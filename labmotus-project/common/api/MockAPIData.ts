@@ -48,7 +48,7 @@ export const patientList: Patient[] = [
             name: "Ethan Zhu"
         },
         phone: "6471263956",
-        birthday: moment().set({'year': 1996, 'month': 2, 'day': `02`}),
+        birthday: moment().set({'year': 1996, 'month': 2, 'day': 2}),
         clinicianID: "2"
     }
 ]

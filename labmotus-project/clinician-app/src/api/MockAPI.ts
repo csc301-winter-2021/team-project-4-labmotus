@@ -41,7 +41,7 @@ class MockAPI extends API {
         console.log(this._user)
     }
 
-    async createPatient(patient: Patient): Promise<Response> {
+    async createPatient(patient: Patient): Promise<Patient> {
         throw Error("Not Implemented")
     }
 
@@ -57,7 +57,7 @@ class MockAPI extends API {
         throw Error("Not Implemented")
     }
 
-    async createAssessment(patientID: string, assessment: Assessment): Promise<Response> {
+    async createAssessment(assessment: Assessment): Promise<Assessment> {
         throw Error("Not Implemented")
     }
 
@@ -76,6 +76,7 @@ class MockAPI extends API {
                     date: date,
                     state: AssessmentState.COMPLETE,
                     videoUrl: "https://youtu.be/dQw4w9WgXcQ",
+                    joints: ["Trunk", "Pelvis", "Flexion/Extension", "Valgus/Varus", "Plantarflexion", "Dorsiflexion"],
                     stats: [
                         {
                             name: "Trunk",
@@ -127,6 +128,7 @@ class MockAPI extends API {
                     patientId: "",
                     name: "Hip",
                     date: date,
+                    joints: ["Hip"],
                     state: AssessmentState.PENDING,
                 });
                 data.push({
@@ -134,6 +136,7 @@ class MockAPI extends API {
                     patientId: "",
                     name: "Arm",
                     date: date,
+                    joints: ["Arm"],
                     state: AssessmentState.MISSING,
                 });
             }
