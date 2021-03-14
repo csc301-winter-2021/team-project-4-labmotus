@@ -18,6 +18,7 @@ import {getThemeContext, Theme} from "../../../common/ui/theme/Theme";
 import styled from 'styled-components';
 import TermsOfServicePage from "../../../common/ui/pages/TermsOfServicePage";
 import {PatientTermsOfServiceContent} from "../components/PatientTermsOfServiceContent";
+import {Moment} from "moment/moment";
 
 export interface RoutesProps {
 }
@@ -75,19 +76,29 @@ const Routes: FunctionComponent<RoutesProps> = ({}) => {
     return (
         <BackgroundDiv theme={theme}>
             <Switch>
-                <Route exact path="/login" render={() => <LoginPage />} />
-                <Route exact path="/home/:date?" render={() => <SymptomLogPage />} />
-                <Route exact path="/assessment/:date?" render={() => <AssessmentPage />} />
-                <Route exact path="/settings" render={() => <SettingsPage />} />
-                <Route exact path="/settings/edit-email" render={() => <EditEmailPage />} />
-                <Route exact path="/settings/edit-phone" render={() => <EditPhonePage />} />
-                <Route exact path="/settings/change-password" render={() => <ChangePasswordPage />} />
-                <Route exact path="/record/:id" render={() => <VideoRecordingPage />} />
-                <Route exact path="/forgot-password" render={() => <ForgotPasswordPage />} />
-                <Route exact path="/sign-up" render={() => <SignupPage />} />
-                <Route exact path="/terms-of-service"
-                       render={() => <TermsOfServicePage getTermsOfService={() => {return <PatientTermsOfServiceContent />}} />}
-                />
+                <Route exact path="/login" render={() => <LoginPage/>}/>
+                <Route exact path="/home/:date?" render={() =>
+                    <SymptomLogPage
+                        getAssessments={(week: Moment) => {
+                            return UseAPI.getCurrUsersAssessments(week)
+                        }}
+                    />
+                }/>
+                <Route exact path="/assessment/:date?" render={() => <AssessmentPage/>}/>
+                <Route exact path="/settings" render={() => <SettingsPage/>}/>
+                <Route exact path="/settings/edit-email" render={() => <EditEmailPage/>}/>
+                <Route exact path="/settings/edit-phone" render={() => <EditPhonePage/>}/>
+                <Route exact path="/settings/change-password" render={() => <ChangePasswordPage/>}/>
+                <Route exact path="/record/:id" render={() => <VideoRecordingPage/>}/>
+                <Route exact path="/forgot-password" render={() => <ForgotPasswordPage/>}/>
+                <Route exact path="/sign-up" render={() => <SignupPage/>}/>
+                <Route exact path="/terms-of-service" render={() =>
+                    <TermsOfServicePage
+                        getTermsOfService={() => {
+                            return <PatientTermsOfServiceContent/>
+                        }}
+                    />
+                }/>
                 {generateRedirect()}
             </Switch>
             <NavigationBar entries={navigationEntries}/>
