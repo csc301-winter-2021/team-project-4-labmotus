@@ -17,10 +17,10 @@ import "@ionic/react/css/text-alignment.css";
 import "@ionic/react/css/text-transformation.css";
 import "@ionic/react/css/flex-utils.css";
 import "@ionic/react/css/display.css";
-import MockAPI from "../../api/MockAPI";
-import API, {getAPIContext} from '../../api/API';
+import MockAPI from "../../../../patient-app/src/api/MockAPI";
+import API, {getAPIContext} from '../../../../patient-app/src/api/API';
 
-import config from "../../../config.json"
+import config from "../../../../patient-app/config.json"
 
 export default {
     title: 'Pages/Symptom Log Page',

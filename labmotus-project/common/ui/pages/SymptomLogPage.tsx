@@ -1,10 +1,10 @@
 import {FunctionComponent, SyntheticEvent, useEffect, useRef, useState, useContext} from "react";
 // @ts-ignore
 import styled from 'styled-components';
-import {Theme, getThemeContext} from "../../../common/ui/theme/Theme";
+import {Theme, getThemeContext} from "../theme/Theme";
 import {IonSpinner} from "@ionic/react";
-import SymptomInstance from "../../../common/ui/components/SymptomInstance";
-import {Assessment, AssessmentState} from "../../../common/types/types";
+import SymptomInstance from "../components/SymptomInstance";
+import {Assessment, AssessmentState} from "../../types/types";
 import moment, {Moment} from "moment";
 import {useHistory, useParams} from "react-router";
 

@@ -1,6 +1,6 @@
 import React, {FunctionComponent, ReactElement, useContext, useEffect} from "react";
 import {Redirect, Route, Switch, useHistory, useLocation} from "react-router-dom";
-import SymptomLogPage from "../pages/SymptomLogPage";
+import SymptomLogPage from "../../../common/ui/pages/SymptomLogPage";
 import NavigationBar from "../components/NavigationBar";
 import {barChart, home, settings} from "ionicons/icons";
 import SettingsPage from "../pages/SettingsPage";
