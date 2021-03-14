@@ -154,26 +154,6 @@ class API extends BaseAPI {
         }
     }
 
-    async getAssessments(patientID: string, week: Moment = moment().startOf('day')): Promise<Assessment[]> {
-        if (!this.isLoggedIn())
-            return Promise.reject("Not Logged In");
-        const token = await firebase.auth().currentUser.getIdToken() as any;
-        // @ts-ignore
-        const response = await fetch(this._config.api + `/patient/${patientID}/assessments?start=${week.toISOString()}`, {
-            method: "GET",
-            mode: 'cors',
-            headers: {
-                "Authorization": "Bearer " + token,
-            }
-        });
-        if (response.ok) {
-            const body: [] = JSON.parse(await response.text()).body;
-            return body.map((ass: { date: string }) => ({...ass, date: moment(ass.date)})) as Assessment[];
-        } else {
-            console.error(response);
-        }
-    }
-
     getCurrentUser(): Clinician | null {
         return this._user != null ? {...this._user, user: {...this._user.user}} : null
     }

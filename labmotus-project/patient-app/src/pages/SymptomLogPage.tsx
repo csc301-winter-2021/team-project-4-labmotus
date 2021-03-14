@@ -57,7 +57,7 @@ const SymptomLogPage: FunctionComponent<SymptomLogPageProps> = ({}) => {
     }
 
     function updateData(newWeek: Moment, newIndex: number) {
-        UseAPI.getAssessments(newWeek).then(((assessments: Assessment[]) => {
+        UseAPI.getCurrUsersAssessments(newWeek).then(((assessments: Assessment[]) => {
             const assessmentsByDay: { [key: string]: Assessment[] } = {};
             for (let i = 0; i < assessments.length; i++) if (assessments[i].state === AssessmentState.COMPLETE) {
                 const key = assessments[i].date.format(dateFormat);

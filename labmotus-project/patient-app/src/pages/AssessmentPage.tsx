@@ -27,7 +27,7 @@ const AssessmentPage: FunctionComponent<AssessmentPageProps> = ({}) => {
 
     useEffect(() => {
         setAssessments(null);
-        UseAPI.getAssessments(day).then(value => {
+        UseAPI.getCurrUsersAssessments(day).then(value => {
             const tAssessments = value.filter(ass => ass.date.format('YYYY-MM-DD') === day.format('YYYY-MM-DD'));
             setAssessments(tAssessments);
             setExpanded(tAssessments.map(ass => ass.state === AssessmentState.COMPLETE))
