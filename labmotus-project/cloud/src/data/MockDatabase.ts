@@ -80,7 +80,7 @@ class MockDatabase extends Database {
                 id: this._generateAssessmentID(),
                 patientId: id,
                 name: "Squat",
-                date: date,
+                date,
                 state: AssessmentState.COMPLETE,
                 videoUrl: "https://youtu.be/dQw4w9WgXcQ",
                 joints: ["Trunk", "Pelvis", "Flexion/Extension", "Valgus/Varus", "Plantarflexion", "Dorsiflexion"],
@@ -134,7 +134,7 @@ class MockDatabase extends Database {
                 id: this._generateAssessmentID(),
                 patientId: id,
                 name: "Hip",
-                date: date,
+                date,
                 joints: ["Hip"],
                 state: AssessmentState.PENDING,
             });
@@ -142,7 +142,7 @@ class MockDatabase extends Database {
                 id: this._generateAssessmentID(),
                 patientId: id,
                 name: "Arm",
-                date: date,
+                date,
                 joints: ["Arm"],
                 state: AssessmentState.MISSING,
             });

@@ -1,7 +1,7 @@
 import firebase from 'firebase/app';
 import "firebase/auth"
-import {Patient} from "../types";
-import moment from "moment";
+import {Assessment, Patient} from "../types";
+import moment, {Moment} from "moment";
 
 export interface FirebaseConfig {
     "apiKey": string;
@@ -120,6 +120,26 @@ export class BaseAPI {
             if (blob) {
                 return URL.createObjectURL(blob);
             }
+        }
+    }
+
+    async getAssessments(patientID: string, week: Moment = moment().startOf('day')): Promise<Assessment[]> {
+        if (!this.isLoggedIn())
+            return Promise.reject("Not Logged In");
+        const token = await firebase.auth().currentUser.getIdToken() as any;
+        // @ts-ignore
+        const response = await fetch(this._config.api + `/patient/${patientID}/assessments?start=${week.toISOString()}`, {
+            method: "GET",
+            mode: 'cors',
+            headers: {
+                "Authorization": "Bearer " + token,
+            }
+        });
+        if (response.ok) {
+            const body: [] = JSON.parse(await response.text()).body;
+            return body.map((ass: { date: string }) => ({...ass, date: moment(ass.date)})) as Assessment[];
+        } else {
+            console.error(response);
         }
     }
 

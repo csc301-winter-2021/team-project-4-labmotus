@@ -82,7 +82,7 @@ class MockAPI extends API {
         return FakeClinician;
     }
 
-    async getAssessments(week: Moment = moment().startOf('day')): Promise<Assessment[]> {
+    async getCurrUsersAssessments(week: Moment = moment().startOf('day')): Promise<Assessment[]> {
         const weekStart = moment(week).startOf('week');
         if (this.mockAssessments.hasOwnProperty(weekStart.format("YYYY-MM-DD")))
             return this.mockAssessments[weekStart.format("YYYY-MM-DD")];
