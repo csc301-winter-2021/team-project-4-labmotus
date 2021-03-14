@@ -17,10 +17,11 @@ import "@ionic/react/css/text-alignment.css";
 import "@ionic/react/css/text-transformation.css";
 import "@ionic/react/css/flex-utils.css";
 import "@ionic/react/css/display.css";
-import MockAPI from "../../api/MockAPI";
-import API, {getAPIContext} from '../../api/API';
+import MockAPI from "../../../../patient-app/src/api/MockAPI";
+import API, {getAPIContext} from '../../../../patient-app/src/api/API';
 
-import config from "../../../config.json"
+import config from "../../../../patient-app/config.json"
+import {Moment} from 'moment';
 
 export default {
     title: 'Pages/Symptom Log Page',
@@ -37,7 +38,9 @@ const Template: Story<SymptomLogPageProps> = (args) =>
                 ref.parentNode.style.height = "100%";
             }
         }}>
-            <SymptomLogPage {...args}/>
+            <SymptomLogPage {...args} getAssessments={(week: Moment) => {
+                return UseAPI.getCurrUsersAssessments(week)
+            }}/>
         </RootDiv>
     </APIContext.Provider>;
 

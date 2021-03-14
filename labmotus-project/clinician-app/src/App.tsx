@@ -26,10 +26,12 @@ import {BrowserRouter as Router} from "react-router-dom";
 import config from "../config.json";
 import firebaseConfig from "../firebase.json"
 import API, {getAPIContext} from "./api/API";
+import {Patient} from "../../common/types/types";
+import moment from "moment";
 
 const App: React.FC = () => {
     const [APIInstance, setAPIInstance] = useState<API>(null);
-    const APIContext: React.Context<API> = getAPIContext()
+    const APIContext: React.Context<API> = getAPIContext();
 
     async function loadAPI(): Promise<API> {
         if (!APIInstance) {
@@ -40,12 +42,33 @@ const App: React.FC = () => {
         return APIInstance;
     }
 
+    if (APIInstance) {
+        // test()
+    }
+
+    async function test() {
+        await APIInstance.logout();
+        await APIInstance.login('user2@labmot.us', '123456789');
+        const patient: Patient = {
+            user: {
+                email: "ethanzhu@gmail.com",
+                id: "",
+                name: "Ethan Zhu",
+            },
+            clinicianID: "2",
+            birthday: moment(),
+            phone: "(123) 456-7890"
+        };
+        const newPatient = await APIInstance.createPatient(patient);
+        console.log(newPatient)
+    }
+
     return (
         <IonApp>
             <APIContext.Provider value={APIInstance}>
                 <RootDiv>
                     <LoadingComponent functors={[loadAPI]}
-                                      loadingScreen={() => <LoadingScreen />} timeout={1500}>
+                                      LoadingScreen={LoadingScreen} timeout={1500}>
                         <Router>
                             <Routes/>
                         </Router>

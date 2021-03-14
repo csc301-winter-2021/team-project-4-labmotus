@@ -28,6 +28,19 @@ export abstract class Permissions {
     abstract modifyPatient(target: Patient, updates: {}): boolean;
 
     /**
+     * Whether or not access should be granted for this clinician modification
+     * @param target The clinician to modify
+     * @param updates The updates to make
+     */
+    abstract modifyClinician(target: Clinician, updates: {}): boolean;
+
+    /**
+     * Whether or not access should be granted for this assessment Creation
+     * @param assessment The assessment to create
+     */
+    abstract createAssessment(assessment: Assessment): boolean;
+
+    /**
      * Whether or not access should be granted for this video upload
      * @param assessment The assessment to upload for
      */
@@ -38,6 +51,16 @@ export abstract class Permissions {
      * @param assessment The assessment to view video for
      */
     abstract viewVideo(assessment: Assessment): boolean;
+
+    /**
+     * Whether or not access should be granted for patient creation
+     */
+    abstract createPatient(): boolean;
+
+    /**
+     * Whether or not finalization can be done
+     */
+    abstract finalizePatient(): boolean;
 
     /**
      * Returns the UserID this permissions belongs to.
@@ -82,35 +105,57 @@ export class PatientPermissions extends Permissions {
     }
 
     getPatient(target?: Patient): boolean {
+        if (this.patient.incomplete) return false;
         if (target === undefined)
             return false;
         return this.patient.user.id === target.user.id;
     }
 
     getAssessments(target?: Patient): boolean {
+        if (this.patient.incomplete) return false;
         if (target === undefined)
             return false;
         return this.patient.user.id === target.user.id;
     }
 
     getClinician(target?: Clinician): boolean {
+        if (this.patient.incomplete) return false;
         if (target === undefined)
             return false;
         return this.patient.clinicianID === target.user.id;
     }
 
     modifyPatient(target: Patient, updates: {}): boolean {
+        if (this.patient.incomplete) return false;
         if (target.user.id !== this.patient.user.id)
             return false;
         return checkModification(updates, this.editablePatientFields);
     }
 
+    modifyClinician(target: Clinician, updates: {}): boolean {
+        return false;
+    }
+
+    createAssessment(assessment: Assessment): boolean {
+        return false;
+    }
+
     uploadVideo(assessment: Assessment): boolean {
+        if (this.patient.incomplete) return false;
         return assessment.patientId === this.patient.user.id && assessment.state === AssessmentState.MISSING;
     }
 
     viewVideo(assessment: Assessment): boolean {
+        if (this.patient.incomplete) return false;
         return assessment.patientId === this.patient.user.id && assessment.state !== AssessmentState.MISSING;
+    }
+
+    createPatient(): boolean {
+        return false;
+    }
+
+    finalizePatient(): boolean {
+        return this.patient.incomplete === true;
     }
 
     getUserID(): string {
@@ -124,7 +169,6 @@ export class ClinicianPermissions extends Permissions {
         user: {
             id: false,
             firebaseId: false,
-            username: false,
             name: true,
             email: true
         },
@@ -132,6 +176,16 @@ export class ClinicianPermissions extends Permissions {
         clinicianID: true,
         phone: true,
         birthday: true
+    };
+    editableClinicianFields: {} = {
+        user: {
+            id: false,
+            firebaseId: false,
+            name: true,
+            email: true
+        },
+        clinic: true,
+        patientIDs: true
     };
 
     constructor(clinician: Clinician) {
@@ -163,12 +217,30 @@ export class ClinicianPermissions extends Permissions {
         return checkModification(updates, this.editablePatientFields);
     }
 
+    modifyClinician(target: Clinician, updates: {}): boolean {
+        if (target.user.id !== this.clinician.user.id)
+            return false;
+        return checkModification(updates, this.editableClinicianFields);
+    }
+
+    createAssessment(assessment: Assessment): boolean {
+        return this.clinician.patientIDs.includes(assessment.patientId);
+    }
+
+    createPatient(): boolean {
+        return true;
+    }
+
     uploadVideo(assessment: Assessment): boolean {
         return false;
     }
 
     viewVideo(assessment: Assessment): boolean {
         return this.clinician.patientIDs.includes(assessment.patientId) && assessment.state !== AssessmentState.MISSING;
+    }
+
+    finalizePatient(): boolean {
+        return false;
     }
 
     getUserID(): string {

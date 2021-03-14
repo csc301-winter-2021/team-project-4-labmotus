@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {FunctionComponent, useState} from 'react';
 import {IonDatetime} from '@ionic/react';
 import moment, {Moment} from "moment";
 
@@ -7,7 +7,7 @@ export interface DateDisplayProps {
     changeDay?: (newDay: Moment) => void;
 }
 
-export const DateDisplay: React.FC<DateDisplayProps> = ({date, changeDay}) => {
+export const DateDisplay: FunctionComponent<DateDisplayProps> = ({date, changeDay}) => {
     const [selectedDate, setSelectedDate] = useState<string>(date.format("YYYY-MM-DD"));
     return (
         <IonDatetime displayFormat="DDD" pickerFormat="MMMM DD YYYY"

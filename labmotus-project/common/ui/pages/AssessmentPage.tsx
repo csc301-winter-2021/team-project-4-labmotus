@@ -1,21 +1,23 @@
 import React, {FunctionComponent, useEffect, useState} from "react";
 // @ts-ignore
 import styled from 'styled-components';
-import {getThemeContext, Theme} from "../../../common/ui/theme/Theme";
+import {getThemeContext, Theme} from "../theme/Theme";
 import {IonIcon, IonPopover, IonSpinner} from "@ionic/react";
 import {chevronBack, film, videocam} from "ionicons/icons";
 import {useHistory, useParams} from "react-router";
 import moment from "moment";
-import {Assessment, AssessmentState} from "../../../common/types/types";
-import API, {getAPIContext} from "../api/API";
+import {Assessment, AssessmentState} from "../../types/types";
+import API, {getAPIContext} from "../../../patient-app/src/api/API";
 import Scrollbar from "react-scrollbars-custom";
 import Accordion from "../components/Accordion";
 import ReactPlayer from "react-player";
+import {Moment} from "moment/moment";
 
 export interface AssessmentPageProps {
+    getAssessments: (newWeek: Moment) => Promise<Assessment[]>
 }
 
-const AssessmentPage: FunctionComponent<AssessmentPageProps> = ({}) => {
+const AssessmentPage: FunctionComponent<AssessmentPageProps> = (props: AssessmentPageProps) => {
     const UseAPI: API = React.useContext(getAPIContext());
     const theme: Theme = React.useContext(getThemeContext());
     const {date}: { date: string } = useParams();
@@ -27,7 +29,7 @@ const AssessmentPage: FunctionComponent<AssessmentPageProps> = ({}) => {
 
     useEffect(() => {
         setAssessments(null);
-        UseAPI.getAssessments(day).then(value => {
+        props.getAssessments(day).then(value => {
             const tAssessments = value.filter(ass => ass.date.format('YYYY-MM-DD') === day.format('YYYY-MM-DD'));
             setAssessments(tAssessments);
             setExpanded(tAssessments.map(ass => ass.state === AssessmentState.COMPLETE))

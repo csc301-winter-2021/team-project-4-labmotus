@@ -1,4 +1,4 @@
-import * as firebaseAdmin from 'firebase-admin';
+import firebaseAdmin from 'firebase-admin';
 import Database from "../data/Database";
 import {ClinicianPermissions, PatientPermissions, Permissions} from "./Permissions";
 

@@ -1,6 +1,6 @@
 import React, {FunctionComponent, ReactElement, useContext, useEffect} from "react";
 import {Redirect, Route, Switch, useHistory, useLocation} from "react-router-dom";
-import SymptomLogPage from "../pages/SymptomLogPage";
+import SymptomLogPage from "../../../common/ui/pages/SymptomLogPage";
 import NavigationBar from "../components/NavigationBar";
 import {barChart, home, settings} from "ionicons/icons";
 import SettingsPage from "../pages/SettingsPage";
@@ -12,12 +12,14 @@ import API, {getAPIContext} from "../api/API";
 import ForgotPasswordPage from "../pages/ForgotPasswordPage";
 import SignupPage from "../pages/SignupPage";
 import VideoRecordingPage from "../pages/VideoRecordingPage";
-import AssessmentPage from "../pages/AssessmentPage";
+import AssessmentPage from "../../../common/ui/pages/AssessmentPage";
 import {getThemeContext, Theme} from "../../../common/ui/theme/Theme";
 // @ts-ignore
 import styled from 'styled-components';
 import TermsOfServicePage from "../../../common/ui/pages/TermsOfServicePage";
 import {PatientTermsOfServiceContent} from "../components/PatientTermsOfServiceContent";
+import {Moment} from "moment/moment";
+import {Assessment} from "../../../common/types";
 
 export interface RoutesProps {
 }
@@ -69,25 +71,37 @@ const Routes: FunctionComponent<RoutesProps> = ({}) => {
     }
 
     function generateRedirect(): ReactElement {
-        return <Redirect exact from="/" to="/login" />;
+        return <Redirect exact from="/" to="/login"/>;
+    }
+
+    function getAssessments(week: Moment): Promise<Assessment[]> {
+        return UseAPI.getCurrUsersAssessments(week)
     }
 
     return (
         <BackgroundDiv theme={theme}>
             <Switch>
-                <Route exact path="/login" render={() => <LoginPage />} />
-                <Route exact path="/home/:date?" render={() => <SymptomLogPage />} />
-                <Route exact path="/assessment/:date?" render={() => <AssessmentPage />} />
-                <Route exact path="/settings" render={() => <SettingsPage />} />
-                <Route exact path="/settings/edit-email" render={() => <EditEmailPage />} />
-                <Route exact path="/settings/edit-phone" render={() => <EditPhonePage />} />
-                <Route exact path="/settings/change-password" render={() => <ChangePasswordPage />} />
-                <Route exact path="/record/:id" render={() => <VideoRecordingPage />} />
-                <Route exact path="/forgot-password" render={() => <ForgotPasswordPage />} />
-                <Route exact path="/sign-up" render={() => <SignupPage />} />
-                <Route exact path="/terms-of-service"
-                       render={() => <TermsOfServicePage getTermsOfService={() => {return <PatientTermsOfServiceContent />}} />}
-                />
+                <Route exact path="/login" render={() => <LoginPage/>}/>
+                <Route exact path="/home/:date?" render={() =>
+                    <SymptomLogPage getAssessments={getAssessments}/>
+                }/>
+                <Route exact path="/assessment/:date?" render={() =>
+                    <AssessmentPage getAssessments={getAssessments}/>
+                }/>
+                <Route exact path="/settings" render={() => <SettingsPage/>}/>
+                <Route exact path="/settings/edit-email" render={() => <EditEmailPage/>}/>
+                <Route exact path="/settings/edit-phone" render={() => <EditPhonePage/>}/>
+                <Route exact path="/settings/change-password" render={() => <ChangePasswordPage/>}/>
+                <Route exact path="/record/:id" render={() => <VideoRecordingPage/>}/>
+                <Route exact path="/forgot-password" render={() => <ForgotPasswordPage/>}/>
+                <Route exact path="/sign-up" render={() => <SignupPage/>}/>
+                <Route exact path="/terms-of-service" render={() =>
+                    <TermsOfServicePage
+                        getTermsOfService={() => {
+                            return <PatientTermsOfServiceContent/>
+                        }}
+                    />
+                }/>
                 {generateRedirect()}
             </Switch>
             <NavigationBar entries={navigationEntries}/>

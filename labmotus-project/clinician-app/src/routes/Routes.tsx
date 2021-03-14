@@ -9,12 +9,14 @@ import {ClinicianTermsOfServiceContent} from "../components/ClinicianTermsOfServ
 import API, {getAPIContext} from "../api/API";
 import AllPatientsPage from "../pages/AllPatientsPage";
 import PatientProfilePage from "../pages/PatientProfilePage";
+import FinalizeSignupPage from "../pages/FinalizeSignupPage";
+import SignupPatientPage from "../pages/SignupPatientPage";
 
 export interface RoutesProps {
 }
 
-const loggedInPaths = ["/", "/home", "/assessment", "/settings/*", "/record", "/terms-of-service"];
-const loggedOutPaths = ["/", "/login", "/sign-up", "/forgot-password", "/terms-of-service"];
+const loggedInPaths = ["/home", "/assessment", "/settings/*", "/record", "/terms-of-service"];
+const loggedOutPaths = ["/login", "/forgot-password", "/terms-of-service"];
 
 const Routes: FunctionComponent<RoutesProps> = ({}) => {
     const UseAPI: API = useContext(getAPIContext());
@@ -38,6 +40,9 @@ const Routes: FunctionComponent<RoutesProps> = ({}) => {
                 history.push("/login");
             }
         }
+        if (location.pathname === '/') {
+            history.push(loggedIn ? loggedInPaths[0] : loggedOutPaths[0])
+        }
     }
 
     function generateRedirect(): ReactElement {
@@ -51,12 +56,14 @@ const Routes: FunctionComponent<RoutesProps> = ({}) => {
                 <Route exact path="/home" render={() => <AllPatientsPage/>}/>
                 <Route exact path="/forgot-password" render={() => <ForgotPasswordPage/>}/>
                 <Route exact path="/sign-up" render={() => <SignupPage/>}/>
+                <Route exact path="/finalize-sign-up" render={() => <FinalizeSignupPage/>}/>
                 <Route exact path="/terms-of-service"
                        render={() => <TermsOfServicePage getTermsOfService={() => {
                            return <ClinicianTermsOfServiceContent/>
                        }}/>}
                 />
                 <Route exact path="/patients/:id" render={() => <PatientProfilePage/>}/>
+                <Route exact path="/sign-up-patient" render={() => <SignupPatientPage/>}/>
                 {generateRedirect()}
             </Switch>
         </>

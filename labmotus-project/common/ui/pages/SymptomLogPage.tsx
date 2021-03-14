@@ -1,22 +1,21 @@
-import React, {FunctionComponent, SyntheticEvent, useEffect, useRef, useState} from "react";
+import {FunctionComponent, SyntheticEvent, useEffect, useRef, useState, useContext} from "react";
 // @ts-ignore
 import styled from 'styled-components';
-import {Theme, getThemeContext} from "../../../common/ui/theme/Theme";
+import {Theme, getThemeContext} from "../theme/Theme";
 import {IonSpinner} from "@ionic/react";
 import SymptomInstance from "../components/SymptomInstance";
-import {Assessment, AssessmentState} from "../../../common/types/types";
+import {Assessment, AssessmentState} from "../../types/types";
 import moment, {Moment} from "moment";
-import API, { getAPIContext } from "../api/API";
 import {useHistory, useParams} from "react-router";
 
 export interface SymptomLogPageProps {
+    getAssessments: (newWeek: Moment) => Promise<Assessment[]>
 }
 
 const dateFormat = 'YYYY-MM-DD';
 
-const SymptomLogPage: FunctionComponent<SymptomLogPageProps> = ({}) => {
-    const UseAPI: API = React.useContext(getAPIContext());
-    const theme = React.useContext(getThemeContext());
+const SymptomLogPage: FunctionComponent<SymptomLogPageProps> = (props: SymptomLogPageProps) => {
+    const theme = useContext(getThemeContext());
 
     const [data, setData] = useState<{ [key: string]: Assessment[] }>({});
     const [graphData, setGraphData] = useState([]);
@@ -56,8 +55,12 @@ const SymptomLogPage: FunctionComponent<SymptomLogPageProps> = ({}) => {
         }
     }
 
-    function updateData(newWeek: Moment, newIndex: number) {
-        UseAPI.getAssessments(newWeek).then(((assessments: Assessment[]) => {
+    function updateData(
+        getAssessments: (newWeek: Moment) => Promise<Assessment[]>,
+        newWeek: Moment,
+        newIndex: number) {
+
+        getAssessments(newWeek).then(((assessments: Assessment[]) => {
             const assessmentsByDay: { [key: string]: Assessment[] } = {};
             for (let i = 0; i < assessments.length; i++) if (assessments[i].state === AssessmentState.COMPLETE) {
                 const key = assessments[i].date.format(dateFormat);
@@ -92,7 +95,7 @@ const SymptomLogPage: FunctionComponent<SymptomLogPageProps> = ({}) => {
 
     useEffect(() => {
         if (Object.keys(data).length === 0) {
-            updateData(week, index)
+            updateData(props.getAssessments, week, index)
         }
     }, [data]);
 
@@ -101,7 +104,6 @@ const SymptomLogPage: FunctionComponent<SymptomLogPageProps> = ({}) => {
     }
 
     useEffect(() => {
-
         if (!moving) {
             const container: {
                 style: { transform: string, transition: string }
@@ -119,7 +121,7 @@ const SymptomLogPage: FunctionComponent<SymptomLogPageProps> = ({}) => {
         if (shift != null) {
             const [nextWeek, nextIndex] = shift;
             if (!data.hasOwnProperty(nextWeek.format(dateFormat))) {
-                updateData(nextWeek, nextIndex)
+                updateData(props.getAssessments, nextWeek, nextIndex)
             } else {
                 goto(nextWeek, nextIndex)
             }
@@ -133,7 +135,7 @@ const SymptomLogPage: FunctionComponent<SymptomLogPageProps> = ({}) => {
             if (currIndex === 8 || currIndex === 0) {
                 nextWeek.add(currIndex === 8 ? 7 : -7, 'd');
                 if (!data.hasOwnProperty(nextWeek.format(dateFormat))) {
-                    updateData(nextWeek, (currIndex + 6) % 7 + 1)
+                    updateData(props.getAssessments, nextWeek, (currIndex + 6) % 7 + 1)
                 } else {
                     goto(nextWeek, (currIndex + 6) % 7 + 1);
                 }

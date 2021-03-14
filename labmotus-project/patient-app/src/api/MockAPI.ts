@@ -82,7 +82,7 @@ class MockAPI extends API {
         return FakeClinician;
     }
 
-    async getAssessments(week: Moment = moment().startOf('day')): Promise<Assessment[]> {
+    async getCurrUsersAssessments(week: Moment = moment().startOf('day')): Promise<Assessment[]> {
         const weekStart = moment(week).startOf('week');
         if (this.mockAssessments.hasOwnProperty(weekStart.format("YYYY-MM-DD")))
             return this.mockAssessments[weekStart.format("YYYY-MM-DD")];
@@ -141,7 +141,8 @@ class MockAPI extends API {
                             unit: '\xb0'
                         },
 
-                    ]
+                    ],
+                    joints: []
                 });
                 data.push({
                     id: Math.floor(Math.random() * 1000000).toString(),
@@ -149,6 +150,7 @@ class MockAPI extends API {
                     name: "Hip",
                     date: date,
                     state: AssessmentState.PENDING,
+                    joints: []
                 });
                 data.push({
                     id: Math.floor(Math.random() * 1000000).toString(),
@@ -156,6 +158,7 @@ class MockAPI extends API {
                     name: "Arm",
                     date: date,
                     state: AssessmentState.MISSING,
+                    joints: []
                 });
             }
         }
