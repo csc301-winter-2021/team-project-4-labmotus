@@ -21,6 +21,7 @@ import MockAPI from "../../../../patient-app/src/api/MockAPI";
 import API, {getAPIContext} from '../../../../patient-app/src/api/API';
 
 import config from "../../../../patient-app/config.json"
+import {Moment} from 'moment';
 
 export default {
     title: 'Pages/Symptom Log Page',
@@ -37,7 +38,9 @@ const Template: Story<SymptomLogPageProps> = (args) =>
                 ref.parentNode.style.height = "100%";
             }
         }}>
-            <SymptomLogPage {...args}/>
+            <SymptomLogPage {...args} getAssessments={(week: Moment) => {
+                return UseAPI.getCurrUsersAssessments(week)
+            }}/>
         </RootDiv>
     </APIContext.Provider>;
 

@@ -12,13 +12,14 @@ import API, {getAPIContext} from "../api/API";
 import ForgotPasswordPage from "../pages/ForgotPasswordPage";
 import SignupPage from "../pages/SignupPage";
 import VideoRecordingPage from "../pages/VideoRecordingPage";
-import AssessmentPage from "../pages/AssessmentPage";
+import AssessmentPage from "../../../common/ui/pages/AssessmentPage";
 import {getThemeContext, Theme} from "../../../common/ui/theme/Theme";
 // @ts-ignore
 import styled from 'styled-components';
 import TermsOfServicePage from "../../../common/ui/pages/TermsOfServicePage";
 import {PatientTermsOfServiceContent} from "../components/PatientTermsOfServiceContent";
 import {Moment} from "moment/moment";
+import {Assessment} from "../../../common/types";
 
 export interface RoutesProps {
 }
@@ -70,7 +71,11 @@ const Routes: FunctionComponent<RoutesProps> = ({}) => {
     }
 
     function generateRedirect(): ReactElement {
-        return <Redirect exact from="/" to="/login" />;
+        return <Redirect exact from="/" to="/login"/>;
+    }
+
+    function getAssessments(week: Moment): Promise<Assessment[]> {
+        return UseAPI.getCurrUsersAssessments(week)
     }
 
     return (
@@ -78,13 +83,11 @@ const Routes: FunctionComponent<RoutesProps> = ({}) => {
             <Switch>
                 <Route exact path="/login" render={() => <LoginPage/>}/>
                 <Route exact path="/home/:date?" render={() =>
-                    <SymptomLogPage
-                        getAssessments={(week: Moment) => {
-                            return UseAPI.getCurrUsersAssessments(week)
-                        }}
-                    />
+                    <SymptomLogPage getAssessments={getAssessments}/>
                 }/>
-                <Route exact path="/assessment/:date?" render={() => <AssessmentPage/>}/>
+                <Route exact path="/assessment/:date?" render={() =>
+                    <AssessmentPage getAssessments={getAssessments}/>
+                }/>
                 <Route exact path="/settings" render={() => <SettingsPage/>}/>
                 <Route exact path="/settings/edit-email" render={() => <EditEmailPage/>}/>
                 <Route exact path="/settings/edit-phone" render={() => <EditPhonePage/>}/>
