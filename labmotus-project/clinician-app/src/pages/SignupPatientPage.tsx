@@ -1,8 +1,8 @@
 import React, {FunctionComponent, useContext, useState} from "react";
-import {IonAlert, IonContent, IonInput, IonItem, IonPage} from "@ionic/react";
+import {IonAlert, IonContent, IonInput, IonPage} from "@ionic/react";
 // @ts-ignore
 import styled from "styled-components";
-import {Theme, getThemeContext} from "../../../common/ui/theme/Theme";
+import {getThemeContext, Theme} from "../../../common/ui/theme/Theme";
 import {DateDisplay} from "../components/DateDisplay";
 import API, {getAPIContext} from "../api/API";
 import moment, {Moment} from "moment";
@@ -25,7 +25,7 @@ const SignupPatientPage: FunctionComponent<SignupPatientPageProps> = () => {
 
     // When user signs up for an account
     async function signUp() {
-        console.log("email",email, "phone",phone, "name",name)
+        console.log("email", email, "phone", phone, "name", name);
         if (!email) {
             setHeader("Invalid Email");
             setMessage("Please enter patient's email.");
@@ -62,12 +62,8 @@ const SignupPatientPage: FunctionComponent<SignupPatientPageProps> = () => {
               incomplete: true,
             };
 
-            //add patient to database 
+            // add patient to database
             await UseAPI.createPatient(patient);
-
-            // Add patient to clinician patientIds, and update clinician in database
-            clinician.patientIDs.push(patientId);
-            await UseAPI.updateClinician(clinician);
 
         } catch (e) {
             console.error(e);
