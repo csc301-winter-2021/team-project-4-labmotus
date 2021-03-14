@@ -1,4 +1,4 @@
-import React, {FunctionComponent, ReactElement, useContext, useEffect} from "react";
+import {FunctionComponent, ReactElement, useContext, useEffect} from "react";
 import {Redirect, Route, Switch, useHistory, useLocation} from "react-router-dom";
 
 import ForgotPasswordPage from "../pages/ForgotPasswordPage";
@@ -8,6 +8,7 @@ import TermsOfServicePage from "../../../common/ui/pages/TermsOfServicePage";
 import {ClinicianTermsOfServiceContent} from "../components/ClinicianTermsOfServiceContent";
 import API, {getAPIContext} from "../api/API";
 import AllPatientsPage from "../pages/AllPatientsPage";
+import PatientProfilePage from "../pages/PatientProfilePage";
 import FinalizeSignupPage from "../pages/FinalizeSignupPage";
 import SignupPatientPage from "../pages/SignupPatientPage";
 
@@ -61,6 +62,7 @@ const Routes: FunctionComponent<RoutesProps> = ({}) => {
                            return <ClinicianTermsOfServiceContent/>
                        }}/>}
                 />
+                <Route exact path="/patients/:id" render={() => <PatientProfilePage/>}/>
                 <Route exact path="/sign-up-patient" render={() => <SignupPatientPage/>}/>
                 {generateRedirect()}
             </Switch>
