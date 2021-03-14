@@ -1,12 +1,12 @@
 import {FunctionComponent, useContext} from "react";
 // @ts-ignore
 import styled from 'styled-components';
-import {Theme, getThemeContext} from "../../../common/ui/theme/Theme";
+import {Theme, getThemeContext} from "../theme/Theme";
 // @ts-ignore
-import Accordion from "../../../common/ui/components/Accordion";
-import SymptomProgressBar from "../../../common/ui/components/SymptomProgressBar";
+import Accordion from "./Accordion";
+import SymptomProgressBar from "./SymptomProgressBar";
 import Scrollbar from "react-scrollbars-custom";
-import {Stats} from "../../../common/types/types";
+import {Stats} from "../../types";
 
 export interface SymptomLogProps {
     logs?: Stats[]
