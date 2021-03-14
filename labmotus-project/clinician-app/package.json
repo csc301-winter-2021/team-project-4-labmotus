@@ -23,6 +23,8 @@
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.2",
+    "react-scrollbars-custom": "^4.0.25",
+    "recharts": "^2.0.8",
     "styled-components": "^5.2.1",
     "ts-loader": "^8.0.17",
     "typescript": "^4.1.3",
