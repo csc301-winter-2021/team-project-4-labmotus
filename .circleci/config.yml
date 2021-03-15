@@ -111,3 +111,4 @@ workflows:
               only: main
           context:
             - labmotus-aws
+      - deploy-patient
