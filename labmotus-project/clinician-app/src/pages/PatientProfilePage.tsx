@@ -1,18 +1,49 @@
 import {IonContent, IonPage, IonModal} from "@ionic/react";
-import {FunctionComponent, useContext, useState} from "react";
+import React, {FunctionComponent, useContext, useEffect, useRef, useState} from "react";
 //@ts-ignore
 import styled from "styled-components";
 
 import {ProfilePictureComponent} from "../../../common/ui/components/ProfilePictureComponent";
 import {Theme, getThemeContext} from "../../../common/ui/theme/Theme";
+import API, {getAPIContext} from "../api/API";
+import {useParams} from "react-router";
+import {Moment} from "moment/moment";
+import {Assessment, Patient} from "../../../common/types";
+import SymptomLogPage from "../../../common/ui/pages/SymptomLogPage";
 
 export interface PatientProfilePageProps {
 }
+
+const dateFormat = 'YYYY-MM-DD';
 
 const PatientProfilePage: FunctionComponent<PatientProfilePageProps> = () => {
     const theme: Theme = useContext(getThemeContext());
 
     const [showModal, setShowModal] = useState(false);
+    const UseAPI: API = useContext(getAPIContext());
+    const params: { patientId: string } = useParams();
+
+    const [patientName, setPatientName] = useState("")
+    const [patientEmail, setPatientEmail] = useState("")
+    const [patientPhone, setPatientPhone] = useState("")
+    const [patientBirthday, setPatientBirthday] = useState("")
+
+    function getAssessments(week: Moment): Promise<Assessment[]> {
+        let data = UseAPI.getAssessments(params.patientId, week)
+        console.log(data)
+        return data
+    }
+
+    useEffect(() => {
+        UseAPI.getPatient(params.patientId).then(
+            (retPatient: Patient) => {
+                setPatientName(retPatient.user.name)
+                setPatientEmail(retPatient.user.email)
+                setPatientPhone(retPatient.phone)
+                setPatientBirthday(retPatient.birthday.format(dateFormat))
+            }
+        )
+    }, [patientName])
 
     return (
         <IonPage>
@@ -25,17 +56,17 @@ const PatientProfilePage: FunctionComponent<PatientProfilePageProps> = () => {
                         </div>
                         <div className="profile-text">
                             <div className="profile-name">
-                                <h1>First Last</h1>
+                                <h1>{patientName}</h1>
                             </div>
                             <div className="profile-info">
                                 <p>
-                                    Phone: <span>123-456-789</span>
+                                    Phone: <span>{patientEmail}</span>
                                 </p>
                                 <p>
-                                    Email: <span>email@email.com</span>
+                                    Email: <span>{patientPhone}</span>
                                 </p>
                                 <p>
-                                    DOB: <span>January 1, 2000</span>
+                                    DOB: <span>{patientBirthday}</span>
                                 </p>
                             </div>
                         </div>
@@ -45,13 +76,14 @@ const PatientProfilePage: FunctionComponent<PatientProfilePageProps> = () => {
                         <h1>Edit Patient Profile</h1>
                     </IonModal>
                 </PatientProfilePageDiv>
+                <SymptomLogPage baseUrl={"/patients/" + params.patientId} getAssessments={getAssessments}/>
             </IonContent>
         </IonPage>
     );
 };
 
 const PatientProfilePageDiv = styled.div`
-  overflow: hidden;
+  //overflow: hidden;
   max-width: 80vw;
   margin: 0 auto;
 

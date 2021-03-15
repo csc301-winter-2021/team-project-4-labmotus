@@ -62,7 +62,7 @@ const Routes: FunctionComponent<RoutesProps> = ({}) => {
                            return <ClinicianTermsOfServiceContent/>
                        }}/>}
                 />
-                <Route exact path="/patients/:id" render={() => <PatientProfilePage/>}/>
+                <Route exact path="/patients/:patientId/:date?" render={() => <PatientProfilePage/>}/>
                 <Route exact path="/sign-up-patient" render={() => <SignupPatientPage/>}/>
                 {generateRedirect()}
             </Switch>

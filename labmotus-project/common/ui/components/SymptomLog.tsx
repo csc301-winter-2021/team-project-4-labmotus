@@ -5,6 +5,7 @@ import {Theme, getThemeContext} from "../theme/Theme";
 // @ts-ignore
 import Accordion from "./Accordion";
 import SymptomProgressBar from "./SymptomProgressBar";
+// @ts-ignore
 import Scrollbar from "react-scrollbars-custom";
 import {Stats} from "../../types";
 
