@@ -93,6 +93,7 @@ jobs:
             npx ionic build
             npx cap sync
             cd android
+            chmod +x ./gradlew
             ./gradlew build
 workflows:
   test-and-deploy:
