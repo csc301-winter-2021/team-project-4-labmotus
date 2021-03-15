@@ -9,10 +9,9 @@ import {
 // @ts-ignore
 import styled from "styled-components";
 import API, {getAPIContext} from "../api/API";
-import {Patient} from "../../../common/types/types";
+import {Clinician} from "../../../common/types/types";
 import {Theme, getThemeContext} from "../../../common/ui/theme/Theme";
 import SettingsList from "../../../common/ui/components/SettingsList";
-
 
 import {useHistory} from "react-router";
 
@@ -22,8 +21,9 @@ export interface SettingsPageProps {
 const SettingsPage: FunctionComponent<SettingsPageProps> = () => {
     const theme: Theme = useContext(getThemeContext());
     const UseAPI: API = useContext(getAPIContext());
-    const patient: Patient = UseAPI.getCurrentUser();
     const history = useHistory();
+
+    const clinician: Clinician = UseAPI.getCurrentUser();
 
     // When user logs out
     async function onLogOut() {
@@ -33,11 +33,6 @@ const SettingsPage: FunctionComponent<SettingsPageProps> = () => {
     // When user clicks on their email
     function editEmail() {
         history.push("/settings/edit-email");
-    }
-
-    // When user clicks on their phone number
-    function editPhone() {
-        history.push("/settings/edit-phone");
     }
 
     // When user clicks on 'Change Password'
@@ -60,13 +55,14 @@ const SettingsPage: FunctionComponent<SettingsPageProps> = () => {
                 </IonHeader>
                 <IonContent fullscreen>
                     <SettingsList
-                        patient={true}
-                        name={patient?.user?.name}
-                        birthday={patient?.birthday.format(theme.birthdayFormat)}
-                        email={patient?.user?.email}
+                        patient={false}
+                        name={clinician?.user?.name}
+                        clinic={clinician?.clinic}
+                        // birthday=
+                        email={clinician?.user?.email}
                         editEmail={editEmail}
-                        phone={patient?.phone}
-                        editPhone={editPhone}
+                        // phone: string;
+                        // editPhone: any;
                         changePassword={changePassword}
                         viewTermsOfService={termsOfService}
                         onLogOut={onLogOut}
@@ -78,9 +74,9 @@ const SettingsPage: FunctionComponent<SettingsPageProps> = () => {
 };
 
 const SettingsPageDiv = styled.div`
-  overflow: hidden;
-  width: 100%;
-  height: 100%;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
 `;
 
 export default SettingsPage;
