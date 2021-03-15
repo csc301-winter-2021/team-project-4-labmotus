@@ -53,9 +53,10 @@ const SettingsPage: FunctionComponent<SettingsPageProps> = () => {
         try {
             clinician.user.email = email;
             clinician = await UseAPI.updateClinician(clinician);
-            setEditEmail(false);
         } catch (e) {
             console.error(e);
+        } finally {
+            setEditEmail(false);
         }
     }
 
@@ -86,7 +87,7 @@ const SettingsPage: FunctionComponent<SettingsPageProps> = () => {
                             changePassword={onChangePassword}
                             viewTermsOfService={termsOfService}
                             onLogOut={onLogOut}
-                        />
+                            birthday={null} editPhone={(): void => null} phone=""/>
                     </div>
                 </IonContent>
             </IonPage>

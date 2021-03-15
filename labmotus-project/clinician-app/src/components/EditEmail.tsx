@@ -3,7 +3,7 @@ import {IonInput} from "@ionic/react";
 // @ts-ignore
 import styled from "styled-components";
 
-import {Theme, getThemeContext} from "../../../common/ui/theme/Theme";
+import {getThemeContext, Theme} from "../../../common/ui/theme/Theme";
 
 export interface EditEmailProps {
     email: string;
@@ -24,7 +24,7 @@ export const EditEmail: FunctionComponent<EditEmailProps> = (props: EditEmailPro
                     clearInput={true}
                     value={props.email}
                     onIonChange={(e) => props.setEmail(e.detail.value!)}
-                ></IonInput>
+                />
                 <button onClick={props.save} className="save-edit-button">
                     Edit Email
                 </button>

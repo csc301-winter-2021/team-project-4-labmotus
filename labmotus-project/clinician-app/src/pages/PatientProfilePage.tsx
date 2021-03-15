@@ -1,11 +1,11 @@
-import {IonContent, IonPage, IonModal} from "@ionic/react";
+import {IonContent, IonModal, IonPage} from "@ionic/react";
 import {FunctionComponent, useContext, useEffect, useState} from "react";
 //@ts-ignore
 import styled from "styled-components";
 import moment from "moment";
 
 import {ProfilePictureComponent} from "../../../common/ui/components/ProfilePictureComponent";
-import {Theme, getThemeContext} from "../../../common/ui/theme/Theme";
+import {getThemeContext, Theme} from "../../../common/ui/theme/Theme";
 import API, {getAPIContext} from "../api/API";
 import {useParams} from "react-router";
 import {Moment} from "moment/moment";
@@ -23,15 +23,14 @@ const PatientProfilePage: FunctionComponent<PatientProfilePageProps> = () => {
     const UseAPI: API = useContext(getAPIContext());
     const params: { patientId: string } = useParams();
 
+    const [patient, setPatient] = useState<Patient>(null);
     const [patientName, setPatientName] = useState("");
     const [patientEmail, setPatientEmail] = useState("");
     const [patientPhone, setPatientPhone] = useState("");
-    const [patientBirthday, setPatientBirthday] = useState("");
+    const [patientBirthday, setPatientBirthday] = useState<Moment>(moment());
 
     function getAssessments(week: Moment): Promise<Assessment[]> {
-        let data = UseAPI.getAssessments(params.patientId, week);
-        console.log(data);
-        return data;
+        return UseAPI.getAssessments(params.patientId, week);
     }
 
     useEffect(() => {
@@ -39,16 +38,24 @@ const PatientProfilePage: FunctionComponent<PatientProfilePageProps> = () => {
             setPatientName(retPatient.user.name);
             setPatientEmail(retPatient.user.email);
             setPatientPhone(retPatient.phone);
-            setPatientBirthday(retPatient.birthday.format(theme.birthdayFormat));
+            setPatientBirthday(moment(retPatient.birthday));
+            setPatient(patient);
         });
-    }, [patientName]);
+    }, [params.patientId]);
 
     async function updatePatient() {
         try {
-            // await UseAPI.updatePatient(patient);
-            setEditPatient(false);
+            if (patient != null) {
+                patient.user.name = patientName;
+                patient.user.email = patientEmail;
+                patient.phone = patientPhone;
+                patient.birthday = moment(patientBirthday);
+                UseAPI.updatePatient(patient).then(value => setPatient(value));
+            }
         } catch (e) {
             console.error(e);
+        } finally {
+            setEditPatient(false);
         }
     }
 
@@ -73,7 +80,7 @@ const PatientProfilePage: FunctionComponent<PatientProfilePageProps> = () => {
                                     Email: <span>{patientEmail}</span>
                                 </p>
                                 <p>
-                                    DOB: <span>{patientBirthday}</span>
+                                    DOB: <span>{patientBirthday.format(theme.birthdayFormat)}</span>
                                 </p>
                             </div>
                         </div>
