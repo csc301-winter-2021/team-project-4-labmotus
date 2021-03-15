@@ -1,7 +1,7 @@
 import React, {FunctionComponent, ReactElement, useContext, useEffect} from "react";
 import {Redirect, Route, Switch, useHistory, useLocation} from "react-router-dom";
 import SymptomLogPage from "../../../common/ui/pages/SymptomLogPage";
-import NavigationBar from "../components/NavigationBar";
+import NavigationBar from "../../../common/ui/components/NavigationBar";
 import {barChart, home, settings} from "ionicons/icons";
 import SettingsPage from "../pages/SettingsPage";
 import EditEmailPage from "../pages/EditEmailPage";
@@ -113,6 +113,8 @@ const BackgroundDiv = styled.div`
     background-color: ${({theme}: { theme: Theme }) => theme.colors.background};
     width: 100%;
     height: 100%;
+    display: flex;
+    flex-direction: column;
 `;
 
 export default Routes;

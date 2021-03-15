@@ -3,21 +3,21 @@ import {IonIcon, IonItem, IonLabel, IonList, IonListHeader} from "@ionic/react";
 // @ts-ignore
 import styled from "styled-components";
 import {
-    lockClosedOutline,
-    helpCircleOutline,
-    personOutline,
-    calendarClearOutline,
     businessOutline,
+    calendarClearOutline,
     callOutline,
-    mailOutline,
+    helpCircleOutline,
+    lockClosedOutline,
     logOutOutline,
+    mailOutline,
+    personOutline,
 } from "ionicons/icons";
-import {Theme, getThemeContext} from "../theme/Theme";
+import {getThemeContext, Theme} from "../theme/Theme";
 
 export interface SettingsListProps {
     patient: boolean;
     name: string;
-    clinic: string;
+    clinic?: string;
     birthday: string;
     email: string;
     editEmail: any;
