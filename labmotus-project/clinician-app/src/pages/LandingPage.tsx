@@ -19,10 +19,7 @@ const LandingPage: FunctionComponent<LandingPageProps> = () => {
         console.log("redirect");
         history.push("/login");
     }
-    // When user clicks 'Terms of Services'
-    function termsOfService() {
-        history.push("/terms-of-service");
-    }
+    
     return (
         <IonPage>
             <IonContent fullscreen>

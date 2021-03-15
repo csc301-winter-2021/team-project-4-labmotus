@@ -1,4 +1,4 @@
-import React, {FunctionComponent, useContext, useState} from "react";
+import {FunctionComponent, useContext, useState} from "react";
 import {
     IonAlert,
     IonButtons,
@@ -12,10 +12,10 @@ import {
 } from "@ionic/react";
 // @ts-ignore
 import styled from "styled-components";
-import { Theme, getThemeContext } from "../../../common/ui/theme/Theme";
-import API, { getAPIContext } from "../api/API";
-import { useHistory } from "react-router";
-import { chevronBack } from "ionicons/icons";
+import {Theme, getThemeContext} from "../../../common/ui/theme/Theme";
+import API, {getAPIContext} from "../api/API";
+import {useHistory} from "react-router";
+import {chevronBack} from "ionicons/icons";
 
 export interface ChangePasswordPageProps {
 }
@@ -65,7 +65,7 @@ const ChangePasswordPage: FunctionComponent<ChangePasswordPageProps> = () => {
                 <IonHeader>
                     <IonToolbar>
                         <IonButtons slot="start" onClick={back}>
-                            <IonIcon icon={chevronBack} />
+                            <IonIcon icon={chevronBack}/>
                             Back
                         </IonButtons>
                         <IonButtons slot="end" onClick={changePassword}>
@@ -75,28 +75,30 @@ const ChangePasswordPage: FunctionComponent<ChangePasswordPageProps> = () => {
                     </IonToolbar>
                 </IonHeader>
                 <IonContent>
-                    <IonInput
-                        type="password"
-                        placeholder="Current Password"
-                        autofocus={true}
-                        clearInput={true}
-                        value={currPassword}
-                        onIonChange={(e) => setCurrPassword(e.detail.value!)}
-                    ></IonInput>
-                    <IonInput
-                        type="password"
-                        placeholder="New Password"
-                        clearInput={true}
-                        value={newPassword}
-                        onIonChange={(e) => setNewPassword(e.detail.value!)}
-                    ></IonInput>
-                    <IonInput
-                        type="password"
-                        placeholder="Confirm New Password"
-                        clearInput={true}
-                        value={confirmPassword}
-                        onIonChange={(e) => setConfirmPassword(e.detail.value!)}
-                    ></IonInput>
+                    <form>
+                        <IonInput
+                            type="password"
+                            placeholder="Current Password"
+                            autofocus={true}
+                            clearInput={true}
+                            value={currPassword}
+                            onIonChange={(e) => setCurrPassword(e.detail.value!)}
+                        ></IonInput>
+                        <IonInput
+                            type="password"
+                            placeholder="New Password"
+                            clearInput={true}
+                            value={newPassword}
+                            onIonChange={(e) => setNewPassword(e.detail.value!)}
+                        ></IonInput>
+                        <IonInput
+                            type="password"
+                            placeholder="Confirm New Password"
+                            clearInput={true}
+                            value={confirmPassword}
+                            onIonChange={(e) => setConfirmPassword(e.detail.value!)}
+                        ></IonInput>
+                    </form>
                 </IonContent>
             </IonPage>
             <IonAlert
@@ -111,21 +113,24 @@ const ChangePasswordPage: FunctionComponent<ChangePasswordPageProps> = () => {
 };
 
 const ChangePasswordPageDiv = styled.div`
-    overflow: hidden;
-    width: 100%;
-    height: 100%;
-    ion-input {
-        margin: 10px 0;
-        background-color: ${({ theme }: { theme: Theme }) => theme.colors.light};
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+
+  ion-input {
+    margin: 10px 0;
+    background-color: ${({theme}: { theme: Theme }) => theme.colors.light};
+  }
+
+  ion-buttons {
+    color: ${({theme}: { theme: Theme }) => theme.colors.primary};
+    cursor: pointer;
+
+    ion-icon {
+      height: 25px;
+      width: 25px;
     }
-    ion-buttons {
-        color: ${({ theme }: { theme: Theme }) => theme.colors.primary};
-        cursor: pointer;
-        ion-icon {
-            height: 25px;
-            width: 25px;
-        }
-    }
+  }
 `;
 
 export default ChangePasswordPage;

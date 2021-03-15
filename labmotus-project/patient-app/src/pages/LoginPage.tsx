@@ -3,7 +3,7 @@ import {IonAlert, IonContent, IonPage} from "@ionic/react";
 // @ts-ignore
 import styled from "styled-components";
 import {Theme, getThemeContext} from "../../../common/ui/theme/Theme";
-import API, { getAPIContext } from "../api/API";
+import API, {getAPIContext} from "../api/API";
 import {useHistory} from "react-router";
 import LoginForm from "../../../common/ui/components/LoginForm";
 
@@ -79,27 +79,26 @@ const LoginPage: FunctionComponent<LoginPageProps> = () => {
                 buttons={["OK"]}
             />
         </IonPage>
-  );
+    );
 };
 
 const LoginPageDiv = styled.div`
-    overflow: hidden;
-    text-align: center;
-    h1 {
-        font-weight: bold;
-        margin-top: 15vh;
-    }
-    .login-button {
-        background-color: ${({theme}: { theme: Theme }) => theme.colors.primary};
-        color: white;
-    }
-    .footer {
-        margin-top: 65vh;
-    }
-    span {
-        cursor: pointer;
-        color: ${({theme}: { theme: Theme }) => theme.colors.primary};
-    }
+  overflow: hidden;
+  text-align: center;
+
+  h1 {
+    font-weight: bold;
+    margin-top: 15vh;
+  }
+
+  .footer {
+    margin-top: 65vh;
+  }
+
+  span {
+    cursor: pointer;
+    color: ${({theme}: { theme: Theme }) => theme.colors.primary};
+  }
 `;
 
 export default LoginPage;

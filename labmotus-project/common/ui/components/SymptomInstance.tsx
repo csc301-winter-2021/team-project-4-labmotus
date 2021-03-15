@@ -64,8 +64,11 @@ const SymptomInstance: FunctionComponent<SymptomInstanceProps> = ({
         <HeaderDiv theme={theme}>
             {date?.format('MMMM Do YYYY')}
         </HeaderDiv>
-        <DateDisplay date={date} changeDay={changeDay}/>
-        <div onClick={toToday}>Go to today</div>
+        <DateChangeDiv theme={theme}>
+            <DateDisplay displayFormat="DDD" dayShortNames={Array(7).fill("Select Date")} date={date}
+                         changeDay={changeDay}/>
+            <div onClick={toToday}>Go to Today</div>
+        </DateChangeDiv>
         <GraphDiv ref={colorLabel}>
             <ResponsiveContainer width="100%" height="100%">
                 <LineChart data={graphData}>
@@ -105,46 +108,59 @@ const SymptomInstance: FunctionComponent<SymptomInstanceProps> = ({
 };
 
 const SymptomInstanceDiv = styled.div`
-    display: flex;
-    flex-direction: column;
-    box-sizing: border-box;
-    padding-top: 10%;
-    padding-left: 7%;
-    padding-right: 7%;
-    .symptom-log {
-        flex: 1;
-    }
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  padding-top: 10%;
+  padding-left: 7%;
+  padding-right: 7%;
+
+  .symptom-log {
+    flex: 1;
+  }
 `;
 
 const HeaderDiv = styled.div`
-    font-size: ${({theme}: { theme: Theme }) => theme.headerFontSize};
-    font-family: ${({theme}: { theme: Theme }) => theme.headerFontFamily};
-    color: ${({theme}: { theme: Theme }) => theme.colors.contrast};
-    text-align: center;
-    margin-bottom: 2%;
+  font-size: ${({theme}: { theme: Theme }) => theme.headerFontSize};
+  font-family: ${({theme}: { theme: Theme }) => theme.headerFontFamily};
+  color: ${({theme}: { theme: Theme }) => theme.colors.contrast};
+  text-align: center;
+  margin-bottom: 2%;
+`;
+
+const DateChangeDiv = styled.div`
+  font-size: ${({theme}: { theme: Theme }) => theme.subheaderFontSize};
+  font-family: ${({theme}: { theme: Theme }) => theme.subheaderFontFamily};
+  color: ${({theme}: { theme: Theme }) => theme.colors.secondary};
+  text-align: center;
+  margin-bottom: 2%;
+
+  div {
+    margin-left: 10px;
+  }
 `;
 
 const GraphDiv = styled.div`
-    flex: 0.7;
-    padding: 2%;
+  flex: 0.7;
+  padding: 2%;
 `;
 
 const ViewAssessmentDiv = styled.div`
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
-    margin-top: 3%;
-    margin-bottom: 3%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  margin-top: 3%;
+  margin-bottom: 3%;
 `;
 
 const ViewAssessmentButton = styled.div`
-    font-size: ${({theme}: { theme: Theme }) => theme.primaryFontSize};
-    font-family: ${({theme}: { theme: Theme }) => theme.primaryFontFamily};
-    color: ${({theme}: { theme: Theme }) => theme.colors.contrast};
-    font-weight: bold;
-    display: flex;
-    align-items: center;
-    cursor: pointer;
+  font-size: ${({theme}: { theme: Theme }) => theme.primaryFontSize};
+  font-family: ${({theme}: { theme: Theme }) => theme.primaryFontFamily};
+  color: ${({theme}: { theme: Theme }) => theme.colors.contrast};
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
 `;
 
 export default SymptomInstance;

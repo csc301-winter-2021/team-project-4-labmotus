@@ -153,6 +153,15 @@ class MockAPI extends API {
         return patientList;
     }
 
+    async getPatient(patientID?: string): Promise<Patient> {
+        for (let patient of patientList) {
+            if (patient.user.id === patientID) {
+                return patient
+            }
+        }
+        throw Error("Patient not found")
+    }
+
     isLoggedIn(): boolean {
         return this._user !== null
     }

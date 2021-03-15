@@ -1,32 +1,33 @@
-import {FunctionComponent, useState} from 'react';
-import {IonDatetime} from '@ionic/react';
+import React, {FunctionComponent, useEffect, useState} from 'react';
+import {IonDatetime} from "@ionic/react";
 import moment, {Moment} from "moment";
 
 export interface DateDisplayProps {
     date: Moment;
+    displayFormat: string;
+    dayShortNames?: string[];
     changeDay?: (newDay: Moment) => void;
 }
 
-export const DateDisplay: FunctionComponent<DateDisplayProps> = ({date, changeDay}) => {
+export const DateDisplay: FunctionComponent<DateDisplayProps> = ({date, displayFormat, dayShortNames, changeDay}) => {
     const [selectedDate, setSelectedDate] = useState<string>(date.format("YYYY-MM-DD"));
+    useEffect(() => {
+        setSelectedDate(date.format("YYYY-MM-DD"))
+    }, [date]);
     return (
-        <IonDatetime displayFormat="DDD" pickerFormat="MMMM DD YYYY"
-                     dayShortNames={["Select date", "Select date", "Select date", "Select date", "Select date", "Select date", "Select date"]}
-            // dayShortNames is a really stupid way to show the "Select date" title, by renaming each day of the week as "Select date"
-            // and making "DDD" the format of the title
+        <IonDatetime
+            displayFormat={displayFormat}
+            pickerFormat="MMMM DD YYYY"
+            dayShortNames={dayShortNames}
 
-                     value={selectedDate}
-                     onIonChange={e => {
-                         console.log("e.detail.value: " + e.detail.value!);
-                         setSelectedDate(e.detail.value!);
-                         console.log("e.detail.value: " + e.detail.value!);
-                         changeDay(moment(e.detail.value!, 'YYYY-MM-DD'));
-                     }
-                     }
-                     onIonFocus={() => {
-                         setSelectedDate(date.format('YYYY-MM-DD'))
-                     }
-                     }
+            value={selectedDate}
+            onIonChange={(e) => {
+                setSelectedDate(e.detail.value!);
+                changeDay(moment(e.detail.value!, "YYYY-MM-DD"));
+            }}
+            onIonFocus={() => {
+                setSelectedDate(date.format("YYYY-MM-DD"));
+            }}
         />
-    )
+    );
 };

@@ -1,14 +1,14 @@
 import React, {FunctionComponent, useContext, useState} from "react";
-import {IonAlert, IonButtons, IonContent, IonIcon, IonInput, IonPage} from "@ionic/react";
+import {IonAlert, IonHeader, IonButtons, IonContent, IonIcon, IonInput, IonPage, IonToolbar} from "@ionic/react";
 // @ts-ignore
 import styled from "styled-components";
 import {getThemeContext, Theme} from "../../../common/ui/theme/Theme";
-import {DateDisplay} from "../components/DateDisplay";
+import {DateDisplay} from "../../../common/ui/components/DateDisplay";
 import API, {getAPIContext} from "../api/API";
 import moment, {Moment} from "moment";
 import {Clinician, Patient} from "../../../common/types/types";
-import { useHistory } from "react-router";
-import { chevronBack } from "ionicons/icons";
+import {useHistory} from "react-router";
+import {chevronBack} from "ionicons/icons";
 
 export interface SignupPatientPageProps {
 }
@@ -26,13 +26,13 @@ const SignupPatientPage: FunctionComponent<SignupPatientPageProps> = () => {
     const [birthday, setBirthday] = useState<Moment>(moment());
 
     const history = useHistory();
-    // When user clicks 'Back'
 
+    // When user clicks 'Back'
     function back() {
-      history.goBack();
+        history.goBack();
     }
 
-    // When user signs up for an account
+    // When user signs patient up for an account
     async function signUpPatient() {
 
         if (!email) {
@@ -42,36 +42,35 @@ const SignupPatientPage: FunctionComponent<SignupPatientPageProps> = () => {
             return;
         }
         if (!phone) {
-          setHeader("Invalid Phone Number");
-          setMessage("Please enter patient's phone number.");
-          openAlert(true);
-          return;
+            setHeader("Invalid Phone Number");
+            setMessage("Please enter patient's phone number.");
+            openAlert(true);
+            return;
         }
         if (!name) {
-          setHeader("Invalid Name");
-          setMessage("Please enter patient's full name.");
-          openAlert(true);
-          return;
+            setHeader("Invalid Name");
+            setMessage("Please enter patient's full name.");
+            openAlert(true);
+            return;
         }
 
         try {
-
-        // create patient
+            // Create patient
             const clinician: Clinician = await UseAPI.getClinician();
             const patientId = "1234";
             const patient: Patient = {
-              user: {
-                  email: email,
-                  id: patientId,
-                  name: name,
-              },
-              clinicianID: clinician.user.id,
-              birthday: birthday,
-              phone: phone,
-              incomplete: true,
+                user: {
+                    email: email,
+                    id: patientId,
+                    name: name,
+                },
+                clinicianID: clinician.user.id,
+                birthday: birthday,
+                phone: phone,
+                incomplete: true,
             };
 
-            // add patient to database
+            // Add patient to database
             await UseAPI.createPatient(patient);
 
         } catch (e) {
@@ -81,12 +80,18 @@ const SignupPatientPage: FunctionComponent<SignupPatientPageProps> = () => {
 
     return (
         <IonPage>
+            <IonHeader>
+              <IonToolbar>
+                    <BackButtonDiv theme={theme}>
+                        <IonButtons slot="start" onClick={back}>
+                            <IonIcon icon={chevronBack}/>
+                            Back
+                        </IonButtons>
+                    </BackButtonDiv>
+                </IonToolbar>
+            </IonHeader>
             <IonContent fullscreen>
                 <SignupPatientPageDiv theme={theme}>
-                    <IonButtons slot="start" onClick={back}>
-                        <IonIcon icon={chevronBack} />
-                        Back
-                    </IonButtons>
                     <h1>LabMotus</h1>
                     <h3>Clinician Portal</h3>
                     <div className="main-padding">
@@ -105,7 +110,7 @@ const SignupPatientPage: FunctionComponent<SignupPatientPageProps> = () => {
                                     <DateDisplay
                                         date={birthday}
                                         changeDay={setBirthday}
-                                    />
+                                        displayFormat={"YYYY-MM-DD"}/>
                                 </div>
                                 <IonInput
                                     class="input"
@@ -148,7 +153,7 @@ const SignupPatientPageDiv = styled.div`
 
   .main-padding {
     position: absolute;
-    top: 50%;
+    top: 55%;
     left: 50%;
     transform: translate(-50%, -50%);
     width: 100%;
@@ -212,6 +217,18 @@ const SignupPatientPageDiv = styled.div`
   span {
     cursor: pointer;
     color: ${({theme}: { theme: Theme }) => theme.colors.primary};
+  }
+`;
+
+const BackButtonDiv = styled.div`
+  ion-buttons {
+    color: ${({theme}: { theme: Theme }) => theme.colors.primary};
+    cursor: pointer;
+
+    ion-icon {
+      height: 25px;
+      width: 25px;
+    }
   }
 `;
 

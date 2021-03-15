@@ -1,10 +1,17 @@
-import {IonContent, IonPage, IonModal} from "@ionic/react";
-import {FunctionComponent, useContext, useState} from "react";
+import {IonContent, IonModal, IonPage} from "@ionic/react";
+import {FunctionComponent, useContext, useEffect, useState} from "react";
 //@ts-ignore
 import styled from "styled-components";
+import moment from "moment";
 
 import {ProfilePictureComponent} from "../../../common/ui/components/ProfilePictureComponent";
-import {Theme, getThemeContext} from "../../../common/ui/theme/Theme";
+import {getThemeContext, Theme} from "../../../common/ui/theme/Theme";
+import API, {getAPIContext} from "../api/API";
+import {useParams} from "react-router";
+import {Moment} from "moment/moment";
+import {Assessment, Patient} from "../../../common/types";
+import SymptomLogPage from "../../../common/ui/pages/SymptomLogPage";
+import EditPatient from "../components/EditPatient";
 
 export interface PatientProfilePageProps {
 }
@@ -12,7 +19,45 @@ export interface PatientProfilePageProps {
 const PatientProfilePage: FunctionComponent<PatientProfilePageProps> = () => {
     const theme: Theme = useContext(getThemeContext());
 
-    const [showModal, setShowModal] = useState(false);
+    const [showEditPatient, setEditPatient] = useState(false);
+    const UseAPI: API = useContext(getAPIContext());
+    const params: { patientId: string } = useParams();
+
+    const [patient, setPatient] = useState<Patient>(null);
+    const [patientName, setPatientName] = useState("");
+    const [patientEmail, setPatientEmail] = useState("");
+    const [patientPhone, setPatientPhone] = useState("");
+    const [patientBirthday, setPatientBirthday] = useState<Moment>(moment());
+
+    function getAssessments(week: Moment): Promise<Assessment[]> {
+        return UseAPI.getAssessments(params.patientId, week);
+    }
+
+    useEffect(() => {
+        UseAPI.getPatient(params.patientId).then((retPatient: Patient) => {
+            setPatientName(retPatient.user.name);
+            setPatientEmail(retPatient.user.email);
+            setPatientPhone(retPatient.phone);
+            setPatientBirthday(moment(retPatient.birthday));
+            setPatient(patient);
+        });
+    }, [params.patientId]);
+
+    async function updatePatient() {
+        try {
+            if (patient != null) {
+                patient.user.name = patientName;
+                patient.user.email = patientEmail;
+                patient.phone = patientPhone;
+                patient.birthday = moment(patientBirthday);
+                UseAPI.updatePatient(patient).then(value => setPatient(value));
+            }
+        } catch (e) {
+            console.error(e);
+        } finally {
+            setEditPatient(false);
+        }
+    }
 
     return (
         <IonPage>
@@ -25,33 +70,44 @@ const PatientProfilePage: FunctionComponent<PatientProfilePageProps> = () => {
                         </div>
                         <div className="profile-text">
                             <div className="profile-name">
-                                <h1>First Last</h1>
+                                <h1>{patientName}</h1>
                             </div>
                             <div className="profile-info">
                                 <p>
-                                    Phone: <span>123-456-789</span>
+                                    Phone: <span>{patientPhone}</span>
                                 </p>
                                 <p>
-                                    Email: <span>email@email.com</span>
+                                    Email: <span>{patientEmail}</span>
                                 </p>
                                 <p>
-                                    DOB: <span>January 1, 2000</span>
+                                    DOB: <span>{patientBirthday.format(theme.birthdayFormat)}</span>
                                 </p>
                             </div>
                         </div>
                     </div>
-                    <button onClick={() => setShowModal(true)}>Edit Profile</button>
-                    <IonModal isOpen={showModal} cssClass="edit-patient" onDidDismiss={() => setShowModal(false)}>
-                        <h1>Edit Patient Profile</h1>
+                    <button onClick={() => setEditPatient(true)}>Edit Profile</button>
+                    <IonModal isOpen={showEditPatient} onDidDismiss={() => setEditPatient(false)}>
+                        <EditPatient
+                            name={patientName}
+                            setName={setPatientName}
+                            email={patientEmail}
+                            setEmail={setPatientEmail}
+                            phone={patientPhone.split("-").join("")}
+                            setPhone={setPatientPhone}
+                            birthday={moment(patientBirthday)}
+                            setBirthday={setPatientBirthday}
+                            save={updatePatient}
+                        />
                     </IonModal>
                 </PatientProfilePageDiv>
+                <SymptomLogPage baseUrl={"/patients/" + params.patientId} getAssessments={getAssessments}/>
             </IonContent>
         </IonPage>
     );
 };
 
 const PatientProfilePageDiv = styled.div`
-  overflow: hidden;
+  //overflow: hidden;
   max-width: 80vw;
   margin: 0 auto;
 
@@ -97,10 +153,6 @@ const PatientProfilePageDiv = styled.div`
     font-weight: 500;
     outline: none;
     background-color: ${({theme}: { theme: Theme }) => theme.colors.light};
-  }
-
-  .edit-patient {
-
   }
 `;
 

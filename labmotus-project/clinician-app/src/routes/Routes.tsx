@@ -1,7 +1,7 @@
 import {FunctionComponent, ReactElement, useContext, useEffect} from "react";
 import {Redirect, Route, Switch, useHistory, useLocation} from "react-router-dom";
 
-import ForgotPasswordPage from "../pages/ForgotPasswordPage";
+import ForgotPasswordPage from "../../../common/ui/pages/ForgotPasswordPage";
 import SignupPage from "../pages/SignupPage";
 import LoginPage from "../pages/LoginPage";
 import TermsOfServicePage from "../../../common/ui/pages/TermsOfServicePage";
@@ -12,11 +12,13 @@ import PatientProfilePage from "../pages/PatientProfilePage";
 import FinalizeSignupPage from "../pages/FinalizeSignupPage";
 import SignupPatientPage from "../pages/SignupPatientPage";
 import LandingPage from "../pages/LandingPage";
+import SettingsPage from "../pages/SettingsPage";
+
 export interface RoutesProps {
 }
 
-const loggedInPaths = ["/landing", "/home", "/assessment", "/settings/*", "/record", "/terms-of-service", "/sign-up-patients", "/patients/*"];
-const loggedOutPaths = ["/landing", "/login", "sign-up", "/forgot-password", "/terms-of-service"];
+const loggedInPaths = ["/home", "/assessment", "/settings/*", "/record", "/terms-of-service", "/sign-up-patients", "/patients/*"];
+const loggedOutPaths = ["/login", "sign-up", "/forgot-password", "/terms-of-service"];
 
 const Routes: FunctionComponent<RoutesProps> = ({}) => {
     const UseAPI: API = useContext(getAPIContext());
@@ -64,8 +66,9 @@ const Routes: FunctionComponent<RoutesProps> = ({}) => {
                            return <ClinicianTermsOfServiceContent/>
                        }}/>}
                 />
-                <Route exact path="/patients/:id" render={() => <PatientProfilePage/>}/>
+                <Route exact path="/patients/:patientId/:date?" render={() => <PatientProfilePage/>}/>
                 <Route exact path="/sign-up-patient" render={() => <SignupPatientPage/>}/>
+                <Route exact path="/settings" render={() => <SettingsPage/>}/>
                 {generateRedirect()}
                 {}
             </Switch>
