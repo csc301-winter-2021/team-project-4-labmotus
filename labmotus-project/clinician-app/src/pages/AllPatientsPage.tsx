@@ -1,4 +1,4 @@
-import React, {FunctionComponent, useContext, useEffect, useState} from "react";
+import {FunctionComponent, useContext, useEffect, useState} from "react";
 import {IonContent, IonPage} from "@ionic/react";
 // @ts-ignore
 import styled from "styled-components";

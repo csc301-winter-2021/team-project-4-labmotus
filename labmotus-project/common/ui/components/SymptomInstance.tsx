@@ -18,11 +18,12 @@ export interface SymptomInstanceProps {
     graphData?: any[];
     graphKeys?: Set<string>;
     changeDay?: (newDay: Moment) => void;
+    baseUrl: string;
 }
 
 const SymptomInstance: FunctionComponent<SymptomInstanceProps> = ({
                                                                       date, data, graphData = [],
-                                                                      graphKeys = new Set(), changeDay
+                                                                      graphKeys = new Set(), changeDay, baseUrl
                                                                   }) => {
     const theme: Theme = useContext(getThemeContext());
     const colors = theme.colors.cycle;
@@ -57,7 +58,7 @@ const SymptomInstance: FunctionComponent<SymptomInstanceProps> = ({
     }
 
     function viewAssessment() {
-        history.push(`/assessment/${date.format("YYYY-MM-DD")}`)
+        history.push(`${baseUrl}/assessment/${date.format("YYYY-MM-DD")}`)
     }
 
     return (<SymptomInstanceDiv className="symptom-instance" theme={theme}>
@@ -111,9 +112,12 @@ const SymptomInstanceDiv = styled.div`
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
-  padding-top: 10%;
   padding-left: 7%;
   padding-right: 7%;
+
+  @media (max-aspect-ratio: 5/6) {
+    padding-top: 10%;
+  }
 
   .symptom-log {
     flex: 1;

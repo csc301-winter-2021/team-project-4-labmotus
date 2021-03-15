@@ -1,7 +1,7 @@
-import React, {FunctionComponent, ReactElement, useContext, useEffect} from "react";
+import {FunctionComponent, ReactElement, useContext, useEffect} from "react";
 import {Redirect, Route, Switch, useHistory, useLocation} from "react-router-dom";
 
-import ForgotPasswordPage from "../pages/ForgotPasswordPage";
+import ForgotPasswordPage from "../../../common/ui/pages/ForgotPasswordPage";
 import SignupPage from "../pages/SignupPage";
 import LoginPage from "../pages/LoginPage";
 import TermsOfServicePage from "../../../common/ui/pages/TermsOfServicePage";
@@ -11,18 +11,22 @@ import AllPatientsPage from "../pages/AllPatientsPage";
 import PatientProfilePage from "../pages/PatientProfilePage";
 import FinalizeSignupPage from "../pages/FinalizeSignupPage";
 import SignupPatientPage from "../pages/SignupPatientPage";
+import LandingPage from "../pages/LandingPage";
 import SettingsPage from "../pages/SettingsPage";
 import {getThemeContext, Theme} from "../../../common/ui/theme/Theme";
 import {home, settings} from "ionicons/icons";
 // @ts-ignore
 import styled from 'styled-components';
 import NavigationBar from "../../../common/ui/components/NavigationBar";
+import AssessmentPage from "../pages/AssessmentPage";
+import { Assessment, AssessmentState } from "../../../common/types/types";
+import { Moment } from "moment";
 
 export interface RoutesProps {
 }
 
-const loggedInPaths = ["/home", "/assessment", "/settings/*", "/terms-of-service"];
-const loggedOutPaths = ["/login", "/forgot-password", "/terms-of-service"];
+const loggedInPaths = ["/home", "/assessment", "/settings/*", "/terms-of-service", "/sign-up-patients", "/patients/*"];
+const loggedOutPaths = ["/login", "sign-up", "/forgot-password", "/terms-of-service"];
 
 const navigationEntries = [
     {
@@ -65,18 +69,32 @@ const Routes: FunctionComponent<RoutesProps> = ({}) => {
             }
         }
         if (location.pathname === '/') {
-            history.push(loggedIn ? loggedInPaths[0] : loggedOutPaths[0])
+            history.push("/landing")
+            // history.push(loggedIn ? loggedInPaths[0] : loggedOutPaths[0])
         }
     }
 
     function generateRedirect(): ReactElement {
-        return <Redirect exact from="/" to="/login"/>;
+        return <Redirect exact from="/" to="/landing"/>;
+    }
+
+    function createAssessment(patientId: string, date: Moment, type: string) {
+        const assessment: Assessment = {
+            id: Math.floor(Math.random() * 1000000).toString(),
+            patientId: patientId,
+            name: type,
+            date: date,
+            state: AssessmentState.MISSING,
+            joints: ["placeholder joint 1", "placeholder joint 2"]
+        }
+        UseAPI.createAssessment(assessment);
     }
 
     return (
         <BackgroundDiv theme={theme}>
             <PageDiv>
                 <Switch>
+                    <Route exact path="/landing" render={() => <LandingPage/>}/>
                     <Route exact path="/login" render={() => <LoginPage/>}/>
                     <Route exact path="/home" render={() => <AllPatientsPage/>}/>
                     <Route exact path="/forgot-password" render={() => <ForgotPasswordPage/>}/>
@@ -88,6 +106,13 @@ const Routes: FunctionComponent<RoutesProps> = ({}) => {
                            }}/>}
                     />
                     <Route exact path="/patients/:patientId/:date?" render={() => <PatientProfilePage/>}/>
+                    <Route exact path="/patients/:patientId/assessment/:date?" render={(props) =>
+                        <AssessmentPage
+                            createAssessment={(type: string) =>
+                                createAssessment(props.match.params.patientId, props.match.params.date, type)}
+                            getAssessments={() =>
+                                UseAPI.getAssessments(props.match.params.patientId, props.match.params.date)}/>
+                    }/>
                     <Route exact path="/sign-up-patient" render={() => <SignupPatientPage/>}/>
                     <Route exact path="/settings" render={() => <SettingsPage/>}/>
                     {generateRedirect()}

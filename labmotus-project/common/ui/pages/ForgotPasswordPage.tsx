@@ -1,23 +1,14 @@
-import React, { FunctionComponent, useContext, useState } from "react";
-import {
-    IonAlert,
-    IonButton,
-    IonButtons,
-    IonContent,
-    IonHeader,
-    IonIcon,
-    IonInput,
-    IonPage,
-    IonToolbar,
-} from "@ionic/react";
+import {FunctionComponent, useContext, useState} from "react";
+import {IonAlert, IonButtons, IonContent, IonHeader, IonIcon, IonInput, IonPage, IonToolbar} from "@ionic/react";
 // @ts-ignore
 import styled from "styled-components";
-import API, { getAPIContext } from "../api/API";
-import { Theme, getThemeContext } from "../../../common/ui/theme/Theme";
-import { useHistory } from "react-router";
-import { chevronBack } from "ionicons/icons";
+import API, {getAPIContext} from "../../../patient-app/src/api/API";
+import {Theme, getThemeContext} from "../theme/Theme";
+import {useHistory} from "react-router";
+import {chevronBack} from "ionicons/icons";
 
-export interface ForgotPasswordPageProps {}
+export interface ForgotPasswordPageProps {
+}
 
 const ForgotPasswordPage: FunctionComponent<ForgotPasswordPageProps> = () => {
     const theme: Theme = useContext(getThemeContext());
@@ -29,7 +20,7 @@ const ForgotPasswordPage: FunctionComponent<ForgotPasswordPageProps> = () => {
     const [header, setHeader] = useState<string>();
     const [message, setMessage] = useState<string>();
 
-	// When user clicks 'Forgot Password?'
+    // When user clicks 'Forgot Password?'
     async function forgotPassword() {
         if (!email) {
             setHeader("Invalid Email");
@@ -44,7 +35,7 @@ const ForgotPasswordPage: FunctionComponent<ForgotPasswordPageProps> = () => {
         }
     }
 
-	// When user clicks 'Back'
+    // When user clicks 'Back'
     function back() {
         history.push(`/login`);
     }
@@ -55,7 +46,7 @@ const ForgotPasswordPage: FunctionComponent<ForgotPasswordPageProps> = () => {
                 <IonToolbar>
                     <BackButtonDiv theme={theme}>
                         <IonButtons slot="start" onClick={back}>
-                            <IonIcon icon={chevronBack} />
+                            <IonIcon icon={chevronBack}/>
                             Back
                         </IonButtons>
                     </BackButtonDiv>
@@ -65,23 +56,23 @@ const ForgotPasswordPage: FunctionComponent<ForgotPasswordPageProps> = () => {
                 <ForgotPasswordPageDiv theme={theme}>
                     <h1>Reset Password</h1>
                     <div className="main-padding">
-                        <div className="main">
+                        <form>
                             <p>
                                 Enter the email address you used to register and we'll send you the instructions for
                                 resetting your password.
                             </p>
+
                             <IonInput
-                                class="input"
+                                className="input"
                                 placeholder="Email"
                                 type="email"
-                                clearInput={true}
                                 value={email}
                                 onIonChange={(e) => setEmail(e.detail.value!)}
                             />
-                            <IonButton expand="block" shape="round" onClick={forgotPassword}>
+                            <button className="forgot-button" onClick={forgotPassword}>
                                 Submit
-                            </IonButton>
-                        </div>
+                            </button>
+                        </form>
                     </div>
                 </ForgotPasswordPageDiv>
             </IonContent>
@@ -97,52 +88,73 @@ const ForgotPasswordPage: FunctionComponent<ForgotPasswordPageProps> = () => {
 };
 
 const ForgotPasswordPageDiv = styled.div`
-    overflow: hidden;
-    text-align: center;
-    .main-padding {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        width: 100%;
-        padding: 5%;
-        box-sizing: border-box;
-        .input {
-            margin-bottom: 5%;
-            text-align: left;
-            border-radius: 5px;
-            border: 1px solid #ddd;
-            --padding-start: 10px;
-        }
-        pointer-events: none;
+  overflow: hidden;
+  text-align: center;
+
+  .main-padding {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    padding: 5%;
+    box-sizing: border-box;
+
+    .input {
+      margin-bottom: 10px;
+      text-align: left;
+      border-radius: 5px;
+      border: 1px solid #ddd;
+      --padding-start: 10px;
     }
-    .main {
-        height: 100%;
-        width: 100%;
-        .input {
-            margin-bottom: 5%;
-            text-align: left;
-            border-radius: 5px;
-            border: 1px solid #ddd;
-            --padding-start: 10px;
-        }
-        pointer-events: auto;
+
+    .forgot-button {
+      width: 100%;
+      border-radius: 25px;
+      max-width: 490px;
+      font-size: 0.8em;
+      padding: 14px;
+      font-weight: 500;
+      outline: none;
+      box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.1);
+      background-color: ${({theme}: { theme: Theme }) => theme.colors.primary};
+      color: white;
     }
-    h1 {
-        font-weight: bold;
-        margin-top: 15vh;
+
+    @media only screen and (min-width: 768px) {
+      form {
+        margin: 0 auto;
+        max-width: 60vw;
+      }
+
+      .forgot-button {
+        font-size: 1.1em;
+      }
     }
+    @media only screen and (min-width: 1024px) {
+      form {
+        max-width: 40vw;
+      }
+    }
+    pointer-events: auto;
+  }
+
+  h1 {
+    font-weight: bold;
+    margin-top: 15vh;
+  }
 `;
 
 const BackButtonDiv = styled.div`
-    ion-buttons {
-        color: ${({ theme }: { theme: Theme }) => theme.colors.primary};
-        cursor: pointer;
-        ion-icon {
-            height: 25px;
-            width: 25px;
-        }
+  ion-buttons {
+    color: ${({theme}: { theme: Theme }) => theme.colors.primary};
+    cursor: pointer;
+
+    ion-icon {
+      height: 25px;
+      width: 25px;
     }
+  }
 `;
 
 export default ForgotPasswordPage;

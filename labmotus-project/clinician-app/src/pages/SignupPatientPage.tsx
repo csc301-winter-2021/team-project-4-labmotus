@@ -1,5 +1,5 @@
 import React, {FunctionComponent, useContext, useState} from "react";
-import {IonAlert, IonButtons, IonContent, IonIcon, IonInput, IonPage} from "@ionic/react";
+import {IonAlert, IonHeader, IonButtons, IonContent, IonIcon, IonInput, IonPage, IonToolbar} from "@ionic/react";
 // @ts-ignore
 import styled from "styled-components";
 import {getThemeContext, Theme} from "../../../common/ui/theme/Theme";
@@ -80,12 +80,18 @@ const SignupPatientPage: FunctionComponent<SignupPatientPageProps> = () => {
 
     return (
         <IonPage>
+            <IonHeader>
+              <IonToolbar>
+                    <BackButtonDiv theme={theme}>
+                        <IonButtons slot="start" onClick={back}>
+                            <IonIcon icon={chevronBack}/>
+                            Back
+                        </IonButtons>
+                    </BackButtonDiv>
+                </IonToolbar>
+            </IonHeader>
             <IonContent fullscreen>
                 <SignupPatientPageDiv theme={theme}>
-                    <IonButtons slot="start" onClick={back}>
-                        <IonIcon icon={chevronBack}/>
-                        Back
-                    </IonButtons>
                     <h1>LabMotus</h1>
                     <h3>Clinician Portal</h3>
                     <div className="main-padding">
@@ -147,7 +153,7 @@ const SignupPatientPageDiv = styled.div`
 
   .main-padding {
     position: absolute;
-    top: 50%;
+    top: 55%;
     left: 50%;
     transform: translate(-50%, -50%);
     width: 100%;
@@ -211,6 +217,18 @@ const SignupPatientPageDiv = styled.div`
   span {
     cursor: pointer;
     color: ${({theme}: { theme: Theme }) => theme.colors.primary};
+  }
+`;
+
+const BackButtonDiv = styled.div`
+  ion-buttons {
+    color: ${({theme}: { theme: Theme }) => theme.colors.primary};
+    cursor: pointer;
+
+    ion-icon {
+      height: 25px;
+      width: 25px;
+    }
   }
 `;
 

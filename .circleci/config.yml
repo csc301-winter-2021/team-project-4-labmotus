@@ -68,6 +68,7 @@ jobs:
           command: |
             npm i --prefix << pipeline.parameters.root-dir >>
             npm i --prefix << pipeline.parameters.types-dir >>
+            npm i --prefix << pipeline.parameters.patient-dir >>
             npm i -D --prefix << pipeline.parameters.clinician-dir >>
             ln -s << pipeline.parameters.clinician-dir >>/node_modules << pipeline.parameters.ui-dir >>/node_modules
             npm run build --prefix << pipeline.parameters.clinician-dir >>
@@ -94,7 +95,7 @@ jobs:
             npx cap sync
             cd android
             chmod +x ./gradlew
-            ./gradlew build
+            ./gradlew build --info --stacktrace
 workflows:
   test-and-deploy:
     jobs:
@@ -111,4 +112,7 @@ workflows:
               only: main
           context:
             - labmotus-aws
-      - deploy-patient
+      - deploy-patient:
+          filters:
+            branches:
+              only: main
