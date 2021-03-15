@@ -1,5 +1,6 @@
 import {FunctionComponent, ReactElement, useContext, useEffect} from "react";
 import {Redirect, Route, Switch, useHistory, useLocation} from "react-router-dom";
+import {useParams} from "react-router";
 
 import ForgotPasswordPage from "../../../common/ui/pages/ForgotPasswordPage";
 import SignupPage from "../pages/SignupPage";
@@ -13,6 +14,9 @@ import FinalizeSignupPage from "../pages/FinalizeSignupPage";
 import SignupPatientPage from "../pages/SignupPatientPage";
 import LandingPage from "../pages/LandingPage";
 import SettingsPage from "../pages/SettingsPage";
+import AssessmentPage from "../../../common/ui/pages/AssessmentPage";
+import { Moment } from "moment";
+import { Assessment } from "../../../common/types/types";
 
 export interface RoutesProps {
 }
@@ -67,6 +71,9 @@ const Routes: FunctionComponent<RoutesProps> = ({}) => {
                        }}/>}
                 />
                 <Route exact path="/patients/:patientId/:date?" render={() => <PatientProfilePage/>}/>
+                <Route exact path="/patients/:patientId/assessment/:date?" render={(props) =>
+                    <AssessmentPage getAssessments={() => UseAPI.getAssessments(props.match.params.patientId, props.match.params.date)}/>
+                }/>
                 <Route exact path="/sign-up-patient" render={() => <SignupPatientPage/>}/>
                 <Route exact path="/settings" render={() => <SettingsPage/>}/>
                 {generateRedirect()}

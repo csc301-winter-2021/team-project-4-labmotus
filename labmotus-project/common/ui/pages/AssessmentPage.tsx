@@ -41,7 +41,7 @@ const AssessmentPage: FunctionComponent<AssessmentPageProps> = (props: Assessmen
     }, [date]);
 
     function back() {
-        history.push(`/home/${day.format('YYYY-MM-DD')}`)
+        history.goBack()
     }
 
     function onClick(index: number) {
