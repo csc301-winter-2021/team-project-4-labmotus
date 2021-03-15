@@ -1,5 +1,5 @@
 import {IonContent, IonPage, IonModal} from "@ionic/react";
-import React, {FunctionComponent, useContext, useEffect, useRef, useState} from "react";
+import {FunctionComponent, useContext, useEffect, useState} from "react";
 //@ts-ignore
 import styled from "styled-components";
 
@@ -14,8 +14,6 @@ import SymptomLogPage from "../../../common/ui/pages/SymptomLogPage";
 export interface PatientProfilePageProps {
 }
 
-const dateFormat = 'YYYY-MM-DD';
-
 const PatientProfilePage: FunctionComponent<PatientProfilePageProps> = () => {
     const theme: Theme = useContext(getThemeContext());
 
@@ -23,27 +21,25 @@ const PatientProfilePage: FunctionComponent<PatientProfilePageProps> = () => {
     const UseAPI: API = useContext(getAPIContext());
     const params: { patientId: string } = useParams();
 
-    const [patientName, setPatientName] = useState("")
-    const [patientEmail, setPatientEmail] = useState("")
-    const [patientPhone, setPatientPhone] = useState("")
-    const [patientBirthday, setPatientBirthday] = useState("")
+    const [patientName, setPatientName] = useState("");
+    const [patientEmail, setPatientEmail] = useState("");
+    const [patientPhone, setPatientPhone] = useState("");
+    const [patientBirthday, setPatientBirthday] = useState("");
 
     function getAssessments(week: Moment): Promise<Assessment[]> {
-        let data = UseAPI.getAssessments(params.patientId, week)
-        console.log(data)
-        return data
+        let data = UseAPI.getAssessments(params.patientId, week);
+        console.log(data);
+        return data;
     }
 
     useEffect(() => {
-        UseAPI.getPatient(params.patientId).then(
-            (retPatient: Patient) => {
-                setPatientName(retPatient.user.name)
-                setPatientEmail(retPatient.user.email)
-                setPatientPhone(retPatient.phone)
-                setPatientBirthday(retPatient.birthday.format(dateFormat))
-            }
-        )
-    }, [patientName])
+        UseAPI.getPatient(params.patientId).then((retPatient: Patient) => {
+            setPatientName(retPatient.user.name);
+            setPatientEmail(retPatient.user.email);
+            setPatientPhone(retPatient.phone);
+            setPatientBirthday(retPatient.birthday.format(theme.birthdayFormat));
+        });
+    }, [patientName]);
 
     return (
         <IonPage>
@@ -60,10 +56,10 @@ const PatientProfilePage: FunctionComponent<PatientProfilePageProps> = () => {
                             </div>
                             <div className="profile-info">
                                 <p>
-                                    Phone: <span>{patientEmail}</span>
+                                    Phone: <span>{patientPhone}</span>
                                 </p>
                                 <p>
-                                    Email: <span>{patientPhone}</span>
+                                    Email: <span>{patientEmail}</span>
                                 </p>
                                 <p>
                                     DOB: <span>{patientBirthday}</span>
@@ -132,7 +128,6 @@ const PatientProfilePageDiv = styled.div`
   }
 
   .edit-patient {
-
   }
 `;
 
