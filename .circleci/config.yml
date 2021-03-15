@@ -1,4 +1,6 @@
 version: 2.1
+orbs:
+  aws-s3: circleci/aws-s3@2.0.0
 parameters:
   root-dir:
     type: string
@@ -54,6 +56,24 @@ jobs:
             git add -f *
             git commit -m "Build API"
             eb deploy labmotus-api
+  deploy-clinician:
+    docker:
+      - image: cimg/node:15.10.0
+    steps:
+      - checkout
+      - run:
+          name: Build project
+          command: |
+            npm i --prefix << pipeline.parameters.root-dir >>
+            npm i --prefix << pipeline.parameters.types-dir >>
+            npm i --prefix << pipeline.parameters.ui-dir >>
+            npm i -D --prefix << pipeline.parameters.clinician-dir >>
+            npm run build --prefix << pipeline.parameters.clinician-dir >>
+      - aws-s3/sync:
+          from: << pipeline.parameters.clinician-dir >>/build
+          to: 's3://labmotus-clinician'
+          arguments: --acl public-read
+          overwrite: true
 workflows:
   test-and-deploy:
     jobs:
@@ -64,3 +84,9 @@ workflows:
           context:
             - labmotus-aws
             - labmotus-firebase
+      - deploy-clinician:
+          filters:
+            branches:
+              only: main
+          context:
+            - labmotus-aws
