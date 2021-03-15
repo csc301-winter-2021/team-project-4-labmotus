@@ -95,6 +95,7 @@ const AssessmentPage: FunctionComponent<AssessmentPageProps> = (props: Assessmen
                                 Record
                             </RecordButton> : null
                         }
+                        {/* TODO: can clinician record? */}
                         {value.videoUrl !== undefined ?
                             <VideoButton theme={theme} onClick={() => onWatch(index)}>
                                 <IonIcon icon={film}/>

@@ -1,6 +1,5 @@
 import {FunctionComponent, ReactElement, useContext, useEffect} from "react";
 import {Redirect, Route, Switch, useHistory, useLocation} from "react-router-dom";
-import {useParams} from "react-router";
 
 import ForgotPasswordPage from "../../../common/ui/pages/ForgotPasswordPage";
 import SignupPage from "../pages/SignupPage";
@@ -14,9 +13,9 @@ import FinalizeSignupPage from "../pages/FinalizeSignupPage";
 import SignupPatientPage from "../pages/SignupPatientPage";
 import LandingPage from "../pages/LandingPage";
 import SettingsPage from "../pages/SettingsPage";
-import AssessmentPage from "../../../common/ui/pages/AssessmentPage";
+import AssessmentPage from "../pages/AssessmentPage";
+import { Assessment, AssessmentState } from "../../../common/types/types";
 import { Moment } from "moment";
-import { Assessment } from "../../../common/types/types";
 
 export interface RoutesProps {
 }
@@ -56,6 +55,18 @@ const Routes: FunctionComponent<RoutesProps> = ({}) => {
         return <Redirect exact from="/" to="/landing"/>;
     }
 
+    function createAssessment(patientId: string, date: Moment, type: string) {
+        const assessment: Assessment = {
+            id: Math.floor(Math.random() * 1000000).toString(),
+            patientId: patientId,
+            name: type,
+            date: date,
+            state: AssessmentState.MISSING,
+            joints: ["placeholder joint 1", "placeholder joint 2"]
+        }
+        UseAPI.createAssessment(assessment);
+    }
+
     return (
         <>
             <Switch>
@@ -72,7 +83,11 @@ const Routes: FunctionComponent<RoutesProps> = ({}) => {
                 />
                 <Route exact path="/patients/:patientId/:date?" render={() => <PatientProfilePage/>}/>
                 <Route exact path="/patients/:patientId/assessment/:date?" render={(props) =>
-                    <AssessmentPage getAssessments={() => UseAPI.getAssessments(props.match.params.patientId, props.match.params.date)}/>
+                    <AssessmentPage 
+                        createAssessment={(type: string) => 
+                            createAssessment(props.match.params.patientId, props.match.params.date, type)}
+                        getAssessments={() => 
+                            UseAPI.getAssessments(props.match.params.patientId, props.match.params.date)}/>
                 }/>
                 <Route exact path="/sign-up-patient" render={() => <SignupPatientPage/>}/>
                 <Route exact path="/settings" render={() => <SettingsPage/>}/>
