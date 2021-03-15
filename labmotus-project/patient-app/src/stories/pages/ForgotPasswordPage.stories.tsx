@@ -1,7 +1,7 @@
 import React from 'react';
 // also exported from '@storybook/react' if you can deal with breaking changes in 6.1
 import {Meta, Story} from '@storybook/react/types-6-0';
-import ForgotPasswordPage, {ForgotPasswordPageProps} from '../../pages/ForgotPasswordPage';
+import ForgotPasswordPage, {ForgotPasswordPageProps} from '../../../../common/ui/pages/ForgotPasswordPage';
 /* Core CSS required for Ionic components to work properly */
 import "@ionic/react/css/core.css";
 /* Basic CSS for apps built with Ionic */
