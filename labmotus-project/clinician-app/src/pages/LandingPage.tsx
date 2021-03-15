@@ -13,6 +13,7 @@ const LandingPage: FunctionComponent<LandingPageProps> = () => {
     const history = useHistory();
 
     function downloadAPK() {
+		window.open("https://labmotus-misc.s3.amazonaws.com/patient-app.apk");
     }
 
     function clinicianPortal() {
