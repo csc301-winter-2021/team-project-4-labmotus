@@ -75,6 +75,26 @@ jobs:
           from: << pipeline.parameters.clinician-dir >>/build
           to: 's3://labmotus-clinician'
           arguments: '--acl public-read'
+  deploy-patient:
+    docker:
+      - image: circleci/android:api-29-node
+    steps:
+      - checkout
+      - run:
+          name: Build project
+          command: |
+            npm i --prefix << pipeline.parameters.root-dir >>
+            npm i --prefix << pipeline.parameters.types-dir >>
+            npm i -D --prefix << pipeline.parameters.patient-dir >>
+            ln -s << pipeline.parameters.patient-dir >>/node_modules << pipeline.parameters.ui-dir >>/node_modules
+            npm i @ionic/cli
+            npm i @capacitor/cli
+            cd << pipeline.parameters.patient-dir >>
+            npx ionic build
+            npx cap sync
+            cd android
+            chmod +x ./gradlew
+            ./gradlew build
 workflows:
   test-and-deploy:
     jobs:
@@ -91,3 +111,4 @@ workflows:
               only: main
           context:
             - labmotus-aws
+      - deploy-patient
