@@ -1,18 +1,11 @@
 import {FunctionComponent, useContext} from "react";
-import {
-    IonContent,
-    IonHeader,
-    IonPage,
-    IonTitle,
-    IonToolbar,
-} from "@ionic/react";
+import {IonContent, IonHeader, IonPage, IonTitle, IonToolbar} from "@ionic/react";
 // @ts-ignore
 import styled from "styled-components";
 import API, {getAPIContext} from "../api/API";
 import {Patient} from "../../../common/types/types";
 import {Theme, getThemeContext} from "../../../common/ui/theme/Theme";
 import SettingsList from "../../../common/ui/components/SettingsList";
-
 
 import {useHistory} from "react-router";
 
