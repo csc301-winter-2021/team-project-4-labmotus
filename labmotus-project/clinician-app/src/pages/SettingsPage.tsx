@@ -1,8 +1,5 @@
 import {FunctionComponent, useContext} from "react";
-import {
-    IonContent,
-    IonPage,
-} from "@ionic/react";
+import {IonContent, IonPage,} from "@ionic/react";
 // @ts-ignore
 import styled from "styled-components";
 import API, {getAPIContext} from "../api/API";
@@ -56,7 +53,9 @@ const SettingsPage: FunctionComponent<SettingsPageProps> = () => {
                             changePassword={changePassword}
                             viewTermsOfService={termsOfService}
                             onLogOut={onLogOut}
-                        />
+                            birthday={null}
+                            editPhone={(): void => null}
+                            phone={""}/>
                     </div>
                 </IonContent>
             </IonPage>
