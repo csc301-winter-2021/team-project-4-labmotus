@@ -72,8 +72,7 @@ jobs:
       - aws-s3/sync:
           from: << pipeline.parameters.clinician-dir >>/build
           to: 's3://labmotus-clinician'
-          arguments: --acl public-read
-          overwrite: true
+          arguments: '--acl public-read'
 workflows:
   test-and-deploy:
     jobs:
