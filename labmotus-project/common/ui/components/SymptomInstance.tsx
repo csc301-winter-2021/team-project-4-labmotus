@@ -112,9 +112,12 @@ const SymptomInstanceDiv = styled.div`
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
-  padding-top: 10%;
   padding-left: 7%;
   padding-right: 7%;
+
+  @media (max-aspect-ratio: 5/6) {
+    padding-top: 10%;
+  }
 
   .symptom-log {
     flex: 1;
