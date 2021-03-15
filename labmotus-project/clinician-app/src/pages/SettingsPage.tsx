@@ -1,18 +1,13 @@
 import {FunctionComponent, useContext} from "react";
 import {
     IonContent,
-    IonHeader,
     IonPage,
-    IonTitle,
-    IonToolbar,
 } from "@ionic/react";
 // @ts-ignore
 import styled from "styled-components";
 import API, {getAPIContext} from "../api/API";
-import {Patient} from "../../../common/types/types";
-import {Theme, getThemeContext} from "../../../common/ui/theme/Theme";
+import {Clinician} from "../../../common/types/types";
 import SettingsList from "../../../common/ui/components/SettingsList";
-
 
 import {useHistory} from "react-router";
 
@@ -20,10 +15,10 @@ export interface SettingsPageProps {
 }
 
 const SettingsPage: FunctionComponent<SettingsPageProps> = () => {
-    const theme: Theme = useContext(getThemeContext());
     const UseAPI: API = useContext(getAPIContext());
-    const patient: Patient = UseAPI.getCurrentUser();
     const history = useHistory();
+
+    const clinician: Clinician = UseAPI.getCurrentUser();
 
     // When user logs out
     async function onLogOut() {
@@ -33,11 +28,6 @@ const SettingsPage: FunctionComponent<SettingsPageProps> = () => {
     // When user clicks on their email
     function editEmail() {
         history.push("/settings/edit-email");
-    }
-
-    // When user clicks on their phone number
-    function editPhone() {
-        history.push("/settings/edit-phone");
     }
 
     // When user clicks on 'Change Password'
@@ -53,24 +43,21 @@ const SettingsPage: FunctionComponent<SettingsPageProps> = () => {
     return (
         <SettingsPageDiv>
             <IonPage>
-                <IonHeader>
-                    <IonToolbar>
-                        <IonTitle>Settings</IonTitle>
-                    </IonToolbar>
-                </IonHeader>
                 <IonContent fullscreen>
-                    <SettingsList
-                        patient={true}
-                        name={patient?.user?.name}
-                        birthday={patient?.birthday.format(theme.birthdayFormat)}
-                        email={patient?.user?.email}
-                        editEmail={editEmail}
-                        phone={patient?.phone}
-                        editPhone={editPhone}
-                        changePassword={changePassword}
-                        viewTermsOfService={termsOfService}
-                        onLogOut={onLogOut}
-                    />
+                    <h1>LabMotus</h1>
+                    <h3>Clinician Portal: Settings</h3>
+                    <div className="settings">
+                        <SettingsList
+                            patient={false}
+                            name={clinician?.user?.name}
+                            clinic={clinician?.clinic}
+                            email={clinician?.user?.email}
+                            editEmail={editEmail}
+                            changePassword={changePassword}
+                            viewTermsOfService={termsOfService}
+                            onLogOut={onLogOut}
+                        />
+                    </div>
                 </IonContent>
             </IonPage>
         </SettingsPageDiv>
@@ -81,6 +68,17 @@ const SettingsPageDiv = styled.div`
   overflow: hidden;
   width: 100%;
   height: 100%;
+  text-align: center;
+
+  h1 {
+    font-weight: bold;
+    margin-top: 15vh;
+  }
+
+  .settings {
+    max-width: 80vw;
+    margin: 0 auto;
+  }
 `;
 
 export default SettingsPage;
