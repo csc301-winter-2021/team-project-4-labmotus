@@ -109,7 +109,7 @@ const PatientProfilePage: FunctionComponent<PatientProfilePageProps> = () => {
 const PatientProfilePageDiv = styled.div`
   //overflow: hidden;
   max-width: 80vw;
-  margin: 0 auto;
+  margin: 5vh auto;
 
   .profile-header {
     display: flex;
