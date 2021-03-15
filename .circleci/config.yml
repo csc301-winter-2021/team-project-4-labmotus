@@ -87,12 +87,12 @@ jobs:
             npm i --prefix << pipeline.parameters.types-dir >>
             npm i -D --prefix << pipeline.parameters.patient-dir >>
             ln -s << pipeline.parameters.patient-dir >>/node_modules << pipeline.parameters.ui-dir >>/node_modules
-            npm i -g @ionic/cli
-            npm i -g @capacitor/cli
+            npm i @ionic/cli
+            npm i @capacitor/cli
             cd << pipeline.parameters.patient-dir >>
-            cap update android
-            ionic build
-            cap sync
+            npx cap update android
+            npx ionic build
+            npx cap sync
             cd android
             ./gradlew build
 workflows:
