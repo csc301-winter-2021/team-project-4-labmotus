@@ -90,7 +90,6 @@ jobs:
             npm i @ionic/cli
             npm i @capacitor/cli
             cd << pipeline.parameters.patient-dir >>
-            npx cap update android
             npx ionic build
             npx cap sync
             cd android
