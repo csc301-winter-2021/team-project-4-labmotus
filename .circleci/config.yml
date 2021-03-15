@@ -111,7 +111,7 @@ workflows:
               only: main
           context:
             - labmotus-aws
-      - deploy-patient
+      - deploy-patient:
           filters:
             branches:
               only: main
