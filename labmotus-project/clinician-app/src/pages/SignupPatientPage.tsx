@@ -104,7 +104,7 @@ const SignupPatientPage: FunctionComponent<SignupPatientPageProps> = () => {
                                     <DateDisplay
                                         date={birthday}
                                         changeDay={setBirthday}
-                                    />
+                                        displayFormat={"YYYY-MM-DD"}/>
                                 </div>
                                 <IonInput
                                     class="input"
