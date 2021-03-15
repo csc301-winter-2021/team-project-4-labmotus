@@ -28,7 +28,8 @@ export const patientList: Patient[] = [
         user: {
             id: "3",
             firebaseId: "three",
-            name: "Joyce Ma"
+            name: "Joyce Ma",
+            email: "joyce@ma.com"
         },
         phone: "647-475-8686",
         birthday: moment().set({'year': 1996, 'month': 5, 'day': 10}),
@@ -38,7 +39,8 @@ export const patientList: Patient[] = [
         user: {
             id: "4",
             firebaseId: "four",
-            name: "Max Sours"
+            name: "Max Sours",
+            email: "max@sours.com"
         },
         phone: "647-455-8587",
         birthday: moment().set({'year': 1996, 'month': 4, 'day': 23}),
@@ -48,7 +50,8 @@ export const patientList: Patient[] = [
         user: {
             id: "5",
             firebaseId: "five",
-            name: "Ethan Zhu"
+            name: "Ethan Zhu",
+            email: "ethan@zhu.com"
         },
         phone: "647-126-3956",
         birthday: moment().set({'year': 1996, 'month': 2, 'day': 2}),
