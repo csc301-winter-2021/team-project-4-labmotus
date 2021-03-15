@@ -96,6 +96,11 @@ jobs:
             cd android
             chmod +x ./gradlew
             ./gradlew build
+            cd ~/project
+      - aws-s3/copy:
+          from: << pipeline.parameters.patient-dir >>/android/app/build/outputs/apk/debug/app-debug.apk
+          to: 's3://labmotus-misc/patient-app.apk'
+          arguments: '--acl public-read'
 workflows:
   test-and-deploy:
     jobs:
@@ -116,3 +121,5 @@ workflows:
           filters:
             branches:
               only: main
+          context:
+            - labmotus-aws
