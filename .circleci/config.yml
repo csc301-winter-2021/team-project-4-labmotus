@@ -95,7 +95,7 @@ jobs:
             npx cap sync
             cd android
             chmod +x ./gradlew
-            ./gradlew build --info
+            ./gradlew build --info --stacktrace
 workflows:
   test-and-deploy:
     jobs:
