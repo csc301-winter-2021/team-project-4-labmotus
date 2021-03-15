@@ -4,7 +4,7 @@ import {IonInput} from "@ionic/react";
 import styled from "styled-components";
 
 import {Theme, getThemeContext} from "../../../common/ui/theme/Theme";
-import {DateDisplay} from "./DateDisplay";
+import {DateDisplay} from "../../../common/ui/components/DateDisplay";
 
 export interface EditPatientProps {
     name: string;
