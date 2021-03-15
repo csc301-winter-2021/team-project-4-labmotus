@@ -32,10 +32,12 @@ jobs:
             npm i --prefix << pipeline.parameters.types-dir >>
             npm i --prefix << pipeline.parameters.cloud-dir >>
             npm run test --prefix << pipeline.parameters.cloud-dir >>
-            npm i --prefix << pipeline.parameters.ui-dir >>
             npm i --prefix << pipeline.parameters.patient-dir >>
+            ln -s << pipeline.parameters.patient-dir >>/node_modules << pipeline.parameters.ui-dir >>/node_modules
             npm run test --prefix << pipeline.parameters.patient-dir >>
             npm i --prefix << pipeline.parameters.clinician-dir >>
+            rm << pipeline.parameters.ui-dir >>/node_modules
+            ln -s << pipeline.parameters.clinician-dir >>/node_modules << pipeline.parameters.ui-dir >>/node_modules
             npm run test --prefix << pipeline.parameters.clinician-dir >>
   deploy-cloud:
     docker:
@@ -66,8 +68,8 @@ jobs:
           command: |
             npm i --prefix << pipeline.parameters.root-dir >>
             npm i --prefix << pipeline.parameters.types-dir >>
-            npm i --prefix << pipeline.parameters.ui-dir >>
             npm i -D --prefix << pipeline.parameters.clinician-dir >>
+            ln -s << pipeline.parameters.clinician-dir >>/node_modules << pipeline.parameters.ui-dir >>/node_modules
             npm run build --prefix << pipeline.parameters.clinician-dir >>
       - aws-s3/sync:
           from: << pipeline.parameters.clinician-dir >>/build
