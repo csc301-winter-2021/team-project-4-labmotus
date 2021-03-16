@@ -20,7 +20,7 @@ const SignupPatientPage: FunctionComponent<SignupPatientPageProps> = () => {
     const [email, setEmail] = useState<string>();
     const [phone, setPhone] = useState<string>();
     const [name, setName] = useState<string>();
-    const [iserror, openAlert] = useState<boolean>(false);
+    const [isalert, openAlert] = useState<boolean>(false);
     const [header, setHeader] = useState<string>();
     const [message, setMessage] = useState<string>();
     const [birthday, setBirthday] = useState<Moment>(moment());
@@ -138,7 +138,7 @@ const SignupPatientPage: FunctionComponent<SignupPatientPageProps> = () => {
                 </SignupPatientPageDiv>
             </IonContent>
             <IonAlert
-                isOpen={iserror}
+                isOpen={isalert}
                 onDidDismiss={() => openAlert(false)}
                 header={header}
                 message={message}

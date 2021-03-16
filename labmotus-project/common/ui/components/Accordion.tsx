@@ -38,7 +38,7 @@ const Accordion: FunctionComponent<AccordionProps> = ({
     useEffect(() => {
         if (bodyRef.current != null) {
             observer.current = new ResizeObserver((e: any) => {
-                setHeight(e[0].borderBoxSize[0].blockSize);
+                setHeight(e?.[0]?.borderBoxSize?.[0]?.blockSize);
             });
             observer.current.observe(bodyRef.current);
         }
