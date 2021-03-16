@@ -1,5 +1,5 @@
 import React, {FunctionComponent, useContext, useState} from "react";
-import {IonContent, IonPage, IonModal, IonSelect, IonSelectOption, IonAlert} from "@ionic/react";
+import {IonPage, IonModal, IonSelect, IonSelectOption, IonAlert} from "@ionic/react";
 // @ts-ignore
 import styled from "styled-components";
 import {getThemeContext, Theme} from "../../../common/ui/theme/Theme";
@@ -18,9 +18,11 @@ const AssessmentPage: FunctionComponent<AssessmentPageProps> = (props: Assessmen
 
     const [showCreateAssessment, setShowCreateAssessment] = useState(false);
     const [assessmentType, setAssessmentType] = useState("");
-    const [iserror, openAlert] = useState<boolean>(false);
     const UseAPI: API = useContext(getAPIContext());
     const params: { patientId: string, date?: string} = useParams();
+    const [isalert, openAlert] = useState<boolean>(false);
+    const [header, setHeader] = useState<string>();
+    const [message, setMessage] = useState<string>();
 
     function getAssessments(week: Moment): Promise<Assessment[]> {
       return UseAPI.getAssessments(params.patientId, week);
@@ -28,6 +30,8 @@ const AssessmentPage: FunctionComponent<AssessmentPageProps> = (props: Assessmen
 
     function createAssessment(assessmentType: string){
         if (!assessmentType){
+            setHeader('No assessment type selected!')
+            setMessage('Use the drop down menu to select an exercise')
             openAlert(true);
         }
         else {
@@ -40,6 +44,10 @@ const AssessmentPage: FunctionComponent<AssessmentPageProps> = (props: Assessmen
               joints: ["placeholder joint 1", "placeholder joint 2"]
             }
             UseAPI.createAssessment(assessment);
+            setShowCreateAssessment(false);
+            setHeader('Assessment added!')
+            setMessage('')
+            openAlert(true);
         }
     }
 
@@ -61,10 +69,10 @@ const AssessmentPage: FunctionComponent<AssessmentPageProps> = (props: Assessmen
                             Cancel
                         </button>
                         <IonAlert
-                            isOpen={iserror}
+                            isOpen={isalert}
                             onDidDismiss={() => openAlert(false)}
-                            header={'No assessment type selected!'}
-                            message={'Use the drop down menu to select an exercise'}
+                            header={header}
+                            message={message}
                             buttons={["OK"]}
                         />
                     </IonModal>

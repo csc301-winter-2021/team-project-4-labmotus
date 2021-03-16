@@ -8,7 +8,7 @@ async function firebaseVerifyIdToken(token: string): Promise<firebaseAdmin.auth.
     })
 }
 
-export async function authenticateUser(database: Database, token: string): Promise<Permissions> {
+export async function authenticateUser(database: Database, token: string, mustExist: boolean = true): Promise<Permissions> {
     try {
         const decodedIdToken = await firebaseVerifyIdToken(token);
         try {
@@ -20,6 +20,9 @@ export async function authenticateUser(database: Database, token: string): Promi
             const clinician = await database.getClinicianByFirebaseID(decodedIdToken.uid);
             return new ClinicianPermissions(clinician);
         } catch (e) {
+        }
+        if (!mustExist) {
+            return Promise.reject("Auth " + decodedIdToken.uid);
         }
     } catch (e) {
         console.error(e);
