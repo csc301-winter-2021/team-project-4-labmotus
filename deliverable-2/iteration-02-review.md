@@ -14,7 +14,7 @@
     * People were able to claim issues so everybody would know what people were working on. This way there wouldn’t be duplicate code. We could also easily see how much work we had left to do based on the number of issues. We also felt satisfaction as we can see a visualization of our progress in the project based on how many issues are closed.
  * **Weekly Meetings with Victor, Our Partner**
 
-    * By having weekly meetings, we were able to update our partner frequently with our process. This way, we could easily make small tweaks if he asked and avoid making huge changes to our codebase.
+    * By having weekly meetings, we were able to update our partner frequently with our process. This way, we could easily make small tweaks if he asked and avoid making huge changes to our codebase. 
  * **Fixed Team Meetings on Sundays**
 
     * By having weekly meetings at a fixed time every week, we saved lots of time figuring out everyone’s schedule every week. Holding them on Sunday also gave us time to prepare questions or demos for our meeting with Victor on Wednesday. The weekly checkups with how everybody was doing also kept us grounded throughout the project.
@@ -37,7 +37,7 @@
     * To combat the problem of letting everyone choose their own issues, we plan on delegating some of our weekly meeting time to assign issues. We’ll go through each assigned issue and let volunteers take them. If someone has done a lot of work recently, they can relax a little. On the other hand, if a teammate hasn't done as much work, we’ll give them a chance to take issues first.
  * **Check-in on Progress**
     * In the future, we plan to check in more on progress with teammates and make sure they know what’s happening. While working on Deliverable 2, we found that some teammates would have trouble with running the app as they were not as familiar with the technologies. We plan on taking initiative to ask what’s going on because they might be afraid to ask for help. We want to reinforce the fact that nobody should be afraid to ask for help :)
- * Time Management
+ * **Time Management**
     * We plan on managing our time better by working on the project frequently instead of doing it all within the last few days before it’s due. This way, half our time isn’t spent debugging instead of working.
  * **Missing Meetings**
     * Regardless of what reason (catching up with work, waking up late, personal problems etc) for missing meetings or doing work, we will let the others know. We found that some members were frequently missing meetings but not giving a heads up, leaving us wondering where they went. If they’re too busy, we can take over their tasks to help us keep progressing.

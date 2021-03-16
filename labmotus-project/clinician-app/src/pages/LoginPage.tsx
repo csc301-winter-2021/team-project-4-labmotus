@@ -37,7 +37,44 @@ const LoginPage: FunctionComponent<LoginPageProps> = () => {
             return;
         }
         try {
-            await UseAPI.login(email, password);
+            const loginResult = await UseAPI.login(email, password);
+            switch (loginResult) {
+                case "invalid-email":
+                    // User has entered an invalid email address
+                    setHeader("Invalid Email");
+                    setMessage("Please enter a valid email address.");
+                    openAlert(true);
+                    setPassword("");
+                    return;
+                case "user-disabled":
+                    // User corresponding to the email is disabled
+                    setHeader("Account Disabled");
+                    setMessage(
+                        "Sorry! Your account has been disabled. Please contact your clinician if you believe this is a mistake."
+                    );
+                    openAlert(true);
+                    setPassword("");
+                    return;
+                case "user-not-found":
+                    // There is no user corresponding to the given email
+                    setHeader("Invalid Email");
+                    setMessage(
+                        "The email you have entered is not associated with an account. Please try again or sign up for an account through your clinician."
+                    );
+                    openAlert(true);
+                    setPassword("");
+                    return;
+                case "wrong-password":
+                    // User has entered the wrong password
+                    setHeader("Incorrect Password");
+                    setMessage("The password you entered is incorrect. Please try again.");
+                    openAlert(true);
+                    setPassword("");
+                    return;
+                default:
+                    console.log(loginResult);
+                    break;
+            }
         } catch (e) {
             console.error(e);
         }

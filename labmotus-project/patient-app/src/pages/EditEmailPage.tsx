@@ -41,6 +41,7 @@ const EditEmailPage: FunctionComponent<EditEmailPageProps> = () => {
             setHeader("Invalid Email");
             setMessage("Please enter a valid email address.");
             openAlert(true);
+            return;
         }
         try {
             patient.user.email = email;
