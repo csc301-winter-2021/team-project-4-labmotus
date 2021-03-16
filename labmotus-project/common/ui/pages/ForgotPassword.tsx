@@ -2,7 +2,7 @@ import {FunctionComponent, useContext} from "react";
 import {IonInput} from "@ionic/react";
 // @ts-ignore
 import styled from "styled-components";
-import {Theme, getThemeContext} from "../theme/Theme";
+import {getThemeContext, Theme} from "../theme/Theme";
 
 export interface ForgotPasswordProps {
     email: string;
@@ -17,7 +17,7 @@ const ForgotPassword: FunctionComponent<ForgotPasswordProps> = (props: ForgotPas
         <ForgotPasswordDiv theme={theme}>
             <h1>Reset Password</h1>
             <div className="main-padding">
-                <form>
+                <div className="form">
                     <p>
                         Enter the email address you used to register and we'll send you the instructions for resetting
                         your password.
@@ -33,7 +33,7 @@ const ForgotPassword: FunctionComponent<ForgotPasswordProps> = (props: ForgotPas
                     <button className="forgot-button" onClick={props.onForgotPassword}>
                         Submit
                     </button>
-                </form>
+                </div>
             </div>
         </ForgotPasswordDiv>
     );
@@ -74,7 +74,7 @@ const ForgotPasswordDiv = styled.div`
     }
 
     @media only screen and (min-width: 768px) {
-      form {
+      .form {
         margin: 0 auto;
         max-width: 60vw;
       }
@@ -84,7 +84,7 @@ const ForgotPasswordDiv = styled.div`
       }
     }
     @media only screen and (min-width: 1024px) {
-      form {
+      .form {
         max-width: 40vw;
       }
     }

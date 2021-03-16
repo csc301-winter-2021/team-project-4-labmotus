@@ -12,7 +12,7 @@ import {
 } from "@ionic/react";
 // @ts-ignore
 import styled from "styled-components";
-import {Theme, getThemeContext} from "../../../common/ui/theme/Theme";
+import {getThemeContext, Theme} from "../../../common/ui/theme/Theme";
 import API, {getAPIContext} from "../api/API";
 import {useHistory} from "react-router";
 import {chevronBack} from "ionicons/icons";
@@ -75,7 +75,7 @@ const ChangePasswordPage: FunctionComponent<ChangePasswordPageProps> = () => {
                     </IonToolbar>
                 </IonHeader>
                 <IonContent>
-                    <form>
+                    <div className="form">
                         <IonInput
                             type="password"
                             placeholder="Current Password"
@@ -83,22 +83,22 @@ const ChangePasswordPage: FunctionComponent<ChangePasswordPageProps> = () => {
                             clearInput={true}
                             value={currPassword}
                             onIonChange={(e) => setCurrPassword(e.detail.value!)}
-                        ></IonInput>
+                        />
                         <IonInput
                             type="password"
                             placeholder="New Password"
                             clearInput={true}
                             value={newPassword}
                             onIonChange={(e) => setNewPassword(e.detail.value!)}
-                        ></IonInput>
+                        />
                         <IonInput
                             type="password"
                             placeholder="Confirm New Password"
                             clearInput={true}
                             value={confirmPassword}
                             onIonChange={(e) => setConfirmPassword(e.detail.value!)}
-                        ></IonInput>
-                    </form>
+                        />
+                    </div>
                 </IonContent>
             </IonPage>
             <IonAlert

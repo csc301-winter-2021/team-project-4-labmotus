@@ -3,7 +3,7 @@ import {IonInput} from "@ionic/react";
 // @ts-ignore
 import styled from "styled-components";
 
-import {Theme, getThemeContext} from "../../../common/ui/theme/Theme";
+import {getThemeContext, Theme} from "../../../common/ui/theme/Theme";
 
 export interface ChangePasswordProps {
     currPassword: string;
@@ -23,7 +23,7 @@ export const ChangePassword: FunctionComponent<ChangePasswordProps> = (props: Ch
         <ChangePasswordDiv theme={theme}>
             <h1>Change Password</h1>
             <div className="main-padding">
-                <form>
+                <div className="form">
                     <IonInput
                         type="password"
                         placeholder="Current Password"
@@ -46,7 +46,7 @@ export const ChangePassword: FunctionComponent<ChangePasswordProps> = (props: Ch
                         value={confirmPassword}
                         onIonChange={(e) => setConfirmPassword(e.detail.value!)}
                     ></IonInput>
-                </form>
+                </div>
                 <button onClick={props.save} className="save-edit-button">
                     Change Password
                 </button>
