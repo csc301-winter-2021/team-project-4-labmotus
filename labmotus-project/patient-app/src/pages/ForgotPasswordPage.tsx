@@ -17,7 +17,7 @@ const ForgotPasswordPage: FunctionComponent<ForgotPasswordPageProps> = () => {
     const history = useHistory();
 
     const [email, setEmail] = useState<string>();
-    const [iserror, openAlert] = useState<boolean>(false);
+    const [isError, openAlert] = useState<boolean>(false);
     const [header, setHeader] = useState<string>();
     const [message, setMessage] = useState<string>();
 
@@ -84,7 +84,7 @@ const ForgotPasswordPage: FunctionComponent<ForgotPasswordPageProps> = () => {
                 </IonContent>
             </IonPage>
             <IonAlert
-                isOpen={iserror}
+                isOpen={isError}
                 onDidDismiss={() => openAlert(false)}
                 header={header}
                 message={message}

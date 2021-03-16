@@ -28,13 +28,13 @@ const ChangePasswordPage: FunctionComponent<ChangePasswordPageProps> = () => {
     const [currPassword, setCurrPassword] = useState<string>();
     const [newPassword, setNewPassword] = useState<string>();
     const [confirmPassword, setConfirmPassword] = useState<string>();
-    const [iserror, openAlert] = useState<boolean>(false);
+    const [isError, openAlert] = useState<boolean>(false);
     const [header, setHeader] = useState<string>();
     const [message, setMessage] = useState<string>();
 
     async function changePassword() {
         if (!currPassword || !newPassword || !confirmPassword) {
-            setHeader("Invalid Password");
+            setHeader("Enter Password");
             setMessage("Please enter your current password and set a new one.");
             openAlert(true);
             setConfirmPassword("");
@@ -47,9 +47,17 @@ const ChangePasswordPage: FunctionComponent<ChangePasswordPageProps> = () => {
             setConfirmPassword("");
             return;
         }
+        if (currPassword === newPassword) {
+            setHeader("Change Password");
+            setMessage("The new password you entered is the same as your old one. Please enter a different password.");
+            openAlert(true);
+            setNewPassword("");
+            setConfirmPassword("");
+            return;
+        }
         try {
             const pass = await UseAPI.changePassword(currPassword, newPassword);
-            console.log(pass, "testing in change passwword");
+            console.log(pass, "testing in change password for patient");
         } catch (e) {
             console.error(e);
         } finally {
@@ -104,7 +112,7 @@ const ChangePasswordPage: FunctionComponent<ChangePasswordPageProps> = () => {
                 </IonContent>
             </IonPage>
             <IonAlert
-                isOpen={iserror}
+                isOpen={isError}
                 onDidDismiss={() => openAlert(false)}
                 header={header}
                 message={message}

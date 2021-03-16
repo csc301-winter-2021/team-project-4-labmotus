@@ -30,13 +30,13 @@ const EditEmailPage: FunctionComponent<EditEmailPageProps> = () => {
     const patientEmail = patient?.user?.email;
 
     const [email, setEmail] = useState<string>(patientEmail);
-    const [iserror, openAlert] = useState<boolean>(false);
+    const [isError, openAlert] = useState<boolean>(false);
     const [header, setHeader] = useState<string>();
     const [message, setMessage] = useState<string>();
 
     async function editEmail() {
         // Check if user has entered a valid email
-        const validEmail = new RegExp("^[^\s@]+@[^\s@]+$");
+        const validEmail = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
         if (!validEmail.test(email.toLowerCase())) {
             setHeader("Invalid Email");
             setMessage("Please enter a valid email address.");
@@ -78,11 +78,11 @@ const EditEmailPage: FunctionComponent<EditEmailPageProps> = () => {
                         clearInput={true}
                         value={email}
                         onIonChange={(e) => setEmail(e.detail.value!)}
-                    ></IonInput>
+                    />
                 </IonContent>
             </IonPage>
             <IonAlert
-                isOpen={iserror}
+                isOpen={isError}
                 onDidDismiss={() => openAlert(false)}
                 header={header}
                 message={message}

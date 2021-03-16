@@ -17,7 +17,7 @@ const SignupPage: FunctionComponent<SignupPageProps> = () => {
     const [email, setEmail] = useState<string>();
     const [password, setPassword] = useState<string>();
     const [confirmPassword, setConfirmPassword] = useState<string>();
-    const [iserror, openAlert] = useState<boolean>(false);
+    const [isError, openAlert] = useState<boolean>(false);
     const [header, setHeader] = useState<string>();
     const [message, setMessage] = useState<string>();
 
@@ -110,7 +110,7 @@ const SignupPage: FunctionComponent<SignupPageProps> = () => {
                 </SignupPageDiv>
             </IonContent>
             <IonAlert
-                isOpen={iserror}
+                isOpen={isError}
                 onDidDismiss={() => openAlert(false)}
                 header={header}
                 message={message}

@@ -80,11 +80,12 @@ export class BaseAPI {
         })
     }
 
-    async signUp(email: string, pass: string): Promise<void> {
+    async signUp(email: string, pass: string): Promise<string> {
         try {
             await this._firebaseCreateUserWithEmailAndPassword(email, pass);
+            return "success";
         } catch (e) {
-            console.log(e);
+            return e.code.slice(5);
         }
     }
 

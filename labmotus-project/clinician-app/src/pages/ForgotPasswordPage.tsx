@@ -17,7 +17,7 @@ const ForgotPasswordPage: FunctionComponent<ForgotPasswordPageProps> = () => {
 
 
     const [email, setEmail] = useState<string>();
-    const [iserror, openAlert] = useState<boolean>(false);
+    const [isError, openAlert] = useState<boolean>(false);
     const [header, setHeader] = useState<string>();
     const [message, setMessage] = useState<string>();
 
@@ -41,9 +41,7 @@ const ForgotPasswordPage: FunctionComponent<ForgotPasswordPageProps> = () => {
                 case "user-not-found":
                     // There is no user corresponding to the given email
                     setHeader("Invalid Email");
-                    setMessage(
-                        "The email you have entered is not associated with an account. Please try again or sign up for an account."
-                    );
+                    setMessage("The email you have entered is not associated with an account. Please try again or sign up for an account.");
                     openAlert(true);
                     return;
                 case "success":
@@ -73,7 +71,7 @@ const ForgotPasswordPage: FunctionComponent<ForgotPasswordPageProps> = () => {
             <ForgotPassword email={email} setEmail={setEmail} onForgotPassword={forgotPassword}/>
             <p className="footer">Remember your password? <span onClick={login}>Login</span></p>
             <IonAlert
-                isOpen={iserror}
+                isOpen={isError}
                 onDidDismiss={() => openAlert(false)}
                 header={header}
                 message={message}

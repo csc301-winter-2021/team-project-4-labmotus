@@ -18,7 +18,7 @@ const FinalizeSignupPage: FunctionComponent<SignupPageProps> = () => {
     const [code, setCode] = useState<string>();
     const [password, setPassword] = useState<string>();
     const [confirmPassword, setConfirmPassword] = useState<string>();
-    const [iserror, openAlert] = useState<boolean>(false);
+    const [isError, openAlert] = useState<boolean>(false);
     const [header, setHeader] = useState<string>();
     const [message, setMessage] = useState<string>();
     const location = useLocation();
@@ -71,7 +71,7 @@ const FinalizeSignupPage: FunctionComponent<SignupPageProps> = () => {
         try {
             await UseAPI.finishSignUp(email, password, code);
             setHeader("Thanks For Signing Up");
-            setMessage("You can now log in via our Patient APP");
+            setMessage("You can now log in via our Patient APP!");
             openAlert(true);
         } catch (e) {
             console.error(e);
@@ -135,7 +135,7 @@ const FinalizeSignupPage: FunctionComponent<SignupPageProps> = () => {
                 </SignupPageDiv>
             </IonContent>
             <IonAlert
-                isOpen={iserror}
+                isOpen={isError}
                 onDidDismiss={() => openAlert(false)}
                 header={header}
                 message={message}

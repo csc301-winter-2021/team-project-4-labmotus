@@ -34,12 +34,13 @@ class MockAPI extends API {
         return "success";
     }
 
-    async signUp(email: string, pass: string): Promise<void> {
+    async signUp(email: string, pass: string): Promise<string> {
         if (this._user !== null)
             throw Error("Already logged In.");
         this._user = FakeClinician;
         this._user.user.email = email;
-        console.log(this._user)
+        console.log(this._user);
+        return "success";
     }
 
     async createPatient(patient: Patient): Promise<Patient> {

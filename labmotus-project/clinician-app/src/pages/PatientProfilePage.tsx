@@ -28,7 +28,7 @@ const PatientProfilePage: FunctionComponent<PatientProfilePageProps> = () => {
     const [patientEmail, setPatientEmail] = useState("");
     const [patientPhone, setPatientPhone] = useState("");
     const [patientBirthday, setPatientBirthday] = useState<Moment>(moment());
-    const [iserror, openAlert] = useState<boolean>(false);
+    const [isError, openAlert] = useState<boolean>(false);
     const [header, setHeader] = useState<string>();
     const [message, setMessage] = useState<string>();
 
@@ -50,12 +50,12 @@ const PatientProfilePage: FunctionComponent<PatientProfilePageProps> = () => {
         // Check if user has entered a name
         if (!patientName) {
             setHeader("Invalid Name");
-            setMessage("Please enter a name for the patient.");
+            setMessage("Please enter the patient's full name.");
             openAlert(true);
             return;
         }
         // Check if user has entered a valid email
-        const validEmail = new RegExp("^[^\s@]+@[^\s@]+$");
+        const validEmail = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
         if (!patientEmail || !validEmail.test(patientEmail.toLowerCase())) {
             setHeader("Invalid Email");
             setMessage("Please enter a valid email address.");
@@ -63,10 +63,10 @@ const PatientProfilePage: FunctionComponent<PatientProfilePageProps> = () => {
             return;
         }
         // Check if user has entered a valid phone number
-        const validNumber = new RegExp("^\d{10}$");
+        const validNumber = /^\d{10}$/;
         if (!patientPhone || !validNumber.test(patientPhone)) {
             setHeader("Invalid Phone Number");
-            setMessage("Please enter a valid email address. The phone number should be 10 numbers.");
+            setMessage("Please enter a valid phone number. The phone number should be 10 numbers.");
             openAlert(true);
             return;
         }
@@ -74,7 +74,7 @@ const PatientProfilePage: FunctionComponent<PatientProfilePageProps> = () => {
             if (patient != null) {
                 patient.user.name = patientName;
                 patient.user.email = patientEmail;
-                patient.phone = patientPhone;
+                patient.phone = patientPhone.replace(/(\d{3})(\d{3})(\d{4})/, "$1-$2-$3");
                 patient.birthday = moment(patientBirthday);
                 UseAPI.updatePatient(patient).then(value => setPatient(value));
             }
@@ -129,7 +129,7 @@ const PatientProfilePage: FunctionComponent<PatientProfilePageProps> = () => {
                 <SymptomLogPage baseUrl={"/patients/" + params.patientId} getAssessments={getAssessments}/>
             </IonContent>
             <IonAlert
-                isOpen={iserror}
+                isOpen={isError}
                 onDidDismiss={() => openAlert(false)}
                 header={header}
                 message={message}

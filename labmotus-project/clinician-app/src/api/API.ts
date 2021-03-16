@@ -80,7 +80,7 @@ class API extends BaseAPI {
         }
     }
 
-    async signUp(email: string, pass: string): Promise<void> {
+    async signUp(email: string, pass: string): Promise<string> {
         try {
             const creds = await this._firebaseCreateUserWithEmailAndPassword(email, pass);
             const clinician: Clinician = {
@@ -101,11 +101,12 @@ class API extends BaseAPI {
             });
             if (response.ok) {
                 await this._firebaseSignInWithEmailAndPassword(email, pass);
+                return "success";
             } else {
                 console.error(response);
             }
         } catch (e) {
-            console.log(e);
+            return e.code.slice(5);
         }
     }
 

@@ -26,7 +26,7 @@ const SettingsPage: FunctionComponent<SettingsPageProps> = () => {
     const [currPassword, setCurrPassword] = useState<string>();
     const [newPassword, setNewPassword] = useState<string>();
     const [confirmPassword, setConfirmPassword] = useState<string>();
-    const [iserror, openAlert] = useState<boolean>(false);
+    const [isError, openAlert] = useState<boolean>(false);
     const [header, setHeader] = useState<string>();
     const [message, setMessage] = useState<string>();
 
@@ -53,7 +53,7 @@ const SettingsPage: FunctionComponent<SettingsPageProps> = () => {
     // When user clicks 'Edit Email' in the edit email modal
     async function editEmail() {
         // Check if user has entered a valid email
-        const validEmail = new RegExp("^[^\s@]+@[^\s@]+$");
+        const validEmail = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
         if (!validEmail.test(email.toLowerCase())) {
             setHeader("Invalid Email");
             setMessage("Please enter a valid email address.");
@@ -83,9 +83,17 @@ const SettingsPage: FunctionComponent<SettingsPageProps> = () => {
             openAlert(true);
             return;
         }
+        if (currPassword === newPassword) {
+            setHeader("Change Password");
+            setMessage("The new password you entered is the same as your old one. Please enter a different password.");
+            openAlert(true);
+            setNewPassword("");
+            setConfirmPassword("");
+            return;
+        }
         try {
             const pass = await UseAPI.changePassword(currPassword, newPassword);
-            console.log(pass, "testing in change passwword");
+            console.log(pass, "testing in change password for clinician");
         } catch (e) {
             console.error(e);
         } finally {
@@ -123,7 +131,7 @@ const SettingsPage: FunctionComponent<SettingsPageProps> = () => {
                                 setConfirmPassword={setConfirmPassword} save={changePassword}/>
             </IonModal>
             <IonAlert
-                isOpen={iserror}
+                isOpen={isError}
                 onDidDismiss={() => openAlert(false)}
                 header={header}
                 message={message}

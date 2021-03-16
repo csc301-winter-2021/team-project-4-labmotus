@@ -17,7 +17,7 @@ const LoginPage: FunctionComponent<LoginPageProps> = () => {
     const history = useHistory();
     const [email, setEmail] = useState<string>();
     const [password, setPassword] = useState<string>();
-    const [iserror, openAlert] = useState<boolean>(false);
+    const [isError, openAlert] = useState<boolean>(false);
     const [header, setHeader] = useState<string>();
     const [message, setMessage] = useState<string>();
 
@@ -85,10 +85,10 @@ const LoginPage: FunctionComponent<LoginPageProps> = () => {
         history.push("/forgot-password");
     }
 
-    // When user clicks 'Sign Up'
-    function signUp() {
-        history.push("/sign-up");
-    }
+    // // When user clicks 'Sign Up'
+    // function signUp() {
+    //     history.push("/sign-up");
+    // }
 
     return (
         <IonPage>
@@ -109,7 +109,7 @@ const LoginPage: FunctionComponent<LoginPageProps> = () => {
                 </LoginPageDiv>
             </IonContent>
             <IonAlert
-                isOpen={iserror}
+                isOpen={isError}
                 onDidDismiss={() => openAlert(false)}
                 header={header}
                 message={message}

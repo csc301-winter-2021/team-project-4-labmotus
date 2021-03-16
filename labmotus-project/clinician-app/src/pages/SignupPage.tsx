@@ -17,7 +17,7 @@ const SignupPage: FunctionComponent<SignupPageProps> = () => {
     const [email, setEmail] = useState<string>();
     const [password, setPassword] = useState<string>();
     const [confirmPassword, setConfirmPassword] = useState<string>();
-    const [iserror, openAlert] = useState<boolean>(false);
+    const [isError, openAlert] = useState<boolean>(false);
     const [header, setHeader] = useState<string>();
     const [message, setMessage] = useState<string>();
 
@@ -46,7 +46,35 @@ const SignupPage: FunctionComponent<SignupPageProps> = () => {
         }
 
         try {
-            await UseAPI.signUp(email, password);
+            const signUpResult = await UseAPI.signUp(email, password);
+            switch (signUpResult) {
+                case "email-already-in-use":
+                    // User has entered an email that's already in use
+                    setHeader("Email Taken");
+                    setMessage("The email you have entered already has an account associated with it. If this is your account please sign in or choose a different email.");
+                    openAlert(true);
+                    setPassword("");
+                    setConfirmPassword("");
+                    return;
+                case "invalid-email":
+                    // User has entered an invalid email address
+                    setHeader("Invalid Email");
+                    setMessage("Please enter a valid email address.");
+                    openAlert(true);
+                    setPassword("");
+                    setConfirmPassword("");
+                    return;
+                case "weak-password":
+                    // User chose a weak password under 6 characters
+                    setHeader("Weak Password");
+                    setMessage("Please choose a password that's at least 6 characters.");
+                    openAlert(true);
+                    setPassword("");
+                    return;
+                default:
+                    console.log(signUpResult);
+                    break;
+            }
         } catch (e) {
             console.error(e);
         }
@@ -111,7 +139,7 @@ const SignupPage: FunctionComponent<SignupPageProps> = () => {
                 </SignupPageDiv>
             </IonContent>
             <IonAlert
-                isOpen={iserror}
+                isOpen={isError}
                 onDidDismiss={() => openAlert(false)}
                 header={header}
                 message={message}

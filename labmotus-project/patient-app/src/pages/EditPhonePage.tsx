@@ -30,21 +30,21 @@ const EditPhonePage: FunctionComponent<EditPhonePageProps> = () => {
     const patientNumber = patient?.phone;
 
     const [phoneNumber, setPhoneNumber] = useState<string>(patientNumber.split("-").join(""));
-    const [iserror, openAlert] = useState<boolean>(false);
+    const [isError, openAlert] = useState<boolean>(false);
     const [header, setHeader] = useState<string>();
     const [message, setMessage] = useState<string>();
 
     async function editPhoneNumber() {
-        const phone = phoneNumber.replace(/(\d{3})(\d{3})(\d{4})/, "$1-$2-$3");
         // Check if user has entered a valid phone number
-        const validNumber = new RegExp("^\d{10}$");
-        if (!validNumber.test(phone)) {
+        const validNumber = /^\d{10}$/;
+        if (!validNumber.test(phoneNumber)) {
             setHeader("Invalid Phone Number");
-            setMessage("Please enter a valid email address. The phone number should be 10 numbers.");
+            setMessage("Please enter a valid phone number. The phone number should be 10 numbers.");
             openAlert(true);
+            return;
         }
         try {
-            patient.phone = phone;
+            patient.phone = phoneNumber.replace(/(\d{3})(\d{3})(\d{4})/, "$1-$2-$3");
             patient = await UseAPI.updatePatient(patient);
             history.push(`/settings`);
         } catch (e) {
@@ -80,11 +80,11 @@ const EditPhonePage: FunctionComponent<EditPhonePageProps> = () => {
                         minlength={10}
                         maxlength={10}
                         onIonChange={(e) => setPhoneNumber(e.detail.value!)}
-                    ></IonInput>
+                    />
                 </IonContent>
             </IonPage>
             <IonAlert
-                isOpen={iserror}
+                isOpen={isError}
                 onDidDismiss={() => openAlert(false)}
                 header={header}
                 message={message}

@@ -17,7 +17,7 @@ const LoginPage: FunctionComponent<LoginPageProps> = () => {
     const history = useHistory();
     const [email, setEmail] = useState<string>();
     const [password, setPassword] = useState<string>();
-    const [iserror, openAlert] = useState<boolean>(false);
+    const [isError, openAlert] = useState<boolean>(false);
     const [header, setHeader] = useState<string>();
     const [message, setMessage] = useState<string>();
 
@@ -49,18 +49,14 @@ const LoginPage: FunctionComponent<LoginPageProps> = () => {
                 case "user-disabled":
                     // User corresponding to the email is disabled
                     setHeader("Account Disabled");
-                    setMessage(
-                        "Sorry! Your account has been disabled. Please contact your clinician if you believe this is a mistake."
-                    );
+                    setMessage("Sorry! Your account has been disabled. Please try again later.");
                     openAlert(true);
                     setPassword("");
                     return;
                 case "user-not-found":
                     // There is no user corresponding to the given email
                     setHeader("Invalid Email");
-                    setMessage(
-                        "The email you have entered is not associated with an account. Please try again or sign up for an account through your clinician."
-                    );
+                    setMessage("The email you have entered is not associated with an account. Please try again or sign up for an account.");
                     openAlert(true);
                     setPassword("");
                     return;
@@ -110,7 +106,7 @@ const LoginPage: FunctionComponent<LoginPageProps> = () => {
                 </LoginPageDiv>
             </IonContent>
             <IonAlert
-                isOpen={iserror}
+                isOpen={isError}
                 onDidDismiss={() => openAlert(false)}
                 header={header}
                 message={message}
