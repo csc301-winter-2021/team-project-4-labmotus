@@ -1,14 +1,15 @@
-import React, {FunctionComponent, useContext, useState} from "react";
-import {IonPage, IonModal, IonSelect, IonSelectOption, IonAlert} from "@ionic/react";
+import {FunctionComponent, useContext, useState} from "react";
+import {IonAlert, IonModal, IonPage} from "@ionic/react";
 // @ts-ignore
 import styled from "styled-components";
 import {getThemeContext, Theme} from "../../../common/ui/theme/Theme";
 import BaseAssessmentPage from "../../../common/ui/pages/AssessmentPage";
-import { Moment } from "moment";
-import API, { getAPIContext } from "../api/API";
+import {Moment} from "moment";
+import API, {getAPIContext} from "../api/API";
 import {Assessment, AssessmentState} from "../../../common/types/types";
-import { useParams } from "react-router";
+import {useParams} from "react-router";
 import moment from "moment";
+import AddAssessment from "../components/AddAssessment";
 
 export interface AssessmentPageProps {
 }
@@ -19,55 +20,52 @@ const AssessmentPage: FunctionComponent<AssessmentPageProps> = (props: Assessmen
     const [showCreateAssessment, setShowCreateAssessment] = useState(false);
     const [assessmentType, setAssessmentType] = useState("");
     const UseAPI: API = useContext(getAPIContext());
-    const params: { patientId: string, date?: string} = useParams();
+    const params: { patientId: string; date?: string } = useParams();
     const [isalert, openAlert] = useState<boolean>(false);
     const [header, setHeader] = useState<string>();
     const [message, setMessage] = useState<string>();
 
     function getAssessments(week: Moment): Promise<Assessment[]> {
-      return UseAPI.getAssessments(params.patientId, week);
+        return UseAPI.getAssessments(params.patientId, week);
     }
 
-    function createAssessment(assessmentType: string){
-        if (!assessmentType){
-            setHeader('No assessment type selected!')
-            setMessage('Use the drop down menu to select an exercise')
+    function createAssessment(assessmentType: string) {
+        if (!assessmentType) {
+            setHeader("No Assessment Type Selected");
+            setMessage("Please use the drop down menu to select an exercise.");
             openAlert(true);
-        }
-        else {
+        } else {
             const assessment: Assessment = {
-              id: Math.floor(Math.random() * 1000000).toString(),
-              patientId: params.patientId,
-              name: assessmentType,
-              date: params.date ? moment(params.date, 'YYYY-MM-DD'):moment(), 
-              state: AssessmentState.MISSING,
-              joints: ["placeholder joint 1", "placeholder joint 2"]
-            }
+                id: Math.floor(Math.random() * 1000000).toString(),
+                patientId: params.patientId,
+                name: assessmentType,
+                date: params.date ? moment(params.date, "YYYY-MM-DD") : moment(),
+                state: AssessmentState.MISSING,
+                joints: ["placeholder joint 1", "placeholder joint 2"],
+            };
             UseAPI.createAssessment(assessment);
             setShowCreateAssessment(false);
-            setHeader('Assessment added!')
-            setMessage('')
+            setHeader("Assessment Added!");
+            setMessage("");
             openAlert(true);
         }
     }
 
     return (
-        <IonPage>                    
-            <BaseAssessmentPage getAssessments={getAssessments} />
+        <IonPage>
+            <BaseAssessmentPage getAssessments={getAssessments}/>
             <AssessmentPageDiv theme={theme}>
                 <div className="main-padding">
-                    <button onClick={() => setShowCreateAssessment(true)} className="add-button">Add assessment</button>
+                    <button onClick={() => setShowCreateAssessment(true)} className="add-button">
+                        Add Assessment
+                    </button>
                     <IonModal isOpen={showCreateAssessment} onDidDismiss={() => setShowCreateAssessment(false)}>
-                        <IonSelect value={assessmentType} placeholder={"Select exercise"} onIonChange={e => setAssessmentType(e.detail.value)}>
-                            <IonSelectOption value="Squats">Squats</IonSelectOption>
-                            <IonSelectOption value="Single Leg Squats">Single Leg Squats</IonSelectOption>
-                        </IonSelect>
-                        <button onClick={() => createAssessment(assessmentType)} className="add-button">
-                            Add Assessment
-                        </button>
-                        <button onClick={() => setShowCreateAssessment(false)} className="add-button">
-                            Cancel
-                        </button>
+                        <AddAssessment
+                            assessmentType={assessmentType}
+                            setAssessmentType={setAssessmentType}
+                            createAssessment={createAssessment}
+                            setShowCreateAssessment={setShowCreateAssessment}
+                        />
                         <IonAlert
                             isOpen={isalert}
                             onDidDismiss={() => openAlert(false)}
@@ -80,8 +78,7 @@ const AssessmentPage: FunctionComponent<AssessmentPageProps> = (props: Assessmen
             </AssessmentPageDiv>
         </IonPage>
     );
-}
-
+};
 
 const AssessmentPageDiv = styled.div`
   height: 100%;
@@ -99,7 +96,7 @@ const AssessmentPageDiv = styled.div`
     font-size: 1em;
     outline: none;
   }
-  
+
   .add-button {
     width: 100%;
     font-size: 1em;
@@ -112,7 +109,6 @@ const AssessmentPageDiv = styled.div`
   .footer {
     margin-top: 65vh;
   }
-
 `;
 
 export default AssessmentPage;

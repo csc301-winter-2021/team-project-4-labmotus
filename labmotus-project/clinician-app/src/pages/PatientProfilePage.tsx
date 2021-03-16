@@ -122,6 +122,7 @@ const PatientProfilePage: FunctionComponent<PatientProfilePageProps> = () => {
                             setPhone={setPatientPhone}
                             birthday={moment(patientBirthday)}
                             setBirthday={setPatientBirthday}
+                            setEditPatient={setEditPatient}
                             save={updatePatient}
                         />
                     </IonModal>

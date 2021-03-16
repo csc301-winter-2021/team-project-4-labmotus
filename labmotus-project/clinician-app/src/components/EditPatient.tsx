@@ -16,6 +16,7 @@ export interface EditPatientProps {
     setPhone: any;
     birthday: Moment;
     setBirthday: any;
+    setEditPatient: any;
     save: any;
 }
 
@@ -50,8 +51,11 @@ export const EditPatient: FunctionComponent<EditPatientProps> = (props: EditPati
                     maxlength={10}
                     onIonChange={(e) => props.setPhone(e.detail.value!)}
                 />
-                <button onClick={props.save} className="save-edit-button">
+                <button onClick={props.save} className="edit-patient button">
                     Edit Patient
+                </button>
+                <button onClick={() => props.setEditPatient(false)} className="cancel button">
+                    Cancel
                 </button>
             </div>
         </EditPatientDiv>
@@ -79,11 +83,15 @@ const EditPatientDiv = styled.div`
     background-color: ${({theme}: { theme: Theme }) => theme.colors.light};
   }
 
-  .save-edit-button {
+  .button {
+    margin-bottom: 10px;
     width: 100%;
     font-size: 1em;
     padding: 14px;
     outline: none;
+  }
+
+  .edit-patient {
     background-color: ${({theme}: { theme: Theme }) => theme.colors.primary};
     color: white;
   }

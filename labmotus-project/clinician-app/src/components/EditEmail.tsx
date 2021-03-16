@@ -8,6 +8,7 @@ import {getThemeContext, Theme} from "../../../common/ui/theme/Theme";
 export interface EditEmailProps {
     email: string;
     setEmail: any;
+    setEditEmail: any;
     save: any;
 }
 
@@ -25,8 +26,11 @@ export const EditEmail: FunctionComponent<EditEmailProps> = (props: EditEmailPro
                     value={props.email}
                     onIonChange={(e) => props.setEmail(e.detail.value!)}
                 />
-                <button onClick={props.save} className="save-edit-button">
+                <button onClick={props.save} className="save-edit button">
                     Edit Email
+                </button>
+                <button onClick={() => props.setEditEmail(false)} className="cancel button">
+                    Cancel
                 </button>
             </div>
         </EditEmailDiv>
@@ -54,11 +58,15 @@ const EditEmailDiv = styled.div`
     background-color: ${({theme}: { theme: Theme }) => theme.colors.light};
   }
 
-  .save-edit-button {
+  .button {
+    margin-bottom: 10px;
     width: 100%;
     font-size: 1em;
     padding: 14px;
     outline: none;
+  }
+
+  .save-edit {
     background-color: ${({theme}: { theme: Theme }) => theme.colors.primary};
     color: white;
   }

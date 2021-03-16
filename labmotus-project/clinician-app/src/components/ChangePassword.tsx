@@ -12,14 +12,12 @@ export interface ChangePasswordProps {
     setNewPassword: any;
     confirmPassword: string;
     setConfirmPassword: any;
+    setChangePassword: any;
     save: any;
 }
 
 export const ChangePassword: FunctionComponent<ChangePasswordProps> = (props: ChangePasswordProps) => {
     const theme = useContext(getThemeContext());
-
-
-    const [confirmPassword, setConfirmPassword] = useState<string>();
 
     return (
         <ChangePasswordDiv theme={theme}>
@@ -33,24 +31,27 @@ export const ChangePassword: FunctionComponent<ChangePasswordProps> = (props: Ch
                         clearInput={true}
                         value={props.currPassword}
                         onIonChange={(e) => props.setCurrPassword(e.detail.value!)}
-                    ></IonInput>
+                    />
                     <IonInput
                         type="password"
                         placeholder="New Password"
                         clearInput={true}
                         value={props.newPassword}
                         onIonChange={(e) => props.setNewPassword(e.detail.value!)}
-                    ></IonInput>
+                    />
                     <IonInput
                         type="password"
                         placeholder="Confirm New Password"
                         clearInput={true}
                         value={props.confirmPassword}
                         onIonChange={(e) => props.setConfirmPassword(e.detail.value!)}
-                    ></IonInput>
+                    />
                 </div>
-                <button onClick={props.save} className="save-edit-button">
+                <button onClick={props.save} className="change-password button">
                     Change Password
+                </button>
+                <button onClick={() => props.setChangePassword(false)} className="cancel button">
+                    Cancel
                 </button>
             </div>
         </ChangePasswordDiv>
@@ -78,11 +79,15 @@ const ChangePasswordDiv = styled.div`
     background-color: ${({theme}: { theme: Theme }) => theme.colors.light};
   }
 
-  .save-edit-button {
+  .button {
+    margin-bottom: 10px;
     width: 100%;
     font-size: 1em;
     padding: 14px;
     outline: none;
+  }
+
+  .change-password {
     background-color: ${({theme}: { theme: Theme }) => theme.colors.primary};
     color: white;
   }

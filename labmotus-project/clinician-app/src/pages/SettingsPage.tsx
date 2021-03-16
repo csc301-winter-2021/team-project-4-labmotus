@@ -122,13 +122,14 @@ const SettingsPage: FunctionComponent<SettingsPageProps> = () => {
                 </IonContent>
             </IonPage>
             <IonModal isOpen={showEditEmail} cssClass="clinician-modal" onDidDismiss={() => setEditEmail(false)}>
-                <EditEmail email={email} setEmail={setEmail} save={editEmail}/>
+                <EditEmail email={email} setEmail={setEmail} setEditEmail={setEditEmail} save={editEmail}/>
             </IonModal>
             <IonModal isOpen={showChangePassword} cssClass="clinician-modal"
                       onDidDismiss={() => setChangePassword(false)}>
                 <ChangePassword currPassword={currPassword} setCurrPassword={setCurrPassword} newPassword={newPassword}
                                 setNewPassword={setNewPassword} confirmPassword={confirmPassword}
-                                setConfirmPassword={setConfirmPassword} save={changePassword}/>
+                                setConfirmPassword={setConfirmPassword} setChangePassword={setChangePassword}
+                                save={changePassword}/>
             </IonModal>
             <IonAlert
                 isOpen={isError}
