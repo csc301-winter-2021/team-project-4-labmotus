@@ -6,7 +6,7 @@ import {getThemeContext, Theme} from "../../../common/ui/theme/Theme";
 import {DateDisplay} from "../../../common/ui/components/DateDisplay";
 import API, {getAPIContext} from "../api/API";
 import moment, {Moment} from "moment";
-import {Clinician, Patient} from "../../../common/types/types";
+import {Patient} from "../../../common/types/types";
 import {useHistory} from "react-router";
 import {chevronBack} from "ionicons/icons";
 
@@ -53,18 +53,19 @@ const SignupPatientPage: FunctionComponent<SignupPatientPageProps> = () => {
             openAlert(true);
             return;
         }
+        setHeader("Account Added");
+        setMessage("Email will be sent shortly.")
+        openAlert(true);
 
         try {
             // Create patient
-            const clinician: Clinician = await UseAPI.getClinician();
-            const patientId = "1234";
             const patient: Patient = {
                 user: {
                     email: email,
-                    id: patientId,
+                    id: "",
                     name: name,
                 },
-                clinicianID: clinician.user.id,
+                clinicianID: "",
                 birthday: birthday,
                 phone: phone,
                 incomplete: true,
