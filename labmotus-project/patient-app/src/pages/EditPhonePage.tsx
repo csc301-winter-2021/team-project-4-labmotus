@@ -1,12 +1,22 @@
-import { FunctionComponent, useContext, useState } from "react";
-import { IonButtons, IonContent, IonHeader, IonIcon, IonInput, IonPage, IonTitle, IonToolbar } from "@ionic/react";
+import {FunctionComponent, useContext, useState} from "react";
+import {
+    IonAlert,
+    IonButtons,
+    IonContent,
+    IonHeader,
+    IonIcon,
+    IonInput,
+    IonPage,
+    IonTitle,
+    IonToolbar
+} from "@ionic/react";
 // @ts-ignore
 import styled from "styled-components";
-import { Theme, getThemeContext } from "../../../common/ui/theme/Theme";
-import API, { getAPIContext } from "../api/API";
-import { useHistory } from "react-router";
-import { chevronBack } from "ionicons/icons";
-import { Patient } from "../../../common/types/types";
+import {Theme, getThemeContext} from "../../../common/ui/theme/Theme";
+import API, {getAPIContext} from "../api/API";
+import {useHistory} from "react-router";
+import {chevronBack} from "ionicons/icons";
+import {Patient} from "../../../common/types/types";
 
 export interface EditPhonePageProps {
 }
@@ -20,9 +30,19 @@ const EditPhonePage: FunctionComponent<EditPhonePageProps> = () => {
     const patientNumber = patient?.phone;
 
     const [phoneNumber, setPhoneNumber] = useState<string>(patientNumber.split("-").join(""));
+    const [iserror, openAlert] = useState<boolean>(false);
+    const [header, setHeader] = useState<string>();
+    const [message, setMessage] = useState<string>();
 
     async function editPhoneNumber() {
         const phone = phoneNumber.replace(/(\d{3})(\d{3})(\d{4})/, "$1-$2-$3");
+        // Check if user has entered a valid phone number
+        const validNumber = new RegExp("^\d{10}$");
+        if (!validNumber.test(phone)) {
+            setHeader("Invalid Phone Number");
+            setMessage("Please enter a valid email address. The phone number should be 10 numbers.");
+            openAlert(true);
+        }
         try {
             patient.phone = phone;
             patient = await UseAPI.updatePatient(patient);
@@ -42,7 +62,7 @@ const EditPhonePage: FunctionComponent<EditPhonePageProps> = () => {
                 <IonHeader>
                     <IonToolbar>
                         <IonButtons slot="start" onClick={back}>
-                            <IonIcon icon={chevronBack} />
+                            <IonIcon icon={chevronBack}/>
                             Back
                         </IonButtons>
                         <IonButtons slot="end" onClick={editPhoneNumber}>
@@ -63,27 +83,37 @@ const EditPhonePage: FunctionComponent<EditPhonePageProps> = () => {
                     ></IonInput>
                 </IonContent>
             </IonPage>
+            <IonAlert
+                isOpen={iserror}
+                onDidDismiss={() => openAlert(false)}
+                header={header}
+                message={message}
+                buttons={["OK"]}
+            />
         </EditPhonePageDiv>
     );
 };
 
 const EditPhonePageDiv = styled.div`
-    overflow: hidden;
-    width: 100%;
-    height: 100%;
-    ion-input {
-        text-align: center;
-        margin: 10px 0;
-        background-color: ${({ theme }: { theme: Theme }) => theme.colors.light};
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+
+  ion-input {
+    text-align: center;
+    margin: 10px 0;
+    background-color: ${({theme}: { theme: Theme }) => theme.colors.light};
+  }
+
+  ion-buttons {
+    color: ${({theme}: { theme: Theme }) => theme.colors.primary};
+    cursor: pointer;
+
+    ion-icon {
+      height: 25px;
+      width: 25px;
     }
-    ion-buttons {
-        color: ${({ theme }: { theme: Theme }) => theme.colors.primary};
-        cursor: pointer;
-        ion-icon {
-            height: 25px;
-            width: 25px;
-        }
-    }
+  }
 `;
 
 export default EditPhonePage;

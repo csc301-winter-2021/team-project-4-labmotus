@@ -40,11 +40,12 @@ export class BaseAPI {
         })
     }
 
-    async login(user: string, pass: string): Promise<void> {
+    async login(user: string, pass: string): Promise<string> {
         try {
             this._credentials = await this._firebaseSignInWithEmailAndPassword(user, pass);
+            return "success";
         } catch (e) {
-            console.log(e);
+            return e.code.slice(5);
         }
     }
 
@@ -64,13 +65,12 @@ export class BaseAPI {
         })
     }
 
-    async forgotPassword(email: string): Promise<boolean> {
+    async forgotPassword(email: string): Promise<string> {
         try {
             this._firebaseSendPasswordResetEmail(email);
-            return true;
+            return "success";
         } catch (e) {
-            console.log(e);
-            return false;
+            return e.code.slice(5);
         }
     }
 
