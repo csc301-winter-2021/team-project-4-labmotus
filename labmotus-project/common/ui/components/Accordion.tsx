@@ -1,7 +1,7 @@
 import {FunctionComponent, useContext, useEffect, useRef, useState} from "react";
 // @ts-ignore
 import styled from 'styled-components';
-import {Theme, getThemeContext} from "../theme/Theme";
+import {getThemeContext, Theme} from "../theme/Theme";
 // @ts-ignore
 import {chevronDown} from "ionicons/icons";
 import {IonCard, IonCardContent, IonCardHeader, IonIcon} from "@ionic/react";
@@ -38,7 +38,7 @@ const Accordion: FunctionComponent<AccordionProps> = ({
     useEffect(() => {
         if (bodyRef.current != null) {
             observer.current = new ResizeObserver((e: any) => {
-                setHeight(e[0].borderBoxSize[0].blockSize);
+                setHeight(e?.[0]?.borderBoxSize?.[0]?.blockSize);
             });
             observer.current.observe(bodyRef.current);
         }

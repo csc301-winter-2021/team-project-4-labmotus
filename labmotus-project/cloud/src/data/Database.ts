@@ -151,6 +151,10 @@ class Database {
         throw new Error("Not Implemented")
     }
 
+    async createClinician(newClinician: Clinician): Promise<Clinician> {
+        throw new Error("Not Implemented")
+    }
+
     async finalizePatient(patient: Patient): Promise<Patient> {
         throw new Error("Not Implemented")
     }

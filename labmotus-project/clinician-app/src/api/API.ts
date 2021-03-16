@@ -3,7 +3,7 @@ import {Context, createContext} from "react";
 import firebase from 'firebase/app';
 import "firebase/auth"
 import {Assessment, Clinician, Patient} from "../../../common/types/types";
-import moment, {Moment} from "moment";
+import moment from "moment";
 import {APIConfig, BaseAPI, FirebaseConfig} from "../../../common/api/BaseAPI";
 
 class API extends BaseAPI {
@@ -20,7 +20,12 @@ class API extends BaseAPI {
             this._firebase.auth().onAuthStateChanged(async (a: any) => {
                 this._firebaseUser = a;
                 if (this._firebaseUser) {
-                    this._user = await this.getClinician();
+                    const clinician = await this.getClinician();
+                    if (clinician != null) {
+                        this._user = clinician;
+                    } else {
+                        this._firebaseSignOut();
+                    }
                 }
                 this.authChangeListeners.forEach(listener => listener(!!(a as any)))
             })
@@ -72,6 +77,35 @@ class API extends BaseAPI {
             return newPatient;
         } else {
             console.error(response);
+        }
+    }
+
+    async signUp(email: string, pass: string): Promise<void> {
+        try {
+            const creds = await this._firebaseCreateUserWithEmailAndPassword(email, pass);
+            const clinician: Clinician = {
+                clinic: "", patientIDs: [], user: {
+                    id: "",
+                    name: "",
+                    email: email,
+                    firebaseId: creds.user.uid
+                }
+            };
+            const response = await fetch(this._config.api + `/clinician`, {
+                method: "POST",
+                mode: 'cors',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(clinician)
+            });
+            if (response.ok) {
+                await this._firebaseSignInWithEmailAndPassword(email, pass);
+            } else {
+                console.error(response);
+            }
+        } catch (e) {
+            console.log(e);
         }
     }
 

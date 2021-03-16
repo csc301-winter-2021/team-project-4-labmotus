@@ -24,18 +24,25 @@ export default async function (server: fastify.FastifyInstance & { database: Dat
         Headers: RequestHeaders,
         Body: Clinician
     }>('/clinician', {}, async (request, reply) => {
-        const clinician = request.body;
-        clinician.user.id = "0";
-        clinician.user.firebaseId = "firebase:0";
-
-        const mockResponse: Response<Clinician> = {
-            success: true,
-            body: clinician
-        };
-        reply
-            .code(200)
-            .header('Content-Type', 'application/json')
-            .send(mockResponse)
+        try {
+            try {
+                const newClinician = request.body;
+                const result = await server.database.createClinician(newClinician);
+                const response: Response<Clinician> = {
+                    success: true,
+                    body: result
+                };
+                reply.code(200)
+                    .header('Content-Type', 'application/json')
+                    .send(response)
+            } catch (e) {
+                reply.code(401).send("Not Authorized");
+            }
+        } catch (e) {
+            reply.code(401).send("Not Authorized");
+            return;
+        }
+        reply.code(401).send("Not Authorized");
     });
 
     /**

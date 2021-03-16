@@ -279,6 +279,12 @@ class MockDatabase extends Database {
         return patient;
     }
 
+    async createClinician(newClinician: Clinician): Promise<Clinician> {
+        newClinician = {...newClinician, user: {...newClinician.user, id: this._generateUserID()}, patientIDs: []};
+        this.clinicianDatabase.push(newClinician);
+        return newClinician;
+    }
+
     async finalizePatient(patient: Patient): Promise<Patient> {
         const databasePatient = await this.getPatientByID(patient.user.id);
         databasePatient.incomplete = false;

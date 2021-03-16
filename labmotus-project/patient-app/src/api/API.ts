@@ -12,7 +12,7 @@ class API extends BaseAPI {
 
     // @ts-ignore
     constructor(fbConfig: (FirebaseConfig | null), apiConfig: APIConfig) {
-        super(fbConfig, apiConfig)
+        super(fbConfig, apiConfig);
 
         this._user = null;
 
@@ -20,7 +20,12 @@ class API extends BaseAPI {
             this._firebase.auth().onAuthStateChanged(async (a: any) => {
                 this._firebaseUser = a;
                 if (this._firebaseUser) {
-                    this._user = await this.getPatient();
+                    const patient = await this.getPatient();
+                    if (patient != null) {
+                        this._user = patient;
+                    } else {
+                        this._firebaseSignOut();
+                    }
                 }
                 this.authChangeListeners.forEach(listener => listener(!!(a as any)))
             })
