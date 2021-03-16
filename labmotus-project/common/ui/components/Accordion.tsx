@@ -1,7 +1,7 @@
 import {FunctionComponent, useContext, useEffect, useRef, useState} from "react";
 // @ts-ignore
 import styled from 'styled-components';
-import {Theme, getThemeContext} from "../theme/Theme";
+import {getThemeContext, Theme} from "../theme/Theme";
 // @ts-ignore
 import {chevronDown} from "ionicons/icons";
 import {IonCard, IonCardContent, IonCardHeader, IonIcon} from "@ionic/react";
