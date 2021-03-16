@@ -9,7 +9,8 @@ import moment, {Moment} from "moment";
 import {useHistory, useParams} from "react-router";
 
 export interface SymptomLogPageProps {
-    getAssessments: (newWeek: Moment) => Promise<Assessment[]>
+    getAssessments: (newWeek: Moment) => Promise<Assessment[]>;
+    baseUrl: string;
 }
 
 const dateFormat = 'YYYY-MM-DD';
@@ -100,7 +101,7 @@ const SymptomLogPage: FunctionComponent<SymptomLogPageProps> = (props: SymptomLo
     }, [data]);
 
     function goto(newWeek: Moment, newIndex: number) {
-        history.push(`/home/${moment(newWeek).add(newIndex - 1, 'd').format(dateFormat)}`)
+        history.push(`${props.baseUrl}/${moment(newWeek).add(newIndex - 1, 'd').format(dateFormat)}`)
     }
 
     useEffect(() => {
@@ -162,7 +163,7 @@ const SymptomLogPage: FunctionComponent<SymptomLogPageProps> = (props: SymptomLo
             const dayData = data[newDay.format(dateFormat)];
             return <InstanceDiv>
                 <SymptomInstance changeDay={setDate} date={newDay} graphData={graphData}
-                                 graphKeys={graphKeys} data={dayData}/>
+                                 graphKeys={graphKeys} data={dayData} baseUrl={props.baseUrl}/>
             </InstanceDiv>
         } else {
             return <InstanceDiv>

@@ -1,7 +1,7 @@
 import React, {FunctionComponent} from "react";
 // @ts-ignore
 import styled from 'styled-components';
-import {Theme, getThemeContext} from "../../../common/ui/theme/Theme";
+import {getThemeContext, Theme} from "../theme/Theme";
 import {useHistory, useLocation} from "react-router";
 import {IonIcon} from "@ionic/react";
 
@@ -23,7 +23,7 @@ const NavigationBar: FunctionComponent<NavigationBarProps> = ({entries}) => {
     function generateButtons() {
         return entries.map((value, index) => {
             const here = location.pathname.startsWith(value.navigation);
-            return (
+            return value.disabled ? null : (
                 <ButtonDiv key={index} onClick={() => history.push(value.navigation)}>
                     <IconDiv here={here} theme={theme}>
                         <IonIcon icon={value.icon}/>
@@ -46,6 +46,7 @@ const NavigationBarDiv = styled.div`
     display: ${({inNav}: { inNav: boolean }) => inNav ? 'unset' : 'none !important'};
     padding: 1%;
     width: 100%;
+    flex: 1;
     display: flex;
     flex-direction: row;
     z-index: 1;

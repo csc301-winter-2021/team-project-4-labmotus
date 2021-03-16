@@ -41,7 +41,7 @@ const AssessmentPage: FunctionComponent<AssessmentPageProps> = (props: Assessmen
     }, [date]);
 
     function back() {
-        history.push(`/home/${day.format('YYYY-MM-DD')}`)
+        history.goBack()
     }
 
     function onClick(index: number) {
@@ -95,6 +95,7 @@ const AssessmentPage: FunctionComponent<AssessmentPageProps> = (props: Assessmen
                                 Record
                             </RecordButton> : null
                         }
+                        {/* TODO: can clinician record? */}
                         {value.videoUrl !== undefined ?
                             <VideoButton theme={theme} onClick={() => onWatch(index)}>
                                 <IonIcon icon={film}/>

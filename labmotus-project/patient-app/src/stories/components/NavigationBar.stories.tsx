@@ -1,6 +1,6 @@
 import React from 'react';
 import {Meta, Story} from '@storybook/react';
-import NavigationBar, {NavigationBarProps} from "../../components/NavigationBar";
+import NavigationBar, {NavigationBarProps} from "../../../../common/ui/components/NavigationBar";
 /* Core CSS required for Ionic components to work properly */
 import "@ionic/react/css/core.css";
 /* Basic CSS for apps built with Ionic */

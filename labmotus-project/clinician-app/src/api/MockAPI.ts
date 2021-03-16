@@ -42,6 +42,7 @@ class MockAPI extends API {
     }
 
     async createPatient(patient: Patient): Promise<Patient> {
+        // TODO
         throw Error("Not Implemented")
     }
 
@@ -58,6 +59,7 @@ class MockAPI extends API {
     }
 
     async createAssessment(assessment: Assessment): Promise<Assessment> {
+        // TODO
         throw Error("Not Implemented")
     }
 
@@ -151,6 +153,15 @@ class MockAPI extends API {
 
     async getAllPatients(): Promise<Patient[]> {
         return patientList;
+    }
+
+    async getPatient(patientID?: string): Promise<Patient> {
+        for (let patient of patientList) {
+            if (patient.user.id === patientID) {
+                return patient
+            }
+        }
+        throw Error("Patient not found")
     }
 
     isLoggedIn(): boolean {

@@ -1,58 +1,47 @@
-// @ts-ignore
 import {FunctionComponent, useContext} from "react";
-// @ts-ignore
 import {IonInput} from "@ionic/react";
 // @ts-ignore
 import styled from "styled-components";
 import {Theme, getThemeContext} from "../theme/Theme";
 
-export interface LoginFormProps {
+export interface ForgotPasswordProps {
     email: string;
     setEmail: any;
-    password: string;
-    setPassword: any;
-    onLogin: any;
     onForgotPassword: any;
 }
 
-export const LoginForm: FunctionComponent<LoginFormProps> = (props: LoginFormProps) => {
-
-    const theme = useContext(getThemeContext());
+const ForgotPassword: FunctionComponent<ForgotPasswordProps> = (props: ForgotPasswordProps) => {
+    const theme: Theme = useContext(getThemeContext());
 
     return (
-        <LoginFormDiv theme={theme}>
+        <ForgotPasswordDiv theme={theme}>
+            <h1>Reset Password</h1>
             <div className="main-padding">
                 <form>
+                    <p>
+                        Enter the email address you used to register and we'll send you the instructions for resetting
+                        your password.
+                    </p>
+
                     <IonInput
-                        class="input email"
+                        className="input"
                         placeholder="Email"
                         type="email"
-                        inputmode="email"
                         value={props.email}
                         onIonChange={(e) => props.setEmail(e.detail.value!)}
                     />
-                    <IonInput
-                        class="input password"
-                        placeholder="Password"
-                        type="password"
-                        value={props.password}
-                        onIonChange={(e) => props.setPassword(e.detail.value!)}
-                    />
-                    <button className="login-button" onClick={props.onLogin}>
-                        Login
+                    <button className="forgot-button" onClick={props.onForgotPassword}>
+                        Submit
                     </button>
                 </form>
-                <p onClick={props.onForgotPassword}>
-                    <span>Forgot password?</span>
-                </p>
             </div>
-        </LoginFormDiv>
+        </ForgotPasswordDiv>
     );
 };
 
-const LoginFormDiv = styled.div`
-  height: 100%;
-  width: 100%;
+const ForgotPasswordDiv = styled.div`
+  overflow: hidden;
+  text-align: center;
 
   .main-padding {
     position: absolute;
@@ -71,7 +60,7 @@ const LoginFormDiv = styled.div`
       --padding-start: 10px;
     }
 
-    .login-button {
+    .forgot-button {
       width: 100%;
       border-radius: 25px;
       max-width: 490px;
@@ -90,7 +79,7 @@ const LoginFormDiv = styled.div`
         max-width: 60vw;
       }
 
-      .login-button {
+      .forgot-button {
         font-size: 1.1em;
       }
     }
@@ -101,6 +90,11 @@ const LoginFormDiv = styled.div`
     }
     pointer-events: auto;
   }
+
+  h1 {
+    font-weight: bold;
+    margin-top: 15vh;
+  }
 `;
 
-export default LoginForm;
+export default ForgotPassword;

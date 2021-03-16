@@ -1,4 +1,4 @@
-import React, {FunctionComponent, useContext, useEffect, useState} from "react";
+import {FunctionComponent, useContext, useEffect, useState} from "react";
 import {IonContent, IonPage} from "@ionic/react";
 // @ts-ignore
 import styled from "styled-components";
@@ -17,14 +17,14 @@ const AllPatientsPage: FunctionComponent<AllPatientsPageProps> = () => {
     const theme = useContext(getThemeContext());
     const history = useHistory();
 
-    const emptyPatientsList: Patient[] = []
-    const [allPatients, setAllPatients] = useState(emptyPatientsList)
-    const [patientsToShow, setPatientsToShow] = useState(allPatients)
+    const emptyPatientsList: Patient[] = [];
+    const [allPatients, setAllPatients] = useState(emptyPatientsList);
+    const [patientsToShow, setPatientsToShow] = useState(allPatients);
 
     function getAllPatients(): void {
         UseAPI.getAllPatients().then(
             (patients: Patient[]) => {
-                setAllPatients(patients)
+                setAllPatients(patients);
                 setPatientsToShow(patients)
             },
             () => {
@@ -39,7 +39,7 @@ const AllPatientsPage: FunctionComponent<AllPatientsPageProps> = () => {
 
     useEffect(() => {
         getAllPatients()
-    }, [])
+    }, []);
 
     return (
         <IonPage>
@@ -96,6 +96,6 @@ const PatientsViewDiv = styled.div`
   width: 80vw;
   margin-top: 5vh;
   margin-left: 10vw;
-`
+`;
 
 export default AllPatientsPage;
