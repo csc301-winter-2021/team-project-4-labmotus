@@ -1,5 +1,5 @@
 import React, {FunctionComponent, useContext, useState} from "react";
-import {IonContent, IonPage, IonModal, IonSelect, IonSelectOption, IonAlert} from "@ionic/react";
+import {IonPage, IonModal, IonSelect, IonSelectOption, IonAlert} from "@ionic/react";
 // @ts-ignore
 import styled from "styled-components";
 import {getThemeContext, Theme} from "../../../common/ui/theme/Theme";
