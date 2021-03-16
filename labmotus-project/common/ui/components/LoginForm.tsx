@@ -4,7 +4,7 @@ import {FunctionComponent, useContext} from "react";
 import {IonInput} from "@ionic/react";
 // @ts-ignore
 import styled from "styled-components";
-import {Theme, getThemeContext} from "../theme/Theme";
+import {getThemeContext, Theme} from "../theme/Theme";
 
 export interface LoginFormProps {
     email: string;
@@ -22,7 +22,7 @@ export const LoginForm: FunctionComponent<LoginFormProps> = (props: LoginFormPro
     return (
         <LoginFormDiv theme={theme}>
             <div className="main-padding">
-                <form>
+                <div className="form">
                     <IonInput
                         class="input email"
                         placeholder="Email"
@@ -41,7 +41,7 @@ export const LoginForm: FunctionComponent<LoginFormProps> = (props: LoginFormPro
                     <button className="login-button" onClick={props.onLogin}>
                         Login
                     </button>
-                </form>
+                </div>
                 <p onClick={props.onForgotPassword}>
                     <span>Forgot password?</span>
                 </p>
@@ -85,7 +85,7 @@ const LoginFormDiv = styled.div`
     }
 
     @media only screen and (min-width: 768px) {
-      form {
+      .form {
         margin: 0 auto;
         max-width: 60vw;
       }
@@ -95,7 +95,7 @@ const LoginFormDiv = styled.div`
       }
     }
     @media only screen and (min-width: 1024px) {
-      form {
+      .form {
         max-width: 40vw;
       }
     }
