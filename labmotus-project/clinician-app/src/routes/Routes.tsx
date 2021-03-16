@@ -1,7 +1,7 @@
 import {FunctionComponent, ReactElement, useContext, useEffect} from "react";
 import {Redirect, Route, Switch, useHistory, useLocation} from "react-router-dom";
 
-import ForgotPasswordPage from "../../../common/ui/pages/ForgotPasswordPage";
+import ForgotPasswordPage from "../pages/ForgotPasswordPage";
 import SignupPage from "../pages/SignupPage";
 import LoginPage from "../pages/LoginPage";
 import TermsOfServicePage from "../../../common/ui/pages/TermsOfServicePage";
@@ -19,8 +19,8 @@ import {home, settings} from "ionicons/icons";
 import styled from 'styled-components';
 import NavigationBar from "../../../common/ui/components/NavigationBar";
 import AssessmentPage from "../pages/AssessmentPage";
-import { Assessment, AssessmentState } from "../../../common/types/types";
-import { Moment } from "moment";
+import {Assessment, AssessmentState} from "../../../common/types/types";
+import {Moment} from "moment";
 
 export interface RoutesProps {
 }
@@ -124,19 +124,20 @@ const Routes: FunctionComponent<RoutesProps> = ({}) => {
 };
 
 const BackgroundDiv = styled.div`
-    background-color: ${({theme}: { theme: Theme }) => theme.colors.background};
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    .navigation-bar {
-        flex: unset;
-    }
+  background-color: ${({theme}: { theme: Theme }) => theme.colors.background};
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+
+  .navigation-bar {
+    flex: unset;
+  }
 `;
 
 const PageDiv = styled.div`
-    position: relative;
-    flex: 1;
+  position: relative;
+  flex: 1;
 `;
 
 export default Routes;

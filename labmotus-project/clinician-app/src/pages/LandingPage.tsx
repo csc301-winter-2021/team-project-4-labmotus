@@ -20,7 +20,7 @@ const LandingPage: FunctionComponent<LandingPageProps> = () => {
         console.log("redirect");
         history.push("/login");
     }
-    
+
     return (
         <IonPage>
             <IonContent fullscreen>
@@ -31,7 +31,7 @@ const LandingPage: FunctionComponent<LandingPageProps> = () => {
                             <button className="landing-button" onClick={downloadAPK}>
                                 Download patient app
                             </button>
-                            <p></p>
+                            <p/>
                             <button className="landing-button" onClick={clinicianPortal}>
                                 See clinician portal
                             </button>
