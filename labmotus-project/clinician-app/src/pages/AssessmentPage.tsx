@@ -4,12 +4,13 @@ import {IonContent, IonPage, IonModal, IonSelect, IonSelectOption, IonAlert} fro
 import styled from "styled-components";
 import {getThemeContext, Theme} from "../../../common/ui/theme/Theme";
 import BaseAssessmentPage from "../../../common/ui/pages/AssessmentPage";
-import {Assessment} from "../../../common/types";
 import { Moment } from "moment";
+import API, { getAPIContext } from "../api/API";
+import {Assessment, AssessmentState} from "../../../common/types/types";
+import { useParams } from "react-router";
+import moment from "moment";
 
 export interface AssessmentPageProps {
-    createAssessment: (type: string) => void;
-    getAssessments: (newWeek: Moment) => Promise<Assessment[]>;
 }
 
 const AssessmentPage: FunctionComponent<AssessmentPageProps> = (props: AssessmentPageProps) => {
@@ -18,19 +19,33 @@ const AssessmentPage: FunctionComponent<AssessmentPageProps> = (props: Assessmen
     const [showCreateAssessment, setShowCreateAssessment] = useState(false);
     const [assessmentType, setAssessmentType] = useState("");
     const [iserror, openAlert] = useState<boolean>(false);
+    const UseAPI: API = useContext(getAPIContext());
+    const params: { patientId: string, date?: string} = useParams();
+
+    function getAssessments(week: Moment): Promise<Assessment[]> {
+      return UseAPI.getAssessments(params.patientId, week);
+    }
 
     function createAssessment(assessmentType: string){
         if (!assessmentType){
             openAlert(true);
         }
         else {
-            props.createAssessment(assessmentType);
+            const assessment: Assessment = {
+              id: Math.floor(Math.random() * 1000000).toString(),
+              patientId: params.patientId,
+              name: assessmentType,
+              date: params.date ? moment(params.date, 'YYYY-MM-DD'):moment(), 
+              state: AssessmentState.MISSING,
+              joints: ["placeholder joint 1", "placeholder joint 2"]
+            }
+            UseAPI.createAssessment(assessment);
         }
     }
 
     return (
         <IonPage>                    
-            <BaseAssessmentPage getAssessments={props.getAssessments} />
+            <BaseAssessmentPage getAssessments={getAssessments} />
             <AssessmentPageDiv theme={theme}>
                 <div className="main-padding">
                     <button onClick={() => setShowCreateAssessment(true)} className="add-button">Add assessment</button>
