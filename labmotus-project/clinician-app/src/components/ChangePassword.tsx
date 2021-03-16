@@ -10,6 +10,8 @@ export interface ChangePasswordProps {
     setCurrPassword: any;
     newPassword: string;
     setNewPassword: any;
+    confirmPassword: string;
+    setConfirmPassword: any;
     save: any;
 }
 
@@ -43,8 +45,8 @@ export const ChangePassword: FunctionComponent<ChangePasswordProps> = (props: Ch
                         type="password"
                         placeholder="Confirm New Password"
                         clearInput={true}
-                        value={confirmPassword}
-                        onIonChange={(e) => setConfirmPassword(e.detail.value!)}
+                        value={props.confirmPassword}
+                        onIonChange={(e) => props.setConfirmPassword(e.detail.value!)}
                     ></IonInput>
                 </div>
                 <button onClick={props.save} className="save-edit-button">

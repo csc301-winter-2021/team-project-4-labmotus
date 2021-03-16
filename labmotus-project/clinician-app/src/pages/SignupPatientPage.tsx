@@ -208,7 +208,11 @@ const SignupPatientPageDiv = styled.div`
 
   h1 {
     font-weight: bold;
-    margin-top: 15vh;
+    margin-top: 10vh;
+  }
+
+  h3 {
+    margin-top: 0vh;
   }
 
   .footer {

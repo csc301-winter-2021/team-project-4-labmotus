@@ -50,6 +50,10 @@ const Routes: FunctionComponent<RoutesProps> = ({}) => {
     const theme = useContext(getThemeContext());
 
     useEffect(() => {
+
+    }, [location]);
+
+    useEffect(() => {
         UseAPI.addLoginListener(onLoginChange);
         return () => {
             UseAPI.removeLoginListener(onLoginChange);
@@ -57,13 +61,28 @@ const Routes: FunctionComponent<RoutesProps> = ({}) => {
     }, [UseAPI]);
 
     function onLoginChange(loggedIn: boolean) {
+        if (location.search) {
+            if (location.search.includes('raw')) {
+                const components = location.search.split('&');
+                const emails = components.filter(comp => comp.includes("email"));
+                const codes = components.filter(comp => comp.includes("oobCode"));
+                if (emails.length > 0 && codes.length > 0) {
+                    const exemail = emails[0].split('=')[1];
+                    const excode = codes[0].split('=')[1];
+                    history.push(`finalize-sign-up?email=${encodeURIComponent(exemail)}&code=${encodeURIComponent(excode)}`);
+                    return;
+                }
+            }
+        }
         if (loggedIn) {
             if (!loggedOutPaths.every((path) => !location.pathname.startsWith(path))) {
                 history.push("/home");
+                return;
             }
         } else {
             if (!loggedInPaths.every((path) => !location.pathname.startsWith(path))) {
                 history.push("/login");
+                return;
             }
         }
         if (location.pathname === '/') {
