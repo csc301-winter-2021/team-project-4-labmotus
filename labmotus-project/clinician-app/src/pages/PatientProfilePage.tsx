@@ -1,5 +1,5 @@
-import {IonContent, IonModal, IonPage} from "@ionic/react";
 import {FunctionComponent, useContext, useEffect, useState} from "react";
+import {IonAlert, IonContent, IonModal, IonPage} from "@ionic/react";
 //@ts-ignore
 import styled from "styled-components";
 import moment from "moment";
@@ -28,6 +28,9 @@ const PatientProfilePage: FunctionComponent<PatientProfilePageProps> = () => {
     const [patientEmail, setPatientEmail] = useState("");
     const [patientPhone, setPatientPhone] = useState("");
     const [patientBirthday, setPatientBirthday] = useState<Moment>(moment());
+    const [iserror, openAlert] = useState<boolean>(false);
+    const [header, setHeader] = useState<string>();
+    const [message, setMessage] = useState<string>();
 
     function getAssessments(week: Moment): Promise<Assessment[]> {
         return UseAPI.getAssessments(params.patientId, week);
@@ -44,6 +47,29 @@ const PatientProfilePage: FunctionComponent<PatientProfilePageProps> = () => {
     }, [params.patientId]);
 
     async function updatePatient() {
+        // Check if user has entered a name
+        if (!patientName) {
+            setHeader("Invalid Name");
+            setMessage("Please enter a name for the patient.");
+            openAlert(true);
+            return;
+        }
+        // Check if user has entered a valid email
+        const validEmail = new RegExp("^[^\s@]+@[^\s@]+$");
+        if (!patientEmail || !validEmail.test(patientEmail.toLowerCase())) {
+            setHeader("Invalid Email");
+            setMessage("Please enter a valid email address.");
+            openAlert(true);
+            return;
+        }
+        // Check if user has entered a valid phone number
+        const validNumber = new RegExp("^\d{10}$");
+        if (!patientPhone || !validNumber.test(patientPhone)) {
+            setHeader("Invalid Phone Number");
+            setMessage("Please enter a valid email address. The phone number should be 10 numbers.");
+            openAlert(true);
+            return;
+        }
         try {
             if (patient != null) {
                 patient.user.name = patientName;
@@ -102,6 +128,13 @@ const PatientProfilePage: FunctionComponent<PatientProfilePageProps> = () => {
                 </PatientProfilePageDiv>
                 <SymptomLogPage baseUrl={"/patients/" + params.patientId} getAssessments={getAssessments}/>
             </IonContent>
+            <IonAlert
+                isOpen={iserror}
+                onDidDismiss={() => openAlert(false)}
+                header={header}
+                message={message}
+                buttons={["OK"]}
+            />
         </IonPage>
     );
 };

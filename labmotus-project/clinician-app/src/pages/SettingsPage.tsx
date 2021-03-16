@@ -1,5 +1,5 @@
 import {FunctionComponent, useContext, useState} from "react";
-import {IonContent, IonModal, IonPage} from "@ionic/react";
+import {IonAlert, IonContent, IonModal, IonPage} from "@ionic/react";
 // @ts-ignore
 import styled from "styled-components";
 import API, {getAPIContext} from "../api/API";
@@ -25,7 +25,10 @@ const SettingsPage: FunctionComponent<SettingsPageProps> = () => {
     const [email, setEmail] = useState<string>(clinicianEmail);
     const [currPassword, setCurrPassword] = useState<string>();
     const [newPassword, setNewPassword] = useState<string>();
-
+    const [confirmPassword, setConfirmPassword] = useState<string>();
+    const [iserror, openAlert] = useState<boolean>(false);
+    const [header, setHeader] = useState<string>();
+    const [message, setMessage] = useState<string>();
 
     // When user logs out
     async function onLogOut() {
@@ -49,7 +52,13 @@ const SettingsPage: FunctionComponent<SettingsPageProps> = () => {
 
     // When user clicks 'Edit Email' in the edit email modal
     async function editEmail() {
-        console.log(email)
+        // Check if user has entered a valid email
+        const validEmail = new RegExp("^[^\s@]+@[^\s@]+$");
+        if (!validEmail.test(email.toLowerCase())) {
+            setHeader("Invalid Email");
+            setMessage("Please enter a valid email address.");
+            openAlert(true);
+        }
         try {
             clinician.user.email = email;
             clinician = await UseAPI.updateClinician(clinician);
@@ -62,12 +71,25 @@ const SettingsPage: FunctionComponent<SettingsPageProps> = () => {
 
     // When user clicks 'Change Password' in the change password modal
     async function changePassword() {
-        console.log(currPassword, newPassword);
+        if (!currPassword || !newPassword || !confirmPassword) {
+            setHeader("Invalid Password");
+            setMessage("Please enter your current password and set a new one.");
+            openAlert(true);
+            return;
+        }
+        if (newPassword !== confirmPassword) {
+            setHeader("Passwords Don't Match");
+            setMessage("The passwords don't match. Please try again.");
+            openAlert(true);
+            return;
+        }
         try {
-            await UseAPI.changePassword(currPassword, newPassword);
-            setChangePassword(false);
+            const pass = await UseAPI.changePassword(currPassword, newPassword);
+            console.log(pass, "testing in change passwword");
         } catch (e) {
             console.error(e);
+        } finally {
+            setChangePassword(false);
         }
     }
 
@@ -97,8 +119,16 @@ const SettingsPage: FunctionComponent<SettingsPageProps> = () => {
             <IonModal isOpen={showChangePassword} cssClass="clinician-modal"
                       onDidDismiss={() => setChangePassword(false)}>
                 <ChangePassword currPassword={currPassword} setCurrPassword={setCurrPassword} newPassword={newPassword}
-                                setNewPassword={setNewPassword} save={changePassword}/>
+                                setNewPassword={setNewPassword} confirmPassword={confirmPassword}
+                                setConfirmPassword={setConfirmPassword} save={changePassword}/>
             </IonModal>
+            <IonAlert
+                isOpen={iserror}
+                onDidDismiss={() => openAlert(false)}
+                header={header}
+                message={message}
+                buttons={["OK"]}
+            />
         </SettingsPageDiv>
     );
 };

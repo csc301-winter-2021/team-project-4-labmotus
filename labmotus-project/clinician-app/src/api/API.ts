@@ -171,13 +171,14 @@ class API extends BaseAPI {
         return patients;
     }
 
-    async changePassword(currPassword: string, newPassword: string): Promise<void> {
+    async changePassword(currPassword: string, newPassword: string): Promise<string> {
         try {
             await this._firebaseSignInWithEmailAndPassword(this._user?.user.email, currPassword);
             await this._firebaseChangePassword(newPassword);
             await this.logout();
+            return "success";
         } catch (e) {
-            return Promise.reject("Authentication Failed")
+            return e.code.slice(5);
         }
     }
 }
