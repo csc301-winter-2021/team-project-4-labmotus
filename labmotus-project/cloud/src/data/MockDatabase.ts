@@ -32,7 +32,7 @@ class MockDatabase extends Database {
                 name: "LabMotus User",
                 email: "user@labmot.us",
             },
-            phone: "1234567890",
+            phone: "416-123-1234",
             clinicianID: '2',
             birthday: moment().subtract(18, 'years')
         }, {
@@ -42,7 +42,7 @@ class MockDatabase extends Database {
                 name: "LabMotus User1",
                 email: "user1@labmot.us",
             },
-            phone: "1234567890",
+            phone: "123-456-7890",
             clinicianID: '2',
             birthday: moment().subtract(18, 'years')
         }];
