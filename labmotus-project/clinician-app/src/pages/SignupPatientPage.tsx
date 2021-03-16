@@ -1,5 +1,5 @@
 import React, {FunctionComponent, useContext, useState} from "react";
-import {IonAlert, IonHeader, IonButtons, IonContent, IonIcon, IonInput, IonPage, IonToolbar} from "@ionic/react";
+import {IonAlert, IonButtons, IonContent, IonHeader, IonIcon, IonInput, IonPage, IonToolbar} from "@ionic/react";
 // @ts-ignore
 import styled from "styled-components";
 import {getThemeContext, Theme} from "../../../common/ui/theme/Theme";
@@ -96,7 +96,7 @@ const SignupPatientPage: FunctionComponent<SignupPatientPageProps> = () => {
                     <h3>Clinician Portal</h3>
                     <div className="main-padding">
                         <div className="main">
-                            <form>
+                            <div className="form">
                                 <IonInput
                                     class="input"
                                     placeholder="Full Name"
@@ -131,7 +131,7 @@ const SignupPatientPage: FunctionComponent<SignupPatientPageProps> = () => {
                                 <button className="signup-button" onClick={signUpPatient}>
                                     Send confirmation email to patient
                                 </button>
-                            </form>
+                            </div>
                         </div>
                     </div>
                 </SignupPatientPageDiv>
@@ -182,7 +182,7 @@ const SignupPatientPageDiv = styled.div`
     }
 
     @media only screen and (min-width: 768px) {
-      form {
+      .form {
         margin: 0 auto;
         max-width: 60vw;
       }
@@ -192,7 +192,7 @@ const SignupPatientPageDiv = styled.div`
       }
     }
     @media only screen and (min-width: 1024px) {
-      form {
+      .form {
         max-width: 40vw;
       }
     }
