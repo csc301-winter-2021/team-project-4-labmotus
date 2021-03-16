@@ -2,7 +2,7 @@ import React, {FunctionComponent, useContext, useState} from "react";
 import {IonAlert, IonContent, IonPage} from "@ionic/react";
 // @ts-ignore
 import styled from "styled-components";
-import {Theme, getThemeContext} from "../../../common/ui/theme/Theme";
+import {getThemeContext, Theme} from "../../../common/ui/theme/Theme";
 import API, {getAPIContext} from "../api/API";
 import {useHistory} from "react-router";
 import LoginForm from "../../../common/ui/components/LoginForm";
@@ -66,9 +66,9 @@ const LoginPage: FunctionComponent<LoginPageProps> = () => {
                         onLogin={login}
                         onForgotPassword={forgotPassword}
                     />
-                    <p className="footer">
-                        Don't have an account? <span onClick={signUp}>Sign Up</span>
-                    </p>
+                    {/*<p className="footer">*/}
+                    {/*    Don't have an account? <span onClick={signUp}>Sign Up</span>*/}
+                    {/*</p>*/}
                 </LoginPageDiv>
             </IonContent>
             <IonAlert

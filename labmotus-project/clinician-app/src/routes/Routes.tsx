@@ -26,7 +26,7 @@ export interface RoutesProps {
 }
 
 const loggedInPaths = ["/home", "/assessment", "/settings/*", "/terms-of-service", "/sign-up-patients", "/patients/*"];
-const loggedOutPaths = ["/login", "sign-up", "/forgot-password", "/terms-of-service"];
+const loggedOutPaths = ["/landing", "/login", "sign-up", "/forgot-password", "/terms-of-service"];
 
 const navigationEntries = [
     {
@@ -69,8 +69,7 @@ const Routes: FunctionComponent<RoutesProps> = ({}) => {
             }
         }
         if (location.pathname === '/') {
-            history.push("/landing")
-            // history.push(loggedIn ? loggedInPaths[0] : loggedOutPaths[0])
+            history.push(loggedIn ? loggedInPaths[0] : loggedOutPaths[0])
         }
     }
 
