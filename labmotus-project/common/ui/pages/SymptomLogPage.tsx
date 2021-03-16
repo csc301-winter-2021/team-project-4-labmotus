@@ -1,7 +1,7 @@
-import {FunctionComponent, SyntheticEvent, useEffect, useRef, useState, useContext} from "react";
+import {FunctionComponent, SyntheticEvent, useContext, useEffect, useRef, useState} from "react";
 // @ts-ignore
 import styled from 'styled-components';
-import {Theme, getThemeContext} from "../theme/Theme";
+import {getThemeContext, Theme} from "../theme/Theme";
 import {IonSpinner} from "@ionic/react";
 import SymptomInstance from "../components/SymptomInstance";
 import {Assessment, AssessmentState} from "../../types/types";
@@ -11,6 +11,7 @@ import {useHistory, useParams} from "react-router";
 export interface SymptomLogPageProps {
     getAssessments: (newWeek: Moment) => Promise<Assessment[]>;
     baseUrl: string;
+    logURL?: string;
 }
 
 const dateFormat = 'YYYY-MM-DD';
@@ -163,7 +164,7 @@ const SymptomLogPage: FunctionComponent<SymptomLogPageProps> = (props: SymptomLo
             const dayData = data[newDay.format(dateFormat)];
             return <InstanceDiv>
                 <SymptomInstance changeDay={setDate} date={newDay} graphData={graphData}
-                                 graphKeys={graphKeys} data={dayData} baseUrl={props.baseUrl}/>
+                                 graphKeys={graphKeys} data={dayData} baseUrl={props.logURL ?? props.baseUrl}/>
             </InstanceDiv>
         } else {
             return <InstanceDiv>

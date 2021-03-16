@@ -1,5 +1,5 @@
 import React, {FunctionComponent, useContext, useState} from "react";
-import {IonContent, IonPage, IonModal, IonInput, IonSelect, IonSelectOption} from "@ionic/react";
+import {IonContent, IonPage, IonModal, IonSelect, IonSelectOption, IonAlert} from "@ionic/react";
 // @ts-ignore
 import styled from "styled-components";
 import {getThemeContext, Theme} from "../../../common/ui/theme/Theme";
@@ -17,51 +17,53 @@ const AssessmentPage: FunctionComponent<AssessmentPageProps> = (props: Assessmen
 
     const [showCreateAssessment, setShowCreateAssessment] = useState(false);
     const [assessmentType, setAssessmentType] = useState("");
+    const [iserror, openAlert] = useState<boolean>(false);
+
+    function createAssessment(assessmentType: string){
+        if (!assessmentType){
+            openAlert(true);
+        }
+        else {
+            props.createAssessment(assessmentType);
+        }
+    }
 
     return (
-        <IonPage>
-            <IonContent fullscreen>
-                <div className="main-padding">                
-                    <AssessmentPageDiv theme={theme}>
-                        <button onClick={() => setShowCreateAssessment(true)} className="add-button">Add assessment</button>
-
-                        <BaseAssessmentPage getAssessments={props.getAssessments} />
-                        <IonModal isOpen={showCreateAssessment} onDidDismiss={() => setShowCreateAssessment(false)}>
-                            <IonSelect value={assessmentType} placeholder={"Select Type"} onIonChange={e => setAssessmentType(e.detail.value)}>
-                                <IonSelectOption value="Squats">Squats</IonSelectOption>
-                                <IonSelectOption value="Single Leg Squats">Single Leg Squats</IonSelectOption>
-                            </IonSelect>
-                            <button onClick={() => props.createAssessment(assessmentType)} className="add-button">
-                                Add Assessment
-                            </button>
-                        </IonModal>
-                    </AssessmentPageDiv>
+        <IonPage>                    
+            <BaseAssessmentPage getAssessments={props.getAssessments} />
+            <AssessmentPageDiv theme={theme}>
+                <div className="main-padding">
+                    <button onClick={() => setShowCreateAssessment(true)} className="add-button">Add assessment</button>
+                    <IonModal isOpen={showCreateAssessment} onDidDismiss={() => setShowCreateAssessment(false)}>
+                        <IonSelect value={assessmentType} placeholder={"Select exercise"} onIonChange={e => setAssessmentType(e.detail.value)}>
+                            <IonSelectOption value="Squats">Squats</IonSelectOption>
+                            <IonSelectOption value="Single Leg Squats">Single Leg Squats</IonSelectOption>
+                        </IonSelect>
+                        <button onClick={() => createAssessment(assessmentType)} className="add-button">
+                            Add Assessment
+                        </button>
+                        <button onClick={() => setShowCreateAssessment(false)} className="add-button">
+                            Cancel
+                        </button>
+                        <IonAlert
+                            isOpen={iserror}
+                            onDidDismiss={() => openAlert(false)}
+                            header={'No assessment type selected!'}
+                            message={'Use the drop down menu to select an exercise'}
+                            buttons={["OK"]}
+                        />
+                    </IonModal>
                 </div>
-            </IonContent>
+            </AssessmentPageDiv>
         </IonPage>
     );
 }
 
 
 const AssessmentPageDiv = styled.div`
-  overflow: hidden;
-  text-align: center;
   height: 100%;
   width: 100%;
   padding: 5%;
-
-  .add-button {
-    width: 100%;
-    border-radius: 25px;
-    max-width: 490px;
-    font-size: 0.8em;
-    padding: 14px;
-    font-weight: 500;
-    outline: none;
-    box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.1);
-    background-color: ${({theme}: { theme: Theme }) => theme.colors.primary};
-    color: white;
-  }
 
   .main-padding {
     position: absolute;
@@ -71,11 +73,17 @@ const AssessmentPageDiv = styled.div`
     width: 100%;
     padding: 5%;
     box-sizing: border-box;
+    font-size: 1em;
+    outline: none;
   }
-
-  .IonModal {
-    margin: 10px 0;
-    background-color: ${({theme}: { theme: Theme }) => theme.colors.light};
+  
+  .add-button {
+    width: 100%;
+    font-size: 1em;
+    padding: 14px;
+    outline: none;
+    background-color: ${({theme}: { theme: Theme }) => theme.colors.primary};
+    color: white;
   }
 
   .footer {

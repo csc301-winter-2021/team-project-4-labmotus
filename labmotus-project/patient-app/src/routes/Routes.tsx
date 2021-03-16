@@ -83,11 +83,10 @@ const Routes: FunctionComponent<RoutesProps> = ({}) => {
             <Switch>
                 <Route exact path="/login" render={() => <LoginPage/>}/>
                 <Route exact path="/home/:date?" render={() =>
-                    <SymptomLogPage baseUrl="/home" getAssessments={getAssessments}/>
+                    <SymptomLogPage baseUrl="/home" logURL="" getAssessments={getAssessments}/>
                 }/>
-                <Route exact path="/assessment/:date?" render={() =>
-                    <AssessmentPage getAssessments={getAssessments}/>
-                }/>
+                <Route exact path="/assessment/:date?"
+                       render={() => <AssessmentPage getAssessments={getAssessments}/>}/>
                 <Route exact path="/settings" render={() => <SettingsPage/>}/>
                 <Route exact path="/settings/edit-email" render={() => <EditEmailPage/>}/>
                 <Route exact path="/settings/edit-phone" render={() => <EditPhonePage/>}/>
