@@ -26,9 +26,8 @@ const ForgotPasswordPage: FunctionComponent<ForgotPasswordPageProps> = () => {
         history.push(`/login`);
     }
 
-    // When user clicks 'Forgot Password?'
+    // When user clicks 'Forgot Password?'¬
     async function forgotPassword() {
-        console.log(email, "the email");
         if (!email) {
             setHeader("Invalid Email");
             setMessage("Please enter your email.");
@@ -36,35 +35,62 @@ const ForgotPasswordPage: FunctionComponent<ForgotPasswordPageProps> = () => {
             return;
         }
         try {
-            await UseAPI.forgotPassword(email);
+            const forgotPassResult = await UseAPI.forgotPassword(email);
+            switch (forgotPassResult) {
+                case "invalid-email":
+                    // User has entered an invalid email address
+                    setHeader("Invalid Email");
+                    setMessage("Please enter a valid email address.");
+                    openAlert(true);
+                    return;
+                case "user-not-found":
+                    // There is no user corresponding to the given email
+                    setHeader("Invalid Email");
+                    setMessage(
+                        "The email you have entered is not associated with an account. Please try again or sign up for an account."
+                    );
+                    openAlert(true);
+                    return;
+                case "success":
+                    // User has entered valid email
+                    setHeader("Password Reset Email Sent");
+                    setMessage("Please check your email to reset your password!");
+                    openAlert(true);
+                    return;
+                default:
+                    console.log(forgotPassResult);
+                    break;
+            }
         } catch (e) {
             console.error(e);
         }
     }
 
     return (
-        <IonPage>
-            <IonHeader>
-                <IonToolbar>
-                    <BackButtonDiv theme={theme}>
-                        <IonButtons slot="start" onClick={back}>
-                            <IonIcon icon={chevronBack}/>
-                            Back
-                        </IonButtons>
-                    </BackButtonDiv>
-                </IonToolbar>
-            </IonHeader>
-            <IonContent fullscreen>
-                <ForgotPassword email={email} setEmail={setEmail} onForgotPassword={forgotPassword}/>
-                <IonAlert
-                    isOpen={iserror}
-                    onDidDismiss={() => openAlert(false)}
-                    header={header}
-                    message={message}
-                    buttons={["OK"]}
-                />
-            </IonContent>
-        </IonPage>
+        <div>
+            <IonPage>
+                <IonHeader>
+                    <IonToolbar>
+                        <BackButtonDiv theme={theme}>
+                            <IonButtons slot="start" onClick={back}>
+                                <IonIcon icon={chevronBack}/>
+                                Back
+                            </IonButtons>
+                        </BackButtonDiv>
+                    </IonToolbar>
+                </IonHeader>
+                <IonContent fullscreen>
+                    <ForgotPassword email={email} setEmail={setEmail} onForgotPassword={forgotPassword}/>
+                </IonContent>
+            </IonPage>
+            <IonAlert
+                isOpen={iserror}
+                onDidDismiss={() => openAlert(false)}
+                header={header}
+                message={message}
+                buttons={["OK"]}
+            />
+        </div>
     );
 };
 

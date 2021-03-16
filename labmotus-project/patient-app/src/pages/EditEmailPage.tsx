@@ -1,12 +1,22 @@
-import { FunctionComponent, useContext, useState } from "react";
-import { IonButtons, IonContent, IonHeader, IonIcon, IonInput, IonPage, IonTitle, IonToolbar } from "@ionic/react";
+import {FunctionComponent, useContext, useState} from "react";
+import {
+    IonAlert,
+    IonButtons,
+    IonContent,
+    IonHeader,
+    IonIcon,
+    IonInput,
+    IonPage,
+    IonTitle,
+    IonToolbar
+} from "@ionic/react";
 // @ts-ignore
 import styled from "styled-components";
-import { Theme, getThemeContext } from "../../../common/ui/theme/Theme";
-import API, { getAPIContext } from "../api/API";
-import { useHistory } from "react-router";
-import { chevronBack } from "ionicons/icons";
-import { Patient } from "../../../common/types/types";
+import {Theme, getThemeContext} from "../../../common/ui/theme/Theme";
+import API, {getAPIContext} from "../api/API";
+import {useHistory} from "react-router";
+import {chevronBack} from "ionicons/icons";
+import {Patient} from "../../../common/types/types";
 
 export interface EditEmailPageProps {
 }
@@ -20,8 +30,18 @@ const EditEmailPage: FunctionComponent<EditEmailPageProps> = () => {
     const patientEmail = patient?.user?.email;
 
     const [email, setEmail] = useState<string>(patientEmail);
+    const [iserror, openAlert] = useState<boolean>(false);
+    const [header, setHeader] = useState<string>();
+    const [message, setMessage] = useState<string>();
 
     async function editEmail() {
+        // Check if user has entered a valid email
+        const validEmail = new RegExp("^[^\s@]+@[^\s@]+$");
+        if (!validEmail.test(email.toLowerCase())) {
+            setHeader("Invalid Email");
+            setMessage("Please enter a valid email address.");
+            openAlert(true);
+        }
         try {
             patient.user.email = email;
             patient = await UseAPI.updatePatient(patient);
@@ -41,7 +61,7 @@ const EditEmailPage: FunctionComponent<EditEmailPageProps> = () => {
                 <IonHeader>
                     <IonToolbar>
                         <IonButtons slot="start" onClick={back}>
-                            <IonIcon icon={chevronBack} />
+                            <IonIcon icon={chevronBack}/>
                             Back
                         </IonButtons>
                         <IonButtons slot="end" onClick={editEmail}>
@@ -60,27 +80,37 @@ const EditEmailPage: FunctionComponent<EditEmailPageProps> = () => {
                     ></IonInput>
                 </IonContent>
             </IonPage>
+            <IonAlert
+                isOpen={iserror}
+                onDidDismiss={() => openAlert(false)}
+                header={header}
+                message={message}
+                buttons={["OK"]}
+            />
         </EditEmailPageDiv>
     );
 };
 
 const EditEmailPageDiv = styled.div`
-    overflow: hidden;
-    width: 100%;
-    height: 100%;
-    ion-input {
-        text-align: center;
-        margin: 10px 0;
-        background-color: ${({ theme }: { theme: Theme }) => theme.colors.light};
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+
+  ion-input {
+    text-align: center;
+    margin: 10px 0;
+    background-color: ${({theme}: { theme: Theme }) => theme.colors.light};
+  }
+
+  ion-buttons {
+    color: ${({theme}: { theme: Theme }) => theme.colors.primary};
+    cursor: pointer;
+
+    ion-icon {
+      height: 25px;
+      width: 25px;
     }
-    ion-buttons {
-        color: ${({ theme }: { theme: Theme }) => theme.colors.primary};
-        cursor: pointer;
-        ion-icon {
-            height: 25px;
-            width: 25px;
-        }
-    }
+  }
 `;
 
 export default EditEmailPage;

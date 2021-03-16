@@ -14,12 +14,13 @@ class MockAPI extends API {
         this.mockAssessments = {}
     }
 
-    async login(user: string, pass: string): Promise<void> {
+    async login(user: string, pass: string): Promise<string> {
         if (this._user !== null)
             throw Error("Already logged In. ");
         this._user = FakeClinician;
         this._user.user.email = user;
-        this.authChangeListeners.forEach(listener => listener(true))
+        this.authChangeListeners.forEach(listener => listener(true));
+        return "success";
     }
 
     async logout(): Promise<void> {
@@ -29,8 +30,8 @@ class MockAPI extends API {
         this.authChangeListeners.forEach(listener => listener(false))
     }
 
-    async forgotPassword(email: string): Promise<boolean> {
-        return true;
+    async forgotPassword(email: string): Promise<string> {
+        return "success";
     }
 
     async signUp(email: string, pass: string): Promise<void> {
