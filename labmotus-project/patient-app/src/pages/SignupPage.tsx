@@ -2,7 +2,7 @@ import React, {FunctionComponent, useContext, useState} from "react";
 import {IonAlert, IonContent, IonInput, IonPage} from "@ionic/react";
 // @ts-ignore
 import styled from "styled-components";
-import {Theme, getThemeContext} from "../../../common/ui/theme/Theme";
+import {getThemeContext, Theme} from "../../../common/ui/theme/Theme";
 import API, {getAPIContext} from "../api/API";
 import {useHistory} from "react-router";
 
@@ -69,7 +69,7 @@ const SignupPage: FunctionComponent<SignupPageProps> = () => {
                     <h1>LabMotus</h1>
                     <div className="main-padding">
                         <div className="main">
-                            <form>
+                            <div className="form">
                                 <IonInput
                                     class="input"
                                     placeholder="Email"
@@ -97,7 +97,7 @@ const SignupPage: FunctionComponent<SignupPageProps> = () => {
                                 <button className="signup-button" onClick={signUp}>
                                     Sign Up
                                 </button>
-                            </form>
+                            </div>
                             <p>
                                 By clicking 'Sign Up' you agree to our{" "}
                                 <span onClick={termsOfService}>Terms of Service</span>
@@ -155,7 +155,7 @@ const SignupPageDiv = styled.div`
     }
 
     @media only screen and (min-width: 768px) {
-      form {
+      .form {
         margin: 0 auto;
         max-width: 60vw;
       }
@@ -165,7 +165,7 @@ const SignupPageDiv = styled.div`
       }
     }
     @media only screen and (min-width: 1024px) {
-      form {
+      .form {
         max-width: 40vw;
       }
     }
