@@ -19,8 +19,6 @@ import {home, settings} from "ionicons/icons";
 import styled from 'styled-components';
 import NavigationBar from "../../../common/ui/components/NavigationBar";
 import AssessmentPage from "../pages/AssessmentPage";
-import {Assessment, AssessmentState} from "../../../common/types/types";
-import {Moment} from "moment";
 
 export interface RoutesProps {
 }
@@ -96,18 +94,6 @@ const Routes: FunctionComponent<RoutesProps> = ({}) => {
         return <Redirect exact from="/" to="/landing"/>;
     }
 
-    function createAssessment(patientId: string, date: Moment, type: string) {
-        const assessment: Assessment = {
-            id: Math.floor(Math.random() * 1000000).toString(),
-            patientId: patientId,
-            name: type,
-            date: date,
-            state: AssessmentState.MISSING,
-            joints: ["placeholder joint 1", "placeholder joint 2"]
-        }
-        UseAPI.createAssessment(assessment);
-    }
-
     return (
         <BackgroundDiv theme={theme}>
             <PageDiv>
@@ -124,13 +110,7 @@ const Routes: FunctionComponent<RoutesProps> = ({}) => {
                            }}/>}
                     />
                     <Route exact path="/patients/:patientId/:date?" render={() => <PatientProfilePage/>}/>
-                    <Route exact path="/patients/:patientId/assessment/:date?" render={(props) =>
-                        <AssessmentPage
-                            createAssessment={(type: string) =>
-                                createAssessment(props.match.params.patientId, props.match.params.date, type)}
-                            getAssessments={() =>
-                                UseAPI.getAssessments(props.match.params.patientId, props.match.params.date)}/>
-                    }/>
+                    <Route exact path="/patients/:patientId/assessment/:date?" render={() => <AssessmentPage/>}/>
                     <Route exact path="/sign-up-patient" render={() => <SignupPatientPage/>}/>
                     <Route exact path="/settings" render={() => <SettingsPage/>}/>
                     {generateRedirect()}

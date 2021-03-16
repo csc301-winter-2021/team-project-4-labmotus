@@ -48,10 +48,12 @@ const ChangePasswordPage: FunctionComponent<ChangePasswordPageProps> = () => {
             return;
         }
         try {
-            await UseAPI.changePassword(currPassword, newPassword);
-            history.push(`/settings`);
+            const pass = await UseAPI.changePassword(currPassword, newPassword);
+            console.log(pass, "testing in change passwword");
         } catch (e) {
             console.error(e);
+        } finally {
+            history.push(`/settings`);
         }
     }
 
