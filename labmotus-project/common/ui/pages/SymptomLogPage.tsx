@@ -99,7 +99,7 @@ const SymptomLogPage: FunctionComponent<SymptomLogPageProps> = (props: SymptomLo
         if (Object.keys(data).length === 0) {
             updateData(props.getAssessments, week, index)
         }
-    }, [data]);
+    }, []);
 
     function goto(newWeek: Moment, newIndex: number) {
         history.push(`${props.baseUrl}/${moment(newWeek).add(newIndex - 1, 'd').format(dateFormat)}`)
