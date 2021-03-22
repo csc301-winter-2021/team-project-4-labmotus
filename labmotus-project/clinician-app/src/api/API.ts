@@ -2,7 +2,7 @@ import {Context, createContext} from "react";
 
 import firebase from 'firebase/app';
 import "firebase/auth"
-import {Assessment, Clinician, Patient} from "../../../common/types/types";
+import {Assessment, Clinician, Patient, SignUpParams} from "../../../common/types/types";
 import moment from "moment";
 import {APIConfig, BaseAPI, FirebaseConfig} from "../../../common/api/BaseAPI";
 
@@ -59,25 +59,28 @@ class API extends BaseAPI {
         })
     }
 
-    async finishSignUp(user: string, pass: string, code: string): Promise<Patient> {
-        await this._firebaseConfirmPasswordReset(code, pass);
-        await this._firebaseSignInWithEmailAndPassword(user, pass);
-        const token = await firebase.auth().currentUser.getIdToken() as any;
+    async _firebaseVerifyEmail(oob: string): Promise<void> {
+        return new Promise<void>((resolve, reject) => {
+            this._firebase.auth().applyActionCode(oob).then(resolve).catch(reject)
+        })
+    }
+
+    async finishSignUp(params: SignUpParams): Promise<string> {
         // @ts-ignore
         const response = await fetch(this._config.api + `/patient/finalize`, {
             method: "POST",
             mode: 'cors',
             headers: {
-                "Authorization": "Bearer " + token,
+                'Content-Type': 'application/json',
             },
+            body: JSON.stringify(params)
         });
         if (response.ok) {
-            const newPatient: Patient = JSON.parse(await response.text()).body;
-            newPatient.birthday = moment(newPatient.birthday);
-            return newPatient;
+            return await response.text();
         } else {
             console.error(response);
         }
+        return null;
     }
 
     async signUp(email: string, pass: string): Promise<string> {
@@ -105,6 +108,21 @@ class API extends BaseAPI {
             } else {
                 console.error(response);
             }
+        } catch (e) {
+            return e.code.slice(5);
+        }
+    }
+
+    async _firebaseSignInWithCode(user: string, link: string): Promise<firebase.auth.UserCredential> {
+        return new Promise<firebase.auth.UserCredential>((resolve, reject) => {
+            this._firebase.auth().signInWithEmailLink(user, link).then(resolve).catch(reject)
+        })
+    }
+
+    async loginWithCode(user: string, link: string): Promise<string> {
+        try {
+            this._credentials = await this._firebaseSignInWithCode(user, link);
+            return "success";
         } catch (e) {
             return e.code.slice(5);
         }
@@ -209,6 +227,17 @@ class API extends BaseAPI {
     async changePassword(currPassword: string, newPassword: string): Promise<string> {
         try {
             await this._firebaseSignInWithEmailAndPassword(this._user?.user.email, currPassword);
+            await this._firebaseChangePassword(newPassword);
+            await this.logout();
+            return "success";
+        } catch (e) {
+            return e.code.slice(5);
+        }
+    }
+
+    async changePasswordWithLink(user: string, link: string, newPassword: string): Promise<string> {
+        try {
+            await this._firebaseSignInWithCode(user, link);
             await this._firebaseChangePassword(newPassword);
             await this.logout();
             return "success";

@@ -1,6 +1,6 @@
 import {FastifyInstance, FastifyPluginOptions} from 'fastify'
 import moment from 'moment'
-import {Assessment, Patient, Response} from '../../../../common/types/types'
+import {Assessment, Patient, Response, SignUpParams} from '../../../../common/types/types'
 import {RequestHeaders} from '../../types';
 import {authenticateUser} from "../../auth/Authenticator";
 import Database from "../../data/Database";
@@ -61,35 +61,24 @@ export default async function (server: FastifyInstance & { database: Database },
      * Finalize Patient Sign Up
      *
      * Body: Patient
-     * Response: Patient
+     * Response: signin link
      */
     server.post<{
         Headers: RequestHeaders,
-        Body: Patient
+        Body: SignUpParams
     }>('/patient/finalize', async (request, reply) => {
-        const headers: { authorization?: string } = request.headers as any;
+        const params = request.body;
         try {
-            const permissions = await authenticateUser(server.database, headers.authorization.split('Bearer ')[1]);
-            const patient = request.body;
-            try {
-                if (permissions.finalizePatient()) {
-                    const result = await server.database.finalizePatient(patient);
-                    const response: Response<Patient> = {
-                        success: true,
-                        body: result
-                    };
-                    reply.code(200)
-                        .header('Content-Type', 'application/json')
-                        .send(response)
-                } else {
-                    reply.code(403).send("Forbidden");
-                }
-            } catch (e) {
-                reply.code(403).send("Creation Failed");
-            }
+            const result = await server.database.finalizePatient(params);
+            const response: Response<string> = {
+                success: true,
+                body: result
+            };
+            reply.code(200)
+                .header('Content-Type', 'application/json')
+                .send(response)
         } catch (e) {
-            reply.code(401).send("Not Authorized");
-            return;
+            reply.code(403).send("Creation Failed");
         }
     });
 

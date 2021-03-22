@@ -61,15 +61,12 @@ const Routes: FunctionComponent<RoutesProps> = ({}) => {
     }, [UseAPI]);
 
     function onLoginChange(loggedIn: boolean) {
-        if (location.search && location.search.includes('raw')) {
-            const components = location.search.split('&');
-            const emails = components.filter(comp => comp.includes("email"));
-            const codes = components.filter(comp => comp.includes("oobCode"));
-            if (emails.length > 0 && codes.length > 0) {
-                const exemail = emails[0].split('=')[1];
-                const excode = codes[0].split('=')[1];
-                history.push(`finalize-sign-up?email=${encodeURIComponent(exemail)}&code=${encodeURIComponent(excode)}`);
-                return;
+        const params = new URLSearchParams(location.search);
+        if (params.has("mode")) {
+            switch (params.get("mode")) {
+                case "signIn":
+                    history.push(`finalize-sign-up${location.search}`);
+                    return;
             }
         }
         if (loggedIn) {

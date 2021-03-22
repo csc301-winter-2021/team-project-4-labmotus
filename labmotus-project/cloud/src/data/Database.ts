@@ -1,4 +1,4 @@
-import {Assessment, Clinician, Patient, User} from "../../../common/types/types";
+import {Assessment, Clinician, Patient, SignUpParams, User} from "../../../common/types/types";
 import moment, {Moment} from "moment";
 import AWS from 'aws-sdk';
 
@@ -155,7 +155,7 @@ class Database {
         throw new Error("Not Implemented")
     }
 
-    async finalizePatient(patient: Patient): Promise<Patient> {
+    async finalizePatient(params: SignUpParams): Promise<string> {
         throw new Error("Not Implemented")
     }
 }

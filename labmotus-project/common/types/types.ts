@@ -55,3 +55,8 @@ export interface Response<T> {
     error?: string
     body?: T
 }
+
+export interface SignUpParams {
+    oobCode: string
+    email: string
+}
