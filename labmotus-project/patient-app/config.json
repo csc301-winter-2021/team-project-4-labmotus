@@ -1,4 +1,4 @@
 {
   "mock": false,
-  "api": "http://localhost:5000/v1"
+  "api": "http://labmotus.us-east-1.elasticbeanstalk.com/v1"
 }
