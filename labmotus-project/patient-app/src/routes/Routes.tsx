@@ -79,7 +79,7 @@ const Routes: FunctionComponent<RoutesProps> = ({}) => {
     }
 
     return (
-        <BackgroundDiv theme={theme}>
+        <BackgroundDiv theme={theme} clear={location.pathname.startsWith("/record")}>
             <Switch>
                 <Route exact path="/login" render={() => <LoginPage/>}/>
                 <Route exact path="/home/:date?" render={() =>
@@ -109,7 +109,7 @@ const Routes: FunctionComponent<RoutesProps> = ({}) => {
 };
 
 const BackgroundDiv = styled.div`
-    background-color: ${({theme}: { theme: Theme }) => theme.colors.background};
+    background-color: ${({theme, clear}: { theme: Theme, clear: boolean }) => clear ? "transparent" : theme.colors.background};
     width: 100%;
     height: 100%;
     display: flex;
