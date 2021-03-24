@@ -1,8 +1,6 @@
 import {Assessment, AssessmentState, Clinician, Patient, SignUpParams} from "../../../common/types/types";
 import Database from "./Database";
 import moment, {Moment} from "moment";
-import * as fs from "fs";
-import path from "path";
 import config from "../../config.json";
 import {pipeline} from "stream";
 import * as util from "util";
@@ -236,10 +234,10 @@ class MockDatabase extends Database {
         return assessment;
     }
 
-    async saveVideo(assessmentID: string, video: NodeJS.ReadableStream): Promise<string> {
-        await pump(video, fs.createWriteStream(path.join(config.videoPath, assessmentID + ".mp4")));
-        return `/video/${assessmentID}`;
-    }
+    // async saveVideo(assessmentID: string, video: NodeJS.ReadableStream): Promise<string> {
+    //     await pump(video, fs.createWriteStream(path.join(config.videoPath, assessmentID + ".mp4")));
+    //     return `/video/${assessmentID}`;
+    // }
 
     async _firebaseCreateUser(properties: firebaseAdmin.auth.CreateRequest): Promise<firebaseAdmin.auth.UserRecord> {
         return new Promise<firebaseAdmin.auth.UserRecord>((resolve, reject) => {

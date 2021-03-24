@@ -2,7 +2,8 @@ import {Assessment, Clinician, Patient, SignUpParams, User} from "../../../commo
 import moment, {Moment} from "moment";
 import AWS from 'aws-sdk';
 
-const DynamoDB = new AWS.DynamoDB({ region: 'us-east-1' });
+const DynamoDB = new AWS.DynamoDB({region: 'us-east-1'});
+const s3 = new AWS.S3({region: 'us-east-1'});
 const PATIENTS_TABLE = "labmotus-patients";
 const CLINICIANS_TABLE = "labmotus-clinicians";
 const ASSESSMENTS_TABLE = "labmotus-assessments";
@@ -144,7 +145,12 @@ class Database {
     }
 
     async saveVideo(assessmentID: string, video: NodeJS.ReadableStream): Promise<string> {
-        throw new Error("Not Implemented")
+        const params = {Bucket: 'labmotus-videos', Key: assessmentID, Body: video};
+        const options = {partSize: 10 * 1024 * 1024, queueSize: 1};
+        s3.upload(params, options, (err, data) => {
+            console.log(err, data);
+        });
+        return `/video/${assessmentID}`;
     }
 
     async createPatient(clinician: Clinician, patient: Patient): Promise<Patient> {
