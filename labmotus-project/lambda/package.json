@@ -4,5 +4,10 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"No tests specified yet.\""
+  },
+  "dependencies": {
+    "aws-sdk": "^2.870.0",
+    "form-data": "^4.0.0",
+    "node-fetch": "^2.6.1"
   }
 }
