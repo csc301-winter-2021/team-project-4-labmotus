@@ -1,15 +1,15 @@
 import React, {FunctionComponent, useContext, useEffect, useState} from "react";
 // @ts-ignore
 import styled from 'styled-components';
-import {Theme, getThemeContext} from "../../../common/ui/theme/Theme";
+import {getThemeContext, Theme} from "../../../common/ui/theme/Theme";
 import '@teamhive/capacitor-video-recorder';
-import {VideoRecorderCamera, VideoRecorderPreviewFrame} from '@teamhive/capacitor-video-recorder';
+import {VideoRecorderCamera, VideoRecorderPreviewFrame, VideoRecorderQuality} from '@teamhive/capacitor-video-recorder';
 import {Plugins} from "@capacitor/core";
 import {IonIcon} from "@ionic/react";
 // @ts-ignore
 import {sync} from "ionicons/icons";
 import {useHistory, useParams} from "react-router";
-import API, { getAPIContext } from "../api/API";
+import API, {getAPIContext} from "../api/API";
 
 export interface VideoRecordingPageProps {
 }
@@ -19,7 +19,6 @@ const {VideoRecorder} = Plugins;
 const config: VideoRecorderPreviewFrame = {
     id: 'video-record',
     stackPosition: 'back', // 'front' overlays your app', 'back' places behind your app.
-    width: 'fill',
     height: 'fill',
     x: 0,
     y: 0,
@@ -37,6 +36,7 @@ const VideoRecordingPage: FunctionComponent<VideoRecordingPageProps> = ({}) => {
     useEffect(() => {
         VideoRecorder.initialize({
             camera: camera % 2 === 0 ? VideoRecorderCamera.FRONT : VideoRecorderCamera.BACK,
+            quality: VideoRecorderQuality.MAX_720P,
             previewFrames: [config]
         });
         return () => {
