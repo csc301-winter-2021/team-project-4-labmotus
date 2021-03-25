@@ -121,10 +121,14 @@ exports.handler = async (event) => {
 
     if(srcKey.startsWith(KEY_PREFIX)) {
         const assessmentId = srcKey.substring(KEY_PREFIX.length, srcKey.length - 4);
-        checkAssessment(assessmentId).catch(console.error)
-        .then(() => getVideoFile(srcBucket, srcKey)).catch(console.error)
-        .then(video => uploadToWrnch(video, srcKey)).catch(console.error)
-        .then(jobId => updateAssessment(assessmentId, jobId)).catch(console.error);
+        try {
+            await checkAssessment(assessmentId);
+            let video = await getVideoFile(srcBucket, srcKey);
+            let jobId = await uploadToWrnch(video, srcKey);
+            await updateAssessment(assessmentId, jobId);
+        }catch(e) {
+            console.log(e);
+        }
     }else {
         console.log(`${srcKey} is not an assessment`);
     }
