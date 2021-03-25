@@ -19,12 +19,14 @@ function checkAssessment(id) {
         DynamoDB.get({
             TableName: ASSESSMENTS_TABLE,
             Key: { id }
-        }).send((err, _) => {
+        }).send((err, data) => {
             if(err) {
                 reject(err);
-            }else {
+            }else if(data.Item) {
                 console.log(`Assessment ${id} exists!`);
                 resolve();
+            }else {
+                reject(`Assessment ${id} does not exist`);
             }
         });
     });
