@@ -110,13 +110,20 @@ export class BaseAPI {
     async getVideo(url: string): Promise<string> {
         if (url !== '/some/file/path') {
             const token = await firebase.auth().currentUser.getIdToken() as any;
-            const response = await fetch(this._config.api + url, {
+            let response;
+            response = await fetch(this._config.api + url, {
                 method: "GET",
                 mode: 'cors',
                 headers: {
                     "Authorization": "Bearer " + token,
                 }
             });
+            if (response.redirected) {
+                response = await fetch(response.url, {
+                    method: "GET",
+                    mode: 'cors',
+                });
+            }
             const blob = await response.blob();
             if (blob) {
                 return URL.createObjectURL(blob);

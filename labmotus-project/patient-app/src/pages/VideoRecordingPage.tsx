@@ -3,7 +3,7 @@ import React, {FunctionComponent, useContext, useEffect, useState} from "react";
 import styled from 'styled-components';
 import {getThemeContext, Theme} from "../../../common/ui/theme/Theme";
 import '@teamhive/capacitor-video-recorder';
-import {VideoRecorderCamera, VideoRecorderPreviewFrame, VideoRecorderQuality} from '@teamhive/capacitor-video-recorder';
+import {VideoRecorderCamera, VideoRecorderPreviewFrame} from '@teamhive/capacitor-video-recorder';
 import {Plugins} from "@capacitor/core";
 import {IonIcon} from "@ionic/react";
 // @ts-ignore
@@ -36,7 +36,6 @@ const VideoRecordingPage: FunctionComponent<VideoRecordingPageProps> = ({}) => {
     useEffect(() => {
         VideoRecorder.initialize({
             camera: camera % 2 === 0 ? VideoRecorderCamera.FRONT : VideoRecorderCamera.BACK,
-            quality: VideoRecorderQuality.MAX_720P,
             previewFrames: [config]
         });
         return () => {
