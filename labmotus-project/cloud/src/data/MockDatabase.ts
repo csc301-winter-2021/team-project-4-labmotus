@@ -1,4 +1,4 @@
-import {Assessment, AssessmentState, Clinician, Patient} from "../../../common/types/types";
+import {Assessment, AssessmentState, Clinician, Patient, SignUpParams} from "../../../common/types/types";
 import Database from "./Database";
 import moment, {Moment} from "moment";
 import * as fs from "fs";
@@ -259,6 +259,21 @@ class MockDatabase extends Database {
         })
     }
 
+    async _firebaseSendEmailVerification(user: string): Promise<void> {
+        return new Promise<void>((resolve, reject) => {
+            this.firebaseClient.auth().currentUser.sendEmailVerification().then(resolve).catch(reject)
+        })
+    }
+
+    async _firebaseSendSignInLinkToEmail(user: string): Promise<void> {
+        return new Promise<void>((resolve, reject) => {
+            this.firebaseClient.auth().sendSignInLinkToEmail(user, {
+                url: config.actionAddress + "?email=" + user,
+                handleCodeInApp: true
+            }).then(resolve).catch(reject)
+        })
+    }
+
     async createPatient(clinician: Clinician, patient: Patient): Promise<Patient> {
         const email = patient.user.email;
         if (this.patientDatabase.filter(p => p.user.email === email).length > 0)
@@ -273,7 +288,8 @@ class MockDatabase extends Database {
         });
         await this._firebaseSignIn(patient.user.email, '1234567890');
         patient.user.firebaseId = this.firebaseClient.auth().currentUser.uid;
-        await this._firebaseSendPasswordReset(patient.user.email);
+        await this._firebaseSendSignInLinkToEmail(patient.user.email);
+        firebaseAdmin.auth().updateUser(userRecord.uid, {disabled: true});
         this.patientDatabase.push(patient);
         clinician.patientIDs.push(patient.user.id);
         return patient;
@@ -285,10 +301,32 @@ class MockDatabase extends Database {
         return newClinician;
     }
 
-    async finalizePatient(patient: Patient): Promise<Patient> {
-        const databasePatient = await this.getPatientByID(patient.user.id);
-        databasePatient.incomplete = false;
-        return databasePatient;
+    async _firebaseLinkSignIn(email: string, params: string): Promise<firebase.auth.UserCredential> {
+        return new Promise<firebase.auth.UserCredential>((resolve, reject) => {
+            this.firebaseClient.auth().signInWithEmailLink(email, params).then(resolve).catch(reject)
+        })
+    }
+
+    async finalizePatient(params: SignUpParams): Promise<string> {
+        const user = await firebaseAdmin.auth().getUserByEmail(params.email);
+        await firebaseAdmin.auth().updateUser(user.uid, {disabled: false});
+        const databasePatient = await this.getPatientByFirebaseID(user.uid);
+        if (databasePatient) {
+            try {
+                await this._firebaseLinkSignIn(params.email, config.actionAddress + "?" + new URLSearchParams(params as any).toString());
+                databasePatient.incomplete = false;
+                return await firebaseAdmin.auth().generateSignInWithEmailLink(params.email, {
+                    url: config.actionAddress,
+                    handleCodeInApp: true
+                });
+            } catch (e) {
+                firebaseAdmin.auth().updateUser(user.uid, {disabled: true});
+                throw e
+            }
+        } else {
+            firebaseAdmin.auth().updateUser(user.uid, {disabled: true});
+            throw Error("No Such User")
+        }
     }
 }
 

@@ -15,33 +15,20 @@ const FinalizeSignupPage: FunctionComponent<SignupPageProps> = () => {
 
     const history = useHistory();
     const [email, setEmail] = useState<string>();
-    const [code, setCode] = useState<string>();
     const [password, setPassword] = useState<string>();
     const [confirmPassword, setConfirmPassword] = useState<string>();
     const [isError, openAlert] = useState<boolean>(false);
     const [header, setHeader] = useState<string>();
     const [message, setMessage] = useState<string>();
     const location = useLocation();
+    const params = new URLSearchParams(location.search);
 
     useEffect(() => {
-        if (location.search) {
-            if (location.search.includes('raw')) {
-                const components = location.search.split('&');
-                const emails = components.filter(comp => comp.includes("email"));
-                const codes = components.filter(comp => comp.includes("oobCode"));
-                if (emails.length > 0 && codes.length > 0) {
-                    const exemail = emails[0].split('=')[1];
-                    const excode = codes[0].split('=')[1];
-                    window.location.href = location.pathname + `?email=${encodeURIComponent(exemail)}&code=${encodeURIComponent(excode)}`;
-                } else {
-                    window.location.href = location.pathname;
-                }
-            } else {
-                const uri = new URLSearchParams(location.search);
-                setEmail(uri.get("email"));
-                setCode(uri.get("code"));
-            }
+        if (!params.has("continueUrl") || !params.get("continueUrl").includes('?email=')) {
+            // TODO Show error message
+            throw new Error("Invalid signup link")
         }
+        setEmail(new URLSearchParams(params.get("continueUrl").split("?")[1]).get("email"))
     }, [location]);
 
     // When user signs up for an account
@@ -69,7 +56,8 @@ const FinalizeSignupPage: FunctionComponent<SignupPageProps> = () => {
         }
 
         try {
-            await UseAPI.finishSignUp(email, password, code);
+            const link = await UseAPI.finishSignUp({...Object.fromEntries(params.entries()), email: email} as any);
+            await UseAPI.changePasswordWithLink(email, link, password);
             setHeader("Thanks For Signing Up");
             setMessage("You can now log in via our Patient APP!");
             openAlert(true);
