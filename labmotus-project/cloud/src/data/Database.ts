@@ -1,8 +1,10 @@
-import {Assessment, Clinician, Patient, SignUpParams, User} from "../../../common/types/types";
+import {Assessment, AssessmentState, Clinician, Patient, SignUpParams, User} from "../../../common/types/types";
 import moment, {Moment} from "moment";
 import AWS from 'aws-sdk';
+import {ReadStream} from "fs";
 
-const DynamoDB = new AWS.DynamoDB({ region: 'us-east-1' });
+const DynamoDB = new AWS.DynamoDB({region: 'us-east-1'});
+const s3 = new AWS.S3({region: 'us-east-1'});
 const PATIENTS_TABLE = "labmotus-patients";
 const CLINICIANS_TABLE = "labmotus-clinicians";
 const ASSESSMENTS_TABLE = "labmotus-assessments";
@@ -143,8 +145,25 @@ class Database {
         throw new Error("Not Implemented")
     }
 
-    async saveVideo(assessmentID: string, video: NodeJS.ReadableStream): Promise<string> {
+    async updateAssessment(patientID: string, assessmentID: string, changes: any): Promise<void> {
         throw new Error("Not Implemented")
+    }
+
+    async saveVideo(userId: string, assessmentID: string, video: NodeJS.ReadableStream): Promise<string> {
+        const assessment = await this.getAssessmentByID(userId, assessmentID);
+        const params = {Bucket: 'labmotus-videos', Key: assessmentID, Body: video};
+        const options = {partSize: 10 * 1024 * 1024, queueSize: 1};
+        await s3.upload(params, options,).promise();
+        await this.updateAssessment(userId, assessmentID, {
+            "videoUrl": `/video/${assessmentID}`,
+            "state": AssessmentState.PENDING
+        });
+        return assessment.videoUrl;
+    }
+
+    async getVideo(userId: string, assessmentID: string): Promise<string | ReadStream> {
+        const params = {Bucket: 'labmotus-videos', Key: assessmentID, Expires: 300};
+        return s3.getSignedUrlPromise('getObject', params);
     }
 
     async createPatient(clinician: Clinician, patient: Patient): Promise<Patient> {

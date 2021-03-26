@@ -1,10 +1,8 @@
 import * as fastify from 'fastify'
-import {Assessment, AssessmentState, Response} from '../../../../common/types/types'
+import {Assessment, Response} from '../../../../common/types/types'
 import {RequestHeaders} from '../../types'
 import {authenticateUser} from "../../auth/Authenticator";
 import Database from "../../data/Database";
-import path from "path";
-import config from "../../../config.json";
 
 
 interface AssessmentIdParams {
@@ -74,8 +72,7 @@ export default async function (server: fastify.FastifyInstance & { database: Dat
                 const assessment = await server.database.getAssessmentByID(permissions.getUserID(), assessmentId);
                 if (permissions.uploadVideo(assessment)) {
                     const data = await request.file();
-                    assessment.videoUrl = await server.database.saveVideo(assessmentId, data.file);
-                    assessment.state = AssessmentState.PENDING;
+                    await server.database.saveVideo(permissions.getUserID(), assessmentId, data.file);
                     const response: Response<Assessment> = {
                         success: true,
                         body: assessment
@@ -121,7 +118,12 @@ export default async function (server: fastify.FastifyInstance & { database: Dat
             try {
                 const assessment = await server.database.getAssessmentByID(permissions.getUserID(), assessmentId);
                 if (permissions.viewVideo(assessment)) {
-                    reply.code(200).sendFile(assessmentId + ".mp4", path.resolve(config.videoPath))
+                    const video = await server.database.getVideo(permissions.getUserID(), assessmentId);
+                    if (typeof video === 'string') {
+                        reply.redirect(video);
+                    } else {
+                        reply.code(200).send(video)
+                    }
                 } else {
                     reply.code(403).send("Forbidden");
                 }

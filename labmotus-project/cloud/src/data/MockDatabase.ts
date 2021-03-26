@@ -1,13 +1,14 @@
 import {Assessment, AssessmentState, Clinician, Patient, SignUpParams} from "../../../common/types/types";
 import Database from "./Database";
 import moment, {Moment} from "moment";
-import * as fs from "fs";
-import path from "path";
 import config from "../../config.json";
 import {pipeline} from "stream";
 import * as util from "util";
 import * as firebaseAdmin from 'firebase-admin';
 import firebase from 'firebase/app';
+import * as fs from "fs";
+import {ReadStream} from "fs";
+import path from "path";
 
 const pump = util.promisify(pipeline);
 
@@ -220,6 +221,15 @@ class MockDatabase extends Database {
         }
     }
 
+    async updateAssessment(patientID: string, assessmentID: string, changes: any): Promise<void> {
+        const matches = this.assessmentsDatabase[patientID]?.filter(ass => ass.id === assessmentID);
+        if (matches.length > 0) {
+            Object.assign(matches[matches.length - 1], changes);
+        } else {
+            return Promise.reject("No Assessment With That ID")
+        }
+    }
+
     async createAssessment(assessment: Assessment): Promise<Assessment> {
         assessment = {...assessment};
         assessment.state = AssessmentState.MISSING;
@@ -236,9 +246,19 @@ class MockDatabase extends Database {
         return assessment;
     }
 
-    async saveVideo(assessmentID: string, video: NodeJS.ReadableStream): Promise<string> {
-        await pump(video, fs.createWriteStream(path.join(config.videoPath, assessmentID + ".mp4")));
-        return `/video/${assessmentID}`;
+    async saveVideo(userId: string, assessmentID: string, video: NodeJS.ReadableStream): Promise<string> {
+        const assessment = await this.getAssessmentByID(userId, assessmentID);
+        const loc = path.join(config.videoPath, assessmentID + ".mp4");
+        await pump(video, fs.createWriteStream(loc));
+        await this.updateAssessment(userId, assessmentID, {
+            "videoUrl": `/video/${assessmentID}`,
+            "state": AssessmentState.PENDING
+        });
+        return assessment.videoUrl;
+    }
+
+    async getVideo(userId: string, assessmentID: string): Promise<string | ReadStream> {
+        return fs.createReadStream(path.join(config.videoPath, assessmentID + ".mp4"));
     }
 
     async _firebaseCreateUser(properties: firebaseAdmin.auth.CreateRequest): Promise<firebaseAdmin.auth.UserRecord> {

@@ -1,7 +1,7 @@
 import React, {FunctionComponent, useContext, useEffect, useState} from "react";
 // @ts-ignore
 import styled from 'styled-components';
-import {Theme, getThemeContext} from "../../../common/ui/theme/Theme";
+import {getThemeContext, Theme} from "../../../common/ui/theme/Theme";
 import '@teamhive/capacitor-video-recorder';
 import {VideoRecorderCamera, VideoRecorderPreviewFrame} from '@teamhive/capacitor-video-recorder';
 import {Plugins} from "@capacitor/core";
@@ -9,7 +9,7 @@ import {IonIcon} from "@ionic/react";
 // @ts-ignore
 import {sync} from "ionicons/icons";
 import {useHistory, useParams} from "react-router";
-import API, { getAPIContext } from "../api/API";
+import API, {getAPIContext} from "../api/API";
 
 export interface VideoRecordingPageProps {
 }
@@ -19,8 +19,8 @@ const {VideoRecorder} = Plugins;
 const config: VideoRecorderPreviewFrame = {
     id: 'video-record',
     stackPosition: 'back', // 'front' overlays your app', 'back' places behind your app.
-    width: 'fill',
     height: 'fill',
+    width: 'fill',
     x: 0,
     y: 0,
     borderRadius: 0
@@ -54,6 +54,27 @@ const VideoRecordingPage: FunctionComponent<VideoRecordingPageProps> = ({}) => {
             });
         }
     }, [recording]);
+
+    useEffect(() => {
+        const video = document?.getElementsByTagName('body')?.[0]?.getElementsByTagName('video')?.[0];
+        if (video != null) {
+            video.onloadeddata = () => {
+                const vw = document.documentElement.clientWidth;
+                const vh = document.documentElement.clientHeight;
+                const w = video.videoWidth;
+                const h = video.videoHeight;
+                if (vw / vh > w / h) { // Wide Screen
+                    video.style.height = '100vh';
+                    video.style.width = 'unset';
+                    video.style.left = `${(vw - (w / h * vh)) / 2}px`;
+                } else { // Tall Screen
+                    video.style.height = 'unset';
+                    video.style.width = '100vw';
+                    video.style.top = `${(vh - (h / w * vw)) / 2}px`;
+                }
+            }
+        }
+    });
 
     return (<VideoRecordingDiv className="video-recording" recording={recording} theme={theme}>
         <Controls>
