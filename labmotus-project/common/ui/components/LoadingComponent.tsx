@@ -34,7 +34,6 @@ const LoadingComponent: FunctionComponent<LoadingComponentProps> = ({
             functorsRef.current.push(timeoutFunctor(timeoutRef.current));
             setLoadedItems([...loadedItems, false]);
             loadedResult.current.push(null);
-            timeoutRef.current = -1;
         } else if (!loaded && !loadedItems.every(value => value !== false)) {
             let newLoaded;
             for (let i = 0; i < loadedItems.length; i++) {
@@ -66,21 +65,24 @@ const LoadingComponent: FunctionComponent<LoadingComponentProps> = ({
     });
 
     useEffect(() => {
-        if (loadedItems.every(value => value === true))
+        if (timeoutRef.current <= 0 && loadedItems.every(value => value === true))
             setLoaded(true);
+        else
+            timeoutRef.current = -1;
     }, [loadedItems]);
-    //
+
     // useEffect(() => {
     //     console.log(loaded)
     // }, [loadedItems]);
 
     if (!loaded) {
         return <LoadingDiv className="loading-div" loaded={loadedItems.every(value => value === true)}
-                           onTransitionEnd={() => setLoaded(loadedItems.every(value => value === true))}>
+                           onTransitionEnd={() => setLoaded(loadedItems.every(value => value === true))}
+                           data-testid="LoadingComponent">
             {LoadingScreen !== undefined ? <LoadingScreen/> : <IonSpinner/>}
         </LoadingDiv>;
     } else {
-        return <LoadingDiv className="loading-div">
+        return <LoadingDiv className="loading-div" data-testid="LoadingComponent">
             {children}
         </LoadingDiv>;
     }
