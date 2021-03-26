@@ -154,7 +154,7 @@ class Database {
         const params = {Bucket: 'labmotus-videos', Key: assessmentID, Body: video};
         const options = {partSize: 10 * 1024 * 1024, queueSize: 1};
         await s3.upload(params, options,).promise();
-        this.updateAssessment(userId, assessmentID, {
+        await this.updateAssessment(userId, assessmentID, {
             "videoUrl": `/video/${assessmentID}`,
             "state": AssessmentState.PENDING
         });

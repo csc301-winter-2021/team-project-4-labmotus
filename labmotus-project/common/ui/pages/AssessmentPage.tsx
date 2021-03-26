@@ -58,10 +58,6 @@ const AssessmentPage: FunctionComponent<AssessmentPageProps> = (props: Assessmen
         }
     }
 
-    useEffect(() => {
-        console.log(video)
-    }, [video]);
-
     function record(assessmentID: string) {
         history.push(`/record/${assessmentID}`)
     }

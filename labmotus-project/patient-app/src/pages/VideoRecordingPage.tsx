@@ -20,6 +20,7 @@ const config: VideoRecorderPreviewFrame = {
     id: 'video-record',
     stackPosition: 'back', // 'front' overlays your app', 'back' places behind your app.
     height: 'fill',
+    width: 'fill',
     x: 0,
     y: 0,
     borderRadius: 0
@@ -53,6 +54,27 @@ const VideoRecordingPage: FunctionComponent<VideoRecordingPageProps> = ({}) => {
             });
         }
     }, [recording]);
+
+    useEffect(() => {
+        const video = document?.getElementsByTagName('body')?.[0]?.getElementsByTagName('video')?.[0];
+        if (video != null) {
+            video.onloadeddata = () => {
+                const vw = document.documentElement.clientWidth;
+                const vh = document.documentElement.clientHeight;
+                const w = video.videoWidth;
+                const h = video.videoHeight;
+                if (vw / vh > w / h) { // Wide Screen
+                    video.style.height = '100vh';
+                    video.style.width = 'unset';
+                    video.style.left = `${(vw - (w / h * vh)) / 2}px`;
+                } else { // Tall Screen
+                    video.style.height = 'unset';
+                    video.style.width = '100vw';
+                    video.style.top = `${(vh - (h / w * vw)) / 2}px`;
+                }
+            }
+        }
+    });
 
     return (<VideoRecordingDiv className="video-recording" recording={recording} theme={theme}>
         <Controls>

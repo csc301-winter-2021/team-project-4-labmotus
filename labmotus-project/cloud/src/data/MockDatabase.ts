@@ -250,12 +250,14 @@ class MockDatabase extends Database {
         const assessment = await this.getAssessmentByID(userId, assessmentID);
         const loc = path.join(config.videoPath, assessmentID + ".mp4");
         await pump(video, fs.createWriteStream(loc));
-        assessment.state = AssessmentState.PENDING;
-        return `/video/${assessmentID}`;
+        await this.updateAssessment(userId, assessmentID, {
+            "videoUrl": `/video/${assessmentID}`,
+            "state": AssessmentState.PENDING
+        });
+        return assessment.videoUrl;
     }
 
     async getVideo(userId: string, assessmentID: string): Promise<string | ReadStream> {
-        const assessment = await this.getAssessmentByID(userId, assessmentID);
         return fs.createReadStream(path.join(config.videoPath, assessmentID + ".mp4"));
     }
 
