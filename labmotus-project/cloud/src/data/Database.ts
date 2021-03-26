@@ -4,10 +4,12 @@ import AWS from 'aws-sdk';
 import {ReadStream} from "fs";
 
 const DynamoDB = new AWS.DynamoDB({region: 'us-east-1'});
-const s3 = new AWS.S3({region: 'us-east-1'});
 const PATIENTS_TABLE = "labmotus-patients";
 const CLINICIANS_TABLE = "labmotus-clinicians";
 const ASSESSMENTS_TABLE = "labmotus-assessments";
+
+const S3 = new AWS.S3({region: 'us-east-1'});
+const VIDEO_BUCKET = "labmotus-videos";
 
 class Database {
     // tslint:disable-next-line:no-empty
@@ -151,9 +153,9 @@ class Database {
 
     async saveVideo(userId: string, assessmentID: string, video: NodeJS.ReadableStream): Promise<string> {
         const assessment = await this.getAssessmentByID(userId, assessmentID);
-        const params = {Bucket: 'labmotus-videos', Key: assessmentID, Body: video};
+        const params = {Bucket: VIDEO_BUCKET, Key: assessmentID, Body: video};
         const options = {partSize: 10 * 1024 * 1024, queueSize: 1};
-        await s3.upload(params, options,).promise();
+        await S3.upload(params, options).promise();
         await this.updateAssessment(userId, assessmentID, {
             "videoUrl": `/video/${assessmentID}`,
             "state": AssessmentState.PENDING
@@ -162,8 +164,8 @@ class Database {
     }
 
     async getVideo(userId: string, assessmentID: string): Promise<string | ReadStream> {
-        const params = {Bucket: 'labmotus-videos', Key: assessmentID, Expires: 300};
-        return s3.getSignedUrlPromise('getObject', params);
+        const params = {Bucket: VIDEO_BUCKET, Key: assessmentID, Expires: 300};
+        return S3.getSignedUrlPromise('getObject', params);
     }
 
     async createPatient(clinician: Clinician, patient: Patient): Promise<Patient> {
