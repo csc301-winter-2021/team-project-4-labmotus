@@ -10,6 +10,7 @@ const PATIENTS_TABLE = "labmotus-patients";
 const CLINICIANS_TABLE = "labmotus-clinicians";
 const ASSESSMENTS_TABLE = "labmotus-assessments";
 const FIREBASE_ID_COLUMN = "firebaseId";
+const FIREBASE_ID_INDEX = "firebaseId-index";
 
 const S3 = new AWS.S3(awsParams);
 const VIDEO_BUCKET = "labmotus-videos";
@@ -96,9 +97,10 @@ class Database {
 
     async getPatientByFirebaseID(firebaseID: string): Promise<Patient> {
         try {
-            let data = await DynamoDB.scan({
+            let data = await DynamoDB.query({
                 TableName: PATIENTS_TABLE,
-                FilterExpression: '#F = :f',
+                IndexName: FIREBASE_ID_INDEX,
+                KeyConditionExpression: '#F = :f',
                 ExpressionAttributeNames: {
                     '#F': FIREBASE_ID_COLUMN
                 },
@@ -120,9 +122,10 @@ class Database {
 
     async getClinicianByFirebaseID(firebaseID: string): Promise<Clinician> {
         try {
-            let data = await DynamoDB.scan({
+            let data = await DynamoDB.query({
                 TableName: CLINICIANS_TABLE,
-                FilterExpression: '#F = :f',
+                IndexName: FIREBASE_ID_INDEX,
+                KeyConditionExpression: '#F = :f',
                 ExpressionAttributeNames: {
                     '#F': FIREBASE_ID_COLUMN
                 },
