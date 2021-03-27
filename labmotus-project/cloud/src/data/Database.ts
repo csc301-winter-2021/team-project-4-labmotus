@@ -51,6 +51,31 @@ class Database {
         }
     }
 
+    private static _buildUpdateExpression(modifications: any): string {
+        let updateStrings: string[] = [];
+        for(let key in modifications) {
+            if(key != "user") {
+                updateStrings.push(`${key} = "${modifications[key].toString().replace('"', '\\"')}"`);
+            }
+        }
+        if(modifications.user) {
+            for(let key in modifications) {
+                updateStrings.push(`${key} = "${modifications.user[key].toString().replace('"', '\\"')}"`);
+            }
+        }
+
+        let updateExpression = "";
+        if(updateStrings.length > 0) {
+            updateExpression = "set "+updateStrings[0];
+            if(updateStrings.length > 1) {
+                for(let i = 1; i < updateStrings.length; i++) {
+                    updateExpression += ", " + updateStrings[i];
+                }
+            }
+        }
+        return updateExpression;
+    }
+
     async getPatientByFirebaseID(firebaseID: string): Promise<Patient> {
         try {
             let data = await DynamoDB.scan({
@@ -133,12 +158,40 @@ class Database {
         }
     }
 
-    async updatePatient(ID: string, modifications: {}): Promise<Patient> {
-        throw new Error("Not Implemented")
+    async updatePatient(id: string, modifications: {}): Promise<Patient> {
+        try {
+            let updateExpression = Database._buildUpdateExpression(modifications);
+            if(updateExpression) {
+                await DynamoDB.update({
+                    TableName: PATIENTS_TABLE,
+                    Key: { id },
+                    ConditionExpression: "attribute_exists(id)",
+                    UpdateExpression: updateExpression,
+                }).promise();
+            }
+            return await this.getPatientByID(id);
+        }catch(err) {
+            console.error(err);
+            throw "Failed to update database";
+        }
     }
 
-    async updateClinician(ID: string, modifications: {}): Promise<Clinician> {
-        throw new Error("Not Implemented")
+    async updateClinician(id: string, modifications: {}): Promise<Clinician> {
+        try {
+            let updateExpression = Database._buildUpdateExpression(modifications);
+            if(updateExpression) {
+                await DynamoDB.update({
+                    TableName: CLINICIANS_TABLE,
+                    Key: { id },
+                    ConditionExpression: "attribute_exists(id)",
+                    UpdateExpression: updateExpression,
+                }).promise();
+            }
+            return await this.getClinicianByID(id);
+        }catch(err) {
+            console.error(err);
+            throw "Failed to update database";
+        }
     }
 
     async createAssessment(assessment: Assessment): Promise<Assessment> {
