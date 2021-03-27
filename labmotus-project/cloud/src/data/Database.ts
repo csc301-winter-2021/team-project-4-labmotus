@@ -19,6 +19,13 @@ class Database {
     constructor() {
     }
 
+    private static _readStringArray(dbArray: any): string[] {
+        if(dbArray && dbArray.length == 1 && !dbArray[0]) {
+            return [];
+        }
+        return dbArray;
+    }
+
     private static _buildUserFromItem(item: AWS.DynamoDB.DocumentClient.AttributeMap): User {
         return {
             id: item.id,
@@ -40,14 +47,25 @@ class Database {
     }
 
     private static _buildClinicianFromItem(item: AWS.DynamoDB.DocumentClient.AttributeMap): Clinician {
-        let patientIDs: string[] = item.patientIDs;
-        if(patientIDs && patientIDs.length == 1 && !patientIDs[0]) {
-            patientIDs = [];
-        }
         return {
             user: Database._buildUserFromItem(item),
             clinic: item.clinic,
-            patientIDs: patientIDs
+            patientIDs: Database._readStringArray(item.patientIDs)
+        }
+    }
+
+    private static _buildAssessmentFromItem(item: AWS.DynamoDB.DocumentClient.AttributeMap): Assessment {
+        return {
+            id: item.id,
+            patientId: item.patientId,
+            name: item.name,
+            date: moment(item.date),
+            state: item.state,
+            videoUrl: item.videoUrl || undefined,
+            wrnchJob: item.wrnchJob || undefined,
+            poseData: item.poseData ? JSON.parse(item.poseData) : undefined,
+            joints: Database._readStringArray(item.joints),
+            stats: Database._readStringArray(item.stats).map(s => JSON.parse(s))
         }
     }
 
