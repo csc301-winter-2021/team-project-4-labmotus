@@ -32,17 +32,22 @@ class Database {
         return {
             user: Database._buildUserFromItem(item),
             patientCode: item.patientCode || undefined,
-            clinicianID: item.clinicianId,
+            clinicianID: item.clinicianID,
             phone: item.phone,
-            birthday: moment(item.birthday)
+            birthday: moment(item.birthday),
+            incomplete: item.incomplete
         }
     }
 
     private static _buildClinicianFromItem(item: AWS.DynamoDB.DocumentClient.AttributeMap): Clinician {
+        let patientIDs: string[] = item.patientIDs;
+        if(patientIDs && patientIDs.length == 1 && !patientIDs[0]) {
+            patientIDs = [];
+        }
         return {
-            patientIDs: [],
             user: Database._buildUserFromItem(item),
-            clinic: item.clinic
+            clinic: item.clinic,
+            patientIDs: patientIDs
         }
     }
 
