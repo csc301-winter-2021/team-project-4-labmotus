@@ -9,8 +9,11 @@ const DynamoDB = new AWS.DynamoDB.DocumentClient(awsParams);
 const PATIENTS_TABLE = "labmotus-patients";
 const CLINICIANS_TABLE = "labmotus-clinicians";
 const ASSESSMENTS_TABLE = "labmotus-assessments";
+const DATE_COLUMN = "date";
 const FIREBASE_ID_COLUMN = "firebaseId";
+const PATIENT_ID_COLUMN = "patientId";
 const FIREBASE_ID_INDEX = "firebaseId-index";
+const PATIENT_ID_INDEX = "patientId-index";
 
 const S3 = new AWS.S3(awsParams);
 const VIDEO_BUCKET = "labmotus-videos";
@@ -154,7 +157,7 @@ class Database {
             if(data.Item) {
                 return Database._buildPatientFromItem(data.Item);
             }else {
-                throw `Patient with given ID not found`
+                throw `Patient with given ID not found`;
             }
         }catch(err) {
             console.error(err);
@@ -169,9 +172,9 @@ class Database {
                 Key: { id }
             }).promise();
             if(data.Item) {
-                return Database._buildClinicianFromItem(data.Item)
+                return Database._buildClinicianFromItem(data.Item);
             }else {
-                throw `Clinician with given ID not found`
+                throw `Clinician with given ID not found`;
             }
         }catch(err) {
             console.error(err);
@@ -220,15 +223,62 @@ class Database {
     }
 
     async getAssessmentsByPatient(ID: string, start: Moment, duration: number, unit: string): Promise<Assessment[]> {
-        throw new Error("Not Implemented")
+        let end = moment(start).add(duration, unit as any);
+        try {
+            let data = await DynamoDB.query({
+                TableName: ASSESSMENTS_TABLE,
+                IndexName: PATIENT_ID_INDEX,
+                KeyConditionExpression: '#P = :p',
+                FilterExpression: '#D between :start and :end',
+                ExpressionAttributeNames: {
+                    '#D': DATE_COLUMN,
+                    '#P': PATIENT_ID_COLUMN
+                },
+                ExpressionAttributeValues: {
+                    ':p': ID,
+                    ':start': start.toString(),
+                    ':end': end.toString()
+                }
+            }).promise();
+            return data.Items.map(Database._buildAssessmentFromItem);
+        }catch(err) {
+            console.error(err);
+            throw "Database query failed";
+        }
     }
 
     async getAssessmentByID(patientID: string, assessmentID: string): Promise<Assessment> {
-        throw new Error("Not Implemented")
+        try {
+            let data = await DynamoDB.get({
+                TableName: ASSESSMENTS_TABLE,
+                Key: { id: assessmentID }
+            }).promise();
+            if(data.Item) {
+                return Database._buildAssessmentFromItem(data.Item);
+            }else {
+                throw `Assessment with given ID not found`;
+            }
+        }catch(err) {
+            console.error(err);
+            throw "Database query failed";
+        }
     }
 
     async updateAssessment(patientID: string, assessmentID: string, changes: any): Promise<void> {
-        throw new Error("Not Implemented")
+        try {
+            let updateExpression = Database._buildUpdateExpression(changes);
+            if(updateExpression) {
+                await DynamoDB.update({
+                    TableName: ASSESSMENTS_TABLE,
+                    Key: { id: assessmentID },
+                    ConditionExpression: "attribute_exists(id)",
+                    UpdateExpression: updateExpression,
+                }).promise();
+            }
+        }catch(err) {
+            console.error(err);
+            throw "Failed to update database";
+        }
     }
 
     async saveVideo(userId: string, assessmentID: string, video: NodeJS.ReadableStream): Promise<string> {
