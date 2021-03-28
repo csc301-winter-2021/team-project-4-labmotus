@@ -10,7 +10,6 @@ import ChangePasswordPage from "../pages/ChangePasswordPage";
 import LoginPage from "../pages/LoginPage";
 import API, {getAPIContext} from "../api/API";
 import ForgotPasswordPage from "../pages/ForgotPasswordPage";
-import SignupPage from "../pages/SignupPage";
 import VideoRecordingPage from "../pages/VideoRecordingPage";
 import AssessmentPage from "../../../common/ui/pages/AssessmentPage";
 import {getThemeContext, Theme} from "../../../common/ui/theme/Theme";
@@ -43,7 +42,7 @@ const navigationEntries = [
 ];
 
 const loggedInPaths = ["/", "/home", "/assessment", "/settings/*", "/record", "/terms-of-service"];
-const loggedOutPaths = ["/", "/login", "/sign-up", "/forgot-password", "/terms-of-service"];
+const loggedOutPaths = ["/", "/login", "/forgot-password", "/terms-of-service"];
 
 const Routes: FunctionComponent<RoutesProps> = ({}) => {
     const UseAPI: API = useContext(getAPIContext());
@@ -93,7 +92,6 @@ const Routes: FunctionComponent<RoutesProps> = ({}) => {
                 <Route exact path="/settings/change-password" render={() => <ChangePasswordPage/>}/>
                 <Route exact path="/record/:id" render={() => <VideoRecordingPage/>}/>
                 <Route exact path="/forgot-password" render={() => <ForgotPasswordPage/>}/>
-                <Route exact path="/sign-up" render={() => <SignupPage/>}/>
                 <Route exact path="/terms-of-service" render={() =>
                     <TermsOfServicePage
                         getTermsOfService={() => {
