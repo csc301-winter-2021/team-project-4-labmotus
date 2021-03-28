@@ -5,7 +5,7 @@ import {ProfilePictureComponent} from "../../../common/ui/components/ProfilePict
 import {useHistory} from "react-router-dom";
 import {chevronForward} from 'ionicons/icons';
 import styled from "styled-components";
-import {Theme, getThemeContext} from "../../../common/ui/theme/Theme";
+import {getThemeContext, Theme} from "../../../common/ui/theme/Theme";
 
 export interface PatientListProp {
     patientList: Patient[]
@@ -14,20 +14,20 @@ export interface PatientListProp {
 export const PatientListComponent: React.FC<PatientListProp> = (props: PatientListProp) => {
 
     function generatePatientList(): Array<JSX.Element> {
-        let retPatients: Array<JSX.Element> = []
+        let retPatients: Array<JSX.Element> = [];
 
-        props.patientList.forEach(patient => {
+        props.patientList.forEach((patient, i) => {
             retPatients.push(
-                <PatientListing {...patient} />
+                <PatientListing key={i} {...patient} />
             )
-        })
+        });
         return retPatients
     }
 
     return (
         <>{generatePatientList()}</>
     )
-}
+};
 
 export const PatientListing: React.FC<Patient> = (patient: Patient) => {
 
@@ -35,19 +35,20 @@ export const PatientListing: React.FC<Patient> = (patient: Patient) => {
     const history = useHistory();
 
     return (
-        <PatientListingDiv theme={theme} onClick={() => history.push(`/patients/${patient.user.id}`)}>
+        <PatientListingDiv theme={theme} onClick={() => history.push(`/patients/${patient.user.id}`)}
+                           data-testid="patient-listing">
             <IonItem>
                 <ProfilePictureComponent
                     imageLink="https://research.cbc.osu.edu/sokolov.8/wp-content/uploads/2017/12/profile-icon-png-898.png"/>
                 <IonLabel className="patient-label">
-                    <p className="patient-name">{patient.user.name}</p>
-                    <p className="patient-phone">{patient.phone}</p>
+                    <p className="patient-name" data-testid="patient-name">{patient.user.name}</p>
+                    <p className="patient-phone" data-testid="patient-phone">{patient.phone}</p>
                 </IonLabel>
                 <IonIcon icon={chevronForward}/>
             </IonItem>
         </PatientListingDiv>
     )
-}
+};
 
 const PatientListingDiv = styled.div`
   .patient-label {
