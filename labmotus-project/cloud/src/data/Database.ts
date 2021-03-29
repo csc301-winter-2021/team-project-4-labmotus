@@ -4,7 +4,10 @@ import firebase from 'firebase/app';
 import {ReadStream} from "fs";
 import moment, {Moment} from "moment";
 import uuid from 'uuid';
+
+import config from "../../config.json";
 import {Assessment, AssessmentState, Clinician, Patient, SignUpParams, User} from "../../../common/types/types";
+
 
 const awsParams = { region: 'us-east-1' };
 
@@ -377,7 +380,20 @@ class Database {
     }
 
     async finalizePatient(params: SignUpParams): Promise<string> {
-        throw new Error("Not Implemented")
+        try {
+            const user = await firebaseAdmin.auth().getUserByEmail(params.email);
+            const databaseUser = await this.getPatientByFirebaseID(user.uid);
+            await this.firebaseClient.auth().signInWithEmailLink(params.email, config.actionAddress + "?" + new URLSearchParams(params as any).toString());
+            await this.updatePatient(databaseUser.user.id, { incomplete: false });
+            await firebaseAdmin.auth().updateUser(user.uid, { disabled: false });
+            return await firebaseAdmin.auth().generateSignInWithEmailLink(params.email, {
+                url: config.actionAddress,
+                handleCodeInApp: true
+            });
+        }catch(err) {
+            console.error(err);
+            throw "Failed to finalize patient";
+        }
     }
 }
 
