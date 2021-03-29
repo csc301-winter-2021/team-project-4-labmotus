@@ -32,14 +32,6 @@ class Database {
         this.firebaseClient = firebaseClient;
     }
 
-    /* DynamoDB StringSet is not allowed to be empty, so we interpret a singleton set with an empty string as an empty set */
-    private static _readStringArray(dbArray: any): string[] {
-        if(dbArray && dbArray.length == 1 && !dbArray[0]) {
-            return [];
-        }
-        return dbArray;
-    }
-
     private static _buildUserFromItem(item: any): User {
         return {
             id: item.id,
@@ -64,7 +56,7 @@ class Database {
         return {
             user: Database._buildUserFromItem(item),
             clinic: item.clinic,
-            patientIDs: Database._readStringArray(item.patientIDs)
+            patientIDs: item.patientIDs
         }
     }
 
@@ -78,8 +70,8 @@ class Database {
             videoUrl: item.videoUrl || undefined,
             wrnchJob: item.wrnchJob || undefined,
             poseData: item.poseData ? JSON.parse(item.poseData) : undefined,
-            joints: Database._readStringArray(item.joints),
-            stats: Database._readStringArray(item.stats).map(s => JSON.parse(s))
+            joints: item.joints,
+            stats: item.stats.map((s: string) => JSON.parse(s))
         }
     }
 
@@ -387,7 +379,7 @@ class Database {
             name: "",
             email: newClinician.user.email,
             clinic: "",
-            patientIDs: [""] // DynamoDB StringSet not allowed to be empty
+            patientIDs: []
         };
 
         // Generate unique user id
