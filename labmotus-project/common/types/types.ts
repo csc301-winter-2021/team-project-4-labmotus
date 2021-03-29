@@ -9,7 +9,7 @@ export interface Assessment {
     videoUrl?: string
     wrnchJob?: string
     poseData?: any // TODO: Create type for pose data
-    joints: string[]
+    joints: Joints[]
     stats?: Stats[]
 }
 
@@ -59,4 +59,51 @@ export interface Response<T> {
 export interface SignUpParams {
     oobCode: string
     email: string
+}
+
+export enum Joints {
+    ShoulderL_Flexion,
+    ShoulderL_Extension,
+    ShoulderL_Abduction,
+    ShoulderL_MedialRotation,
+    ShoulderL_LateralRotation,
+    ShoulderR_Flexion,
+    ShoulderR_Extension,
+    ShoulderR_Abduction,
+    ShoulderR_MedialRotation,
+    ShoulderR_LateralRotation,
+    Elbow_Flexion,
+    Elbow_Extension,
+    Wrist_Extension,
+    Wrist_Flexion,
+    Wrist_RadialDeviation,
+    Wrist_UlnarDeviation,
+    ThumbCMC_Abduction,
+    ThumbCMC_Flexion,
+    ThumbCMC_Extension,
+    ThumbCMC_Opposition,
+    ThumbCMP_Flexion,
+    ThumbIP_Flexion,
+    DigitsMCP_FLexion,
+    PIP_Flexion,
+    DIP_Flexion,
+    DIP_Hyperextension,
+    Hip_FLexion,
+    Hip_Extension,
+    Hip_Abduction,
+    Hip_Adduction,
+    Hip_LateralRotation,
+    Hip_MedialRotation,
+    Hip_TrunkL,
+    Hip_TrunkR,
+    KneeL_Flexion,
+    KneeL_ValgusVarus,
+    KneeR_Flexion,
+    KneeR_ValgusVarus,
+    AnkleL_Dorsiflexion,
+    AnkleL_Plantarflexion,
+    AnkleR_Dorsiflexion,
+    AnkleR_Plantarflexion,
+    AnkleFoot_Inversion,
+    AnkleFoot_Eversion
 }

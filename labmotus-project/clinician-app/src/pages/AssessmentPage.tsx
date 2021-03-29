@@ -4,11 +4,10 @@ import {IonAlert, IonModal, IonPage} from "@ionic/react";
 import styled from "styled-components";
 import {getThemeContext, Theme} from "../../../common/ui/theme/Theme";
 import BaseAssessmentPage from "../../../common/ui/pages/AssessmentPage";
-import {Moment} from "moment";
+import moment, {Moment} from "moment";
 import API, {getAPIContext} from "../api/API";
 import {Assessment, AssessmentState} from "../../../common/types/types";
 import {useParams} from "react-router";
-import moment from "moment";
 import AddAssessment from "../components/AddAssessment";
 
 export interface AssessmentPageProps {
@@ -41,7 +40,7 @@ const AssessmentPage: FunctionComponent<AssessmentPageProps> = (props: Assessmen
                 name: assessmentType,
                 date: params.date ? moment(params.date, "YYYY-MM-DD") : moment(),
                 state: AssessmentState.MISSING,
-                joints: ["placeholder joint 1", "placeholder joint 2"],
+                joints: [],
             };
             UseAPI.createAssessment(assessment);
             setShowCreateAssessment(false);
