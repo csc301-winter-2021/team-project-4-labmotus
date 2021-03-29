@@ -24,6 +24,11 @@ const PATIENT_ID_INDEX = "patientId-index";
 const S3 = new AWS.S3(awsParams);
 const VIDEO_BUCKET = "labmotus-videos";
 
+interface UpdateParams {
+    UpdateExpression: string,
+    ExpressionAttributeValues: { [key: string]: any }
+}
+
 class Database {
 
     firebaseClient: firebase.app.App;
@@ -75,16 +80,21 @@ class Database {
         }
     }
 
-    private static _buildUpdateExpression(modifications: any): string {
+    private static _buildUpdateParams(modifications: any): UpdateParams {
         let updateStrings: string[] = [];
+        let updateAttributes: string[] = [];
         for(let key in modifications) {
-            if(key != "user") {
-                updateStrings.push(`${key} = "${modifications[key].toString().replace('"', '\\"')}"`);
+            if(key != "user" && modifications[key] !== undefined) {
+                updateStrings.push(`${key} = :v${updateAttributes.length}`);
+                updateAttributes.push(modifications[key]);
             }
         }
         if(modifications.user) {
-            for(let key in modifications) {
-                updateStrings.push(`${key} = "${modifications.user[key].toString().replace('"', '\\"')}"`);
+            for(let key in modifications.user) {
+                if(modifications.user[key] !== undefined) {
+                    updateStrings.push(`${key} = :v${updateAttributes.length}`);
+                    updateAttributes.push(modifications.user[key]);
+                }
             }
         }
 
@@ -97,7 +107,13 @@ class Database {
                 }
             }
         }
-        return updateExpression;
+        return {
+            UpdateExpression: updateExpression,
+            ExpressionAttributeValues: updateAttributes.reduce((prev, v, i) => {
+                prev[':v'+i] = v;
+                return prev;
+            }, {})
+        };
     }
 
     async getPatientByFirebaseID(firebaseID: string): Promise<Patient> {
@@ -186,13 +202,14 @@ class Database {
 
     async updatePatient(id: string, modifications: {}): Promise<Patient> {
         try {
-            let updateExpression = Database._buildUpdateExpression(modifications);
-            if(updateExpression) {
+            let updateParams = Database._buildUpdateParams(modifications);
+            if(updateParams) {
                 await DynamoDB.update({
                     TableName: PATIENTS_TABLE,
                     Key: { id },
                     ConditionExpression: "attribute_exists(id)",
-                    UpdateExpression: updateExpression,
+                    UpdateExpression: updateParams.UpdateExpression,
+                    ExpressionAttributeValues: updateParams.ExpressionAttributeValues
                 }).promise();
             }
             return await this.getPatientByID(id);
@@ -204,13 +221,14 @@ class Database {
 
     async updateClinician(id: string, modifications: {}): Promise<Clinician> {
         try {
-            let updateExpression = Database._buildUpdateExpression(modifications);
-            if(updateExpression) {
+            let updateParams = Database._buildUpdateParams(modifications);
+            if(updateParams) {
                 await DynamoDB.update({
                     TableName: CLINICIANS_TABLE,
                     Key: { id },
                     ConditionExpression: "attribute_exists(id)",
-                    UpdateExpression: updateExpression,
+                    UpdateExpression: updateParams.UpdateExpression,
+                    ExpressionAttributeValues: updateParams.ExpressionAttributeValues
                 }).promise();
             }
             return await this.getClinicianByID(id);
@@ -268,13 +286,14 @@ class Database {
 
     async updateAssessment(patientID: string, assessmentID: string, changes: any): Promise<void> {
         try {
-            let updateExpression = Database._buildUpdateExpression(changes);
-            if(updateExpression) {
+            let updateParams = Database._buildUpdateParams(changes);
+            if(updateParams) {
                 await DynamoDB.update({
                     TableName: ASSESSMENTS_TABLE,
                     Key: { id: assessmentID },
                     ConditionExpression: "attribute_exists(id)",
-                    UpdateExpression: updateExpression,
+                    UpdateExpression: updateParams.UpdateExpression,
+                    ExpressionAttributeValues: updateParams.ExpressionAttributeValues
                 }).promise();
             }
         }catch(err) {
