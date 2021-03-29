@@ -377,16 +377,16 @@ class Database {
     }
 
     async createClinician(newClinician: Clinician): Promise<Clinician> {
-        if(!newClinician.user || !newClinician.user.name || !newClinician.user.email || !newClinician.clinic) {
+        if(!newClinician.user || !newClinician.user.email || !newClinician.user.firebaseId) {
             throw "Clinician data incomplete";
         }
 
         let clinicianRow = {
             id: undefined,
-            firebaseId: undefined,
-            name: newClinician.user.name,
+            firebaseId: newClinician.user.firebaseId,
+            name: "",
             email: newClinician.user.email,
-            clinic: newClinician.clinic,
+            clinic: "",
             patientIDs: [""] // DynamoDB StringSet not allowed to be empty
         };
 
