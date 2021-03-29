@@ -416,7 +416,7 @@ class Database {
         // Create row in database
         try {
             await DynamoDB.put({
-                TableName: PATIENTS_TABLE,
+                TableName: CLINICIANS_TABLE,
                 Item: clinicianRow
             }).promise();
         }catch(err) {
