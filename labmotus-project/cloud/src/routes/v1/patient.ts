@@ -1,5 +1,6 @@
 import {FastifyInstance, FastifyPluginOptions} from 'fastify'
 import moment from 'moment'
+import validateUUID from 'uuid-validate';
 import {Assessment, Patient, Response, SignUpParams} from '../../../../common/types/types'
 import {RequestHeaders} from '../../types';
 import {authenticateUser} from "../../auth/Authenticator";
@@ -98,8 +99,7 @@ export default async function (server: FastifyInstance & { database: Database },
         Body: Patient
     }>('/patient/:patientId', {}, async (request, reply) => {
         const headers: { authorization?: string } = request.headers as any;
-        let patientID = Number.isSafeInteger(Number(request.params.patientId)) &&
-        Number(request.params.patientId) >= 0 ? request.params.patientId : undefined;
+        let patientID = validateUUID(request.params.patientId) ? request.params.patientId : undefined;
         try {
             const permissions = await authenticateUser(server.database, headers.authorization.split('Bearer ')[1]);
             if (patientID === undefined)
@@ -149,8 +149,7 @@ export default async function (server: FastifyInstance & { database: Database },
         Params: PatientIdParams
     }>('/patient/:patientId', {}, async (request, reply) => {
         const headers: { authorization?: string } = request.headers as any;
-        let patientID = Number.isSafeInteger(Number(request.params.patientId)) &&
-        Number(request.params.patientId) >= 0 ? request.params.patientId : undefined;
+        let patientID = validateUUID(request.params.patientId) ? request.params.patientId : undefined;
         try {
             const permissions = await authenticateUser(server.database, headers.authorization.split('Bearer ')[1]);
             if (patientID === undefined)

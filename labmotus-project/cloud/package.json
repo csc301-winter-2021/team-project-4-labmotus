@@ -21,6 +21,7 @@
     "typescript": "^4.1.5"
   },
   "dependencies": {
+    "@types/uuid-validate": "^0.0.1",
     "aws-sdk": "^2.861.0",
     "fastify": "^3.12.0",
     "fastify-cors": "^5.2.0",
@@ -30,6 +31,7 @@
     "firebase": "^8.3.0",
     "firebase-admin": "^9.5.0",
     "moment": "^2.29.1",
-    "uuid": "^8.3.2"
+    "uuid": "^8.3.2",
+    "uuid-validate": "^0.0.3"
   }
 }
