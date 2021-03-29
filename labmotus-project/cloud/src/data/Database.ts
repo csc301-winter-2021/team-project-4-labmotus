@@ -3,7 +3,7 @@ import * as firebaseAdmin from 'firebase-admin';
 import firebase from 'firebase/app';
 import {ReadStream} from "fs";
 import moment, {Moment} from "moment";
-import uuid from 'uuid';
+import {v4 as uuid} from 'uuid';
 
 import config from "../../config.json";
 import {Assessment, AssessmentState, Clinician, Patient, SignUpParams, User} from "../../../common/types/types";
@@ -327,7 +327,7 @@ class Database {
         // Generate unique user id
         let MAX_ITERATIONS = 5; // We will make 5 attempts to generate a UUID, which is generous since we expect **very** few collision to occur
         for(let i = 0; i < MAX_ITERATIONS; i++) {
-            patientRow.id = uuid.v4();
+            patientRow.id = uuid();
             try {
                 let data = await DynamoDB.get({
                     TableName: PATIENTS_TABLE,
@@ -390,6 +390,30 @@ class Database {
             patientIDs: [""] // DynamoDB StringSet not allowed to be empty
         };
 
+        // Generate unique user id
+        let MAX_ITERATIONS = 5; // We will make 5 attempts to generate a UUID, which is generous since we expect **very** few collision to occur
+        for(let i = 0; i < MAX_ITERATIONS; i++) {
+            clinicianRow.id = uuid();
+            try {
+                let data = await DynamoDB.get({
+                    TableName: CLINICIANS_TABLE,
+                    Key: { id: clinicianRow.id }
+                }).promise();
+                if(data.Item) {
+                    clinicianRow.id = undefined;
+                }else {
+                    break;
+                }
+            }catch(err) {
+                console.error(err);
+                throw "Failed to generate clinician ID";
+            }
+        }
+        if(clinicianRow.id === undefined) {
+            throw "Failed to generate clinician ID";
+        }
+
+        // Create row in database
         try {
             await DynamoDB.put({
                 TableName: PATIENTS_TABLE,
