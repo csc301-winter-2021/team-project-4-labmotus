@@ -13,11 +13,10 @@ const LandingPage: FunctionComponent<LandingPageProps> = () => {
     const history = useHistory();
 
     function downloadAPK() {
-		window.open("https://labmotus-misc.s3.amazonaws.com/patient-app.apk");
+        window.open("https://labmotus-misc.s3.amazonaws.com/patient-app.apk");
     }
 
     function clinicianPortal() {
-        console.log("redirect");
         history.push("/login");
     }
 
@@ -29,11 +28,11 @@ const LandingPage: FunctionComponent<LandingPageProps> = () => {
                     <div className="main-padding">
                         <div className="main">
                             <button className="landing-button" onClick={downloadAPK}>
-                                Download patient app
+                                Download Patient App
                             </button>
                             <p/>
                             <button className="landing-button" onClick={clinicianPortal}>
-                                See clinician portal
+                                See Clinician Portal
                             </button>
                         </div>
                     </div>

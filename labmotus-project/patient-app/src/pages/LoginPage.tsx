@@ -85,11 +85,6 @@ const LoginPage: FunctionComponent<LoginPageProps> = () => {
         history.push("/forgot-password");
     }
 
-    // // When user clicks 'Sign Up'
-    // function signUp() {
-    //     history.push("/sign-up");
-    // }
-
     return (
         <IonPage>
             <IonContent fullscreen>
@@ -103,9 +98,6 @@ const LoginPage: FunctionComponent<LoginPageProps> = () => {
                         onLogin={login}
                         onForgotPassword={forgotPassword}
                     />
-                    {/*<p className="footer">*/}
-                    {/*    Don't have an account? <span onClick={signUp}>Sign Up</span>*/}
-                    {/*</p>*/}
                 </LoginPageDiv>
             </IonContent>
             <IonAlert
@@ -126,10 +118,6 @@ const LoginPageDiv = styled.div`
   h1 {
     font-weight: bold;
     margin-top: 15vh;
-  }
-
-  .footer {
-    margin-top: 65vh;
   }
 
   span {

@@ -18,28 +18,28 @@ const FinalizeSignupPage: FunctionComponent<SignupPageProps> = () => {
     const [password, setPassword] = useState<string>();
     const [confirmPassword, setConfirmPassword] = useState<string>();
     const [isError, openAlert] = useState<boolean>(false);
+    const [invalidSignup, openInvalidSignup] = useState<boolean>(false);
     const [header, setHeader] = useState<string>();
     const [message, setMessage] = useState<string>();
     const location = useLocation();
     const params = new URLSearchParams(location.search);
 
+    // Get email from sign up URL
     useEffect(() => {
-        if (!params.has("continueUrl") || !params.get("continueUrl").includes('?email=')) {
-            // TODO Show error message
-            throw new Error("Invalid signup link")
+        if (!params.has("continueUrl") || !params.get("continueUrl").includes("?email=")) {
+            openInvalidSignup(true);
+            return;
         }
-        setEmail(new URLSearchParams(params.get("continueUrl").split("?")[1]).get("email"))
+        try {
+            setEmail(new URLSearchParams(params.get("continueUrl").split("?")[1]).get("email"));
+        } catch (e) {
+            openInvalidSignup(true);
+            return;
+        }
     }, [location]);
 
     // When user signs up for an account
     async function signUp() {
-        if (!email) {
-            setHeader("Invalid Email");
-            setMessage("Please enter your email.");
-            openAlert(true);
-            return;
-        }
-
         if (!password) {
             setHeader("Invalid Password");
             setMessage("Please enter a password.");
@@ -57,10 +57,17 @@ const FinalizeSignupPage: FunctionComponent<SignupPageProps> = () => {
 
         try {
             const link = await UseAPI.finishSignUp({...Object.fromEntries(params.entries()), email: email} as any);
-            await UseAPI.changePasswordWithLink(email, link, password);
-            setHeader("Thanks For Signing Up");
-            setMessage("You can now log in via our Patient APP!");
-            openAlert(true);
+            const signUpResult = await UseAPI.changePasswordWithLink(email, link, password);
+            switch (signUpResult) {
+                case "argument-error":
+                    openInvalidSignup(true);
+                    return;
+                default:
+                    setHeader("Thanks For Signing Up");
+                    setMessage("You can now log in via our Patient APP!");
+                    openAlert(true);
+                    break;
+            }
         } catch (e) {
             console.error(e);
         }
@@ -87,7 +94,6 @@ const FinalizeSignupPage: FunctionComponent<SignupPageProps> = () => {
                                 class="input"
                                 placeholder="Email"
                                 type="email"
-                                clearInput={true}
                                 value={email}
                                 disabled
                                 onIonChange={(e) => setEmail(e.detail.value!)}
@@ -96,7 +102,6 @@ const FinalizeSignupPage: FunctionComponent<SignupPageProps> = () => {
                                 class="input"
                                 placeholder="Password"
                                 type="password"
-                                clearInput={true}
                                 value={password}
                                 onIonChange={(e) => setPassword(e.detail.value!)}
                             />
@@ -104,7 +109,6 @@ const FinalizeSignupPage: FunctionComponent<SignupPageProps> = () => {
                                 class="input"
                                 placeholder="Confirm Password"
                                 type="password"
-                                clearInput={true}
                                 value={confirmPassword}
                                 onIonChange={(e) => setConfirmPassword(e.detail.value!)}
                             />
@@ -127,6 +131,16 @@ const FinalizeSignupPage: FunctionComponent<SignupPageProps> = () => {
                 onDidDismiss={() => openAlert(false)}
                 header={header}
                 message={message}
+                buttons={["OK"]}
+            />
+            <IonAlert
+                isOpen={invalidSignup}
+                onDidDismiss={() => {
+                    openInvalidSignup(false);
+                    history.push("/");
+                }}
+                header="Invalid Signup Link"
+                message="This signup link is either invalid or has expired. We will be redirecting you to the home page."
                 buttons={["OK"]}
             />
         </IonPage>

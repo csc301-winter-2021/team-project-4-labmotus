@@ -17,13 +17,13 @@ const SignupPatientPage: FunctionComponent<SignupPatientPageProps> = () => {
     const UseAPI: API = useContext(getAPIContext());
     const theme = React.useContext(getThemeContext());
 
-    const [email, setEmail] = useState<string>();
-    const [phone, setPhone] = useState<string>();
     const [name, setName] = useState<string>();
-    const [isalert, openAlert] = useState<boolean>(false);
+    const [email, setEmail] = useState<string>();
+    const [birthday, setBirthday] = useState<Moment>(moment());
+    const [phone, setPhone] = useState<string>();
+    const [isError, openAlert] = useState<boolean>(false);
     const [header, setHeader] = useState<string>();
     const [message, setMessage] = useState<string>();
-    const [birthday, setBirthday] = useState<Moment>(moment());
 
     const history = useHistory();
 
@@ -34,29 +34,29 @@ const SignupPatientPage: FunctionComponent<SignupPatientPageProps> = () => {
 
     // When user signs patient up for an account
     async function signUpPatient() {
-
-        if (!email) {
-            setHeader("Invalid Email");
-            setMessage("Please enter patient's email.");
-            openAlert(true);
-            return;
-        }
-        if (!phone) {
-            setHeader("Invalid Phone Number");
-            setMessage("Please enter patient's phone number.");
-            openAlert(true);
-            return;
-        }
+        // Check if user has entered a name
         if (!name) {
             setHeader("Invalid Name");
-            setMessage("Please enter patient's full name.");
+            setMessage("Please enter the patient's full name.");
             openAlert(true);
             return;
         }
-        setHeader("Account Added");
-        setMessage("Email will be sent shortly.")
-        openAlert(true);
-
+        // Check if user has entered a valid email
+        const validEmail = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+        if (!email || !validEmail.test(email.toLowerCase())) {
+            setHeader("Invalid Email");
+            setMessage("Please enter a valid email address for the patient.");
+            openAlert(true);
+            return;
+        }
+        // Check if user has entered a valid phone number
+        const validNumber = /^\d{10}$/;
+        if (!phone || !validNumber.test(phone)) {
+            setHeader("Invalid Phone Number");
+            setMessage("Please enter a valid phone number for the patient. The phone number should be 10 numbers.");
+            openAlert(true);
+            return;
+        }
         try {
             // Create patient
             const patient: Patient = {
@@ -65,15 +65,22 @@ const SignupPatientPage: FunctionComponent<SignupPatientPageProps> = () => {
                     id: "",
                     name: name,
                 },
+                // TODO REPLACE WITH CURRENT CLINICIAN'S ID + ADD PATIENT TO THE LIST
                 clinicianID: "",
                 birthday: birthday,
-                phone: phone,
+                phone: phone.replace(/(\d{3})(\d{3})(\d{4})/, "$1-$2-$3"),
                 incomplete: true,
             };
 
             // Add patient to database
             await UseAPI.createPatient(patient);
-
+            setHeader("Account Added");
+            setMessage("A confirmation email will be sent to the patient shortly.");
+            openAlert(true);
+            setName("");
+            setEmail("");
+            setBirthday(moment());
+            setPhone("");
         } catch (e) {
             console.error(e);
         }
@@ -82,7 +89,7 @@ const SignupPatientPage: FunctionComponent<SignupPatientPageProps> = () => {
     return (
         <IonPage>
             <IonHeader>
-              <IonToolbar>
+                <IonToolbar>
                     <BackButtonDiv theme={theme}>
                         <IonButtons slot="start" onClick={back}>
                             <IonIcon icon={chevronBack}/>
@@ -102,22 +109,17 @@ const SignupPatientPage: FunctionComponent<SignupPatientPageProps> = () => {
                                     class="input"
                                     placeholder="Full Name"
                                     type="text"
-                                    clearInput={true}
                                     value={name}
                                     onIonChange={(e) => setName(e.detail.value!)}
                                 />
                                 <div>
                                     <span>Birthday:</span>
-                                    <DateDisplay
-                                        date={birthday}
-                                        changeDay={setBirthday}
-                                        displayFormat={"YYYY-MM-DD"}/>
+                                    <DateDisplay date={birthday} changeDay={setBirthday} displayFormat={"YYYY-MM-DD"}/>
                                 </div>
                                 <IonInput
                                     class="input"
                                     placeholder="Email"
                                     type="email"
-                                    clearInput={true}
                                     value={email}
                                     onIonChange={(e) => setEmail(e.detail.value!)}
                                 />
@@ -125,12 +127,11 @@ const SignupPatientPage: FunctionComponent<SignupPatientPageProps> = () => {
                                     class="input"
                                     placeholder="Phone Number"
                                     type="tel"
-                                    clearInput={true}
                                     value={phone}
                                     onIonChange={(e) => setPhone(e.detail.value!)}
                                 />
                                 <button className="signup-button" onClick={signUpPatient}>
-                                    Send confirmation email to patient
+                                    Send Confirmation Email to Patient
                                 </button>
                             </div>
                         </div>
@@ -138,7 +139,7 @@ const SignupPatientPage: FunctionComponent<SignupPatientPageProps> = () => {
                 </SignupPatientPageDiv>
             </IonContent>
             <IonAlert
-                isOpen={isalert}
+                isOpen={isError}
                 onDidDismiss={() => openAlert(false)}
                 header={header}
                 message={message}
@@ -212,7 +213,7 @@ const SignupPatientPageDiv = styled.div`
   }
 
   h3 {
-    margin-top: 0vh;
+    margin-top: 0;
   }
 
   .footer {
