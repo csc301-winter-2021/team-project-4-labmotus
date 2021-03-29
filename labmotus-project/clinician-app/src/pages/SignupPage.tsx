@@ -86,6 +86,7 @@ const SignupPage: FunctionComponent<SignupPageProps> = () => {
                     setMessage("Please choose a password that's at least 6 characters.");
                     openAlert(true);
                     setPassword("");
+                    setConfirmPassword("");
                     return;
                 default:
                     console.log(signUpResult);

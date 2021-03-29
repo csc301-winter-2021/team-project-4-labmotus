@@ -27,8 +27,6 @@ export const ChangePassword: FunctionComponent<ChangePasswordProps> = (props: Ch
                     <IonInput
                         type="password"
                         placeholder="Current Password"
-                        autofocus={true}
-                        clearInput={true}
                         value={props.currPassword}
                         onIonChange={(e) => props.setCurrPassword(e.detail.value!)}
                         data-testid="current-password"
@@ -36,7 +34,6 @@ export const ChangePassword: FunctionComponent<ChangePasswordProps> = (props: Ch
                     <IonInput
                         type="password"
                         placeholder="New Password"
-                        clearInput={true}
                         value={props.newPassword}
                         onIonChange={(e) => props.setNewPassword(e.detail.value!)}
                         data-testid="new-password"
@@ -44,7 +41,6 @@ export const ChangePassword: FunctionComponent<ChangePasswordProps> = (props: Ch
                     <IonInput
                         type="password"
                         placeholder="Confirm New Password"
-                        clearInput={true}
                         value={props.confirmPassword}
                         onIonChange={(e) => props.setConfirmPassword(e.detail.value!)}
                         data-testid="confirm-password"

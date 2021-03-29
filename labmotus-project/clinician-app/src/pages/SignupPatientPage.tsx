@@ -68,7 +68,7 @@ const SignupPatientPage: FunctionComponent<SignupPatientPageProps> = () => {
                 // TODO REPLACE WITH CURRENT CLINICIAN'S ID + ADD PATIENT TO THE LIST
                 clinicianID: "",
                 birthday: birthday,
-                phone: phone,
+                phone: phone.replace(/(\d{3})(\d{3})(\d{4})/, "$1-$2-$3"),
                 incomplete: true,
             };
 
@@ -79,6 +79,7 @@ const SignupPatientPage: FunctionComponent<SignupPatientPageProps> = () => {
             openAlert(true);
             setName("");
             setEmail("");
+            setBirthday(moment());
             setPhone("");
         } catch (e) {
             console.error(e);
