@@ -32,6 +32,7 @@ class Database {
         this.firebaseClient = firebaseClient;
     }
 
+    /* DynamoDB StringSet is not allowed to be empty, so we interpret a singleton set with an empty string as an empty set */
     private static _readStringArray(dbArray: any): string[] {
         if(dbArray && dbArray.length == 1 && !dbArray[0]) {
             return [];
@@ -59,7 +60,7 @@ class Database {
         }
     }
 
-    private static _buildClinicianFromItem(item: AWS.DynamoDB.DocumentClient.AttributeMap): Clinician {
+    private static _buildClinicianFromItem(item: any): Clinician {
         return {
             user: Database._buildUserFromItem(item),
             clinic: item.clinic,
@@ -376,7 +377,30 @@ class Database {
     }
 
     async createClinician(newClinician: Clinician): Promise<Clinician> {
-        throw new Error("Not Implemented")
+        if(!newClinician.user || !newClinician.user.name || !newClinician.user.email || !newClinician.clinic) {
+            throw "Clinician data incomplete";
+        }
+
+        let clinicianRow = {
+            id: undefined,
+            firebaseId: undefined,
+            name: newClinician.user.name,
+            email: newClinician.user.email,
+            clinic: newClinician.clinic,
+            patientIDs: [""] // DynamoDB StringSet not allowed to be empty
+        };
+
+        try {
+            await DynamoDB.put({
+                TableName: PATIENTS_TABLE,
+                Item: clinicianRow
+            }).promise();
+        }catch(err) {
+            console.error(err);
+            throw "Failed to create clinician";
+        }
+
+        return Database._buildClinicianFromItem(clinicianRow);
     }
 
     async finalizePatient(params: SignUpParams): Promise<string> {
