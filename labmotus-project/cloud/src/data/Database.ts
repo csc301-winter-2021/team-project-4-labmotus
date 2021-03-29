@@ -1,7 +1,10 @@
-import {Assessment, AssessmentState, Clinician, Patient, SignUpParams, User} from "../../../common/types/types";
-import moment, {Moment} from "moment";
 import AWS from 'aws-sdk';
+import * as firebaseAdmin from 'firebase-admin';
+import firebase from 'firebase/app';
 import {ReadStream} from "fs";
+import moment, {Moment} from "moment";
+import uuid from 'uuid';
+import {Assessment, AssessmentState, Clinician, Patient, SignUpParams, User} from "../../../common/types/types";
 
 const awsParams = { region: 'us-east-1' };
 
@@ -19,8 +22,11 @@ const S3 = new AWS.S3(awsParams);
 const VIDEO_BUCKET = "labmotus-videos";
 
 class Database {
-    // tslint:disable-next-line:no-empty
-    constructor() {
+
+    firebaseClient: firebase.app.App;
+    
+    constructor(firebaseClient: firebase.app.App) {
+        this.firebaseClient = firebaseClient;
     }
 
     private static _readStringArray(dbArray: any): string[] {
@@ -30,7 +36,7 @@ class Database {
         return dbArray;
     }
 
-    private static _buildUserFromItem(item: AWS.DynamoDB.DocumentClient.AttributeMap): User {
+    private static _buildUserFromItem(item: any): User {
         return {
             id: item.id,
             firebaseId: item.firebaseId || undefined,
@@ -39,7 +45,7 @@ class Database {
         }
     }
 
-    private static _buildPatientFromItem(item: AWS.DynamoDB.DocumentClient.AttributeMap): Patient {
+    private static _buildPatientFromItem(item: any): Patient {
         return {
             user: Database._buildUserFromItem(item),
             patientCode: item.patientCode || undefined,
@@ -299,7 +305,71 @@ class Database {
     }
 
     async createPatient(clinician: Clinician, patient: Patient): Promise<Patient> {
-        throw new Error("Not Implemented")
+        if(!patient.user || !patient.user.name || !patient.phone || !patient.birthday) {
+            throw "Patient data incomplete"
+        }
+
+        let patientRow = {
+            id: undefined,
+            firebaseId: undefined,
+            name: patient.user.name,
+            email: patient.user.email,
+            clinicianID: clinician.user.id,
+            phone: patient.phone,
+            birthday: patient.birthday,
+            incomplete: true
+        }
+
+        // Generate unique user id
+        let MAX_ITERATIONS = 5; // We will make 5 attempts to generate a UUID, which is generous since we expect **very** few collision to occur
+        for(let i = 0; i < MAX_ITERATIONS; i++) {
+            patientRow.id = uuid.v4();
+            try {
+                let data = await DynamoDB.get({
+                    TableName: PATIENTS_TABLE,
+                    Key: { id: patientRow.id }
+                }).promise();
+                if(data.Item) {
+                    patientRow.id = undefined;
+                }else {
+                    break;
+                }
+            }catch(err) {
+                console.error(err);
+                throw "Failed to generate patient ID";
+            }
+        }
+        if(patientRow.id === undefined) {
+            throw "Failed to generate patient ID";
+        }
+
+        // Create Firebase user
+        let tempPassword = Math.random().toString(36).substring(2,12); // Random 10-character alphanumeric (lowercase) string
+        try {
+            let userRecord = await firebaseAdmin.auth().createUser({
+                email: patientRow.email,
+                password: tempPassword,
+            });
+            await this.firebaseClient.auth().signInWithEmailAndPassword(patientRow.email, tempPassword);
+            patientRow.firebaseId = this.firebaseClient.auth().currentUser.uid;
+            firebaseAdmin.auth().updateUser(userRecord.uid, { disabled: true });
+        }catch(err) {
+            console.error(err);
+            throw "Failed to create patient credentials";
+        }
+
+        // Create row in database
+        try {
+            await DynamoDB.put({
+                TableName: PATIENTS_TABLE,
+                Item: patientRow
+            }).promise();
+        }catch(err) {
+            console.error(err);
+            throw "Failed to create patient database entry";
+        }
+
+        return Database._buildPatientFromItem(patientRow);
     }
 
     async createClinician(newClinician: Clinician): Promise<Clinician> {
