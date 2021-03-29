@@ -384,6 +384,10 @@ class Database {
             throw "Failed to create patient database entry";
         }
 
+        // Add patient to clinician
+        clinician.patientIDs.push(patientRow.id);
+        await this.updateClinician(clinician.user.id, { patientIDs: clinician.patientIDs });
+
         return Database._buildPatientFromItem(patientRow);
     }
 
