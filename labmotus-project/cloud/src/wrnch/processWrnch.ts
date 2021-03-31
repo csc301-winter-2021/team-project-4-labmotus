@@ -56,15 +56,12 @@ function processRawWrnchData(data: WrnchData): PoseData {
 }
 
 function computeJoints(poseData: PoseData, joints: Joints[]): { joint: Joints, value: number }[] {
+    const ROUND_FACTOR = 100;
     const res = [];
-    let allPositions: number[][] = poseData.reduce((positions, frame) => {
-        for(let position of frame.positions) {
-            positions.push(position);
-        }
-        return positions;
-    }, []);
     joints.forEach(joint => {
-        let values = allPositions.map(position => JOINTS[joint].computer(position.map(p => new Vector3(p[0], p[1], p[2]))));
+        let values = poseData
+            .map(frame => JOINTS[joint].computer(frame.positions.map(p => new Vector3(p[0], p[1], p[2]))))
+            .map(value => Math.round(value * ROUND_FACTOR) / ROUND_FACTOR);
         const reducer = JOINTS[joint].minmax === 'max' ? Math.max : Math.min;
         res.push({
             joint,
