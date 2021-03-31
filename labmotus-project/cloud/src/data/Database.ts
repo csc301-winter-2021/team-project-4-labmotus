@@ -28,6 +28,7 @@ const VIDEO_KEY_SUFFIX = ".mp4";
 
 interface UpdateParams {
     UpdateExpression: string,
+    ExpressionAttributeNames: { [key: string]: any },
     ExpressionAttributeValues: { [key: string]: any }
 }
 
@@ -83,36 +84,37 @@ class Database {
     }
 
     private static _buildUpdateParams(modifications: any): UpdateParams {
-        let updateStrings: string[] = [];
-        let updateAttributes: string[] = [];
+        let updateNameValuePairs: string[][] = [];
         for(let key in modifications) {
             if(key != "user" && modifications[key] !== undefined) {
-                updateStrings.push(`${key} = :v${updateAttributes.length}`);
-                updateAttributes.push(modifications[key]);
+                updateNameValuePairs.push([key, modifications[key]]);
             }
         }
         if(modifications.user) {
             for(let key in modifications.user) {
                 if(modifications.user[key] !== undefined) {
-                    updateStrings.push(`${key} = :v${updateAttributes.length}`);
-                    updateAttributes.push(modifications.user[key]);
+                    updateNameValuePairs.push([key, modifications.user[key]]);
                 }
             }
         }
 
         let updateExpression = "";
-        if(updateStrings.length > 0) {
-            updateExpression = "set "+updateStrings[0];
-            if(updateStrings.length > 1) {
-                for(let i = 1; i < updateStrings.length; i++) {
-                    updateExpression += ", " + updateStrings[i];
+        if(updateNameValuePairs.length > 0) {
+            updateExpression = "set #k0 = :v0";
+            if(updateNameValuePairs.length > 1) {
+                for(let i = 1; i < updateNameValuePairs.length; i++) {
+                    updateExpression += `, #k${i} = :v${i}`
                 }
             }
         }
         return {
             UpdateExpression: updateExpression,
-            ExpressionAttributeValues: updateAttributes.reduce((prev, v, i) => {
-                prev[':v'+i] = v;
+            ExpressionAttributeNames: updateNameValuePairs.reduce((prev, kv, i) => {
+                prev['#k'+i] = kv[0];
+                return prev;
+            }, {}),
+            ExpressionAttributeValues: updateNameValuePairs.reduce((prev, kv, i) => {
+                prev[':v'+i] = kv[1];
                 return prev;
             }, {})
         };
@@ -211,6 +213,7 @@ class Database {
                     Key: { id },
                     ConditionExpression: "attribute_exists(id)",
                     UpdateExpression: updateParams.UpdateExpression,
+                    ExpressionAttributeNames: updateParams.ExpressionAttributeNames,
                     ExpressionAttributeValues: updateParams.ExpressionAttributeValues
                 }).promise();
             }
@@ -230,6 +233,7 @@ class Database {
                     Key: { id },
                     ConditionExpression: "attribute_exists(id)",
                     UpdateExpression: updateParams.UpdateExpression,
+                    ExpressionAttributeNames: updateParams.ExpressionAttributeNames,
                     ExpressionAttributeValues: updateParams.ExpressionAttributeValues
                 }).promise();
             }
@@ -342,6 +346,7 @@ class Database {
                     Key: { id: assessmentID },
                     ConditionExpression: "attribute_exists(id)",
                     UpdateExpression: updateParams.UpdateExpression,
+                    ExpressionAttributeNames: updateParams.ExpressionAttributeNames,
                     ExpressionAttributeValues: updateParams.ExpressionAttributeValues
                 }).promise();
             }
