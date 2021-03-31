@@ -4,11 +4,12 @@ import {IonAlert, IonButtons, IonContent, IonHeader, IonIcon, IonInput, IonPage,
 import styled from "styled-components";
 import {getThemeContext, Theme} from "../../../common/ui/theme/Theme";
 import {DateDisplay} from "../../../common/ui/components/DateDisplay";
-import API, {getAPIContext} from "../api/API";
+import API from "../api/API";
 import moment, {Moment} from "moment";
 import {Patient} from "../../../common/types/types";
 import {useHistory} from "react-router";
 import {chevronBack} from "ionicons/icons";
+import {getAPIContext} from "../../../common/api/BaseAPI";
 
 export interface SignupPatientPageProps {
 }

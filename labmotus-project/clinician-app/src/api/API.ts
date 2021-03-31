@@ -1,5 +1,3 @@
-import {Context, createContext} from "react";
-
 import firebase from 'firebase/app';
 import "firebase/auth"
 import {Assessment, Clinician, Patient, SignUpParams} from "../../../common/types/types";
@@ -248,12 +246,6 @@ class API extends BaseAPI {
             return e.code.slice(5);
         }
     }
-}
-
-const APIContext: Context<API> = createContext<API>(null);
-
-export function getAPIContext(): Context<API> {
-    return APIContext
 }
 
 export default API;

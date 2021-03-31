@@ -18,10 +18,11 @@ import "@ionic/react/css/text-transformation.css";
 import "@ionic/react/css/flex-utils.css";
 import "@ionic/react/css/display.css";
 import MockAPI from "../../../../patient-app/src/api/MockAPI";
-import API, {getAPIContext} from '../../../../patient-app/src/api/API';
+import API from '../../../../patient-app/src/api/API';
 
 import config from "../../../../patient-app/config.json"
 import {Moment} from 'moment';
+import {getAPIContext} from "../../../api/BaseAPI";
 
 export default {
     title: 'Pages/Symptom Log Page',

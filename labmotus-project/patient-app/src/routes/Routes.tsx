@@ -8,7 +8,7 @@ import EditEmailPage from "../pages/EditEmailPage";
 import EditPhonePage from "../pages/EditPhonePage";
 import ChangePasswordPage from "../pages/ChangePasswordPage";
 import LoginPage from "../pages/LoginPage";
-import API, {getAPIContext} from "../api/API";
+import API from "../api/API";
 import ForgotPasswordPage from "../pages/ForgotPasswordPage";
 import VideoRecordingPage from "../pages/VideoRecordingPage";
 import AssessmentPage from "../../../common/ui/pages/AssessmentPage";
@@ -19,6 +19,7 @@ import TermsOfServicePage from "../../../common/ui/pages/TermsOfServicePage";
 import {PatientTermsOfServiceContent} from "../components/PatientTermsOfServiceContent";
 import {Moment} from "moment/moment";
 import {Assessment} from "../../../common/types";
+import {getAPIContext} from "../../../common/api/BaseAPI";
 
 export interface RoutesProps {
 }

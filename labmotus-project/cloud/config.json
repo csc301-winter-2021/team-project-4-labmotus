@@ -1,6 +1,6 @@
 {
-  "mock": true,
+  "mock": false,
   "videoPath": "videos",
-  "address": "0.0.0.0",
+  "address": "127.0.0.1",
   "actionAddress": "http://labmotus-clinician.s3-website-us-east-1.amazonaws.com/"
 }

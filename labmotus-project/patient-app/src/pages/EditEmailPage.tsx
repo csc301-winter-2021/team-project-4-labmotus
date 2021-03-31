@@ -12,11 +12,12 @@ import {
 } from "@ionic/react";
 // @ts-ignore
 import styled from "styled-components";
-import {Theme, getThemeContext} from "../../../common/ui/theme/Theme";
-import API, {getAPIContext} from "../api/API";
+import {getThemeContext, Theme} from "../../../common/ui/theme/Theme";
+import API from "../api/API";
 import {useHistory} from "react-router";
 import {chevronBack} from "ionicons/icons";
 import {Patient} from "../../../common/types/types";
+import {getAPIContext} from "../../../common/api/BaseAPI";
 
 export interface EditEmailPageProps {
 }

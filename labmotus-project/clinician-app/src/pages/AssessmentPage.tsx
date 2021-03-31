@@ -5,10 +5,11 @@ import styled from "styled-components";
 import {getThemeContext, Theme} from "../../../common/ui/theme/Theme";
 import BaseAssessmentPage from "../../../common/ui/pages/AssessmentPage";
 import moment, {Moment} from "moment";
-import API, {getAPIContext} from "../api/API";
+import API from "../api/API";
 import {Assessment, AssessmentState} from "../../../common/types/types";
 import {useParams} from "react-router";
 import AddAssessment from "../components/AddAssessment";
+import {getAPIContext} from "../../../common/api/BaseAPI";
 
 export interface AssessmentPageProps {
 }

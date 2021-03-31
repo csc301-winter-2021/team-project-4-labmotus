@@ -2,11 +2,12 @@ import {FunctionComponent, useContext, useState} from "react";
 import {IonAlert, IonButtons, IonContent, IonHeader, IonIcon, IonPage, IonToolbar} from "@ionic/react";
 // @ts-ignore
 import styled from "styled-components";
-import API, {getAPIContext} from "../api/API";
-import {Theme, getThemeContext} from "../../../common/ui/theme/Theme";
+import API from "../api/API";
+import {getThemeContext, Theme} from "../../../common/ui/theme/Theme";
 import {useHistory} from "react-router";
 import ForgotPassword from "../../../common/ui/pages/ForgotPassword";
 import {chevronBack} from "ionicons/icons";
+import {getAPIContext} from "../../../common/api/BaseAPI";
 
 export interface ForgotPasswordPageProps {
 }

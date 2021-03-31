@@ -25,9 +25,10 @@ import {BrowserRouter as Router} from "react-router-dom";
 
 import config from "../config.json";
 import firebaseConfig from "../firebase.json"
-import API, {getAPIContext} from "./api/API";
+import API from "./api/API";
 import {Patient} from "../../common/types/types";
 import moment from "moment";
+import {getAPIContext} from "../../common/api/BaseAPI";
 
 const App: React.FC = () => {
     const [APIInstance, setAPIInstance] = useState<API>(null);

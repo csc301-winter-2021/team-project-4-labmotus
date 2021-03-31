@@ -6,7 +6,7 @@ import SignupPage from "../pages/SignupPage";
 import LoginPage from "../pages/LoginPage";
 import TermsOfServicePage from "../../../common/ui/pages/TermsOfServicePage";
 import {ClinicianTermsOfServiceContent} from "../components/ClinicianTermsOfServiceContent";
-import API, {getAPIContext} from "../api/API";
+import API from "../api/API";
 import AllPatientsPage from "../pages/AllPatientsPage";
 import PatientProfilePage from "../pages/PatientProfilePage";
 import FinalizeSignupPage from "../pages/FinalizeSignupPage";
@@ -19,6 +19,7 @@ import {home, settings} from "ionicons/icons";
 import styled from 'styled-components';
 import NavigationBar from "../../../common/ui/components/NavigationBar";
 import AssessmentPage from "../pages/AssessmentPage";
+import {getAPIContext} from "../../../common/api/BaseAPI";
 
 export interface RoutesProps {
 }
