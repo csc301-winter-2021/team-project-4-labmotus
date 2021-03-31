@@ -1,10 +1,9 @@
-// @ts-nocheck
 // import sampleData from "./json-assessment_0.json"
 // @ts-ignore
 // @ts-ignore
 import * as THREE from 'three';
 import {Vector3} from 'three';
-import {Assessment, Joints} from "../../../common/types/types";
+import {Joints, PoseData, Stats} from "../../../common/types/types";
 import JOINTS from "./processJoints";
 
 export interface WrnchData {
@@ -35,8 +34,8 @@ export interface WrnchData {
     }[]
 }
 
-function processRawWrnchData(data: WrnchData) {
-    const positions: Vector3[][] = data.frames.filter(frame => {
+function processRawWrnchData(data: WrnchData): PoseData {
+    const poseData: PoseData = data.frames.filter(frame => {
         const people = frame.persons.filter(person => person.pose2d.is_main);
         if (people.length === 0) return false;
         return people[0]?.pose_3d_raw != null
@@ -44,37 +43,51 @@ function processRawWrnchData(data: WrnchData) {
         const people = frame.persons.filter(person => person.pose2d.is_main);
         if (people.length === 0) return null;
         const raw = people[0].pose_3d_raw.positions;
-        const processed: Vector3[] = [];
+        const processed: number[][] = [];
         for (let i = 0; i < raw.length; i += 3) {
-            processed.push(new Vector3(raw[i], raw[i + 1], raw[i + 2]))
+            processed.push([raw[i], raw[i + 1], raw[i + 2]])
         }
-        return processed;
+        return {
+            frame_time: frame.frame_time,
+            positions: processed
+        };
     });
-    return positions
+    return poseData;
 }
 
-function computeJoints(positions: Vector3[][], joints: Joints[]) {
-    const res = {};
+function computeJoints(poseData: PoseData, joints: Joints[]): { joint: Joints, value: number }[] {
+    const res = [];
+    let allPositions: number[][] = poseData.reduce((positions, frame) => {
+        for(let position of frame.positions) {
+            positions.push(position);
+        }
+        return positions;
+    }, []);
     joints.forEach(joint => {
+        let values = allPositions.map(position => JOINTS[joint].computer(position.map(p => new Vector3(p[0], p[1], p[2]))));
         const reducer = JOINTS[joint].minmax === 'max' ? Math.max : Math.min;
-        res[joint] = positions.map(position => JOINTS[joint].computer(position)).reduce(
-            (c, n) => n != null ? reducer(c, n) : c,
-            JOINTS[joint].min);
+        res.push({
+            joint,
+            value: values.reduce((c, n) => n != null ? reducer(c, n) : c, values[0])
+        });
     });
     return res;
 }
 
-function processWrnchData(data: WrnchData, assessment: Assessment) {
-    const positions: Vector3[][] = processRawWrnchData(data);
-    const jointData = computeJoints(positions, assessment.joints);
-    assessment.stats = Object.values(jointData).map((joint) => ({
-        name: JOINTS[joint].movement,
-        joint: JOINTS[joint].joint,
-        currValue: jointData[joint],
-        goalValue: JOINTS[joint].max,
-        unit: JOINTS[joint].unit,
-        minValue: JOINTS[joint].min
-    }))
+function processWrnchData(data: WrnchData, joints: Joints[]): { poseData: PoseData, stats: Stats[] } {
+    const poseData: PoseData = processRawWrnchData(data);
+    const jointData = computeJoints(poseData, joints);
+    return {
+        poseData,
+        stats: jointData.map(data => ({
+            name: JOINTS[data.joint].movement,
+            joint: JOINTS[data.joint].joint,
+            currValue: data.value,
+            goalValue: JOINTS[data.joint].max,
+            unit: JOINTS[data.joint].unit,
+            minValue: JOINTS[data.joint].min
+        }))
+    };
 }
 
 export default processWrnchData;
