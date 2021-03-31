@@ -23,6 +23,8 @@ const PATIENT_ID_INDEX = "patientId-index";
 
 const S3 = new AWS.S3(awsParams);
 const VIDEO_BUCKET = "labmotus-videos";
+const VIDEO_KEY_PREFIX = "assessment_";
+const VIDEO_KEY_SUFFIX = ".mp4";
 
 interface UpdateParams {
     UpdateExpression: string,
@@ -351,7 +353,7 @@ class Database {
 
     async saveVideo(userId: string, assessmentID: string, video: NodeJS.ReadableStream): Promise<string> {
         const assessment = await this.getAssessmentByID(userId, assessmentID);
-        const params = {Bucket: VIDEO_BUCKET, Key: assessmentID, Body: video};
+        const params = {Bucket: VIDEO_BUCKET, Key: VIDEO_KEY_PREFIX+assessmentID+VIDEO_KEY_SUFFIX, Body: video};
         const options = {partSize: 10 * 1024 * 1024, queueSize: 1};
         await S3.upload(params, options).promise();
         await this.updateAssessment(userId, assessmentID, {
@@ -362,7 +364,7 @@ class Database {
     }
 
     async getVideo(userId: string, assessmentID: string): Promise<string | ReadStream> {
-        const params = {Bucket: VIDEO_BUCKET, Key: assessmentID, Expires: 300};
+        const params = {Bucket: VIDEO_BUCKET, Key: VIDEO_KEY_PREFIX+assessmentID+VIDEO_KEY_SUFFIX, Expires: 300};
         return S3.getSignedUrlPromise('getObject', params);
     }
 
