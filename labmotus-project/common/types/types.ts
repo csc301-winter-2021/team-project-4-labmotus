@@ -14,9 +14,9 @@ export interface Assessment {
 }
 
 export enum AssessmentState {
-    "COMPLETE",
-    "PENDING",
-    "MISSING"
+    COMPLETE = "COMPLETE",
+    PENDING = "PENDING",
+    MISSING = "MISSING"
 }
 
 export interface User {

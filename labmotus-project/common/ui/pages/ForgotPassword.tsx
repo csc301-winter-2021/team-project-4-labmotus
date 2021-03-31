@@ -28,6 +28,7 @@ const ForgotPassword: FunctionComponent<ForgotPasswordProps> = (props: ForgotPas
                         placeholder="Email"
                         type="email"
                         value={props.email}
+                        autofocus={true}
                         onIonChange={(e) => props.setEmail(e.detail.value!)}
                     />
                     <button className="forgot-button" onClick={props.onForgotPassword}>

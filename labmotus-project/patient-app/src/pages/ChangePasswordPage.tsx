@@ -89,22 +89,19 @@ const ChangePasswordPage: FunctionComponent<ChangePasswordPageProps> = () => {
                         <IonInput
                             type="password"
                             placeholder="Current Password"
-                            autofocus={true}
-                            clearInput={true}
                             value={currPassword}
+                            autofocus={true}
                             onIonChange={(e) => setCurrPassword(e.detail.value!)}
                         />
                         <IonInput
                             type="password"
                             placeholder="New Password"
-                            clearInput={true}
                             value={newPassword}
                             onIonChange={(e) => setNewPassword(e.detail.value!)}
                         />
                         <IonInput
                             type="password"
                             placeholder="Confirm New Password"
-                            clearInput={true}
                             value={confirmPassword}
                             onIonChange={(e) => setConfirmPassword(e.detail.value!)}
                         />

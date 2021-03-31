@@ -1,4 +1,5 @@
 import * as fastify from 'fastify'
+import validateUUID from 'uuid-validate';
 import {Assessment, Response} from '../../../../common/types/types'
 import {RequestHeaders} from '../../types'
 import {authenticateUser} from "../../auth/Authenticator";
@@ -64,8 +65,7 @@ export default async function (server: fastify.FastifyInstance & { database: Dat
         Params: AssessmentIdParams
     }>('/video/:assessmentId', {}, async (request, reply) => {
         const headers: { authorization?: string } = request.headers as any;
-        const assessmentId = Number.isSafeInteger(Number(request.params.assessmentId)) &&
-        Number(request.params.assessmentId) >= 0 ? request.params.assessmentId : undefined;
+        const assessmentId = validateUUID(request.params.assessmentId) ? request.params.assessmentId : undefined;
         try {
             const permissions = await authenticateUser(server.database, headers.authorization.split('Bearer ')[1]);
             try {
@@ -111,8 +111,7 @@ export default async function (server: fastify.FastifyInstance & { database: Dat
         Params: AssessmentIdParams
     }>('/video/:assessmentId', {}, async (request, reply) => {
         const headers: { authorization?: string } = request.headers as any;
-        const assessmentId = Number.isSafeInteger(Number(request.params.assessmentId)) &&
-        Number(request.params.assessmentId) >= 0 ? request.params.assessmentId : undefined;
+        const assessmentId = validateUUID(request.params.assessmentId) ? request.params.assessmentId : undefined;
         try {
             const permissions = await authenticateUser(server.database, headers.authorization.split('Bearer ')[1]);
             try {
