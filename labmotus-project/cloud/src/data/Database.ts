@@ -76,7 +76,7 @@ class Database {
             wrnchJob: item.wrnchJob || undefined,
             poseData: item.poseData ? JSON.parse(item.poseData) : undefined,
             joints: item.joints,
-            stats: item.stats.map((s: string) => JSON.parse(s))
+            stats: item.stats ? item.stats.map((s: string) => JSON.parse(s)) : undefined
         }
     }
 
@@ -239,7 +239,54 @@ class Database {
     }
 
     async createAssessment(assessment: Assessment): Promise<Assessment> {
-        throw new Error("Not Implemented")
+        if(!assessment.patientId || !assessment.name || !assessment.joints || !assessment.joints.length) {
+            throw "Incomplete assessment data"
+        }
+
+        let assessmentRow = {
+            id: undefined,
+            patientId: assessment.patientId,
+            name: assessment.name,
+            date: moment().toISOString(),
+            state: AssessmentState.MISSING,
+            joints: assessment.joints
+        }
+
+        // Generate unique user id
+        let MAX_ITERATIONS = 5; // We will make 5 attempts to generate a UUID, which is generous since we expect **very** few collision to occur
+        for(let i = 0; i < MAX_ITERATIONS; i++) {
+            assessmentRow.id = uuid();
+            try {
+                let data = await DynamoDB.get({
+                    TableName: ASSESSMENTS_TABLE,
+                    Key: { id: assessmentRow.id }
+                }).promise();
+                if(data.Item) {
+                    assessmentRow.id = undefined;
+                }else {
+                    break;
+                }
+            }catch(err) {
+                console.error(err);
+                throw "Failed to generate assessment ID";
+            }
+        }
+        if(assessmentRow.id === undefined) {
+            throw "Failed to generate assessment ID";
+        }
+
+        // Create row in database
+        try {
+            await DynamoDB.put({
+                TableName: ASSESSMENTS_TABLE,
+                Item: assessmentRow
+            }).promise();
+        }catch(err) {
+            console.error(err);
+            throw "Failed to create assessment database entry";
+        }
+
+        return Database._buildAssessmentFromItem(assessmentRow);
     }
 
     async getAssessmentsByPatient(ID: string, start: Moment, duration: number, unit: string): Promise<Assessment[]> {
