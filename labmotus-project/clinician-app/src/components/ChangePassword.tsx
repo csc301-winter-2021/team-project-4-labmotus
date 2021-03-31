@@ -1,4 +1,4 @@
-import {FunctionComponent, useContext, useState} from "react";
+import {FunctionComponent, useContext} from "react";
 import {IonInput} from "@ionic/react";
 // @ts-ignore
 import styled from "styled-components";
@@ -20,37 +20,36 @@ export const ChangePassword: FunctionComponent<ChangePasswordProps> = (props: Ch
     const theme = useContext(getThemeContext());
 
     return (
-        <ChangePasswordDiv theme={theme}>
+        <ChangePasswordDiv theme={theme} data-testid="ChangePasswordComponent">
             <h1>Change Password</h1>
             <div className="main-padding">
                 <div className="form">
                     <IonInput
                         type="password"
                         placeholder="Current Password"
-                        autofocus={true}
-                        clearInput={true}
                         value={props.currPassword}
                         onIonChange={(e) => props.setCurrPassword(e.detail.value!)}
+                        data-testid="current-password"
                     />
                     <IonInput
                         type="password"
                         placeholder="New Password"
-                        clearInput={true}
                         value={props.newPassword}
                         onIonChange={(e) => props.setNewPassword(e.detail.value!)}
+                        data-testid="new-password"
                     />
                     <IonInput
                         type="password"
                         placeholder="Confirm New Password"
-                        clearInput={true}
                         value={props.confirmPassword}
                         onIonChange={(e) => props.setConfirmPassword(e.detail.value!)}
+                        data-testid="confirm-password"
                     />
                 </div>
-                <button onClick={props.save} className="change-password button">
+                <button onClick={props.save} className="change-password button" data-testid="change-password">
                     Change Password
                 </button>
-                <button onClick={() => props.setChangePassword(false)} className="cancel button">
+                <button onClick={() => props.setChangePassword(false)} className="cancel button" data-testid="cancel">
                     Cancel
                 </button>
             </div>

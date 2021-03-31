@@ -29,7 +29,7 @@ export class BaseAPI {
         this._config = apiConfig
         this.authChangeListeners = new Set();
 
-        if(fbConfig !== null) {
+        if (fbConfig !== null) {
             this._firebase = firebase.initializeApp(fbConfig);
         }
     }
@@ -67,7 +67,7 @@ export class BaseAPI {
 
     async forgotPassword(email: string): Promise<string> {
         try {
-            this._firebaseSendPasswordResetEmail(email);
+            await this._firebaseSendPasswordResetEmail(email);
             return "success";
         } catch (e) {
             return e.code.slice(5);
@@ -78,15 +78,6 @@ export class BaseAPI {
         return new Promise<firebase.auth.UserCredential>((resolve, reject) => {
             this._firebase.auth().createUserWithEmailAndPassword(email, pass).then(resolve).catch(reject)
         })
-    }
-
-    async signUp(email: string, pass: string): Promise<string> {
-        try {
-            await this._firebaseCreateUserWithEmailAndPassword(email, pass);
-            return "success";
-        } catch (e) {
-            return e.code.slice(5);
-        }
     }
 
     async getPatient(patientID?: string): Promise<Patient> {

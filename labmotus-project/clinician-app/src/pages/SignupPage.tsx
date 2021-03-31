@@ -14,6 +14,8 @@ const SignupPage: FunctionComponent<SignupPageProps> = () => {
     const theme = React.useContext(getThemeContext());
 
     const history = useHistory();
+    const [name, setName] = useState<string>();
+    const [clinic, setClinic] = useState<string>();
     const [email, setEmail] = useState<string>();
     const [password, setPassword] = useState<string>();
     const [confirmPassword, setConfirmPassword] = useState<string>();
@@ -23,6 +25,20 @@ const SignupPage: FunctionComponent<SignupPageProps> = () => {
 
     // When user signs up for an account
     async function signUp() {
+        if (!name) {
+            setHeader("Empty Name");
+            setMessage("Please enter your full name.");
+            openAlert(true);
+            return;
+        }
+
+        if (!clinic) {
+            setHeader("Empty Clinic");
+            setMessage("Please enter the name of your clinic.");
+            openAlert(true);
+            return;
+        }
+
         if (!email) {
             setHeader("Invalid Email");
             setMessage("Please enter your email.");
@@ -46,7 +62,7 @@ const SignupPage: FunctionComponent<SignupPageProps> = () => {
         }
 
         try {
-            const signUpResult = await UseAPI.signUp(email, password);
+            const signUpResult = await UseAPI.signUp(name, clinic, email, password);
             switch (signUpResult) {
                 case "email-already-in-use":
                     // User has entered an email that's already in use
@@ -70,6 +86,7 @@ const SignupPage: FunctionComponent<SignupPageProps> = () => {
                     setMessage("Please choose a password that's at least 6 characters.");
                     openAlert(true);
                     setPassword("");
+                    setConfirmPassword("");
                     return;
                 default:
                     console.log(signUpResult);
@@ -101,9 +118,22 @@ const SignupPage: FunctionComponent<SignupPageProps> = () => {
                             <div className="form">
                                 <IonInput
                                     class="input"
+                                    placeholder="Name"
+                                    type="text"
+                                    value={name}
+                                    onIonChange={(e) => setName(e.detail.value!)}
+                                />
+                                <IonInput
+                                    class="input"
+                                    placeholder="Clinic Name"
+                                    type="text"
+                                    value={clinic}
+                                    onIonChange={(e) => setClinic(e.detail.value!)}
+                                />
+                                <IonInput
+                                    class="input"
                                     placeholder="Email"
                                     type="email"
-                                    clearInput={true}
                                     value={email}
                                     onIonChange={(e) => setEmail(e.detail.value!)}
                                 />
@@ -111,7 +141,6 @@ const SignupPage: FunctionComponent<SignupPageProps> = () => {
                                     class="input"
                                     placeholder="Password"
                                     type="password"
-                                    clearInput={true}
                                     value={password}
                                     onIonChange={(e) => setPassword(e.detail.value!)}
                                 />
@@ -119,7 +148,6 @@ const SignupPage: FunctionComponent<SignupPageProps> = () => {
                                     class="input"
                                     placeholder="Confirm Password"
                                     type="password"
-                                    clearInput={true}
                                     value={confirmPassword}
                                     onIonChange={(e) => setConfirmPassword(e.detail.value!)}
                                 />

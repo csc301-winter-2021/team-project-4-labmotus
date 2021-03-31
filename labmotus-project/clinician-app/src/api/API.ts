@@ -24,7 +24,7 @@ class API extends BaseAPI {
                     if (clinician != null) {
                         this._user = clinician;
                     } else {
-                        this._firebaseSignOut();
+                        await this._firebaseSignOut();
                     }
                 }
                 this.authChangeListeners.forEach(listener => listener(!!(a as any)))
@@ -83,17 +83,20 @@ class API extends BaseAPI {
         return null;
     }
 
-    async signUp(email: string, pass: string): Promise<string> {
+    async signUp(name: string, clinic: string, email: string, pass: string): Promise<string> {
         try {
             const creds = await this._firebaseCreateUserWithEmailAndPassword(email, pass);
             const clinician: Clinician = {
-                clinic: "", patientIDs: [], user: {
+                clinic: clinic,
+                patientIDs: [],
+                user: {
                     id: "",
-                    name: "",
+                    name: name,
                     email: email,
                     firebaseId: creds.user.uid
                 }
             };
+            console.log(clinician, "the clinician!")
             const response = await fetch(this._config.api + `/clinician`, {
                 method: "POST",
                 mode: 'cors',
@@ -248,6 +251,7 @@ class API extends BaseAPI {
 }
 
 const APIContext: Context<API> = createContext<API>(null);
+
 export function getAPIContext(): Context<API> {
     return APIContext
 }

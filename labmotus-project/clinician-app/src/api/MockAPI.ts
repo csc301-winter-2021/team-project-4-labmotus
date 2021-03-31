@@ -34,7 +34,7 @@ class MockAPI extends API {
         return "success";
     }
 
-    async signUp(email: string, pass: string): Promise<string> {
+    async signUp(name: string, clinic: string, email: string, pass: string): Promise<string> {
         if (this._user !== null)
             throw Error("Already logged In.");
         this._user = FakeClinician;
