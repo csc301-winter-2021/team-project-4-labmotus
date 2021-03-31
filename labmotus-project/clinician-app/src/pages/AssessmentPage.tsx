@@ -1,114 +1,243 @@
-import {FunctionComponent, useContext, useState} from "react";
-import {IonAlert, IonModal, IonPage} from "@ionic/react";
+import React, {FunctionComponent, useContext, useEffect, useState} from "react";
 // @ts-ignore
-import styled from "styled-components";
+import styled from 'styled-components';
 import {getThemeContext, Theme} from "../../../common/ui/theme/Theme";
-import BaseAssessmentPage from "../../../common/ui/pages/AssessmentPage";
-import {Moment} from "moment";
-import API, {getAPIContext} from "../api/API";
-import {Assessment, AssessmentState} from "../../../common/types/types";
-import {useParams} from "react-router";
+import {IonAlert, IonButton, IonIcon, IonModal, IonPopover, IonSpinner} from "@ionic/react";
+import {useHistory, useParams} from "react-router";
 import moment from "moment";
+import {Assessment, AssessmentState} from "../../../common/types/types";
+import API, {getAPIContext} from "../api/API";
+import Scrollbar from "react-scrollbars-custom";
+import ReactPlayer from "react-player";
+import {Moment} from "moment/moment";
+
 import AddAssessment from "../components/AddAssessment";
+import AssessmentComponent from "../../../common/ui/components/Assessment"
+import { chevronBack } from "ionicons/icons";
 
 export interface AssessmentPageProps {
 }
 
 const AssessmentPage: FunctionComponent<AssessmentPageProps> = (props: AssessmentPageProps) => {
     const theme: Theme = useContext(getThemeContext());
+    const history = useHistory();
 
-    const [showCreateAssessment, setShowCreateAssessment] = useState(false);
-    const [assessmentType, setAssessmentType] = useState("");
+    const [showAddAssessment, setShowAddAssessment] = useState(false);
+    const [assessmentType, setAssessmentType] = useState(null);
     const UseAPI: API = useContext(getAPIContext());
-    const params: { patientId: string; date?: string } = useParams();
+    const params: { patientId: string, date?: string} = useParams();
     const [isalert, openAlert] = useState<boolean>(false);
-    const [header, setHeader] = useState<string>();
-    const [message, setMessage] = useState<string>();
+    const [header, setHeader] = useState<string>(null);
+    const [message, setMessage] = useState<string>(null);
+    const [video, setVideo] = useState<string>(null);
+    const [assessments, setAssessments] = useState<Assessment[]>(null);
+    const {date}: { date: string } = useParams();
+    const day = date ? moment(date, 'YYYY-MM-DD') : moment();
+
+    useEffect(() => {
+        setAssessments(null);
+        getAssessments(day).then(value => {
+            const tAssessments = value.filter(ass => ass.date.format('YYYY-MM-DD') === day.format('YYYY-MM-DD'));
+            setAssessments(tAssessments);
+        }).catch(reason => {
+            console.error(reason);
+            setAssessments([]);
+        });
+    }, [date]);
 
     function getAssessments(week: Moment): Promise<Assessment[]> {
-        return UseAPI.getAssessments(params.patientId, week);
+      return UseAPI.getAssessments(params.patientId, week);
+    }
+    
+    function back() {
+        history.goBack()
     }
 
-    function createAssessment(assessmentType: string) {
-        if (!assessmentType) {
-            setHeader("No Assessment Type Selected");
-            setMessage("Please use the drop down menu to select an exercise.");
+    function createAssessment(assessmentType: string, joints: string[]){
+        if (!assessmentType){
+            setHeader('No assessment type selected!')
+            setMessage('Use the drop down menu to select an exercise')
             openAlert(true);
-        } else {
+        }
+        else if (assessmentType === "Create Own Exercise"){
             const assessment: Assessment = {
                 id: Math.floor(Math.random() * 1000000).toString(),
                 patientId: params.patientId,
                 name: assessmentType,
-                date: params.date ? moment(params.date, "YYYY-MM-DD") : moment(),
+                date: params.date ? moment(params.date, 'YYYY-MM-DD'):moment(), 
                 state: AssessmentState.MISSING,
-                joints: ["placeholder joint 1", "placeholder joint 2"],
-            };
+                joints: joints,
+                notes: ""
+            }
             UseAPI.createAssessment(assessment);
-            setShowCreateAssessment(false);
-            setHeader("Assessment Added!");
-            setMessage("");
-            openAlert(true);
+        }
+        else if (assessmentType === "Squats"){
+            const assessment: Assessment = {
+              id: Math.floor(Math.random() * 1000000).toString(),
+              patientId: params.patientId,
+              name: assessmentType,
+              date: params.date ? moment(params.date, 'YYYY-MM-DD'):moment(), 
+              state: AssessmentState.MISSING,
+              joints: ["squat joint 1", "squat joint 2"],
+              notes: ""
+            }
+            UseAPI.createAssessment(assessment);
+        }
+        else {
+            const assessment: Assessment = {
+                id: Math.floor(Math.random() * 1000000).toString(),
+                patientId: params.patientId,
+                name: assessmentType,
+                date: params.date ? moment(params.date, 'YYYY-MM-DD'):moment(), 
+                state: AssessmentState.MISSING,
+                joints: ["single leg squat joint 1", "single leg squat joint 2"],
+                notes: ""
+              }
+              UseAPI.createAssessment(assessment);            
+        }
+        setShowAddAssessment(false);
+        setHeader('Assessment added!')
+        setMessage('')
+        openAlert(true);
+    }
+
+    function generateBody(){
+        if (assessments === null) {
+            return <IonSpinner/>
+        } else if (assessments.length === 0) {
+            return <NoneDiv theme={theme}>No Assessments Today</NoneDiv>
+        } else {
+            return (
+                <Scrollbar>
+                    {assessments.map((value) => {
+                        return (
+                            <div>
+                                <AssessmentComponent value={value} day={day} setVideo={setVideo}> </AssessmentComponent>
+                                <h3>Notes:</h3>
+                                    {value.notes}
+                                <IonButton>Delete (not impl.)</IonButton>
+                            </div>
+                        )
+                    })}
+                </Scrollbar>
+            )
         }
     }
 
     return (
-        <IonPage>
-            <BaseAssessmentPage getAssessments={getAssessments}/>
-            <AssessmentPageDiv theme={theme}>
-                <div className="main-padding">
-                    <button onClick={() => setShowCreateAssessment(true)} className="add-button">
-                        Add Assessment
-                    </button>
-                    <IonModal isOpen={showCreateAssessment} onDidDismiss={() => setShowCreateAssessment(false)}>
-                        <AddAssessment
-                            assessmentType={assessmentType}
-                            setAssessmentType={setAssessmentType}
-                            createAssessment={createAssessment}
-                            setShowCreateAssessment={setShowCreateAssessment}
-                        />
-                        <IonAlert
-                            isOpen={isalert}
-                            onDidDismiss={() => openAlert(false)}
-                            header={header}
-                            message={message}
-                            buttons={["OK"]}
-                        />
-                    </IonModal>
-                </div>
-            </AssessmentPageDiv>
-        </IonPage>
+        <AssessmentPageDiv theme={theme}>   
+            <HeaderDiv>
+                <BackButton theme={theme} onClick={back}>
+                    <IonIcon icon={chevronBack}/>
+                    <HeaderText theme={theme}>
+                        Assessment: {day.format(theme.dateFormat)}
+                    </HeaderText>
+                </BackButton>
+            </HeaderDiv> 
+            <BodyDiv theme={theme}>
+                {generateBody()}   
+            </BodyDiv>
+            <div className="main-padding">
+                <button onClick={() => setShowAddAssessment(true)} className="add-button">
+                    Add Assessment
+                </button>
+                <IonModal isOpen={showAddAssessment} onDidDismiss={() => setShowAddAssessment(false)}>
+                    <AddAssessment
+                        assessmentType={assessmentType}
+                        setAssessmentType={setAssessmentType}
+                        addAssessment={createAssessment}
+                        setShowAddAssessment={setShowAddAssessment}
+                    />
+                    <IonAlert
+                        isOpen={isalert}
+                        onDidDismiss={() => openAlert(false)}
+                        header={header}
+                        message={message}
+                        buttons={["OK"]}
+                    />
+                </IonModal>
+            </div>
+              
+            <PopOver
+                // cssClass={PopOver.styledComponentId}
+                isOpen={video !== null}
+                onDidDismiss={() => setVideo(null)}
+            >
+                <VideoDiv>
+                    <ReactPlayer width="100%" height="100%" url={video} playing/>
+                </VideoDiv>
+            </PopOver>
+
+        </AssessmentPageDiv>
     );
-};
+}
 
 const AssessmentPageDiv = styled.div`
-  height: 100%;
-  width: 100%;
-  padding: 5%;
-
-  .main-padding {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
     width: 100%;
-    padding: 5%;
+    height: 100%;
     box-sizing: border-box;
-    font-size: 1em;
-    outline: none;
-  }
+    padding: 3%;
+    display: flex;
+    flex-direction: column;
+    ion-content {
+        flex: 1;
+    }
+`;
 
-  .add-button {
-    width: 100%;
-    font-size: 1em;
-    padding: 14px;
-    outline: none;
-    background-color: ${({theme}: { theme: Theme }) => theme.colors.primary};
-    color: white;
-  }
+const PopOver = styled(IonPopover)`
+    .popover-content {
+        width: fit-content !important;
+        height: fit-content !important;
+    }
+`;
 
-  .footer {
-    margin-top: 65vh;
-  }
+const BackButton = styled.div`
+    ion-icon {
+        height: 25px;
+        width: 25px;
+        color: ${({theme}: { theme: Theme }) => theme.colors.primary};
+    }
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+`;
+
+const HeaderDiv = styled.div`
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+`;
+
+const HeaderText = styled.div`
+    flex: 1;
+    font-size: ${({theme}: { theme: Theme }) => theme.headerFontSize};
+    font-family: ${({theme}: { theme: Theme }) => theme.headerFontFamily};
+    color: ${({theme}: { theme: Theme }) => theme.colors.contrast};
+`;
+
+const NoneDiv = styled.div`
+    font-size: ${({theme}: { theme: Theme }) => theme.headerFontSize};
+    font-family: ${({theme}: { theme: Theme }) => theme.headerFontFamily};
+    color: ${({theme}: { theme: Theme }) => theme.colors.contrast};
+`;
+
+const BodyDiv = styled.div`
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1%;
+    .ScrollbarsCustom-Track {
+        background-color: ${({theme}: { theme: Theme }) => theme.colors.shade} !important;
+    }
+    .ScrollbarsCustom-Thumb {
+        background-color: ${({theme}: { theme: Theme }) => theme.colors.primary} !important;
+    }
+`;
+
+const VideoDiv = styled.div`
+    width: 90vw;
+    height: 90vh;
 `;
 
 export default AssessmentPage;

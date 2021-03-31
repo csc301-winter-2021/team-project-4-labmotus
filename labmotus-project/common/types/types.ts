@@ -11,6 +11,7 @@ export interface Assessment {
     poseData?: any // TODO: Create type for pose data
     joints: string[]
     stats?: Stats[]
+    notes: string
 }
 
 export enum AssessmentState {

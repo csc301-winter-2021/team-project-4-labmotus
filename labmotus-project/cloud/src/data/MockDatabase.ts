@@ -50,9 +50,9 @@ class MockDatabase extends Database {
         this.clinicianDatabase = [{
             user: {
                 id: this._generateUserID(),
-                firebaseId: "mp0eWztKWdbj0BWDN60ehEKpUj32",
-                name: "LabMotus User2",
-                email: "user2@labmot.us",
+                firebaseId: "Tdy8FL3QAiMqDmClc0UM4wljgbJ3",
+                name: "Joyce Ma",
+                email: "joyce@labmot.us",
             },
             clinic: "Lab Motus",
             patientIDs: ['0', '1']
