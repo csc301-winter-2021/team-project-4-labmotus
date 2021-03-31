@@ -80,7 +80,7 @@ class MockAPI extends API {
                     date: date,
                     state: AssessmentState.COMPLETE,
                     videoUrl: "https://youtu.be/dQw4w9WgXcQ",
-                    joints: ["Trunk", "Pelvis", "Flexion/Extension", "Valgus/Varus", "Plantarflexion", "Dorsiflexion"],
+                    joints: [],
                     stats: [
                         {
                             name: "Trunk",
@@ -132,7 +132,7 @@ class MockAPI extends API {
                     patientId: "",
                     name: "Hip",
                     date: date,
-                    joints: ["Hip"],
+                    joints: [],
                     state: AssessmentState.PENDING,
                 });
                 data.push({
@@ -140,7 +140,7 @@ class MockAPI extends API {
                     patientId: "",
                     name: "Arm",
                     date: date,
-                    joints: ["Arm"],
+                    joints: [],
                     state: AssessmentState.MISSING,
                 });
             }

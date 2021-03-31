@@ -1,12 +1,14 @@
-import AWS from 'aws-sdk';
-import * as firebaseAdmin from 'firebase-admin';
-import firebase from 'firebase/app';
-import {ReadStream} from "fs";
+import AWS from "aws-sdk";
+import * as firebaseAdmin from "firebase-admin";
+import firebase from "firebase/app";
+import fs, {ReadStream} from "fs";
 import moment, {Moment} from "moment";
+import fetch from "node-fetch";
 import {v4 as uuid} from 'uuid';
 
 import config from "../../config.json";
-import {Assessment, AssessmentState, Clinician, Patient, SignUpParams, User} from "../../../common/types/types";
+import {Assessment, AssessmentState, Clinician, Patient, PoseData, SignUpParams, Stats, User} from "../../../common/types/types";
+import processWrnchData from "../wrnch/processWrnch";
 
 
 const awsParams = { region: 'us-east-1' };
@@ -25,6 +27,9 @@ const S3 = new AWS.S3(awsParams);
 const VIDEO_BUCKET = "labmotus-videos";
 const VIDEO_KEY_PREFIX = "assessment_";
 const VIDEO_KEY_SUFFIX = ".mp4";
+
+const WRNCH_API = "https://api.wrnch.ai/v1/";
+const WRNCH_PROCESSED = "Processed";
 
 interface UpdateParams {
     UpdateExpression: string,
@@ -77,9 +82,9 @@ class Database {
             state: item.state,
             videoUrl: item.videoUrl || undefined,
             wrnchJob: item.wrnchJob || undefined,
-            poseData: item.poseData ? JSON.parse(item.poseData) : undefined,
+            poseData: item.poseData || undefined,
             joints: item.joints,
-            stats: item.stats ? item.stats.map((s: string) => JSON.parse(s)) : undefined
+            stats: item.stats || undefined
         }
     }
 
@@ -118,6 +123,43 @@ class Database {
                 return prev;
             }, {})
         };
+    }
+
+    private static async _checkAssessmentJob(assessment: Assessment): Promise<{ poseData: PoseData, stats: Stats[] }> {
+        if(assessment.state == AssessmentState.PENDING && assessment.wrnchJob) {
+            let api_key = await fs.promises.readFile("WRNCH_API_KEY");
+            var loginParams = new URLSearchParams();
+            loginParams.append('api_key', api_key.toString());
+            let token = await fetch(WRNCH_API + "login", {
+                method: 'POST',
+                body: loginParams
+            })
+            .then(r => r.json())
+            .then(res => res["access_token"]);
+
+            let status = await fetch(WRNCH_API + `status/${assessment.wrnchJob}`, {
+                method: 'GET',
+                headers: {
+                    'Authorization': "Bearer " + token
+                }
+            })
+            .then(r => r.json());
+
+            if(status == WRNCH_PROCESSED) {
+                let data = await fetch(WRNCH_API + `jobs/${assessment.wrnchJob}`, {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': "Bearer " + token
+                    }
+                })
+                .then(r => r.json());
+                return processWrnchData(data, assessment.joints);
+            }else {
+                return undefined;
+            }
+        }else {
+            return undefined;
+        }
     }
 
     async getPatientByFirebaseID(firebaseID: string): Promise<Patient> {
@@ -313,7 +355,16 @@ class Database {
                     ':end': end.toISOString()
                 }
             }).promise();
-            return data.Items.map(Database._buildAssessmentFromItem);
+            let ret = data.Items.map(Database._buildAssessmentFromItem);
+            for(let assessment of ret) {
+                let processed = await Database._checkAssessmentJob(assessment);
+                if(processed) {
+                    await this.updateAssessment(assessment.patientId, assessment.id, {...processed, state: AssessmentState.COMPLETE });
+                    assessment.poseData = processed.poseData;
+                    assessment.stats = processed.stats;
+                }
+            }
+            return ret;
         }catch(err) {
             console.error(err);
             throw "Database query failed";
@@ -327,7 +378,14 @@ class Database {
                 Key: { id: assessmentID }
             }).promise();
             if(data.Item) {
-                return Database._buildAssessmentFromItem(data.Item);
+                let assessment = Database._buildAssessmentFromItem(data.Item);
+                let processed = await Database._checkAssessmentJob(assessment);
+                if(processed) {
+                    await this.updateAssessment(assessment.patientId, assessment.id, {...processed, state: AssessmentState.COMPLETE });
+                    assessment.poseData = processed.poseData;
+                    assessment.stats = processed.stats;
+                }
+                return assessment;
             }else {
                 throw `Assessment with given ID not found`;
             }

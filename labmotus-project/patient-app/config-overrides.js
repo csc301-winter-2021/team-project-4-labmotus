@@ -5,7 +5,8 @@ module.exports = (config) => {
     config.module.rules.push({
         test: /\.(ts|tsx)?$/,
         include: path.resolve(__dirname, '../'),
-        exclude: [path.resolve(__dirname, '../../patient-app'), path.resolve(__dirname, '../../clinician-app')],
+        exclude: [path.resolve(__dirname, '../../patient-app'), path.resolve(__dirname, '../../clinician-app'),
+            path.resolve(__dirname, 'node_modules')],
         use: [
             {
                 loader: 'ts-loader',
