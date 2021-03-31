@@ -64,7 +64,7 @@ function computeJoints(positions: Vector3[][], joints: Joints[]) {
     return res;
 }
 
-function processWrenchData(data: WrnchData, assessment: Assessment) {
+function processWrnchData(data: WrnchData, assessment: Assessment) {
     const positions: Vector3[][] = processRawWrnchData(data);
     const jointData = computeJoints(positions, assessment.joints);
     assessment.stats = Object.values(jointData).map((joint) => ({
@@ -77,4 +77,4 @@ function processWrenchData(data: WrnchData, assessment: Assessment) {
     }))
 }
 
-export default processWrenchData;
+export default processWrnchData;
