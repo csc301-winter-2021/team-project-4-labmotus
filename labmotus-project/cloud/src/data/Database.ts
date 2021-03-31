@@ -303,8 +303,8 @@ class Database {
                 },
                 ExpressionAttributeValues: {
                     ':p': ID,
-                    ':start': start.toString(),
-                    ':end': end.toString()
+                    ':start': start.toISOString(),
+                    ':end': end.toISOString()
                 }
             }).promise();
             return data.Items.map(Database._buildAssessmentFromItem);
