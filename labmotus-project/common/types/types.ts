@@ -8,10 +8,15 @@ export interface Assessment {
     state: AssessmentState
     videoUrl?: string
     wrnchJob?: string
-    poseData?: any // TODO: Create type for pose data
+    poseData?: PoseData
     joints: Joints[]
     stats?: Stats[]
 }
+
+export type PoseData = {
+    frame_time: number,
+    positions: number[][]
+}[]
 
 export enum AssessmentState {
     COMPLETE = "COMPLETE",
