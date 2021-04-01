@@ -2,7 +2,7 @@ import React, {FunctionComponent, useContext, useEffect, useState} from "react";
 // @ts-ignore
 import styled from 'styled-components';
 import {getThemeContext, Theme} from "../../../common/ui/theme/Theme";
-import {IonAlert, IonCard, IonIcon, IonModal, IonPopover, IonSpinner, IonTextarea} from "@ionic/react";
+import {IonAlert, IonButton, IonCard, IonIcon, IonModal, IonPopover, IonSpinner, IonTextarea} from "@ionic/react";
 import {useHistory, useParams} from "react-router";
 import moment from "moment";
 import {Assessment, AssessmentState, Joints} from "../../../common/types/types";
@@ -140,7 +140,6 @@ const AssessmentPage: FunctionComponent<AssessmentPageProps> = (props: Assessmen
                                     placeholder="Clinician Notes:"
                                     onIonChange={e => console.log(e.detail.value)}
                                 > </Textarea>
-                                {/* <IonItemDivider></IonItemDivider> */}
                             </IonCard>
                         )
                     })}
@@ -163,9 +162,9 @@ const AssessmentPage: FunctionComponent<AssessmentPageProps> = (props: Assessmen
                 {generateBody()}
             </BodyDiv>
             <div className="main-padding">
-                <button onClick={() => setShowAddAssessment(true)} className="add-button">
+                <IonButton onClick={() => setShowAddAssessment(true)} className="add-button">
                     Add Assessment
-                </button>
+                </IonButton>
                 <IonModal isOpen={showAddAssessment} onDidDismiss={() => setShowAddAssessment(false)}>
                     <AddAssessment
                         addAssessment={createAssessment}
