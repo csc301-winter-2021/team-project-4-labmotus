@@ -41,9 +41,9 @@ const PatientProfilePage: FunctionComponent<PatientProfilePageProps> = () => {
         UseAPI.getPatient(params.patientId).then((retPatient: Patient) => {
             setPatientName(retPatient.user.name);
             setPatientEmail(retPatient.user.email);
-            setPatientPhone(retPatient.phone);
+            setPatientPhone(retPatient.phone.split("-").join(""));
             setPatientBirthday(moment(retPatient.birthday));
-            setPatient(patient);
+            setPatient(retPatient);
         });
     }, [params.patientId]);
 
@@ -77,7 +77,7 @@ const PatientProfilePage: FunctionComponent<PatientProfilePageProps> = () => {
                 patient.user.email = patientEmail;
                 patient.phone = patientPhone.replace(/(\d{3})(\d{3})(\d{4})/, "$1-$2-$3");
                 patient.birthday = moment(patientBirthday);
-                UseAPI.updatePatient(patient).then(value => setPatient(value));
+                UseAPI.updatePatient(patient).then((value) => setPatient(value));
             }
         } catch (e) {
             console.error(e);
@@ -119,7 +119,7 @@ const PatientProfilePage: FunctionComponent<PatientProfilePageProps> = () => {
                             setName={setPatientName}
                             email={patientEmail}
                             setEmail={setPatientEmail}
-                            phone={patientPhone.split("-").join("")}
+                            phone={patientPhone}
                             setPhone={setPatientPhone}
                             birthday={moment(patientBirthday)}
                             setBirthday={setPatientBirthday}
@@ -142,7 +142,6 @@ const PatientProfilePage: FunctionComponent<PatientProfilePageProps> = () => {
 };
 
 const PatientProfilePageDiv = styled.div`
-  //overflow: hidden;
   max-width: 80vw;
   margin: 5vh auto;
 
@@ -164,10 +163,10 @@ const PatientProfilePageDiv = styled.div`
         display: flex;
         flex-direction: row;
         justify-content: space-around;
+        width: 65vw;
 
         p {
-          margin-right: 75px;
-          font-size: 1.3em;
+          font-size: 1.1em;
         }
 
         span {

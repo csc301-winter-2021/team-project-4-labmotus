@@ -1,4 +1,4 @@
-import {FunctionComponent, useContext} from "react";
+import {FunctionComponent, useContext, useState} from "react";
 import {IonInput} from "@ionic/react";
 // @ts-ignore
 import styled from "styled-components";
@@ -22,6 +22,19 @@ export interface EditPatientProps {
 
 export const EditPatient: FunctionComponent<EditPatientProps> = (props: EditPatientProps) => {
     const theme = useContext(getThemeContext());
+    const [editName, setEditName] = useState(props.name);
+    const [editEmail, setEditEmail] = useState(props.email);
+    const [editPhone, setEditPhone] = useState(props.phone);
+    const [editBirthday, setEditBirthday] = useState<Moment>(props.birthday);
+
+    // Prevent any changes from automatically updating the DOM while editing
+    function editPatient() {
+        props.setName(editName);
+        props.setEmail(editEmail);
+        props.setBirthday(editBirthday);
+        props.setPhone(editPhone);
+        props.save();
+    }
 
     return (
         <EditPatientDiv theme={theme}>
@@ -30,28 +43,28 @@ export const EditPatient: FunctionComponent<EditPatientProps> = (props: EditPati
                 <IonInput
                     type="text"
                     clearInput={true}
-                    value={props.name}
-                    onIonChange={(e) => props.setName(e.detail.value!)}
+                    value={editName}
+                    onIonChange={(e) => setEditName(e.detail.value!)}
                 />
                 <div>
                     <span>Birthday:</span>
-                    <DateDisplay date={props.birthday} changeDay={props.setBirthday} displayFormat={"YYYY-MM-DD"}/>
+                    <DateDisplay date={editBirthday} changeDay={setEditBirthday} displayFormat={"YYYY-MM-DD"}/>
                 </div>
                 <IonInput
                     type="email"
                     clearInput={true}
-                    value={props.email}
-                    onIonChange={(e) => props.setEmail(e.detail.value!)}
+                    value={editEmail}
+                    onIonChange={(e) => setEditEmail(e.detail.value!)}
                 />
                 <IonInput
                     type="tel"
                     clearInput={true}
-                    value={props.phone}
+                    value={editPhone}
                     minlength={10}
                     maxlength={10}
-                    onIonChange={(e) => props.setPhone(e.detail.value!)}
+                    onIonChange={(e) => setEditPhone(e.detail.value!)}
                 />
-                <button onClick={props.save} className="edit-patient button">
+                <button onClick={editPatient} className="edit-patient button">
                     Edit Patient
                 </button>
                 <button onClick={() => props.setEditPatient(false)} className="cancel button">
