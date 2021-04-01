@@ -46,6 +46,7 @@
     "workbox-range-requests": "^5.1.4",
     "workbox-routing": "^5.1.4",
     "workbox-strategies": "^5.1.4",
+    "three": "^0.126.1",
     "workbox-streams": "^5.1.4"
   },
   "scripts": {

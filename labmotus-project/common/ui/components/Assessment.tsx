@@ -2,7 +2,7 @@ import React, {FunctionComponent, useEffect, useState} from "react";
 // @ts-ignore
 import styled from 'styled-components';
 import {getThemeContext, Theme} from "../theme/Theme";
-import {IonIcon, IonPopover, IonSpinner} from "@ionic/react";
+import {IonIcon, IonSpinner} from "@ionic/react";
 import {film, videocam} from "ionicons/icons";
 import {useHistory} from "react-router";
 import {Assessment, AssessmentState} from "../../types/types";
@@ -92,8 +92,8 @@ const AccordionContainer = styled.div`
 
 const RecordButton = styled.div`
     position: absolute;
-    top: 10%;
-    right: 0;
+    top: 10px;
+    right: 10px;
     background-color: ${({theme}: { theme: Theme }) => theme.colors.alert};
     color: ${({theme}: { theme: Theme }) => theme.colors.light};
     padding: 5px;
@@ -111,8 +111,8 @@ const RecordButton = styled.div`
 
 const VideoButton = styled.div`
     position: absolute;
-    top: 10%;
-    right: 0;
+    top: 10px;
+    right: 10px;
     background-color: ${({theme}: { theme: Theme }) => theme.colors.success};
     color: ${({theme}: { theme: Theme }) => theme.colors.light};
     padding: 5px;
@@ -126,18 +126,6 @@ const VideoButton = styled.div`
         margin-right: 3px;
     }
     cursor: pointer;
-`;
-
-const VideoDiv = styled.div`
-    width: 90vw;
-    height: 90vh;
-`;
-
-const PopOver = styled(IonPopover)`
-    .popover-content {
-        width: fit-content !important;
-        height: fit-content !important;
-    }
 `;
 
 const StatDiv = styled.div`

@@ -13,9 +13,10 @@ import {
 // @ts-ignore
 import styled from "styled-components";
 import {getThemeContext, Theme} from "../../../common/ui/theme/Theme";
-import API, {getAPIContext} from "../api/API";
+import API from "../api/API";
 import {useHistory} from "react-router";
 import {chevronBack} from "ionicons/icons";
+import {getAPIContext} from "../../../common/api/BaseAPI";
 
 export interface ChangePasswordPageProps {
 }

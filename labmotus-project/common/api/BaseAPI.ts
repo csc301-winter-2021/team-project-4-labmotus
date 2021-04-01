@@ -2,6 +2,9 @@ import firebase from 'firebase/app';
 import "firebase/auth"
 import {Assessment, Patient} from "../types";
 import moment, {Moment} from "moment";
+import API from "../../patient-app/src/api/API";
+import {Context, createContext} from "react";
+import API from "../../clinician-app/src/api/API";
 
 export interface FirebaseConfig {
     "apiKey": string;
@@ -160,4 +163,10 @@ export class BaseAPI {
     isLoggedIn(): boolean {
         return !!(this._firebaseUser as any)
     }
+}
+
+const APIContext: Context<API> = createContext<API>(null);
+
+export function getAPIContext(): Context<API> {
+    return APIContext
 }

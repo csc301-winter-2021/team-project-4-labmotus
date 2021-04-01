@@ -19,13 +19,11 @@ class MockDatabase extends Database {
     assessmentsDatabase: { [key: string]: Assessment[] };
     assessmentIDs: number;
     userIDs: number;
-    firebaseClient: firebase.app.App;
 
     constructor(firebaseClient: firebase.app.App) {
-        super();
+        super(firebaseClient);
         this.assessmentIDs = 0;
         this.userIDs = 0;
-        this.firebaseClient = firebaseClient;
         this.patientDatabase = [{
             user: {
                 id: this._generateUserID(),

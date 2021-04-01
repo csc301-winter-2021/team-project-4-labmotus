@@ -5,9 +5,10 @@ import styled from "styled-components";
 import {getThemeContext, Theme} from "../../../common/ui/theme/Theme";
 import {PatientListComponent} from "../components/PatientsListComponent";
 import {Patient} from "../../../common/types";
-import API, {getAPIContext} from "../api/API";
+import API from "../api/API";
 import {useHistory} from "react-router";
 import {PatientSearchComponent} from "../components/PatientSearchComponent";
+import {getAPIContext} from "../../../common/api/BaseAPI";
 
 export interface AllPatientsPageProps {
 }

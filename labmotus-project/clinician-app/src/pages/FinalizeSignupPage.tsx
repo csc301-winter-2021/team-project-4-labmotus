@@ -3,8 +3,9 @@ import {IonAlert, IonContent, IonInput, IonPage} from "@ionic/react";
 // @ts-ignore
 import styled from "styled-components";
 import {getThemeContext, Theme} from "../../../common/ui/theme/Theme";
-import API, {getAPIContext} from "../api/API";
+import API from "../api/API";
 import {useHistory, useLocation} from "react-router";
+import {getAPIContext} from "../../../common/api/BaseAPI";
 
 export interface SignupPageProps {
 }

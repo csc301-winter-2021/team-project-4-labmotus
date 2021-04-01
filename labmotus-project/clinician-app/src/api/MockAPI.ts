@@ -56,7 +56,11 @@ class MockAPI extends API {
         throw Error("Not Implemented")
     }
 
-    async updateClinician(clinician: Clinician) {
+    async updateClinician(clinician: Clinician): Promise<Clinician> {
+        throw Error("Not Implemented")
+    }
+
+    async uploadNotes(assessment: Assessment): Promise<Assessment> {
         throw Error("Not Implemented")
     }
 
@@ -80,7 +84,7 @@ class MockAPI extends API {
                     date: date,
                     state: AssessmentState.COMPLETE,
                     videoUrl: "https://youtu.be/dQw4w9WgXcQ",
-                    joints: ["Trunk", "Pelvis", "Flexion/Extension", "Valgus/Varus", "Plantarflexion", "Dorsiflexion"],
+                    joints: [],
                     stats: [
                         {
                             name: "Trunk",
@@ -133,7 +137,7 @@ class MockAPI extends API {
                     patientId: "",
                     name: "Hip",
                     date: date,
-                    joints: ["Hip"],
+                    joints: [],
                     state: AssessmentState.PENDING,
                     notes: ""
                 });
@@ -142,7 +146,7 @@ class MockAPI extends API {
                     patientId: "",
                     name: "Arm",
                     date: date,
-                    joints: ["Arm"],
+                    joints: [],
                     state: AssessmentState.MISSING,
                     notes: ""
                 });

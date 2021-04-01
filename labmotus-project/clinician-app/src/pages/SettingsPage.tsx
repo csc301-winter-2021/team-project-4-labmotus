@@ -2,13 +2,14 @@ import {FunctionComponent, useContext, useState} from "react";
 import {IonAlert, IonContent, IonModal, IonPage} from "@ionic/react";
 // @ts-ignore
 import styled from "styled-components";
-import API, {getAPIContext} from "../api/API";
+import API from "../api/API";
 import {Clinician} from "../../../common/types";
 import SettingsList from "../../../common/ui/components/SettingsList";
 
 import {useHistory} from "react-router";
 import EditEmail from "../components/EditEmail";
 import ChangePassword from "../components/ChangePassword";
+import {getAPIContext} from "../../../common/api/BaseAPI";
 
 export interface SettingsPageProps {
 }

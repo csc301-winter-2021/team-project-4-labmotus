@@ -49,7 +49,7 @@ function init() {
     if (config.mock) {
         database = new MockDatabase(firebaseClient);
     } else {
-        database = new Database();
+        database = new Database(firebaseClient);
     }
     server.decorate('database', database);
     server.decorate('firebaseClient', firebaseClient);

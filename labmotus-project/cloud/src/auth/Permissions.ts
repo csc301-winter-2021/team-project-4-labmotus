@@ -41,6 +41,12 @@ export abstract class Permissions {
     abstract createAssessment(assessment: Assessment): boolean;
 
     /**
+     * Whether or not access should be granted for this assessment's clinician notes upload
+     * @param assessment 
+     */
+    abstract uploadNotes(assessment: Assessment): boolean;
+
+    /**
      * Whether or not access should be granted for this video upload
      * @param assessment The assessment to upload for
      */
@@ -140,6 +146,10 @@ export class PatientPermissions extends Permissions {
         return false;
     }
 
+    uploadNotes(assessment: Assessment): boolean {
+        return false;
+    }
+
     uploadVideo(assessment: Assessment): boolean {
         if (this.patient.incomplete) return false;
         return assessment.patientId === this.patient.user.id && assessment.state === AssessmentState.MISSING;
@@ -229,6 +239,10 @@ export class ClinicianPermissions extends Permissions {
 
     createPatient(): boolean {
         return true;
+    }
+
+    uploadNotes(assessment: Assessment): boolean {
+        return this.clinician.patientIDs.includes(assessment.patientId);
     }
 
     uploadVideo(assessment: Assessment): boolean {

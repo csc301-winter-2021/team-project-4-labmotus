@@ -2,3 +2,4 @@ node_modules/
 dist/
 
 firebase-service-key.json
+WRNCH_API_KEY

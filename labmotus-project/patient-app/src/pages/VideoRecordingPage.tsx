@@ -9,7 +9,8 @@ import {IonIcon} from "@ionic/react";
 // @ts-ignore
 import {sync} from "ionicons/icons";
 import {useHistory, useParams} from "react-router";
-import API, {getAPIContext} from "../api/API";
+import API from "../api/API";
+import {getAPIContext} from "../../../common/api/BaseAPI";
 
 export interface VideoRecordingPageProps {
 }

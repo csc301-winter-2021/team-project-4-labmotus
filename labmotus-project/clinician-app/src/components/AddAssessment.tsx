@@ -1,54 +1,100 @@
-import {FunctionComponent, useContext, useState} from "react";
-import {IonSelect, IonSelectOption, IonModal, IonInput} from "@ionic/react";
+import {FunctionComponent, useContext, useEffect, useState} from "react";
+import {IonSelect, IonSelectOption, IonInput} from "@ionic/react";
+import {Joints} from "../../../common/types/types";
+import API from  "../api/API"
+import {getAPIContext} from "../../../common/api/BaseAPI";
+
 // @ts-ignore
 import styled from "styled-components";
 
 import {getThemeContext, Theme} from "../../../common/ui/theme/Theme";
 
 export interface AddAssessmentProps {
-    assessmentType: string;
-    setAssessmentType: any;
     addAssessment: any;
     setShowAddAssessment: any;
 }
 
 export const AddAssessment: FunctionComponent<AddAssessmentProps> = (props: AddAssessmentProps) => {
     const theme = useContext(getThemeContext());
-    const allJoints = ["knee valgus", "knee varus"];
-    const [assessmentType, setAssessmentType] = useState<string>(props.assessmentType);
-    const [assessmentJoints, setAssessmentJoints] = useState<string[]>([]);
-    return (
-        <AddAssessmentDiv theme={theme}>
-            <h1>Add New Assessment</h1>
-            <div className="main-padding">
-                <IonSelect
-                    value={assessmentType}
-                    placeholder={"Select Exercise"}
-                    onIonChange={(e) => setAssessmentType(e.detail.value)}
-                >
-                    <IonSelectOption value="Squats">Squats</IonSelectOption>
-                    <IonSelectOption value="Single Leg Squats">Single Leg Squats</IonSelectOption>
-                    <IonSelectOption value="Create Own Exercise">Create Own Exercise...</IonSelectOption>
-                </IonSelect>
-                {/* "assessmentType != 'Create Own Exercise'" */}
+    const UseAPI: API = useContext(getAPIContext());
+    const [assessmentType, setAssessmentType] = useState<string>("");
+    const [assessmentJoints, setAssessmentJoints] = useState<Joints[]>([]);
+    const [allJoints, setAllJoints] = useState<any[]>([]);
+    const [customAssessment, setCustomAssessment] = useState<boolean>(false);
+    const [customType, setCustomType] = useState<string>("");
+
+    function getAllJoints(): void{
+        UseAPI.getAllJoints().then(
+            (joints: any[]) => {
+                setAllJoints(joints);
+            },
+            () => {
+                // pass
+            }
+        )
+    }
+
+    function generateCustomFields(){
+        if (customAssessment) return(
+            <div>
                 <IonInput  
-                    placeholder="Enter Exercise Name"
-                    onIonChange = {e => setAssessmentType(e.detail.value)}
+                    placeholder="Enter Custom Assessment Name"
+                    onIonChange = {e => setCustomType(e.detail.value)}
                 ></IonInput>
-                Joints
                 <IonSelect 
-                    placeholder={"Select Joints"}
+                    placeholder={"Select Custom Assessment Joints"}
                     onIonChange={(e) => setAssessmentJoints(e.detail.value)}
                     multiple={true}
                 >
-                        {allJoints.map((joint) => {
-                            console.log(joint);
-                            return (<IonSelectOption value={joint}>{joint}</IonSelectOption>)
-                        })}
+                    {
+                        allJoints.map((value) => {
+                            return (<IonSelectOption value={value.joint as Joints}>{value.name}</IonSelectOption>)
+                        })
+                    }
                 </IonSelect>
-                {/* todo: at least 1 join. hide select joints option if not custom. patient assessments. */}
-                {/* figure out styled error popover. */}
-                <button onClick={() => props.addAssessment(assessmentType, assessmentJoints)} className="assessment button">
+            </div>
+        )
+        else {
+            return;
+        }
+    }
+
+    useEffect(() => {
+        getAllJoints();
+    }, []);
+    
+    return (
+        <AddAssessmentDiv theme={theme}>
+            <h1>Add New Assessment</h1>
+            <div className="main-padding" >
+                <IonSelect
+                    value={assessmentType}
+                    placeholder={"Select Assessment"}
+                    onIonChange={(e) => {
+                        setAssessmentType(e.detail.value);
+                        setCustomAssessment(e.detail.value === "Custom")
+                    }}
+                >
+                    <IonSelectOption value="Squats">Squats</IonSelectOption>
+                    <IonSelectOption value="Single Leg Squats">Single Leg Squats</IonSelectOption>
+                    <IonSelectOption value="Gait Analysis">Gait Analysis</IonSelectOption>
+                    <IonSelectOption value="Custom">Create Custom Assessment</IonSelectOption>
+                </IonSelect>
+                {generateCustomFields()}
+                {/* todo: at least 1 joint. hide select joints option if not custom. patient assessments. */}
+                {/* figure out styled error popover. delete assessment. save/delete assessment type (impl later?) */}
+                {/* clean up id value stuff to be the correct thing */}
+                <button 
+                    onClick={() => {
+                        if (customAssessment) {
+                            props.addAssessment(customType, assessmentJoints)
+                        }
+                        else {
+                            props.addAssessment(assessmentType, assessmentJoints)
+                        }
+                    }} 
+                    className="assessment button"
+                >
                     Add Assessment
                 </button>
                 <button onClick={() => props.setShowAddAssessment(false)} className="cancel button">

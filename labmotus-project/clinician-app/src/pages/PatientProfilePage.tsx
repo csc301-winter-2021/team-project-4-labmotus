@@ -6,12 +6,13 @@ import moment from "moment";
 
 import {ProfilePictureComponent} from "../../../common/ui/components/ProfilePictureComponent";
 import {getThemeContext, Theme} from "../../../common/ui/theme/Theme";
-import API, {getAPIContext} from "../api/API";
+import API from "../api/API";
 import {useParams} from "react-router";
 import {Moment} from "moment/moment";
 import {Assessment, Patient} from "../../../common/types";
 import SymptomLogPage from "../../../common/ui/pages/SymptomLogPage";
 import EditPatient from "../components/EditPatient";
+import {getAPIContext} from "../../../common/api/BaseAPI";
 
 export interface PatientProfilePageProps {
 }
