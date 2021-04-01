@@ -6,6 +6,7 @@ import {useHistory} from "react-router-dom";
 import {chevronForward} from 'ionicons/icons';
 import styled from "styled-components";
 import {getThemeContext, Theme} from "../../../common/ui/theme/Theme";
+import moment from "moment";
 
 export interface PatientListProp {
     patientList: Patient[]
@@ -33,9 +34,10 @@ export const PatientListing: React.FC<Patient> = (patient: Patient) => {
 
     const theme = useContext(getThemeContext());
     const history = useHistory();
+    const day = moment().format('YYYY-MM-DD');
 
     return (
-        <PatientListingDiv theme={theme} onClick={() => history.push(`/patients/${patient.user.id}`)}
+        <PatientListingDiv theme={theme} onClick={() => history.push(`/patients/${patient.user.id}/${day}`)}
                            data-testid="patient-listing">
             <IonItem>
                 <ProfilePictureComponent
