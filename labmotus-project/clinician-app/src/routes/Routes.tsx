@@ -11,6 +11,7 @@ import AllPatientsPage from "../pages/AllPatientsPage";
 import PatientProfilePage from "../pages/PatientProfilePage";
 import FinalizeSignupPage from "../pages/FinalizeSignupPage";
 import SignupPatientPage from "../pages/SignupPatientPage";
+import AssessmentPage from "../pages/AssessmentPage";
 import LandingPage from "../pages/LandingPage";
 import SettingsPage from "../pages/SettingsPage";
 import {getThemeContext, Theme} from "../../../common/ui/theme/Theme";
@@ -18,7 +19,6 @@ import {home, settings} from "ionicons/icons";
 // @ts-ignore
 import styled from 'styled-components';
 import NavigationBar from "../../../common/ui/components/NavigationBar";
-import AssessmentPage from "../pages/AssessmentPage";
 import {getAPIContext} from "../../../common/api/BaseAPI";
 
 export interface RoutesProps {

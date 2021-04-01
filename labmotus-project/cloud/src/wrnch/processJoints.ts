@@ -140,7 +140,7 @@ const JOINTS: { [key in Joints]?: Joint } = {
         minmax: "min",
         computer: processHipTrunkR
     },
-    [Joints.Hip_TrunkR]: {
+    [Joints.Hip_TrunkL]: {
         joint: "Hip",
         movement: "Trunk Left",
         min: 0,
@@ -204,7 +204,7 @@ const JOINTS: { [key in Joints]?: Joint } = {
         computer: processAnkleLPlantarflexion
     },
     [Joints.AnkleL_Dorsiflexion]: {
-        joint: "Ankle Left",
+        joint: "Ankle Right",
         movement: "Dorsiflexion",
         min: 0,
         max: 90,
@@ -213,7 +213,7 @@ const JOINTS: { [key in Joints]?: Joint } = {
         computer: processAnkleRDorsiflexion
     },
     [Joints.AnkleL_Plantarflexion]: {
-        joint: "Ankle Left",
+        joint: "Ankle Right",
         movement: "Plantarflexion",
         min: 0,
         max: 90,

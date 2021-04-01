@@ -2,5 +2,5 @@
   "mock": false,
   "videoPath": "videos",
   "address": "127.0.0.1",
-  "actionAddress": "http://labmotus-clinician.s3-website-us-east-1.amazonaws.com/"
+  "actionAddress": "http://localhost:5000/v1"
 }

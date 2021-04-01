@@ -208,6 +208,26 @@ class API extends BaseAPI {
         }
     }
 
+    async uploadNotes(assessment: Assessment): Promise<Assessment> {
+        const token = await firebase.auth().currentUser.getIdToken() as any;
+        // @ts-ignore
+        const response = await fetch(this._config.api + `/notes`, {
+            method: "PATCH",
+            mode: 'cors',
+            headers: {
+                "Authorization": "Bearer " + token,
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(assessment)
+        });
+        if (response.ok) {
+            const res = JSON.parse(await response.text()).body;
+            return {...res, date: moment(res)};
+        } else {
+            console.error(response);
+        }
+    }
+
     getCurrentUser(): Clinician | null {
         return this._user != null ? {...this._user, user: {...this._user.user}} : null
     }
@@ -246,6 +266,24 @@ class API extends BaseAPI {
             return e.code.slice(5);
         }
     }
+
+    async getAllJoints(): Promise<any[]>{
+        try {
+            const response = await fetch(this._config.api + `/joints`, {
+                method: "GET",
+                mode: 'cors',
+            });     
+            if (response.ok) {
+                return JSON.parse(await response.text()).body;
+            } else {
+                console.error(response);
+            }
+        } catch (e) {
+            return ;
+        }
+
+    }
+
 }
 
 export default API;

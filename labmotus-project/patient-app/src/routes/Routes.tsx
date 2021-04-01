@@ -11,7 +11,7 @@ import LoginPage from "../pages/LoginPage";
 import API from "../api/API";
 import ForgotPasswordPage from "../pages/ForgotPasswordPage";
 import VideoRecordingPage from "../pages/VideoRecordingPage";
-import AssessmentPage from "../../../common/ui/pages/AssessmentPage";
+import AssessmentPage from "../pages/AssessmentPage";
 import {getThemeContext, Theme} from "../../../common/ui/theme/Theme";
 // @ts-ignore
 import styled from 'styled-components';

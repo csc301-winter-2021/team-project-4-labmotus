@@ -11,6 +11,7 @@ export interface Assessment {
     poseData?: PoseData
     joints: Joints[]
     stats?: Stats[]
+    notes: string
 }
 
 export type PoseData = {

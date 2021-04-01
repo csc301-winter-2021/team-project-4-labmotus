@@ -84,7 +84,8 @@ class Database {
             wrnchJob: item.wrnchJob || undefined,
             poseData: item.poseData || undefined,
             joints: item.joints,
-            stats: item.stats || undefined
+            stats: item.stats || undefined,
+            notes: item.notes
         }
     }
 
@@ -297,10 +298,11 @@ class Database {
             name: assessment.name,
             date: moment().toISOString(),
             state: AssessmentState.MISSING,
-            joints: assessment.joints
+            joints: assessment.joints,
+            notes: ""
         }
 
-        // Generate unique user id
+        // Generate unique assessment id
         let MAX_ITERATIONS = 5; // We will make 5 attempts to generate a UUID, which is generous since we expect **very** few collision to occur
         for(let i = 0; i < MAX_ITERATIONS; i++) {
             assessmentRow.id = uuid();

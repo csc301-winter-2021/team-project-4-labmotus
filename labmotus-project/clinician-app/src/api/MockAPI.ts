@@ -56,7 +56,11 @@ class MockAPI extends API {
         throw Error("Not Implemented")
     }
 
-    async updateClinician(clinician: Clinician) {
+    async updateClinician(clinician: Clinician): Promise<Clinician> {
+        throw Error("Not Implemented")
+    }
+
+    async uploadNotes(assessment: Assessment): Promise<Assessment> {
         throw Error("Not Implemented")
     }
 
@@ -125,7 +129,8 @@ class MockAPI extends API {
                             unit: '\xb0'
                         },
 
-                    ]
+                    ],
+                    notes: ""
                 });
                 data.push({
                     id: Math.floor(Math.random() * 1000000).toString(),
@@ -134,6 +139,7 @@ class MockAPI extends API {
                     date: date,
                     joints: [],
                     state: AssessmentState.PENDING,
+                    notes: ""
                 });
                 data.push({
                     id: Math.floor(Math.random() * 1000000).toString(),
@@ -142,6 +148,7 @@ class MockAPI extends API {
                     date: date,
                     joints: [],
                     state: AssessmentState.MISSING,
+                    notes: ""
                 });
             }
         }
