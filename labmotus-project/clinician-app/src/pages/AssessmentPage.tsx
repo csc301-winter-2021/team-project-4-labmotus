@@ -14,7 +14,7 @@ import {Moment} from "moment/moment";
 
 import AddAssessment from "../components/AddAssessment";
 import AssessmentComponent from "../../../common/ui/components/Assessment"
-import { chevronBack } from "ionicons/icons";
+import {chevronBack} from "ionicons/icons";
 
 export interface AssessmentPageProps {
 }
@@ -46,44 +46,48 @@ const AssessmentPage: FunctionComponent<AssessmentPageProps> = (props: Assessmen
     }, [date]);
 
     function getAssessments(week: Moment): Promise<Assessment[]> {
-      return UseAPI.getAssessments(params.patientId, week);
+        return UseAPI.getAssessments(params.patientId, week);
     }
-    
+
     function back() {
         history.goBack()
     }
 
-    function createAssessment(assessmentType: string, joints: Joints[]){
-        if (!assessmentType){
+    async function getVideo(videoURL: string) {
+        UseAPI.getVideo(videoURL).then(data => setVideo(data));
+    }
+
+    function createAssessment(assessmentType: string, joints: Joints[]) {
+        if (!assessmentType) {
             setHeader('No assessment type selected!')
             openAlert(true);
         }
         // TODO: have assessments stored somewhere else?
-        else if (assessmentType === "Squats"){
+        else if (assessmentType === "Squats") {
             const assessment: Assessment = {
-              id: "",
-              patientId: params.patientId,
-              name: assessmentType,
-              date: params.date ? moment(params.date, 'YYYY-MM-DD'):moment(), 
-              state: AssessmentState.MISSING,
-              joints: [Joints.Hip_TrunkL, Joints.Hip_TrunkR, Joints.KneeL_Flexion, Joints.KneeR_Flexion,
-                Joints.KneeL_ValgusVarus, Joints.KneeR_ValgusVarus, Joints.AnkleL_Dorsiflexion, Joints.AnkleL_Plantarflexion,
-                Joints.AnkleL_Dorsiflexion, Joints.AnkleL_Plantarflexion],
-              notes: ""
+                id: "",
+                patientId: params.patientId,
+                name: assessmentType,
+                date: params.date ? moment(params.date, 'YYYY-MM-DD') : moment(),
+                state: AssessmentState.MISSING,
+                joints: [Joints.Hip_TrunkL, Joints.Hip_TrunkR, Joints.KneeL_Flexion, Joints.KneeR_Flexion,
+                    Joints.KneeL_ValgusVarus, Joints.KneeR_ValgusVarus, Joints.AnkleL_Dorsiflexion, Joints.AnkleL_Plantarflexion,
+                    Joints.AnkleL_Dorsiflexion, Joints.AnkleL_Plantarflexion],
+                notes: ""
             }
             UseAPI.createAssessment(assessment);
         }
         else if (assessmentType === "Single Leg Squats"){
             const assessment: Assessment = {
-              id: "",
-              patientId: params.patientId,
-              name: assessmentType,
-              date: params.date ? moment(params.date, 'YYYY-MM-DD'):moment(), 
-              state: AssessmentState.MISSING,
-              joints: [Joints.Hip_TrunkL, Joints.Hip_TrunkR, Joints.KneeL_Flexion, Joints.KneeR_Flexion,
-                Joints.KneeL_ValgusVarus, Joints.KneeR_ValgusVarus, Joints.AnkleL_Dorsiflexion, Joints.AnkleL_Plantarflexion,
-                Joints.AnkleL_Dorsiflexion, Joints.AnkleL_Plantarflexion],
-              notes: ""
+                id: "",
+                patientId: params.patientId,
+                name: assessmentType,
+                date: params.date ? moment(params.date, 'YYYY-MM-DD') : moment(),
+                state: AssessmentState.MISSING,
+                joints: [Joints.Hip_TrunkL, Joints.Hip_TrunkR, Joints.KneeL_Flexion, Joints.KneeR_Flexion,
+                    Joints.KneeL_ValgusVarus, Joints.KneeR_ValgusVarus, Joints.AnkleL_Dorsiflexion, Joints.AnkleL_Plantarflexion,
+                    Joints.AnkleL_Dorsiflexion, Joints.AnkleL_Plantarflexion],
+                notes: ""
             }
             UseAPI.createAssessment(assessment);
         }
@@ -92,21 +96,21 @@ const AssessmentPage: FunctionComponent<AssessmentPageProps> = (props: Assessmen
                 id: "",
                 patientId: params.patientId,
                 name: assessmentType,
-                date: params.date ? moment(params.date, 'YYYY-MM-DD'):moment(), 
+                date: params.date ? moment(params.date, 'YYYY-MM-DD') : moment(),
                 state: AssessmentState.MISSING,
                 joints: [Joints.Hip_TrunkL, Joints.Hip_TrunkR, Joints.KneeL_Flexion, Joints.KneeR_Flexion,
                     Joints.KneeL_ValgusVarus, Joints.KneeR_ValgusVarus, Joints.AnkleL_Dorsiflexion, Joints.AnkleL_Plantarflexion,
                     Joints.AnkleL_Dorsiflexion, Joints.AnkleL_Plantarflexion],
                 notes: ""
-              }
-              UseAPI.createAssessment(assessment); 
+            }
+            UseAPI.createAssessment(assessment);
         }
         else {
             const assessment: Assessment = {
                 id: "",
                 patientId: params.patientId,
                 name: assessmentType,
-                date: params.date ? moment(params.date, 'YYYY-MM-DD'):moment(), 
+                date: params.date ? moment(params.date, 'YYYY-MM-DD') : moment(),
                 state: AssessmentState.MISSING,
                 joints: joints,
                 notes: ""
@@ -130,11 +134,11 @@ const AssessmentPage: FunctionComponent<AssessmentPageProps> = (props: Assessmen
                     {assessments.map((value) => {
                         return (
                             <IonCard>
-                                <AssessmentComponent value={value} day={day} setVideo={setVideo}> </AssessmentComponent>
-                                <Textarea 
+                                <AssessmentComponent value={value} day={day} setVideo={getVideo}> </AssessmentComponent>
+                                <Textarea
                                     value={value.notes}
                                     placeholder="Clinician Notes:"
-                                    onIonChange = {e => console.log(e.detail.value)}
+                                    onIonChange={e => console.log(e.detail.value)}
                                 > </Textarea>
                                 {/* <IonItemDivider></IonItemDivider> */}
                             </IonCard>
@@ -146,7 +150,7 @@ const AssessmentPage: FunctionComponent<AssessmentPageProps> = (props: Assessmen
     }
 
     return (
-        <AssessmentPageDiv>   
+        <AssessmentPageDiv>
             <HeaderDiv>
                 <BackButton theme={theme} onClick={back}>
                     <IonIcon icon={chevronBack}/>
@@ -154,9 +158,9 @@ const AssessmentPage: FunctionComponent<AssessmentPageProps> = (props: Assessmen
                         Assessment: {day.format(theme.dateFormat)}
                     </HeaderText>
                 </BackButton>
-            </HeaderDiv> 
+            </HeaderDiv>
             <BodyDiv theme={theme}>
-                {generateBody()}   
+                {generateBody()}
             </BodyDiv>
             <div className="main-padding">
                 <button onClick={() => setShowAddAssessment(true)} className="add-button">
@@ -176,7 +180,7 @@ const AssessmentPage: FunctionComponent<AssessmentPageProps> = (props: Assessmen
                     />
                 </IonModal>
             </div>
-              
+
             <PopOver
                 // cssClass={PopOver.styledComponentId}
                 isOpen={video !== null}

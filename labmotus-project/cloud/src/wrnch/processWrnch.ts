@@ -1,7 +1,6 @@
 // import sampleData from "./json-assessment_0.json"
 // @ts-ignore
 // @ts-ignore
-import * as THREE from 'three';
 import {Vector3} from 'three';
 import {Joints, PoseData, Stats} from "../../../common/types/types";
 import JOINTS from "./processJoints";
@@ -35,7 +34,7 @@ export interface WrnchData {
 }
 
 function processRawWrnchData(data: WrnchData): PoseData {
-    const poseData: PoseData = data.frames.filter(frame => {
+    return data.frames.filter(frame => {
         const people = frame.persons.filter(person => person.pose2d.is_main);
         if (people.length === 0) return false;
         return people[0]?.pose_3d_raw != null
@@ -52,16 +51,14 @@ function processRawWrnchData(data: WrnchData): PoseData {
             positions: processed
         };
     });
-    return poseData;
 }
 
 function computeJoints(poseData: PoseData, joints: Joints[]): { joint: Joints, value: number }[] {
-    const ROUND_FACTOR = 100;
     const res = [];
     joints.forEach(joint => {
-        let values = poseData
+        const values = poseData
             .map(frame => JOINTS[joint].computer(frame.positions.map(p => new Vector3(p[0], p[1], p[2]))))
-            .map(value => Math.round(value * ROUND_FACTOR) / ROUND_FACTOR);
+            .map(value => Number(value.toFixed(2)));
         const reducer = JOINTS[joint].minmax === 'max' ? Math.max : Math.min;
         res.push({
             joint,
@@ -76,13 +73,13 @@ function processWrnchData(data: WrnchData, joints: Joints[]): { poseData: PoseDa
     const jointData = computeJoints(poseData, joints);
     return {
         poseData,
-        stats: jointData.map(data => ({
-            name: JOINTS[data.joint].movement,
-            joint: JOINTS[data.joint].joint,
-            currValue: data.value,
-            goalValue: JOINTS[data.joint].max,
-            unit: JOINTS[data.joint].unit,
-            minValue: JOINTS[data.joint].min
+        stats: jointData.map(({joint, value}) => ({
+            name: JOINTS[joint].movement,
+            joint: JOINTS[joint].joint,
+            currValue: value,
+            goalValue: JOINTS[joint].max,
+            unit: JOINTS[joint].unit,
+            minValue: JOINTS[joint].min
         }))
     };
 }
