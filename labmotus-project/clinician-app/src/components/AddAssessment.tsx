@@ -78,7 +78,7 @@ export const AddAssessment: FunctionComponent<AddAssessmentProps> = (props: AddA
                     <IonSelectOption value="Squats">Squats</IonSelectOption>
                     <IonSelectOption value="Single Leg Squats">Single Leg Squats</IonSelectOption>
                     <IonSelectOption value="Gait Analysis">Gait Analysis</IonSelectOption>
-                    <IonSelectOption value="Custom">Create Custom Assessment</IonSelectOption>
+                    <IonSelectOption value="Custom">Create Custom...</IonSelectOption>
                 </IonSelect>
                 {generateCustomFields()}
                 {/* todo: at least 1 joint. hide select joints option if not custom. patient assessments. */}
