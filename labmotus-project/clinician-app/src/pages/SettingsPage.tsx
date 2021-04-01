@@ -38,6 +38,7 @@ const SettingsPage: FunctionComponent<SettingsPageProps> = () => {
 
     // When user clicks on their email
     function onEditEmail() {
+        setEmail(clinicianEmail);
         setEditEmail(true);
     }
 
@@ -59,6 +60,7 @@ const SettingsPage: FunctionComponent<SettingsPageProps> = () => {
             setHeader("Invalid Email");
             setMessage("Please enter a valid email address.");
             openAlert(true);
+            return;
         }
         try {
             clinician.user.email = email;
@@ -113,24 +115,36 @@ const SettingsPage: FunctionComponent<SettingsPageProps> = () => {
                             patient={false}
                             name={clinician?.user?.name}
                             clinic={clinician?.clinic}
+                            birthday={null}
                             email={clinician?.user?.email}
                             editEmail={onEditEmail}
+                            phone=""
+                            editPhone={(): void => null}
                             changePassword={onChangePassword}
                             viewTermsOfService={termsOfService}
                             onLogOut={onLogOut}
-                            birthday={null} editPhone={(): void => null} phone=""/>
+                        />
                     </div>
                 </IonContent>
             </IonPage>
             <IonModal isOpen={showEditEmail} cssClass="clinician-modal" onDidDismiss={() => setEditEmail(false)}>
                 <EditEmail email={email} setEmail={setEmail} setEditEmail={setEditEmail} save={editEmail}/>
             </IonModal>
-            <IonModal isOpen={showChangePassword} cssClass="clinician-modal"
-                      onDidDismiss={() => setChangePassword(false)}>
-                <ChangePassword currPassword={currPassword} setCurrPassword={setCurrPassword} newPassword={newPassword}
-                                setNewPassword={setNewPassword} confirmPassword={confirmPassword}
-                                setConfirmPassword={setConfirmPassword} setChangePassword={setChangePassword}
-                                save={changePassword}/>
+            <IonModal
+                isOpen={showChangePassword}
+                cssClass="clinician-modal"
+                onDidDismiss={() => setChangePassword(false)}
+            >
+                <ChangePassword
+                    currPassword={currPassword}
+                    setCurrPassword={setCurrPassword}
+                    newPassword={newPassword}
+                    setNewPassword={setNewPassword}
+                    confirmPassword={confirmPassword}
+                    setConfirmPassword={setConfirmPassword}
+                    setChangePassword={setChangePassword}
+                    save={changePassword}
+                />
             </IonModal>
             <IonAlert
                 isOpen={isError}

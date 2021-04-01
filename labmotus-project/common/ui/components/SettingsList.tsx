@@ -18,7 +18,7 @@ export interface SettingsListProps {
     patient: boolean;
     name: string;
     clinic?: string;
-    birthday: string;
+    birthday?: string;
     email: string;
     editEmail: any;
     phone: string;
