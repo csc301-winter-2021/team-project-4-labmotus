@@ -1,19 +1,15 @@
-import {FunctionComponent} from "react";
+import {FunctionComponent, useContext} from "react";
 // @ts-ignore
 import styled from 'styled-components';
-import { getThemeContext, Theme } from "../theme/Theme";
+import {getThemeContext, Theme} from "../theme/Theme";
 
 export interface ButtonProps {
     label: string;
     onClick?: () => void;
-    type: string;
 }
 
-const Button: FunctionComponent<ButtonProps> = ({
-                                                          label,
-                                                          onClick: onClickCallback,
-                                                      }) => {
-    
+const Button: FunctionComponent<ButtonProps> = ({label, onClick: onClickCallback}) => {
+
     const theme = useContext(getThemeContext());
 
     function onClick() {
@@ -21,27 +17,20 @@ const Button: FunctionComponent<ButtonProps> = ({
             onClickCallback();
     }
 
-    return (render(
-            <ButtonStyle on-click={onClick} className={type} theme={theme}>
-                {label}
-            </ButtonStyle>
-        );)
+    return (
+        <ButtonStyle on-click={onClick} theme={theme}>
+            {label}
+        </ButtonStyle>
+    )
 };
 
 const ButtonStyle = styled.button`
-  margin-bottom: 10px;
-  width: 100%;
   font-size: 1em;
   padding: 14px;
   outline: none;
-  .primary {
-    background-color: ${({theme}: { theme: Theme }) => theme.colors.primary};
-    color: white;
-  }
+  color: white;
+  background-color: ${props => props.secondary ? ({theme}: { theme: Theme }) => theme.colors.secondary : ({theme}: { theme: Theme }) => theme.colors.primary};
 `;
 
 export default Button;
-function useContext(arg0: any) {
-    throw new Error("Function not implemented.");
-}
 
