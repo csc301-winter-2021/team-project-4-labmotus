@@ -90,26 +90,26 @@ const PatientProfilePage: FunctionComponent<PatientProfilePageProps> = () => {
         <IonPage>
             <IonContent fullscreen>
                 <PatientProfilePageDiv theme={theme}>
-                    <div className="profile-header">
-                        <div className="profile-picture">
-                            <ProfilePictureComponent
-                                imageLink="https://research.cbc.osu.edu/sokolov.8/wp-content/uploads/2017/12/profile-icon-png-898.png"/>
-                        </div>
-                        <div className="profile-text">
+                    <div>
+                        <div className="profile-header">
+                            <div className="profile-picture">
+                                <ProfilePictureComponent
+                                    imageLink="https://research.cbc.osu.edu/sokolov.8/wp-content/uploads/2017/12/profile-icon-png-898.png"/>
+                            </div>
                             <div className="profile-name">
                                 <h1>{patientName}</h1>
                             </div>
-                            <div className="profile-info">
-                                <p>
-                                    Phone: <span>{patientPhone}</span>
-                                </p>
-                                <p>
-                                    Email: <span>{patientEmail}</span>
-                                </p>
-                                <p>
-                                    DOB: <span>{patientBirthday.format(theme.birthdayFormat)}</span>
-                                </p>
-                            </div>
+                        </div>
+                        <div className="profile-info">
+                            <p>
+                                Phone: <span>{patientPhone}</span>
+                            </p>
+                            <p>
+                                Email: <span>{patientEmail}</span>
+                            </p>
+                            <p>
+                                DOB: <span>{patientBirthday.format(theme.birthdayFormat)}</span>
+                            </p>
                         </div>
                     </div>
                     <button onClick={() => setEditPatient(true)}>Edit Profile</button>
@@ -147,47 +147,44 @@ const PatientProfilePageDiv = styled.div`
 
   .profile-header {
     display: flex;
-    align-items: center;
+    vertical-align: middle;
 
-    .profile-text {
-      margin-left: 30px;
-
-      .profile-name {
-        h1 {
-          font-size: 2em;
-          font-weight: 700;
-        }
-      }
-
-      .profile-info {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-around;
-        width: 65vw;
-
-        p {
-          font-size: 1.1em;
-        }
-
-        span {
-          color: ${({theme}: { theme: Theme }) => theme.colors.secondary};
-        }
-      }
+    .profile-name h1 {
+      font-size: 1.9em;
+      font-weight: 600;
     }
   }
 
-  button {
-    float: right;
-    background-color: ${({theme}: { theme: Theme }) => theme.colors.secondary};
-    width: 100%;
-    border-radius: 25px;
-    max-width: 150px;
-    font-size: 1em;
-    padding: 10px;
-    font-weight: 500;
-    outline: none;
-    background-color: ${({theme}: { theme: Theme }) => theme.colors.light};
+  .profile-info {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    p {
+      font-size: 1.1em;
+
+      span {
+        color: ${({theme}: { theme: Theme }) => theme.colors.secondary};
+      }
+    }
   }
+  @media only screen and (max-width: 600px) {
+    .profile-info {
+      flex-direction: column;
+    }
+  }
+}
+
+button {
+  float: right;
+  background-color: ${({theme}: { theme: Theme }) => theme.colors.secondary};
+  width: 100%;
+  border-radius: 25px;
+  max-width: 150px;
+  font-size: 1em;
+  padding: 10px;
+  outline: none;
+}
 `;
 
 export default PatientProfilePage;
