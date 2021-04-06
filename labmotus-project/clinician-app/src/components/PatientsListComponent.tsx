@@ -58,7 +58,6 @@ const PatientListingDiv = styled.div`
   }
 
   .patient-name {
-    font-weight: bold;
     font-size: 1.3em;
     line-height: 1.3em;
     color: ${({theme}: { theme: Theme }) => theme.colors.contrast};
