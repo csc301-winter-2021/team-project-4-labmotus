@@ -105,7 +105,7 @@ const GoalAngleDiv = styled.div`
     text-align: end;
     font-size: ${({theme}: { theme: Theme }) => theme.secondaryFontSize};
     font-family: ${({theme}: { theme: Theme }) => theme.secondaryFontFamily};
-    color: ${({theme}: { theme: Theme }) => theme.colors.shade};
+    color: ${({theme}: { theme: Theme }) => theme.colors.mediumShade};
 `;
 
 export default SymptomProgressBar;
