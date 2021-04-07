@@ -39,7 +39,7 @@ const AssessmentComponent: FunctionComponent<AssessmentComponentProps> = (props:
     useEffect(() => {
         setExpanded(props.value.state === AssessmentState.COMPLETE)
     }, [props.value.state]);
-    
+
     function getColor(){
         let color = moment().format('YYYY-MM-DD') === props.day.format('YYYY-MM-DD') ? theme.colors.success : theme.colors.contrast;
         if (props.value.state === AssessmentState.PENDING)
@@ -55,7 +55,7 @@ const AssessmentComponent: FunctionComponent<AssessmentComponentProps> = (props:
                 {props.value.state !== AssessmentState.MISSING && props.value.stats ?
                     props.value.stats.map((stat, i) => (
                         <StatDiv theme={theme} key={i}>
-                            {`${stat.name}: ${stat.currValue}${stat.unit}\t Goal: ${stat.goalValue}${stat.unit}`}
+                            {`${stat.joint} ${stat.name}: ${stat.currValue}${stat.unit}\t Goal: ${stat.goalValue}${stat.unit}`}
                         </StatDiv>
                     )) : null
                 }

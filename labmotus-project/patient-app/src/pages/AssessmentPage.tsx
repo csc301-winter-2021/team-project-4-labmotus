@@ -13,9 +13,10 @@ import ReactPlayer from "react-player";
 import {Moment} from "moment/moment";
 
 import AssessmentComponent from "../../../common/ui/components/Assessment"
-import { chevronBack } from "ionicons/icons";
+import {chevronBack} from "ionicons/icons";
 
 export interface AssessmentPageProps {
+    getAssessments: any
 }
 
 const AssessmentPage: FunctionComponent<AssessmentPageProps> = (props: AssessmentPageProps) => {
@@ -41,9 +42,9 @@ const AssessmentPage: FunctionComponent<AssessmentPageProps> = (props: Assessmen
     }, [date]);
 
     function getAssessments(week: Moment): Promise<Assessment[]> {
-      return UseAPI.getAssessments(params.patientId, week);
+        return UseAPI.getAssessments('-1', week);
     }
-    
+
     function back() {
         history.goBack()
     }
@@ -70,7 +71,7 @@ const AssessmentPage: FunctionComponent<AssessmentPageProps> = (props: Assessmen
     }
 
     return (
-        <AssessmentPageDiv>   
+        <AssessmentPageDiv>
             <HeaderDiv>
                 <BackButton theme={theme} onClick={back}>
                     <IonIcon icon={chevronBack}/>
@@ -78,11 +79,11 @@ const AssessmentPage: FunctionComponent<AssessmentPageProps> = (props: Assessmen
                         Assessment: {day.format(theme.dateFormat)}
                     </HeaderText>
                 </BackButton>
-            </HeaderDiv> 
+            </HeaderDiv>
             <BodyDiv theme={theme}>
-                {generateBody()}   
+                {generateBody()}
             </BodyDiv>
-              
+
             <PopOver
                 // cssClass={PopOver.styledComponentId}
                 isOpen={video !== null}

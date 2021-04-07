@@ -198,7 +198,7 @@ export default async function (server: FastifyInstance & { database: Database },
         Params: { patientId: string },
     }>('/patient/:patientId/assessments', {}, async (request, reply) => {
         const headers: { authorization?: string } = request.headers as any;
-        const patientID = request.params.patientId;
+        let patientID = validateUUID(request.params.patientId) ? request.params.patientId : undefined;
         const query: { start: string, duration: string, unit: string } = request.query as any;
         const start = query?.start;
         const duration = query?.duration === undefined ? "1" : query.duration;
@@ -208,6 +208,8 @@ export default async function (server: FastifyInstance & { database: Database },
         }
         try {
             const permissions = await authenticateUser(server.database, headers.authorization.split('Bearer ')[1]);
+            if (patientID === undefined)
+                patientID = permissions.getUserID();
             try {
                 const patient = await server.database.getPatientByID(patientID);
                 if (permissions.getAssessments(patient)) {

@@ -1,7 +1,6 @@
 import "firebase/auth"
 import {Assessment, AssessmentState, Clinician, Patient} from "../../../common/types/types";
 import API, {INVALID_ASSESSMENT_ID} from "./API";
-import moment, {Moment} from "moment";
 import {APIConfig} from "../../../common/api/BaseAPI";
 import {FakeClinician, FakeUser} from "../../../common/api/MockAPIData";
 
@@ -84,89 +83,89 @@ class MockAPI extends API {
         return FakeClinician;
     }
 
-    async getCurrUsersAssessments(week: Moment = moment().startOf('day')): Promise<Assessment[]> {
-        const weekStart = moment(week).startOf('week');
-        if (this.mockAssessments.hasOwnProperty(weekStart.format("YYYY-MM-DD")))
-            return this.mockAssessments[weekStart.format("YYYY-MM-DD")];
-        const data: Assessment[] = [];
-        for (let i = 0; i < 7; i++) {
-            const date = moment(weekStart).startOf('week').add(i, 'd');
-            if (i % 2 === 0) {
-                data.push({
-                    id: Math.floor(Math.random() * 1000000).toString(),
-                    patientId: "",
-                    name: "Squat",
-                    date: date,
-                    state: AssessmentState.COMPLETE,
-                    videoUrl: "https://youtu.be/dQw4w9WgXcQ",
-                    stats: [
-                        {
-                            name: "Trunk",
-                            joint: "Trunk",
-                            currValue: Math.floor(Math.random() * 180),
-                            goalValue: 180,
-                            unit: '\xb0'
-                        },
-                        {
-                            name: "Pelvis",
-                            joint: "Pelvis",
-                            currValue: Math.floor(Math.random() * 180),
-                            goalValue: 90,
-                            unit: '\xb0'
-                        },
-                        {
-                            name: "Flexion/Extension",
-                            joint: "Flexion/Extension",
-                            currValue: Math.floor(Math.random() * 180),
-                            goalValue: 180,
-                            unit: '\xb0'
-                        },
-                        {
-                            name: "Valgus/Varus",
-                            joint: "Valgus/Varus",
-                            currValue: Math.floor(Math.random() * 180),
-                            goalValue: 180,
-                            unit: '\xb0'
-                        },
-                        {
-                            name: "Plantarflexion",
-                            joint: "Plantarflexion",
-                            currValue: Math.floor(Math.random() * 180),
-                            goalValue: 180,
-                            unit: '\xb0'
-                        },
-                        {
-                            name: "Dorsiflexion",
-                            joint: "Dorsiflexion",
-                            currValue: Math.floor(Math.random() * 180),
-                            goalValue: 180,
-                            unit: '\xb0'
-                        },
-
-                    ],
-                    joints: []
-                });
-                data.push({
-                    id: Math.floor(Math.random() * 1000000).toString(),
-                    patientId: "",
-                    name: "Hip",
-                    date: date,
-                    state: AssessmentState.PENDING,
-                    joints: []
-                });
-                data.push({
-                    id: Math.floor(Math.random() * 1000000).toString(),
-                    patientId: "",
-                    name: "Arm",
-                    date: date,
-                    state: AssessmentState.MISSING,
-                    joints: []
-                });
-            }
-        }
-        this.mockAssessments[weekStart.format("YYYY-MM-DD")] = data;
-        return data;
-    }
+    // async getCurrUsersAssessments(week: Moment = moment().startOf('day')): Promise<Assessment[]> {
+    //     const weekStart = moment(week).startOf('week');
+    //     if (this.mockAssessments.hasOwnProperty(weekStart.format("YYYY-MM-DD")))
+    //         return this.mockAssessments[weekStart.format("YYYY-MM-DD")];
+    //     const data: Assessment[] = [];
+    //     for (let i = 0; i < 7; i++) {
+    //         const date = moment(weekStart).startOf('week').add(i, 'd');
+    //         if (i % 2 === 0) {
+    //             data.push({
+    //                 id: Math.floor(Math.random() * 1000000).toString(),
+    //                 patientId: "",
+    //                 name: "Squat",
+    //                 date: date,
+    //                 state: AssessmentState.COMPLETE,
+    //                 videoUrl: "https://youtu.be/dQw4w9WgXcQ",
+    //                 stats: [
+    //                     {
+    //                         name: "Trunk",
+    //                         joint: "Trunk",
+    //                         currValue: Math.floor(Math.random() * 180),
+    //                         goalValue: 180,
+    //                         unit: '\xb0'
+    //                     },
+    //                     {
+    //                         name: "Pelvis",
+    //                         joint: "Pelvis",
+    //                         currValue: Math.floor(Math.random() * 180),
+    //                         goalValue: 90,
+    //                         unit: '\xb0'
+    //                     },
+    //                     {
+    //                         name: "Flexion/Extension",
+    //                         joint: "Flexion/Extension",
+    //                         currValue: Math.floor(Math.random() * 180),
+    //                         goalValue: 180,
+    //                         unit: '\xb0'
+    //                     },
+    //                     {
+    //                         name: "Valgus/Varus",
+    //                         joint: "Valgus/Varus",
+    //                         currValue: Math.floor(Math.random() * 180),
+    //                         goalValue: 180,
+    //                         unit: '\xb0'
+    //                     },
+    //                     {
+    //                         name: "Plantarflexion",
+    //                         joint: "Plantarflexion",
+    //                         currValue: Math.floor(Math.random() * 180),
+    //                         goalValue: 180,
+    //                         unit: '\xb0'
+    //                     },
+    //                     {
+    //                         name: "Dorsiflexion",
+    //                         joint: "Dorsiflexion",
+    //                         currValue: Math.floor(Math.random() * 180),
+    //                         goalValue: 180,
+    //                         unit: '\xb0'
+    //                     },
+    //
+    //                 ],
+    //                 joints: []
+    //             });
+    //             data.push({
+    //                 id: Math.floor(Math.random() * 1000000).toString(),
+    //                 patientId: "",
+    //                 name: "Hip",
+    //                 date: date,
+    //                 state: AssessmentState.PENDING,
+    //                 joints: []
+    //             });
+    //             data.push({
+    //                 id: Math.floor(Math.random() * 1000000).toString(),
+    //                 patientId: "",
+    //                 name: "Arm",
+    //                 date: date,
+    //                 state: AssessmentState.MISSING,
+    //                 joints: []
+    //             });
+    //         }
+    //     }
+    //     this.mockAssessments[weekStart.format("YYYY-MM-DD")] = data;
+    //     return data;
+    // }
 
     getCurrentUser(): Patient | null {
         return this._user;
