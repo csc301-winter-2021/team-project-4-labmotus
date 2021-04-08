@@ -61,6 +61,7 @@ jobs:
             echo $WRNCH_API_KEY > << pipeline.parameters.cloud-dir >>/WRNCH_API_KEY
             mkdir .elasticbeanstalk
             echo $EB_CONFIG > .elasticbeanstalk/config.yml
+            cat << pipeline.parameters.cloud-dir >>/config.json
             npm run build --prefix << pipeline.parameters.cloud-dir >>
             git config user.email "circleci@circleci.com"
             git config user.name "CircleCI"
