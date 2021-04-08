@@ -14,9 +14,9 @@ import processWrnchData from "../wrnch/processWrnch";
 const awsParams = { region: 'us-east-1' };
 
 const DynamoDB = new AWS.DynamoDB.DocumentClient(awsParams);
-const PATIENTS_TABLE = "labmotus-patients";
-const CLINICIANS_TABLE = "labmotus-clinicians";
-const ASSESSMENTS_TABLE = "labmotus-assessments";
+const PATIENTS_TABLE = config.patientsTable;
+const CLINICIANS_TABLE = config.cliniciansTable;
+const ASSESSMENTS_TABLE = config.assessmentsTable;
 const DATE_COLUMN = "date";
 const FIREBASE_ID_COLUMN = "firebaseId";
 const PATIENT_ID_COLUMN = "patientId";
@@ -24,7 +24,7 @@ const FIREBASE_ID_INDEX = "firebaseId-index";
 const PATIENT_ID_INDEX = "patientId-index";
 
 const S3 = new AWS.S3(awsParams);
-const VIDEO_BUCKET = "labmotus-videos";
+const VIDEO_BUCKET = config.videoBucket;
 const VIDEO_KEY_PREFIX = "assessment_";
 const VIDEO_KEY_SUFFIX = ".mp4";
 

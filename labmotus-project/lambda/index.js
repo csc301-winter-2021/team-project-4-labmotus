@@ -1,3 +1,5 @@
+import config from "./config.json";
+
 const fs = require('fs');
 const fetch = require('node-fetch');
 const FormData = require('form-data');
@@ -8,7 +10,7 @@ const S3 = new AWS.S3(awsParams);
 const DynamoDB = new AWS.DynamoDB.DocumentClient(awsParams);
 
 const KEY_PREFIX = "assessment_";
-const ASSESSMENTS_TABLE = "labmotus-assessments";
+const ASSESSMENTS_TABLE = config.assessmentTable;
 const JOB_ID_COLUMN = "wrnchJob";
 const ASSESSMENTS_STATE_COLUMN = "state";
 const WRNCH_API = "https://api.wrnch.ai/v1/";

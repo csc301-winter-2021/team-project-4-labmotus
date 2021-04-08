@@ -2,5 +2,9 @@
   "mock": false,
   "videoPath": "videos",
   "address": "127.0.0.1",
-  "actionAddress": "http://localhost:5000/v1"
+  "actionAddress": "http://localhost:5000/v1",
+  "patientsTable": "labmotus-patients-dev",
+  "cliniciansTable": "labmotus-clinicians-dev",
+  "assessmentsTable": "labmotus-assessments-dev",
+  "videoBucket": "labmotus-videos-dev"
 }
