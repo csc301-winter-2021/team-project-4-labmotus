@@ -417,15 +417,21 @@ class Database {
     }
 
     async saveVideo(userId: string, assessmentID: string, video: NodeJS.ReadableStream): Promise<string> {
-        const assessment = await this.getAssessmentByID(userId, assessmentID);
         const params = {Bucket: VIDEO_BUCKET, Key: VIDEO_KEY_PREFIX+assessmentID+VIDEO_KEY_SUFFIX, Body: video};
         const options = {partSize: 10 * 1024 * 1024, queueSize: 1};
-        await S3.upload(params, options).promise();
-        await this.updateAssessment(userId, assessmentID, {
-            "videoUrl": `/video/${assessmentID}`,
-            "state": AssessmentState.PENDING
-        });
-        return assessment.videoUrl;
+        try {
+            await this.getAssessmentByID(userId, assessmentID); // Check that assessment exists
+            let videoUrl = `/video/${assessmentID}`
+            await S3.upload(params, options).promise();
+            await this.updateAssessment(userId, assessmentID, {
+                "videoUrl": videoUrl,
+                "state": AssessmentState.PENDING
+            });
+            return videoUrl;
+        }catch(err) {
+            console.error(err);
+            throw "Video upload failed";
+        }
     }
 
     async getVideo(userId: string, assessmentID: string): Promise<string | ReadStream> {
