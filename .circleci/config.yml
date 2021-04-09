@@ -58,9 +58,9 @@ jobs:
             npm i -D --prefix << pipeline.parameters.cloud-dir >>
             echo $CLOUD_CONFIG > << pipeline.parameters.cloud-dir >>/config.json
             echo $FIREBASE_SERVICE_KEY > << pipeline.parameters.cloud-dir >>/firebase-service-key.json
-            echo $WRNCH_API_KEY > << pipeline.parameters.cloud-dir >>/WRNCH_API_KEY
+            printf "$WRNCH_API_KEY" > << pipeline.parameters.cloud-dir >>/WRNCH_API_KEY
             mkdir .elasticbeanstalk
-            echo $EB_CONFIG > .elasticbeanstalk/config.yml
+            printf "$EB_CONFIG" > .elasticbeanstalk/config.yml
             cat << pipeline.parameters.cloud-dir >>/config.json
             npm run build --prefix << pipeline.parameters.cloud-dir >>
             git config user.email "circleci@circleci.com"
@@ -79,11 +79,11 @@ jobs:
             pip install awscli
             npm i -D --prefix << pipeline.parameters.lambda-dir >>
             echo $LAMBDA_CONFIG > << pipeline.parameters.lambda-dir >>/config.json
-            echo $WRNCH_API_KEY > << pipeline.parameters.lambda-dir >>/WRNCH_API_KEY
+            printf "$WRNCH_API_KEY" > << pipeline.parameters.lambda-dir >>/WRNCH_API_KEY
             sudo apt update
             sudo apt install p7zip-full
-            7z a /tmp/lambda.zip ./<< pipeline.parameters.lambda-dir >>/*
-            aws lambda update-function-code --function-name $LAMBDA_NAME --zip-file lambda.zip
+            7z a lambda.zip ./<< pipeline.parameters.lambda-dir >>/*
+            aws lambda update-function-code --function-name $LAMBDA_NAME --zip-file fileb://lambda.zip
   deploy-clinician:
     docker:
       - image: cimg/node:15.10.0
@@ -112,6 +112,7 @@ jobs:
           command: |
             npm i --prefix << pipeline.parameters.root-dir >>
             npm i --prefix << pipeline.parameters.types-dir >>
+            npm i --prefix << pipeline.parameters.clinician-dir >>
             npm i -D --prefix << pipeline.parameters.patient-dir >>
             echo $PATIENT_CONFIG > << pipeline.parameters.patient-dir >>/config.json
             npm i @ionic/cli
