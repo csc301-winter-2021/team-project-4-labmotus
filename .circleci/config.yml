@@ -82,8 +82,9 @@ jobs:
             echo $WRNCH_API_KEY > << pipeline.parameters.lambda-dir >>/WRNCH_API_KEY
             sudo apt update
             sudo apt install p7zip-full
-            7z a lambda.zip ./<< pipeline.parameters.lambda-dir >>/*
-            aws lambda update-function-code --function-name $LAMBDA_NAME --zip-file lambda.zip
+            7z a /tmp/lambda.zip ./<< pipeline.parameters.lambda-dir >>/*
+      - store_artifacts:
+          path: /tmp/lambda.zip
   deploy-clinician:
     docker:
       - image: cimg/node:15.10.0
