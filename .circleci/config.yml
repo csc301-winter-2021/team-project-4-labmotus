@@ -139,7 +139,7 @@ workflows:
             - labmotus-aws
             - labmotus-firebase
             - labmotus-wrnch
-            - labtmotus-dev
+            - labmotus-dev
       - deploy-lambda:
           filters:
             branches:
@@ -147,21 +147,21 @@ workflows:
           context:
             - labmotus-aws
             - labmotus-wrnch
-            - labtmotus-dev
+            - labmotus-dev
       - deploy-clinician:
           filters:
             branches:
               only: develop
           context:
             - labmotus-aws
-            - labtmotus-dev
+            - labmotus-dev
       - deploy-patient:
           filters:
             branches:
               only: develop
           context:
             - labmotus-aws
-            - labtmotus-dev
+            - labmotus-dev
   test-and-deploy-production:
     jobs:
       - deploy-cloud:
@@ -172,7 +172,7 @@ workflows:
             - labmotus-aws
             - labmotus-firebase
             - labmotus-wrnch
-            - labtmotus-production
+            - labmotus-production
       - deploy-lambda:
           filters:
             branches:
@@ -180,18 +180,18 @@ workflows:
           context:
             - labmotus-aws
             - labmotus-wrnch
-            - labtmotus-production
+            - labmotus-production
       - deploy-clinician:
           filters:
             branches:
               only: main
           context:
             - labmotus-aws
-            - labtmotus-production
+            - labmotus-production
       - deploy-patient:
           filters:
             branches:
               only: main
           context:
             - labmotus-aws
-            - labtmotus-production
+            - labmotus-production
