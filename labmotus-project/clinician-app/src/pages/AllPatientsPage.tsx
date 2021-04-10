@@ -9,6 +9,7 @@ import API from "../api/API";
 import {useHistory} from "react-router";
 import {PatientSearchComponent} from "../components/PatientSearchComponent";
 import {getAPIContext} from "../../../common/api/BaseAPI";
+import Button from "../../../common/ui/components/Button";
 
 export interface AllPatientsPageProps {
 }
@@ -48,14 +49,11 @@ const AllPatientsPage: FunctionComponent<AllPatientsPageProps> = () => {
                 <AllPatientsPageDiv theme={theme}>
                     <h1>LabMotus</h1>
                     <h3>Clinician Portal</h3>
-                    <button className="signup-button" onClick={signupPatient}>
-                        Add Patient
-                    </button>
+                    <Button label="Add Patient" onClick={signupPatient} type="primary round"/>
                     <PatientsViewDiv>
                         <PatientSearchComponent allPatients={allPatients} setPatientsToShow={setPatientsToShow}/>
                         <PatientListComponent patientList={patientsToShow}/>
                     </PatientsViewDiv>
-
                 </AllPatientsPageDiv>
             </IonContent>
         </IonPage>
@@ -74,19 +72,6 @@ const AllPatientsPageDiv = styled.div`
   span {
     cursor: pointer;
     color: ${({theme}: { theme: Theme }) => theme.colors.primary};
-    }
-
-  .signup-button {
-    width: 100%;
-    border-radius: 25px;
-    max-width: 490px;
-    font-size: 0.8em;
-    padding: 14px;
-    font-weight: 500;
-    outline: none;
-    box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.1);
-    background-color: ${({theme}: { theme: Theme }) => theme.colors.primary};
-    color: white;
   }
 `;
 

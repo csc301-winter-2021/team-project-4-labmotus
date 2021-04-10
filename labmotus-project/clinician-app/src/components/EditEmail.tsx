@@ -4,6 +4,7 @@ import {IonInput} from "@ionic/react";
 import styled from "styled-components";
 
 import {getThemeContext, Theme} from "../../../common/ui/theme/Theme";
+import Button from "../../../common/ui/components/Button";
 
 export interface EditEmailProps {
     email: string;
@@ -26,12 +27,8 @@ export const EditEmail: FunctionComponent<EditEmailProps> = (props: EditEmailPro
                     value={props.email}
                     onIonChange={(e) => props.setEmail(e.detail.value!)}
                 />
-                <button onClick={props.save} className="save-edit button">
-                    Edit Email
-                </button>
-                <button onClick={() => props.setEditEmail(false)} className="cancel button">
-                    Cancel
-                </button>
+                <Button label="Edit Email" onClick={props.save} type="primary"/>
+                <Button label="Cancel" onClick={props.setEditEmail(false)}/>
             </div>
         </EditEmailDiv>
     );
@@ -56,19 +53,6 @@ const EditEmailDiv = styled.div`
     text-align: center;
     margin: 10px 0;
     background-color: ${({theme}: { theme: Theme }) => theme.colors.light};
-  }
-
-  .button {
-    margin-bottom: 10px;
-    width: 100%;
-    font-size: 1em;
-    padding: 14px;
-    outline: none;
-  }
-
-  .save-edit {
-    background-color: ${({theme}: { theme: Theme }) => theme.colors.primary};
-    color: white;
   }
 `;
 

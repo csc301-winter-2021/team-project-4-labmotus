@@ -13,6 +13,7 @@ import {Assessment, Patient} from "../../../common/types";
 import SymptomLogPage from "../../../common/ui/pages/SymptomLogPage";
 import EditPatient from "../components/EditPatient";
 import {getAPIContext} from "../../../common/api/BaseAPI";
+import Button from "../../../common/ui/components/Button";
 
 export interface PatientProfilePageProps {
 }
@@ -112,7 +113,7 @@ const PatientProfilePage: FunctionComponent<PatientProfilePageProps> = () => {
                             </p>
                         </div>
                     </div>
-                    <button onClick={() => setEditPatient(true)}>Edit Profile</button>
+                    <Button label="Edit Profile" onClick={setEditPatient(true)} type="primary round"/>
                     <IonModal isOpen={showEditPatient} onDidDismiss={() => setEditPatient(false)}>
                         <EditPatient
                             name={patientName}
@@ -168,22 +169,12 @@ const PatientProfilePageDiv = styled.div`
       }
     }
   }
+
   @media only screen and (max-width: 600px) {
     .profile-info {
       flex-direction: column;
     }
   }
-}
-
-button {
-  float: right;
-  background-color: ${({theme}: { theme: Theme }) => theme.colors.secondary};
-  width: 100%;
-  border-radius: 25px;
-  max-width: 150px;
-  font-size: 1em;
-  padding: 10px;
-  outline: none;
 }
 `;
 

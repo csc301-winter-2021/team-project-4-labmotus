@@ -1,15 +1,14 @@
-import {FunctionComponent, useContext} from "react";
+import {FunctionComponent} from "react";
 import {IonContent, IonPage} from "@ionic/react";
 // @ts-ignore
 import styled from "styled-components";
-import {getThemeContext, Theme} from "../../../common/ui/theme/Theme";
+import Button from "../../../common/ui/components/Button";
 import {useHistory} from "react-router";
 
 export interface LandingPageProps {
 }
 
 const LandingPage: FunctionComponent<LandingPageProps> = () => {
-    const theme = useContext(getThemeContext());
     const history = useHistory();
 
     function downloadAPK() {
@@ -23,17 +22,14 @@ const LandingPage: FunctionComponent<LandingPageProps> = () => {
     return (
         <IonPage>
             <IonContent fullscreen>
-                <LandingPageDiv theme={theme}>
+                <LandingPageDiv>
                     <h1>LabMotus</h1>
                     <div className="main-padding">
                         <div className="main">
-                            <button className="landing-button" onClick={downloadAPK}>
-                                Download Patient App
-                            </button>
-                            <p/>
-                            <button className="landing-button" onClick={clinicianPortal}>
-                                See Clinician Portal
-                            </button>
+                            <Button label="Download Patient App" onClick={downloadAPK} type="primary round"/>
+                            <br/>
+                            <br/>
+                            <Button label="See Clinician Portal" onClick={clinicianPortal} type="primary round"/>
                         </div>
                     </div>
                 </LandingPageDiv>
@@ -60,28 +56,11 @@ const LandingPageDiv = styled.div`
         margin: 0 auto;
         max-width: 60vw;
       }
-
-      .landing-button {
-        font-size: 1.1em;
-      }
     }
     @media only screen and (min-width: 1024px) {
       form {
         max-width: 40vw;
       }
-    }
-
-    .landing-button {
-        width: 100%;
-        border-radius: 25px;
-        max-width: 490px;
-        font-size: 0.8em;
-        padding: 14px;
-        font-weight: 500;
-        outline: none;
-        box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.1);
-        background-color: ${({theme}: { theme: Theme }) => theme.colors.primary};
-        color: white;
     }
     pointer-events: none;
   }
@@ -100,7 +79,6 @@ const LandingPageDiv = styled.div`
   .footer {
     margin-top: 65vh;
   }
-
 `;
 
 export default LandingPage;

@@ -132,7 +132,7 @@ const LoginPageDiv = styled.div`
 
   span {
     cursor: pointer;
-    color: ${({theme}: { theme: Theme }) => theme.colors.primary};
+    color: ${({theme}: { theme: Theme }) => theme.colors.secondary};
   }
 `;
 

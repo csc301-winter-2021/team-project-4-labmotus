@@ -3,6 +3,7 @@ import {IonInput} from "@ionic/react";
 // @ts-ignore
 import styled from "styled-components";
 import {getThemeContext, Theme} from "../theme/Theme";
+import Button from "../../../common/ui/components/Button";
 
 export interface ForgotPasswordProps {
     email: string;
@@ -31,9 +32,7 @@ const ForgotPassword: FunctionComponent<ForgotPasswordProps> = (props: ForgotPas
                         autofocus={true}
                         onIonChange={(e) => props.setEmail(e.detail.value!)}
                     />
-                    <button className="forgot-button" onClick={props.onForgotPassword}>
-                        Submit
-                    </button>
+                    <Button label="Submit" onClick={props.onForgotPassword} style="round"/>
                 </div>
             </div>
         </ForgotPasswordDiv>
@@ -61,27 +60,10 @@ const ForgotPasswordDiv = styled.div`
       --padding-start: 10px;
     }
 
-    .forgot-button {
-      width: 100%;
-      border-radius: 25px;
-      max-width: 490px;
-      font-size: 0.8em;
-      padding: 14px;
-      font-weight: 500;
-      outline: none;
-      box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.1);
-      background-color: ${({theme}: { theme: Theme }) => theme.colors.primary};
-      color: white;
-    }
-
     @media only screen and (min-width: 768px) {
       .form {
         margin: 0 auto;
         max-width: 60vw;
-      }
-
-      .forgot-button {
-        font-size: 1.1em;
       }
     }
     @media only screen and (min-width: 1024px) {

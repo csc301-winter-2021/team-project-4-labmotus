@@ -6,6 +6,7 @@ import {getThemeContext, Theme} from "../../../common/ui/theme/Theme";
 import API from "../api/API";
 import {useHistory} from "react-router";
 import {getAPIContext} from "../../../common/api/BaseAPI";
+import Button from "../../../common/ui/components/Button";
 
 export interface SignupPageProps {
 }
@@ -152,9 +153,7 @@ const SignupPage: FunctionComponent<SignupPageProps> = () => {
                                     value={confirmPassword}
                                     onIonChange={(e) => setConfirmPassword(e.detail.value!)}
                                 />
-                                <button className="signup-button" onClick={signUp}>
-                                    Sign Up
-                                </button>
+                                <Button label="Sign Up" onClick={signUp} type="primary round"/>
                             </div>
                             <p>
                                 By clicking 'Sign Up' you agree to our{" "}
@@ -199,27 +198,10 @@ const SignupPageDiv = styled.div`
       --padding-start: 10px;
     }
 
-    .signup-button {
-      width: 100%;
-      border-radius: 25px;
-      max-width: 490px;
-      font-size: 0.8em;
-      padding: 14px;
-      font-weight: 500;
-      outline: none;
-      box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.1);
-      background-color: ${({theme}: { theme: Theme }) => theme.colors.primary};
-      color: white;
-    }
-
     @media only screen and (min-width: 768px) {
       .form {
         margin: 0 auto;
         max-width: 60vw;
-      }
-
-      .signup-button {
-        font-size: 1.1em;
       }
     }
     @media only screen and (min-width: 1024px) {
@@ -247,7 +229,7 @@ const SignupPageDiv = styled.div`
 
   span {
     cursor: pointer;
-    color: ${({theme}: { theme: Theme }) => theme.colors.primary};
+    color: ${({theme}: { theme: Theme }) => theme.colors.secondary};
   }
 `;
 

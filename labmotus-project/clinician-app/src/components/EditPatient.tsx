@@ -4,6 +4,7 @@ import {IonInput} from "@ionic/react";
 import styled from "styled-components";
 
 import {getThemeContext, Theme} from "../../../common/ui/theme/Theme";
+import Button from "../../../common/ui/components/Button";
 import {DateDisplay} from "../../../common/ui/components/DateDisplay";
 import {Moment} from "moment";
 
@@ -64,12 +65,8 @@ export const EditPatient: FunctionComponent<EditPatientProps> = (props: EditPati
                     maxlength={10}
                     onIonChange={(e) => setEditPhone(e.detail.value!)}
                 />
-                <button onClick={editPatient} className="edit-patient button">
-                    Edit Patient
-                </button>
-                <button onClick={() => props.setEditPatient(false)} className="cancel button">
-                    Cancel
-                </button>
+                <Button label="Edit Patient" onClick={editPatient} type="primary"/>
+                <Button label="Cancel" onClick={props.setEditPatient(false)}/>
             </div>
         </EditPatientDiv>
     );
@@ -94,19 +91,6 @@ const EditPatientDiv = styled.div`
     text-align: center;
     margin: 10px 0;
     background-color: ${({theme}: { theme: Theme }) => theme.colors.light};
-  }
-
-  .button {
-    margin-bottom: 10px;
-    width: 100%;
-    font-size: 1em;
-    padding: 14px;
-    outline: none;
-  }
-
-  .edit-patient {
-    background-color: ${({theme}: { theme: Theme }) => theme.colors.primary};
-    color: white;
   }
 `;
 

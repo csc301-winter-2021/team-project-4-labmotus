@@ -2,7 +2,7 @@ import React, {FunctionComponent, useContext, useEffect, useState} from "react";
 // @ts-ignore
 import styled from 'styled-components';
 import {getThemeContext, Theme} from "../../../common/ui/theme/Theme";
-import {IonAlert, IonButton, IonCard, IonIcon, IonModal, IonPopover, IonSpinner, IonTextarea} from "@ionic/react";
+import {IonAlert, IonCard, IonIcon, IonModal, IonPopover, IonSpinner, IonTextarea} from "@ionic/react";
 import {useHistory, useParams} from "react-router";
 import moment from "moment";
 import {Assessment, AssessmentState, Joints} from "../../../common/types/types";
@@ -13,7 +13,8 @@ import ReactPlayer from "react-player";
 import {Moment} from "moment/moment";
 
 import AddAssessment from "../components/AddAssessment";
-import AssessmentComponent from "../../../common/ui/components/Assessment"
+import AssessmentComponent from "../../../common/ui/components/Assessment";
+import Button from "../../../common/ui/components/Button";
 import {chevronBack} from "ionicons/icons";
 
 export interface AssessmentPageProps {
@@ -25,7 +26,7 @@ const AssessmentPage: FunctionComponent<AssessmentPageProps> = (props: Assessmen
 
     const [showAddAssessment, setShowAddAssessment] = useState(false);
     const UseAPI: API = useContext(getAPIContext());
-    const params: { patientId: string, date?: string} = useParams();
+    const params: { patientId: string, date?: string } = useParams();
     const [isalert, openAlert] = useState<boolean>(false);
     const [header, setHeader] = useState<string>(null);
     const [message, setMessage] = useState<string>(null);
@@ -76,8 +77,7 @@ const AssessmentPage: FunctionComponent<AssessmentPageProps> = (props: Assessmen
                 notes: ""
             }
             UseAPI.createAssessment(assessment);
-        }
-        else if (assessmentType === "Single Leg Squats"){
+        } else if (assessmentType === "Single Leg Squats") {
             const assessment: Assessment = {
                 id: "",
                 patientId: params.patientId,
@@ -90,8 +90,7 @@ const AssessmentPage: FunctionComponent<AssessmentPageProps> = (props: Assessmen
                 notes: ""
             }
             UseAPI.createAssessment(assessment);
-        }
-        else if (assessmentType === "Gait Analysis"){
+        } else if (assessmentType === "Gait Analysis") {
             const assessment: Assessment = {
                 id: "",
                 patientId: params.patientId,
@@ -104,8 +103,7 @@ const AssessmentPage: FunctionComponent<AssessmentPageProps> = (props: Assessmen
                 notes: ""
             }
             UseAPI.createAssessment(assessment);
-        }
-        else {
+        } else {
             const assessment: Assessment = {
                 id: "",
                 patientId: params.patientId,
@@ -123,7 +121,7 @@ const AssessmentPage: FunctionComponent<AssessmentPageProps> = (props: Assessmen
         openAlert(true);
     }
 
-    function generateBody(){
+    function generateBody() {
         if (assessments === null) {
             return <IonSpinner/>
         } else if (assessments.length === 0) {
@@ -162,9 +160,7 @@ const AssessmentPage: FunctionComponent<AssessmentPageProps> = (props: Assessmen
                 {generateBody()}
             </BodyDiv>
             <div className="main-padding">
-                <IonButton onClick={() => setShowAddAssessment(true)} className="add-button">
-                    Add Assessment
-                </IonButton>
+                <Button label="Add Assessment" onClick={setShowAddAssessment(true)} type="primary"/>
                 <IonModal isOpen={showAddAssessment} onDidDismiss={() => setShowAddAssessment(false)}>
                     <AddAssessment
                         addAssessment={createAssessment}
@@ -195,75 +191,79 @@ const AssessmentPage: FunctionComponent<AssessmentPageProps> = (props: Assessmen
 }
 
 const AssessmentPageDiv = styled.div`
-    width: 100%;
-    height: 100%;
-    box-sizing: border-box;
-    padding: 3%;
-    display: flex;
-    flex-direction: column;
-    ion-content {
-        flex: 1;
-    }
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  padding: 3%;
+  display: flex;
+  flex-direction: column;
+
+  ion-content {
+    flex: 1;
+  }
 `;
 
 const PopOver = styled(IonPopover)`
-    .popover-content {
-        width: fit-content !important;
-        height: fit-content !important;
-    }
+  .popover-content {
+    width: fit-content !important;
+    height: fit-content !important;
+  }
 `;
 
 const Textarea = styled(IonTextarea)`
-    margin-left: 28px;
+  margin-left: 28px;
 `
 
 const BackButton = styled.div`
-    ion-icon {
-        height: 25px;
-        width: 25px;
-        color: ${({theme}: { theme: Theme }) => theme.colors.primary};
-    }
-    cursor: pointer;
-    display: flex;
-    flex-direction: row;
+  ion-icon {
+    height: 25px;
+    width: 25px;
+    color: ${({theme}: { theme: Theme }) => theme.colors.primary};
+  }
+
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
 `;
 
 const HeaderDiv = styled.div`
-    display: flex;
-    flex-direction: row;
-    align-items: center;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 `;
 
 const HeaderText = styled.div`
-    flex: 1;
-    font-size: ${({theme}: { theme: Theme }) => theme.headerFontSize};
-    font-family: ${({theme}: { theme: Theme }) => theme.headerFontFamily};
-    color: ${({theme}: { theme: Theme }) => theme.colors.contrast};
+  flex: 1;
+  font-size: ${({theme}: { theme: Theme }) => theme.headerFontSize};
+  font-family: ${({theme}: { theme: Theme }) => theme.headerFontFamily};
+  color: ${({theme}: { theme: Theme }) => theme.colors.contrast};
 `;
 
 const NoneDiv = styled.div`
-    font-size: ${({theme}: { theme: Theme }) => theme.headerFontSize};
-    font-family: ${({theme}: { theme: Theme }) => theme.headerFontFamily};
-    color: ${({theme}: { theme: Theme }) => theme.colors.contrast};
+  font-size: ${({theme}: { theme: Theme }) => theme.headerFontSize};
+  font-family: ${({theme}: { theme: Theme }) => theme.headerFontFamily};
+  color: ${({theme}: { theme: Theme }) => theme.colors.contrast};
 `;
 
 const BodyDiv = styled.div`
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 1%;
-    .ScrollbarsCustom-Track {
-        background-color: ${({theme}: { theme: Theme }) => theme.colors.shade} !important;
-    }
-    .ScrollbarsCustom-Thumb {
-        background-color: ${({theme}: { theme: Theme }) => theme.colors.primary} !important;
-    }
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1%;
+
+  .ScrollbarsCustom-Track {
+    background-color: ${({theme}: { theme: Theme }) => theme.colors.shade} !important;
+  }
+
+  .ScrollbarsCustom-Thumb {
+    background-color: ${({theme}: { theme: Theme }) => theme.colors.primary} !important;
+  }
 `;
 
 const VideoDiv = styled.div`
-    width: 90vw;
-    height: 90vh;
+  width: 90vw;
+  height: 90vh;
 `;
 
 export default AssessmentPage;

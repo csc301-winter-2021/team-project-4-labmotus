@@ -4,6 +4,7 @@ import {IonInput} from "@ionic/react";
 import styled from "styled-components";
 
 import {getThemeContext, Theme} from "../../../common/ui/theme/Theme";
+import Button from "../../../common/ui/components/Button";
 
 export interface ChangePasswordProps {
     currPassword: string;
@@ -46,12 +47,8 @@ export const ChangePassword: FunctionComponent<ChangePasswordProps> = (props: Ch
                         data-testid="confirm-password"
                     />
                 </div>
-                <button onClick={props.save} className="change-password button" data-testid="change-password">
-                    Change Password
-                </button>
-                <button onClick={() => props.setChangePassword(false)} className="cancel button" data-testid="cancel">
-                    Cancel
-                </button>
+                <Button label="Change Password" onClick={props.save} type="primary" data-testid="change-password"/>
+                <Button label="Cancel" onClick={props.setChangePassword(false)} data-testid="cancel"/>
             </div>
         </ChangePasswordDiv>
     );
@@ -76,19 +73,6 @@ const ChangePasswordDiv = styled.div`
     text-align: center;
     margin: 10px 0;
     background-color: ${({theme}: { theme: Theme }) => theme.colors.light};
-  }
-
-  .button {
-    margin-bottom: 10px;
-    width: 100%;
-    font-size: 1em;
-    padding: 14px;
-    outline: none;
-  }
-
-  .change-password {
-    background-color: ${({theme}: { theme: Theme }) => theme.colors.primary};
-    color: white;
   }
 `;
 

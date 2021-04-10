@@ -4,7 +4,7 @@ import {FunctionComponent, useContext} from "react";
 import {IonInput} from "@ionic/react";
 // @ts-ignore
 import styled from "styled-components";
-import {getThemeContext, Theme} from "../theme/Theme";
+import Button from "./Button";
 
 export interface LoginFormProps {
     email: string;
@@ -17,10 +17,8 @@ export interface LoginFormProps {
 
 export const LoginForm: FunctionComponent<LoginFormProps> = (props: LoginFormProps) => {
 
-    const theme = useContext(getThemeContext());
-
     return (
-        <LoginFormDiv theme={theme}>
+        <LoginFormDiv>
             <div className="main-padding">
                 <div className="form">
                     <IonInput
@@ -38,9 +36,7 @@ export const LoginForm: FunctionComponent<LoginFormProps> = (props: LoginFormPro
                         value={props.password}
                         onIonChange={(e) => props.setPassword(e.detail.value!)}
                     />
-                    <button className="login-button" onClick={props.onLogin}>
-                        Login
-                    </button>
+                    <Button label="Login" onClick={props.onLogin} type="primary round"/>
                 </div>
                 <p onClick={props.onForgotPassword}>
                     <span>Forgot password?</span>
@@ -71,29 +67,13 @@ const LoginFormDiv = styled.div`
       --padding-start: 10px;
     }
 
-    .login-button {
-      width: 100%;
-      border-radius: 25px;
-      max-width: 490px;
-      font-size: 0.8em;
-      padding: 14px;
-      font-weight: 500;
-      outline: none;
-      box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.1);
-      background-color: ${({theme}: { theme: Theme }) => theme.colors.primary};
-      color: white;
-    }
-
     @media only screen and (min-width: 768px) {
       .form {
         margin: 0 auto;
         max-width: 60vw;
       }
-
-      .login-button {
-        font-size: 1.1em;
-      }
     }
+
     @media only screen and (min-width: 1024px) {
       .form {
         max-width: 40vw;

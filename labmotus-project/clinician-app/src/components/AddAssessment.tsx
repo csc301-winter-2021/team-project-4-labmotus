@@ -1,13 +1,14 @@
 import {FunctionComponent, useContext, useEffect, useState} from "react";
 import {IonSelect, IonSelectOption, IonInput} from "@ionic/react";
 import {Joints} from "../../../common/types/types";
-import API from  "../api/API"
+import API from "../api/API"
 import {getAPIContext} from "../../../common/api/BaseAPI";
 
 // @ts-ignore
 import styled from "styled-components";
 
 import {getThemeContext, Theme} from "../../../common/ui/theme/Theme";
+import Button from "../../../common/ui/components/Button";
 
 export interface AddAssessmentProps {
     addAssessment: any;
@@ -23,7 +24,7 @@ export const AddAssessment: FunctionComponent<AddAssessmentProps> = (props: AddA
     const [customAssessment, setCustomAssessment] = useState<boolean>(false);
     const [customType, setCustomType] = useState<string>("");
 
-    function getAllJoints(): void{
+    function getAllJoints(): void {
         UseAPI.getAllJoints().then(
             (joints: any[]) => {
                 setAllJoints(joints);
@@ -34,14 +35,14 @@ export const AddAssessment: FunctionComponent<AddAssessmentProps> = (props: AddA
         )
     }
 
-    function generateCustomFields(){
-        if (customAssessment) return(
+    function generateCustomFields() {
+        if (customAssessment) return (
             <div>
-                <IonInput  
+                <IonInput
                     placeholder="Enter Custom Assessment Name"
-                    onIonChange = {e => setCustomType(e.detail.value)}
-                ></IonInput>
-                <IonSelect 
+                    onIonChange={e => setCustomType(e.detail.value)}
+                />
+                <IonSelect
                     placeholder={"Select Custom Assessment Joints"}
                     onIonChange={(e) => setAssessmentJoints(e.detail.value)}
                     multiple={true}
@@ -62,11 +63,11 @@ export const AddAssessment: FunctionComponent<AddAssessmentProps> = (props: AddA
     useEffect(() => {
         getAllJoints();
     }, []);
-    
+
     return (
         <AddAssessmentDiv theme={theme}>
             <h1>Add New Assessment</h1>
-            <div className="main-padding" >
+            <div className="main-padding">
                 <IonSelect
                     value={assessmentType}
                     placeholder={"Select Assessment"}
@@ -84,22 +85,15 @@ export const AddAssessment: FunctionComponent<AddAssessmentProps> = (props: AddA
                 {/* todo: at least 1 joint. hide select joints option if not custom. patient assessments. */}
                 {/* figure out styled error popover. delete assessment. save/delete assessment type (impl later?) */}
                 {/* clean up id value stuff to be the correct thing */}
-                <button 
-                    onClick={() => {
-                        if (customAssessment) {
-                            props.addAssessment(customType, assessmentJoints)
-                        }
-                        else {
-                            props.addAssessment(assessmentType, assessmentJoints)
-                        }
-                    }} 
-                    className="assessment button"
-                >
-                    Add Assessment
-                </button>
-                <button onClick={() => props.setShowAddAssessment(false)} className="cancel button">
-                    Cancel
-                </button>
+                <Button label="Add Assessment" onClick={() => {
+                    if (customAssessment) {
+                        props.addAssessment(customType, assessmentJoints)
+                    } else {
+                        props.addAssessment(assessmentType, assessmentJoints)
+                    }
+                }}
+                />
+                <Button label="Cancel" onClick={props.setShowAddAssessment(false)} type="primary"/>
             </div>
         </AddAssessmentDiv>
     );
@@ -124,14 +118,6 @@ const AddAssessmentDiv = styled.div`
     text-align: center;
     margin: 10px 0;
     background-color: ${({theme}: { theme: Theme }) => theme.colors.light};
-  }
-
-  .button {
-    margin-bottom: 10px;
-    width: 100%;
-    font-size: 1em;
-    padding: 14px;
-    outline: none;
   }
 
   .assessment {
