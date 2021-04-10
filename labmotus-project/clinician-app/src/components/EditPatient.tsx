@@ -65,8 +65,10 @@ export const EditPatient: FunctionComponent<EditPatientProps> = (props: EditPati
                     maxlength={10}
                     onIonChange={(e) => setEditPhone(e.detail.value!)}
                 />
-                <Button label="Edit Patient" onClick={editPatient} type="primary"/>
-                <Button label="Cancel" onClick={props.setEditPatient(false)}/>
+                <div className="buttons">
+                    <Button label="Edit Patient" onClick={editPatient} type="primary full"/>
+                    <Button label="Cancel" onClick={() => props.setEditPatient(false)} type="full"/>
+                </div>
             </div>
         </EditPatientDiv>
     );
@@ -91,6 +93,10 @@ const EditPatientDiv = styled.div`
     text-align: center;
     margin: 10px 0;
     background-color: ${({theme}: { theme: Theme }) => theme.colors.light};
+  }
+
+  .buttons > * {
+    margin-top: 10px;
   }
 `;
 

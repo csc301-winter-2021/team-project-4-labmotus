@@ -112,12 +112,9 @@ export default async function (server: fastify.FastifyInstance & { database: Dat
         const headers: { authorization?: string } = request.headers as any;
         let clinicianId = validateUUID(request.params.clinicianId) ? request.params.clinicianId : undefined;
         try {
-            console.log("jabaited")
             const permissions = await authenticateUser(server.database, headers.authorization.split('Bearer ')[1]);
             if (clinicianId === undefined)
-                console.log("clinicianid undefined")
                 clinicianId = permissions.getUserID();
-            console.log("clinician id", clinicianId)
             try {
                 const clinician = await server.database.getClinicianByID(clinicianId);
                 const response: Response<Clinician> = {
@@ -139,7 +136,6 @@ export default async function (server: fastify.FastifyInstance & { database: Dat
                 }
             }
         } catch (e) {
-            console.log("pog you")
             reply.code(401).send("Not Authorized");
             return;
         }

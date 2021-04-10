@@ -160,7 +160,7 @@ const AssessmentPage: FunctionComponent<AssessmentPageProps> = (props: Assessmen
                 {generateBody()}
             </BodyDiv>
             <div className="main-padding">
-                <Button label="Add Assessment" onClick={setShowAddAssessment(true)} type="primary"/>
+                <Button label="Add Assessment" onClick={() => setShowAddAssessment(true)} type="primary"/>
                 <IonModal isOpen={showAddAssessment} onDidDismiss={() => setShowAddAssessment(false)}>
                     <AddAssessment
                         addAssessment={createAssessment}

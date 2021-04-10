@@ -24,31 +24,32 @@ export const ChangePassword: FunctionComponent<ChangePasswordProps> = (props: Ch
         <ChangePasswordDiv theme={theme} data-testid="ChangePasswordComponent">
             <h1>Change Password</h1>
             <div className="main-padding">
-                <div className="form">
-                    <IonInput
-                        type="password"
-                        placeholder="Current Password"
-                        value={props.currPassword}
-                        onIonChange={(e) => props.setCurrPassword(e.detail.value!)}
-                        data-testid="current-password"
-                    />
-                    <IonInput
-                        type="password"
-                        placeholder="New Password"
-                        value={props.newPassword}
-                        onIonChange={(e) => props.setNewPassword(e.detail.value!)}
-                        data-testid="new-password"
-                    />
-                    <IonInput
-                        type="password"
-                        placeholder="Confirm New Password"
-                        value={props.confirmPassword}
-                        onIonChange={(e) => props.setConfirmPassword(e.detail.value!)}
-                        data-testid="confirm-password"
-                    />
+                <IonInput
+                    type="password"
+                    placeholder="Current Password"
+                    value={props.currPassword}
+                    onIonChange={(e) => props.setCurrPassword(e.detail.value!)}
+                    data-testid="current-password"
+                />
+                <IonInput
+                    type="password"
+                    placeholder="New Password"
+                    value={props.newPassword}
+                    onIonChange={(e) => props.setNewPassword(e.detail.value!)}
+                    data-testid="new-password"
+                />
+                <IonInput
+                    type="password"
+                    placeholder="Confirm New Password"
+                    value={props.confirmPassword}
+                    onIonChange={(e) => props.setConfirmPassword(e.detail.value!)}
+                    data-testid="confirm-password"
+                />
+                <div className="buttons">
+                    <Button label="Change Password" onClick={props.save} type="primary full"
+                            data-testid="change-password"/>
+                    <Button label="Cancel" onClick={() => props.setChangePassword(false)} type="full" data-testid="cancel"/>
                 </div>
-                <Button label="Change Password" onClick={props.save} type="primary" data-testid="change-password"/>
-                <Button label="Cancel" onClick={props.setChangePassword(false)} data-testid="cancel"/>
             </div>
         </ChangePasswordDiv>
     );
@@ -73,6 +74,10 @@ const ChangePasswordDiv = styled.div`
     text-align: center;
     margin: 10px 0;
     background-color: ${({theme}: { theme: Theme }) => theme.colors.light};
+  }
+
+  .buttons > * {
+    margin-top: 10px;
   }
 `;
 

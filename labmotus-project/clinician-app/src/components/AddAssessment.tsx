@@ -93,7 +93,7 @@ export const AddAssessment: FunctionComponent<AddAssessmentProps> = (props: AddA
                     }
                 }}
                 />
-                <Button label="Cancel" onClick={props.setShowAddAssessment(false)} type="primary"/>
+                <Button label="Cancel" onClick={() => props.setShowAddAssessment(false)} type="primary"/>
             </div>
         </AddAssessmentDiv>
     );

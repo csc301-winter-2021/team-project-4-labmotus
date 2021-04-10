@@ -27,8 +27,10 @@ export const EditEmail: FunctionComponent<EditEmailProps> = (props: EditEmailPro
                     value={props.email}
                     onIonChange={(e) => props.setEmail(e.detail.value!)}
                 />
-                <Button label="Edit Email" onClick={props.save} type="primary"/>
-                <Button label="Cancel" onClick={props.setEditEmail(false)}/>
+                <div className="buttons">
+                    <Button label="Edit Email" onClick={props.save} type="primary full"/>
+                    <Button label="Cancel" onClick={() => props.setEditEmail(false)} type="full"/>
+                </div>
             </div>
         </EditEmailDiv>
     );
@@ -53,6 +55,10 @@ const EditEmailDiv = styled.div`
     text-align: center;
     margin: 10px 0;
     background-color: ${({theme}: { theme: Theme }) => theme.colors.light};
+  }
+
+  .buttons > * {
+    margin-top: 10px;
   }
 `;
 

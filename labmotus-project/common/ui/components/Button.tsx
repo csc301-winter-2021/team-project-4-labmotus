@@ -45,6 +45,10 @@ const ButtonStyle = styled.button`
   &.round {
     border-radius: 25px;
   }
+  
+  &.full {
+    max-width: none;
+  }
 `;
 
 export default Button;

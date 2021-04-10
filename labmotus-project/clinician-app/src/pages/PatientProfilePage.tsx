@@ -113,7 +113,7 @@ const PatientProfilePage: FunctionComponent<PatientProfilePageProps> = () => {
                             </p>
                         </div>
                     </div>
-                    <Button label="Edit Profile" onClick={setEditPatient(true)} type="primary round"/>
+                    <Button label="Edit Profile" onClick={() => setEditPatient(true)} type="primary round"/>
                     <IonModal isOpen={showEditPatient} onDidDismiss={() => setEditPatient(false)}>
                         <EditPatient
                             name={patientName}
