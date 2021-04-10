@@ -1,24 +1,18 @@
 import {FunctionComponent, useContext, useState} from "react";
 import {
     IonAlert,
-    IonButtons,
     IonContent,
-    IonHeader,
-    IonIcon,
     IonInput,
     IonPage,
-    IonTitle,
-    IonToolbar
 } from "@ionic/react";
 // @ts-ignore
 import styled from "styled-components";
 import {getThemeContext, Theme} from "../../../common/ui/theme/Theme";
 import API from "../api/API";
 import {useHistory} from "react-router";
-import {chevronBack} from "ionicons/icons";
 import {Patient} from "../../../common/types/types";
 import {getAPIContext} from "../../../common/api/BaseAPI";
-
+import Header from "../../../common/ui/components/Header"
 export interface EditEmailPageProps {
 }
 
@@ -60,18 +54,7 @@ const EditEmailPage: FunctionComponent<EditEmailPageProps> = () => {
     return (
         <EditEmailPageDiv theme={theme}>
             <IonPage>
-                <IonHeader>
-                    <IonToolbar>
-                        <IonButtons slot="start" onClick={back}>
-                            <IonIcon icon={chevronBack}/>
-                            Back
-                        </IonButtons>
-                        <IonButtons slot="end" onClick={editEmail}>
-                            Save
-                        </IonButtons>
-                        <IonTitle>Edit Email</IonTitle>
-                    </IonToolbar>
-                </IonHeader>
+                <Header onBackClick={back} onSaveClick={editEmail} title="Edit Email"/>                
                 <IonContent>
                     <IonInput
                         type="email"
@@ -104,15 +87,6 @@ const EditEmailPageDiv = styled.div`
     background-color: ${({theme}: { theme: Theme }) => theme.colors.light};
   }
 
-  ion-buttons {
-    color: ${({theme}: { theme: Theme }) => theme.colors.primary};
-    cursor: pointer;
-
-    ion-icon {
-      height: 25px;
-      width: 25px;
-    }
-  }
 `;
 
 export default EditEmailPage;

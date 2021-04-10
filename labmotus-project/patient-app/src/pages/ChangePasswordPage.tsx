@@ -1,22 +1,17 @@
 import {FunctionComponent, useContext, useState} from "react";
 import {
     IonAlert,
-    IonButtons,
     IonContent,
-    IonHeader,
-    IonIcon,
     IonInput,
     IonPage,
-    IonTitle,
-    IonToolbar,
 } from "@ionic/react";
 // @ts-ignore
 import styled from "styled-components";
 import {getThemeContext, Theme} from "../../../common/ui/theme/Theme";
 import API from "../api/API";
 import {useHistory} from "react-router";
-import {chevronBack} from "ionicons/icons";
 import {getAPIContext} from "../../../common/api/BaseAPI";
+import Header from "../../../common/ui/components/Header"
 
 export interface ChangePasswordPageProps {
 }
@@ -73,18 +68,7 @@ const ChangePasswordPage: FunctionComponent<ChangePasswordPageProps> = () => {
     return (
         <ChangePasswordPageDiv theme={theme}>
             <IonPage>
-                <IonHeader>
-                    <IonToolbar>
-                        <IonButtons slot="start" onClick={back}>
-                            <IonIcon icon={chevronBack}/>
-                            Back
-                        </IonButtons>
-                        <IonButtons slot="end" onClick={changePassword}>
-                            Save
-                        </IonButtons>
-                        <IonTitle>Change Password</IonTitle>
-                    </IonToolbar>
-                </IonHeader>
+                <Header onBackClick={back} onSaveClick={changePassword} title="Change Password"/>
                 <IonContent>
                     <div className="form">
                         <IonInput
@@ -130,15 +114,6 @@ const ChangePasswordPageDiv = styled.div`
     background-color: ${({theme}: { theme: Theme }) => theme.colors.light};
   }
 
-  ion-buttons {
-    color: ${({theme}: { theme: Theme }) => theme.colors.primary};
-    cursor: pointer;
-
-    ion-icon {
-      height: 25px;
-      width: 25px;
-    }
-  }
 `;
 
 export default ChangePasswordPage;

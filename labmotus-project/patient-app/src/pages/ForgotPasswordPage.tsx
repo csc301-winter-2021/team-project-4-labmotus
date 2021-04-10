@@ -1,20 +1,17 @@
 import {FunctionComponent, useContext, useState} from "react";
-import {IonAlert, IonButtons, IonContent, IonHeader, IonIcon, IonPage, IonToolbar} from "@ionic/react";
+import {IonAlert, IonContent, IonPage} from "@ionic/react";
 // @ts-ignore
-import styled from "styled-components";
 import API from "../api/API";
-import {getThemeContext, Theme} from "../../../common/ui/theme/Theme";
 import {useHistory} from "react-router";
 import ForgotPassword from "../../../common/ui/pages/ForgotPassword";
-import {chevronBack} from "ionicons/icons";
 import {getAPIContext} from "../../../common/api/BaseAPI";
+import Header from "../../../common/ui/components/Header"
 
 export interface ForgotPasswordPageProps {
 }
 
 const ForgotPasswordPage: FunctionComponent<ForgotPasswordPageProps> = () => {
     const UseAPI: API = useContext(getAPIContext());
-    const theme: Theme = useContext(getThemeContext());
     const history = useHistory();
 
     const [email, setEmail] = useState<string>();
@@ -69,16 +66,7 @@ const ForgotPasswordPage: FunctionComponent<ForgotPasswordPageProps> = () => {
 
     return (
         <IonPage>
-            <IonHeader>
-                <IonToolbar>
-                    <BackButtonDiv theme={theme}>
-                        <IonButtons slot="start" onClick={back}>
-                            <IonIcon icon={chevronBack}/>
-                            Back
-                        </IonButtons>
-                    </BackButtonDiv>
-                </IonToolbar>
-            </IonHeader>
+            <Header onBackClick={back}/>
             <IonContent fullscreen>
                 <ForgotPassword email={email} setEmail={setEmail} onForgotPassword={forgotPassword}/>
             </IonContent>
@@ -92,17 +80,5 @@ const ForgotPasswordPage: FunctionComponent<ForgotPasswordPageProps> = () => {
         </IonPage>
     );
 };
-
-const BackButtonDiv = styled.div`
-  ion-buttons {
-    color: ${({theme}: { theme: Theme }) => theme.colors.primary};
-    cursor: pointer;
-
-    ion-icon {
-      height: 25px;
-      width: 25px;
-    }
-  }
-`;
 
 export default ForgotPasswordPage;

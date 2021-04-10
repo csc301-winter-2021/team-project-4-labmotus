@@ -1,11 +1,12 @@
 import {FunctionComponent, useContext} from "react";
-import {IonContent, IonHeader, IonPage, IonTitle, IonToolbar} from "@ionic/react";
+import {IonContent, IonPage} from "@ionic/react";
 // @ts-ignore
 import styled from "styled-components";
 import API from "../api/API";
 import {Patient} from "../../../common/types/types";
 import {getThemeContext, Theme} from "../../../common/ui/theme/Theme";
 import SettingsList from "../../../common/ui/components/SettingsList";
+import Header from "../../../common/ui/components/Header"
 
 import {useHistory} from "react-router";
 import {getAPIContext} from "../../../common/api/BaseAPI";
@@ -47,11 +48,7 @@ const SettingsPage: FunctionComponent<SettingsPageProps> = () => {
     return (
         <SettingsPageDiv>
             <IonPage>
-                <IonHeader>
-                    <IonToolbar>
-                        <IonTitle>Settings</IonTitle>
-                    </IonToolbar>
-                </IonHeader>
+                <Header title="Settings"/>
                 <IonContent fullscreen>
                     <SettingsList
                         patient={true}

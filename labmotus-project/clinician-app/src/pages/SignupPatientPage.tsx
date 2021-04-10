@@ -1,5 +1,5 @@
 import React, {FunctionComponent, useContext, useState} from "react";
-import {IonAlert, IonContent, IonHeader, IonInput, IonPage} from "@ionic/react";
+import {IonAlert, IonContent, IonInput, IonPage} from "@ionic/react";
 // @ts-ignore
 import styled from "styled-components";
 import {getThemeContext, Theme} from "../../../common/ui/theme/Theme";
@@ -10,7 +10,7 @@ import {Patient} from "../../../common/types/types";
 import {useHistory} from "react-router";
 import {getAPIContext} from "../../../common/api/BaseAPI";
 import Button from "../../../common/ui/components/Button";
-import Toolbar from "../../../common/ui/components/Toolbar"
+import Header from "../../../common/ui/components/Header"
 
 export interface SignupPatientPageProps {
 }
@@ -90,9 +90,7 @@ const SignupPatientPage: FunctionComponent<SignupPatientPageProps> = () => {
 
     return (
         <IonPage>
-            <IonHeader>
-                <Toolbar onBackClick={back} />
-            </IonHeader>
+            <Header onBackClick={back} />
             <IonContent fullscreen>
                 <SignupPatientPageDiv theme={theme}>
                     <h1>LabMotus</h1>

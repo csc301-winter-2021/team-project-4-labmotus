@@ -2,13 +2,12 @@ import React, {FunctionComponent, useContext, useState} from "react";
 import {
     IonAlert,
     IonContent,
-    IonHeader,
     IonInput,
     IonPage,
 } from "@ionic/react";
 // @ts-ignore
 import styled from "styled-components";
-import Toolbar from "../../../common/ui/components/Toolbar"
+import Header from "../../../common/ui/components/Header"
 import {getThemeContext, Theme} from "../../../common/ui/theme/Theme";
 import API from "../api/API";
 import {useHistory} from "react-router";
@@ -56,9 +55,7 @@ const EditPhonePage: FunctionComponent<EditPhonePageProps> = () => {
     return (
         <EditPhonePageDiv theme={theme}>
             <IonPage>
-                <IonHeader>
-                    <Toolbar onBackClick={back} onSaveClick={editPhoneNumber} title="Edit Phone Number"/>
-                </IonHeader>
+                <Header onBackClick={back} onSaveClick={editPhoneNumber} title="Edit Phone Number"/>
                 <IonContent>
                     <IonInput
                         type="tel"
