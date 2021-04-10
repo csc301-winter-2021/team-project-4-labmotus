@@ -1,4 +1,4 @@
-import { Context, createContext } from 'react';
+import {Context, createContext} from 'react';
 import "../fonts/fonts.css"
 
 export interface Theme {
@@ -41,17 +41,17 @@ export const PrimaryTheme: Theme = {
     secondaryFontSize: "10px",
     secondaryFontFamily: "Roboto",
     colors: {
-        primary: "#000000",
-        secondary: "#115026",
-        light: "#f4f5f8",
-        background: "#FFFFFF",
-        contrast: "#000000",
-        shade: "#d7d8da",
-        mediumShade: "#7a7a7a",
-        darkShade: "#1e2023",
-        success: "#36ba62",
-        warning: "#ffd534",
-        alert: "#d62728",
+        primary: "var(--ion-color-primary)",
+        secondary: "var(--ion-color-secondary)",
+        light: "var(--ion-color-light)",
+        background: "var(--ion-background-color)",
+        contrast: "var(--ion-color-light-contrast)",
+        shade: "var( --ion-color-light-shade)",
+        mediumShade: "var(--ion-color-medium-shade)",
+        darkShade: "var(--ion-color-dark-shade)",
+        success: "var(--ion-color-success)",
+        warning: "var(--ion-color-warning)",
+        alert: "var(--ion-color-danger)",
         cycle: [
             '#1f77b4',
             '#ff7f0e',

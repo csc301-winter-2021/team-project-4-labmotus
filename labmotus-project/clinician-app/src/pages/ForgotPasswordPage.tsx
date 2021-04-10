@@ -1,5 +1,5 @@
 import {FunctionComponent, useContext, useState} from "react";
-import {IonAlert} from "@ionic/react";
+import {IonAlert, IonContent, IonPage} from "@ionic/react";
 // @ts-ignore
 import styled from "styled-components";
 import {getThemeContext, Theme} from "../../../common/ui/theme/Theme";
@@ -66,19 +66,24 @@ const ForgotPasswordPage: FunctionComponent<ForgotPasswordPageProps> = () => {
     }
 
     return (
-        <ForgotPasswordPageDiv theme={theme}>
-            <h1>LabMotus</h1>
-            <h3>Clinician Portal</h3>
-            <ForgotPassword email={email} setEmail={setEmail} onForgotPassword={forgotPassword}/>
-            <p className="footer">Remember your password? <span onClick={login}>Login</span></p>
-            <IonAlert
-                isOpen={isError}
-                onDidDismiss={() => openAlert(false)}
-                header={header}
-                message={message}
-                buttons={["OK"]}
-            />
-        </ForgotPasswordPageDiv>
+        <IonPage>
+            <IonContent fullscreen>
+                <ForgotPasswordPageDiv theme={theme}>
+                    <h1>LabMotus</h1>
+                    <h3>Clinician Portal</h3>
+                    <ForgotPassword email={email} setEmail={setEmail} onForgotPassword={forgotPassword}/>
+                    <p className="footer">Remember your password? <span onClick={login}>Login</span></p>
+                    <IonAlert
+                        isOpen={isError}
+                        onDidDismiss={() => openAlert(false)}
+                        header={header}
+                        message={message}
+                        buttons={["OK"]}
+                    />
+                </ForgotPasswordPageDiv>
+            </IonContent>
+        </IonPage>
+
     );
 };
 
@@ -97,7 +102,7 @@ const ForgotPasswordPageDiv = styled.div`
 
   span {
     cursor: pointer;
-    color: ${({theme}: { theme: Theme }) => theme.colors.primary};
+    color: ${({theme}: { theme: Theme }) => theme.colors.secondary};
   }
 `;
 

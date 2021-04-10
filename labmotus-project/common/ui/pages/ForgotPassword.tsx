@@ -32,7 +32,7 @@ const ForgotPassword: FunctionComponent<ForgotPasswordProps> = (props: ForgotPas
                         autofocus={true}
                         onIonChange={(e) => props.setEmail(e.detail.value!)}
                     />
-                    <Button label="Submit" onClick={props.onForgotPassword} style="round"/>
+                    <Button label="Submit" onClick={props.onForgotPassword} type="primary round"/>
                 </div>
             </div>
         </ForgotPasswordDiv>

@@ -68,22 +68,20 @@ const ForgotPasswordPage: FunctionComponent<ForgotPasswordPageProps> = () => {
     }
 
     return (
-        <div>
-            <IonPage>
-                <IonHeader>
-                    <IonToolbar>
-                        <BackButtonDiv theme={theme}>
-                            <IonButtons slot="start" onClick={back}>
-                                <IonIcon icon={chevronBack}/>
-                                Back
-                            </IonButtons>
-                        </BackButtonDiv>
-                    </IonToolbar>
-                </IonHeader>
-                <IonContent fullscreen>
-                    <ForgotPassword email={email} setEmail={setEmail} onForgotPassword={forgotPassword}/>
-                </IonContent>
-            </IonPage>
+        <IonPage>
+            <IonHeader>
+                <IonToolbar>
+                    <BackButtonDiv theme={theme}>
+                        <IonButtons slot="start" onClick={back}>
+                            <IonIcon icon={chevronBack}/>
+                            Back
+                        </IonButtons>
+                    </BackButtonDiv>
+                </IonToolbar>
+            </IonHeader>
+            <IonContent fullscreen>
+                <ForgotPassword email={email} setEmail={setEmail} onForgotPassword={forgotPassword}/>
+            </IonContent>
             <IonAlert
                 isOpen={isError}
                 onDidDismiss={() => openAlert(false)}
@@ -91,7 +89,7 @@ const ForgotPasswordPage: FunctionComponent<ForgotPasswordPageProps> = () => {
                 message={message}
                 buttons={["OK"]}
             />
-        </div>
+        </IonPage>
     );
 };
 
