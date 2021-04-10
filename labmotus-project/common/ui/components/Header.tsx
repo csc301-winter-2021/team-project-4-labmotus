@@ -37,7 +37,7 @@ const Header: FunctionComponent<HeaderProps> = ({onBackClick, onSaveClick, title
     function generateSaveButton() {
         if (onSaveClick) {
             return (
-                <IonButtons slot="start" onClick={onSaveClick}>
+                <IonButtons slot="end" onClick={onSaveClick}>
                     Save
                 </IonButtons>
             )    
