@@ -1,5 +1,5 @@
 import React, {FunctionComponent, useContext, useState} from "react";
-import {IonAlert, IonButtons, IonContent, IonHeader, IonIcon, IonInput, IonPage, IonToolbar} from "@ionic/react";
+import {IonAlert, IonContent, IonHeader, IonInput, IonPage} from "@ionic/react";
 // @ts-ignore
 import styled from "styled-components";
 import {getThemeContext, Theme} from "../../../common/ui/theme/Theme";
@@ -8,9 +8,9 @@ import API from "../api/API";
 import moment, {Moment} from "moment";
 import {Patient} from "../../../common/types/types";
 import {useHistory} from "react-router";
-import {chevronBack} from "ionicons/icons";
 import {getAPIContext} from "../../../common/api/BaseAPI";
 import Button from "../../../common/ui/components/Button";
+import Toolbar from "../../../common/ui/components/Toolbar"
 
 export interface SignupPatientPageProps {
 }
@@ -91,14 +91,7 @@ const SignupPatientPage: FunctionComponent<SignupPatientPageProps> = () => {
     return (
         <IonPage>
             <IonHeader>
-                <IonToolbar>
-                    <BackButtonDiv theme={theme}>
-                        <IonButtons slot="start" onClick={back}>
-                            <IonIcon icon={chevronBack}/>
-                            Back
-                        </IonButtons>
-                    </BackButtonDiv>
-                </IonToolbar>
+                <Toolbar onBackClick={back} />
             </IonHeader>
             <IonContent fullscreen>
                 <SignupPatientPageDiv theme={theme}>
@@ -207,18 +200,6 @@ const SignupPatientPageDiv = styled.div`
   span {
     cursor: pointer;
     color: ${({theme}: { theme: Theme }) => theme.colors.primary};
-  }
-`;
-
-const BackButtonDiv = styled.div`
-  ion-buttons {
-    color: ${({theme}: { theme: Theme }) => theme.colors.primary};
-    cursor: pointer;
-
-    ion-icon {
-      height: 25px;
-      width: 25px;
-    }
   }
 `;
 
