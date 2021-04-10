@@ -1,10 +1,10 @@
 import { FunctionComponent, useContext } from "react";
-import { IonButtons, IonContent, IonHeader, IonIcon, IonPage, IonTitle, IonToolbar } from "@ionic/react";
+import { IonContent, IonPage } from "@ionic/react";
 // @ts-ignore
 import styled from "styled-components";
 import { Theme, getThemeContext } from "../theme/Theme";
 import { useHistory } from "react-router";
-import { chevronBack } from "ionicons/icons";
+import Header from "../components/Header";
 
 export interface TermsOfServicePageProps {
     getTermsOfService: () => JSX.Element
@@ -22,15 +22,7 @@ const TermsOfServicePage: FunctionComponent<TermsOfServicePageProps> = (props: T
     return (
         <TermsOfServicePageDiv theme={theme}>
             <IonPage>
-                <IonHeader>
-                    <IonToolbar>
-                        <IonButtons slot="start" onClick={back}>
-                            <IonIcon icon={chevronBack} />
-                            Back
-                        </IonButtons>
-                        <IonTitle>Terms of Service</IonTitle>
-                    </IonToolbar>
-                </IonHeader>
+                <Header onBackClick={back} title="Terms of Service"/>
                 <IonContent>
                     {props.getTermsOfService()}
                 </IonContent>
@@ -45,14 +37,6 @@ const TermsOfServicePageDiv = styled.div`
     height: 100%;
     .main-padding {
         padding: 5%;
-    }
-    ion-buttons {
-        color: ${({ theme }: { theme: Theme }) => theme.colors.primary};
-        cursor: pointer;
-        ion-icon {
-            height: 25px;
-            width: 25px;
-        }
     }
 `;
 

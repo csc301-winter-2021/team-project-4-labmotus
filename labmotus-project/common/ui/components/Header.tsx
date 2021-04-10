@@ -1,5 +1,6 @@
 import {FunctionComponent, useContext} from "react";
 import {
+    IonHeader,
     IonButtons,
     IonIcon,
     IonTitle,
@@ -11,14 +12,14 @@ import {getThemeContext, Theme} from "../theme/Theme";
 import {chevronBack} from "ionicons/icons";
 
 
-export interface ToolbarProps {
+export interface HeaderProps {
     onBackClick?: () => void;
     onSaveClick?: () => void;
     title?: string;
 }
 
 // For 
-const Toolbar: FunctionComponent<ToolbarProps> = ({onBackClick, onSaveClick, title}) => {
+const Header: FunctionComponent<HeaderProps> = ({onBackClick, onSaveClick, title}) => {
 
     const theme = useContext(getThemeContext());
 
@@ -49,11 +50,13 @@ const Toolbar: FunctionComponent<ToolbarProps> = ({onBackClick, onSaveClick, tit
         }
     }
     return (
-        <ToolbarStyle theme={theme}>
-            {generateBackButton()}
-            {generateSaveButton()}
-            {generateTitle()}
-        </ToolbarStyle>
+        <IonHeader>
+            <ToolbarStyle theme={theme}>
+                {generateBackButton()}
+                {generateSaveButton()}
+                {generateTitle()}
+            </ToolbarStyle>
+        </IonHeader>
     )
 };
 
@@ -69,5 +72,5 @@ const ToolbarStyle = styled(IonToolbar)`
   }
 `;
 
-export default Toolbar;
+export default Header;
 
