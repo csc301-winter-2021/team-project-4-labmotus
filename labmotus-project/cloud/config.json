@@ -3,8 +3,8 @@
   "videoPath": "videos",
   "address": "127.0.0.1",
   "actionAddress": "http://localhost:3000",
-  "patientsTable": "labmotus-patients-dev",
-  "cliniciansTable": "labmotus-clinicians-dev",
+  "patientsTable": "labmotus-patients",
+  "cliniciansTable": "labmotus-clinicians",
   "assessmentsTable": "labmotus-assessments-dev",
   "videoBucket": "labmotus-videos-dev"
 }
