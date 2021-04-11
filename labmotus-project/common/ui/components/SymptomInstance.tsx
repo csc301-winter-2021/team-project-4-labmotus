@@ -1,7 +1,7 @@
-import {FunctionComponent, useState, useEffect, useContext} from "react";
+import {FunctionComponent, useContext, useEffect, useState} from "react";
 // @ts-ignore
 import styled from 'styled-components';
-import {Theme, getThemeContext} from "../theme/Theme";
+import {getThemeContext, Theme} from "../theme/Theme";
 import SymptomLog from "./SymptomLog";
 import {Assessment, Stats} from "../../types";
 import moment, {Moment} from "moment";
@@ -67,7 +67,9 @@ const SymptomInstance: FunctionComponent<SymptomInstanceProps> = ({
         </HeaderDiv>
         <DateChangeDiv theme={theme}>
             <DateDisplay displayFormat="DDD" dayShortNames={Array(7).fill("Select Date")} date={date}
-                         changeDay={changeDay}/>
+                         changeDay={(e) => {
+                             if (e.unix() !== date.unix()) changeDay(e)
+                         }}/>
             <div onClick={toToday}>Go to Today</div>
         </DateChangeDiv>
         <GraphDiv ref={colorLabel}>

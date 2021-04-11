@@ -79,7 +79,7 @@ const Routes: FunctionComponent<RoutesProps> = ({}) => {
     }
 
     return (
-        <BackgroundDiv theme={theme} clear={location.pathname.startsWith("/record")}>
+        <BackgroundDiv theme={theme} clear={location.pathname.includes("record")}>
             <Switch>
                 <Route exact path="/login" render={() => <LoginPage/>}/>
                 <Route exact path="/home/:date?" render={() =>

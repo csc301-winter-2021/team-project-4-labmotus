@@ -35,6 +35,7 @@ const VideoRecordingPage: FunctionComponent<VideoRecordingPageProps> = ({}) => {
     const {id} = useParams<{ id: string }>();
     const history = useHistory();
 
+
     useEffect(() => {
         VideoRecorder.initialize({
             camera: camera % 2 === 0 ? VideoRecorderCamera.FRONT : VideoRecorderCamera.BACK,

@@ -6,8 +6,9 @@ import {useHistory, useLocation} from "react-router";
 import {IonIcon} from "@ionic/react";
 
 export interface NavigationEntry {
-    icon: string;
-    name: string;
+    icon?: string;
+    name?: string;
+    disabled?: boolean;
     navigation: string;
 }
 

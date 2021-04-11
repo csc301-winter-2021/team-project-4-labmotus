@@ -167,6 +167,6 @@ export class BaseAPI {
 
 const APIContext: Context<API> = createContext<API>(null);
 
-export function getAPIContext(): Context<API> {
+export function getAPIContext(): Context<any> {
     return APIContext
 }
