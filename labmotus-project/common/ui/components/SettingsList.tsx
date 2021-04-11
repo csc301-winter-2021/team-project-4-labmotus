@@ -91,7 +91,7 @@ const SettingsListDiv = styled.div`
     padding: 14px;
     outline: none;
     background-color: transparent;
-    color: ${({theme}: { theme: Theme }) => theme.colors.primary};
+    color: ${({theme}: { theme: Theme }) => theme.colors.secondary};
   }
 `;
 

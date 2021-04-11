@@ -1,7 +1,7 @@
 import {FunctionComponent, useContext, useEffect, useState} from "react";
 import {IonSelect, IonSelectOption, IonInput} from "@ionic/react";
 import {Joints} from "../../../common/types/types";
-import API from "../api/API"
+import API from "../api/API";
 import {getAPIContext} from "../../../common/api/BaseAPI";
 
 // @ts-ignore
@@ -32,29 +32,28 @@ export const AddAssessment: FunctionComponent<AddAssessmentProps> = (props: AddA
             () => {
                 // pass
             }
-        )
+        );
     }
 
     function generateCustomFields() {
-        if (customAssessment) return (
-            <div>
-                <IonInput
-                    placeholder="Enter Custom Assessment Name"
-                    onIonChange={e => setCustomType(e.detail.value)}
-                />
-                <IonSelect
-                    placeholder={"Select Custom Assessment Joints"}
-                    onIonChange={(e) => setAssessmentJoints(e.detail.value)}
-                    multiple={true}
-                >
-                    {
-                        allJoints.map((value) => {
-                            return (<IonSelectOption value={value.joint as Joints}>{value.name}</IonSelectOption>)
-                        })
-                    }
-                </IonSelect>
-            </div>
-        )
+        if (customAssessment)
+            return (
+                <div>
+                    <IonInput
+                        placeholder="Enter Custom Assessment Name"
+                        onIonChange={(e) => setCustomType(e.detail.value)}
+                    />
+                    <IonSelect
+                        placeholder={"Select Custom Assessment Joints"}
+                        onIonChange={(e) => setAssessmentJoints(e.detail.value)}
+                        multiple={true}
+                    >
+                        {allJoints.map((value) => {
+                            return <IonSelectOption value={value.joint as Joints}>{value.name}</IonSelectOption>;
+                        })}
+                    </IonSelect>
+                </div>
+            );
         else {
             return;
         }
@@ -73,7 +72,7 @@ export const AddAssessment: FunctionComponent<AddAssessmentProps> = (props: AddA
                     placeholder={"Select Assessment"}
                     onIonChange={(e) => {
                         setAssessmentType(e.detail.value);
-                        setCustomAssessment(e.detail.value === "Custom")
+                        setCustomAssessment(e.detail.value === "Custom");
                     }}
                 >
                     <IonSelectOption value="Squats">Squats</IonSelectOption>
@@ -85,15 +84,20 @@ export const AddAssessment: FunctionComponent<AddAssessmentProps> = (props: AddA
                 {/* todo: at least 1 joint. hide select joints option if not custom. patient assessments. */}
                 {/* figure out styled error popover. delete assessment. save/delete assessment type (impl later?) */}
                 {/* clean up id value stuff to be the correct thing */}
-                <Button label="Add Assessment" onClick={() => {
-                    if (customAssessment) {
-                        props.addAssessment(customType, assessmentJoints)
-                    } else {
-                        props.addAssessment(assessmentType, assessmentJoints)
-                    }
-                }}
-                />
-                <Button label="Cancel" onClick={() => props.setShowAddAssessment(false)} type="primary"/>
+                <div className="buttons">
+                    <Button
+                        label="Add Assessment"
+                        onClick={() => {
+                            if (customAssessment) {
+                                props.addAssessment(customType, assessmentJoints);
+                            } else {
+                                props.addAssessment(assessmentType, assessmentJoints);
+                            }
+                        }}
+                        type="primary full"
+                    />
+                    <Button label="Cancel" onClick={() => props.setShowAddAssessment(false)} type="full"/>
+                </div>
             </div>
         </AddAssessmentDiv>
     );
@@ -114,15 +118,14 @@ const AddAssessmentDiv = styled.div`
     box-sizing: border-box;
   }
 
-  ion-select {
+  ion-select, ion-input {
     text-align: center;
     margin: 10px 0;
     background-color: ${({theme}: { theme: Theme }) => theme.colors.light};
   }
 
-  .assessment {
-    background-color: ${({theme}: { theme: Theme }) => theme.colors.primary};
-    color: white;
+  .buttons > * {
+    margin-top: 10px;
   }
 `;
 

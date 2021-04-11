@@ -141,6 +141,7 @@ const DateChangeDiv = styled.div`
 
   div {
     margin-left: 10px;
+    cursor: pointer;
   }
 `;
 
