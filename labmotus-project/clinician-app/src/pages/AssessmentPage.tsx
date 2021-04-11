@@ -2,7 +2,7 @@ import {FunctionComponent, useContext, useEffect, useState} from "react";
 // @ts-ignore
 import styled from "styled-components";
 import {getThemeContext, Theme} from "../../../common/ui/theme/Theme";
-import {IonAlert, IonCard, IonCol, IonHeader, IonIcon, IonItem, IonModal, IonPopover, IonSpinner, IonTextarea, IonToolbar} from "@ionic/react";
+import {IonAlert, IonCard, IonIcon, IonModal, IonPopover, IonSpinner, IonTextarea} from "@ionic/react";
 import {useHistory, useParams} from "react-router";
 import moment from "moment";
 import {Assessment, AssessmentState, Joints} from "../../../common/types/types";

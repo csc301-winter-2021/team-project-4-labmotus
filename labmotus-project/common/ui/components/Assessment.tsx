@@ -55,7 +55,7 @@ const AssessmentComponent: FunctionComponent<AssessmentComponentProps> = (props:
                 {props.value.state !== AssessmentState.MISSING && props.value.stats ?
                     props.value.stats.map((stat, i) => (
                         <StatDiv theme={theme} key={i}>
-                            {`${stat.joint} ${stat.name}: ${stat.currValue}${stat.unit}\t Goal: ${stat.goalValue}${stat.unit}`}
+                            {`${stat.joint} ${stat.name}: ${stat.currValue}${stat.unit}\t Average Range of Motion: ${stat.goalValue}${stat.unit}`}
                         </StatDiv>
                     )) : null
                 }
@@ -70,7 +70,6 @@ const AssessmentComponent: FunctionComponent<AssessmentComponentProps> = (props:
                     Record
                 </RecordButton> : null
             }
-            {/* TODO: can clinician record? */}
             {props.value.videoUrl !== undefined ?
                 <VideoButton theme={theme} onClick={() => onWatch()}>
                     <IonIcon icon={film}/>
