@@ -2,7 +2,7 @@ import React, {FunctionComponent, useContext, useEffect, useState} from "react";
 // @ts-ignore
 import styled from 'styled-components';
 import {getThemeContext, Theme} from "../../../common/ui/theme/Theme";
-import {IonAlert, IonCard, IonIcon, IonModal, IonPopover, IonSpinner, IonTextarea} from "@ionic/react";
+import {IonAlert, IonCard, IonCol, IonHeader, IonIcon, IonItem, IonModal, IonPopover, IonSpinner, IonTextarea, IonToolbar} from "@ionic/react";
 import {useHistory, useParams} from "react-router";
 import moment from "moment";
 import {Assessment, AssessmentState, Joints} from "../../../common/types/types";
@@ -131,14 +131,19 @@ const AssessmentPage: FunctionComponent<AssessmentPageProps> = (props: Assessmen
                 <Scrollbar>
                     {assessments.map((value) => {
                         return (
-                            <IonCard>
+                            <Card theme={theme}>
                                 <AssessmentComponent value={value} day={day} setVideo={getVideo}> </AssessmentComponent>
-                                <Textarea
-                                    value={value.notes}
-                                    placeholder="Clinician Notes:"
-                                    onIonChange={e => console.log(e.detail.value)}
-                                > </Textarea>
-                            </IonCard>
+                                <ClinicianNotes>
+                                    <Textarea
+                                        value={value.notes}
+                                        placeholder="Clinician Notes:"
+                                        // onIonChange={e => console.log(e.detail.value)}
+                                        theme={theme}
+                                    >
+                                    </Textarea> 
+                                    <Button label="Save" type="primary"/>
+                                </ClinicianNotes>
+                            </Card>
                         )
                     })}
                 </Scrollbar>
@@ -155,7 +160,7 @@ const AssessmentPage: FunctionComponent<AssessmentPageProps> = (props: Assessmen
                         Assessment: {day.format(theme.dateFormat)}
                     </HeaderText>
                 </BackButton>
-            </HeaderDiv>
+            </HeaderDiv>            
             <BodyDiv theme={theme}>
                 {generateBody()}
             </BodyDiv>
@@ -197,6 +202,7 @@ const AssessmentPageDiv = styled.div`
   padding: 3%;
   display: flex;
   flex-direction: column;
+  margin-bottom: 20px;
 
   ion-content {
     flex: 1;
@@ -210,8 +216,20 @@ const PopOver = styled(IonPopover)`
   }
 `;
 
+const ClinicianNotes = styled.div`
+  align: right;
+  margin:10px;
+  Button {
+    width:10%;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    float: right;
+  }
+`;
+
 const Textarea = styled(IonTextarea)`
-  margin-left: 28px;
+  background: ${({theme}: { theme: Theme }) => theme.colors.light};
+  padding-left: 10px;
 `
 
 const BackButton = styled.div`
@@ -259,6 +277,12 @@ const BodyDiv = styled.div`
   .ScrollbarsCustom-Thumb {
     background-color: ${({theme}: { theme: Theme }) => theme.colors.primary} !important;
   }
+`;
+
+const Card = styled(IonCard)`
+    box-shadow: none;
+    border-radius: 0px;    
+    border: 1px solid ${({theme}: { theme: Theme }) => theme.colors.shade};
 `;
 
 const VideoDiv = styled.div`

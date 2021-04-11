@@ -66,8 +66,10 @@ const SymptomInstance: FunctionComponent<SymptomInstanceProps> = ({
             {date?.format('MMMM Do YYYY')}
         </HeaderDiv>
         <DateChangeDiv theme={theme}>
-            <DateDisplay displayFormat="DDD" dayShortNames={Array(7).fill("Select Date")} date={date}
-                         changeDay={changeDay}/>
+            <div className="date-display" theme={theme}>
+                <DateDisplay displayFormat="DDD" dayShortNames={Array(7).fill("Select Date")} date={date}
+                            changeDay={changeDay}/>
+            </div>
             <div onClick={toToday}>Go to Today</div>
         </DateChangeDiv>
         <GraphDiv ref={colorLabel}>
@@ -138,9 +140,9 @@ const DateChangeDiv = styled.div`
   color: ${({theme}: { theme: Theme }) => theme.colors.secondary};
   text-align: center;
   margin-bottom: 2%;
-
-  div {
-    margin-left: 10px;
+  cursor: pointer;
+  .date-display {
+    margin-left: -14px;
   }
 `;
 
