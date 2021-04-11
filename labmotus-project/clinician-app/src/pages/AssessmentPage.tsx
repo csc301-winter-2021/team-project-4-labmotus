@@ -161,19 +161,20 @@ const AssessmentPage: FunctionComponent<AssessmentPageProps> = (props: Assessmen
                 <Scrollbar>
                     {assessments.map((value) => {
                         return (
-                            <IonCard>
-                                <AssessmentComponent value={value} day={day} setVideo={getVideo}>
-                                    {" "}
-                                </AssessmentComponent>
-                                <Textarea
-                                    value={value.notes}
-                                    placeholder="Clinician Notes:"
-                                    onIonChange={(e) => console.log(e.detail.value)}
-                                >
-                                    {" "}
-                                </Textarea>
-                            </IonCard>
-                        );
+                            <Card theme={theme}>
+                                <AssessmentComponent value={value} day={day} setVideo={getVideo}> </AssessmentComponent>
+                                <ClinicianNotes>
+                                    <Textarea
+                                        value={value.notes}
+                                        placeholder="Clinician Notes:"
+                                        // onIonChange={e => console.log(e.detail.value)}
+                                        theme={theme}
+                                    >
+                                    </Textarea> 
+                                    <Button label="Save" type="round primary"/>
+                                </ClinicianNotes>
+                            </Card>
+                        )
                     })}
                 </Scrollbar>
             );
@@ -190,7 +191,7 @@ const AssessmentPage: FunctionComponent<AssessmentPageProps> = (props: Assessmen
             </HeaderDiv>
             <BodyDiv theme={theme}>{generateBody()}</BodyDiv>
             <div className="main-padding">
-                <Button label="Add Assessment" onClick={() => setShowAddAssessment(true)} type="primary round"/>
+                <Button label="Add Assessment" onClick={() => setShowAddAssessment(true)} type="primary"/>
                 <IonModal isOpen={showAddAssessment} onDidDismiss={() => setShowAddAssessment(false)}>
                     <AddAssessment addAssessment={createAssessment} setShowAddAssessment={setShowAddAssessment}/>
                     <IonAlert
@@ -223,6 +224,7 @@ const AssessmentPageDiv = styled.div`
   padding: 3%;
   display: flex;
   flex-direction: column;
+  margin-bottom: 20px;
 
   ion-content {
     flex: 1;
@@ -236,8 +238,21 @@ const PopOver = styled(IonPopover)`
   }
 `;
 
+const ClinicianNotes = styled.div`
+  align: right;
+  margin: 10px;
+  Button {
+    width:70px;
+    padding:10px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    float: right;
+  }
+`;
+
 const Textarea = styled(IonTextarea)`
-  margin-left: 28px;
+  height: 100px;
+  background: ${({theme}: { theme: Theme }) => theme.colors.light};
 `;
 
 const BackButton = styled.div`
@@ -285,6 +300,12 @@ const BodyDiv = styled.div`
   .ScrollbarsCustom-Thumb {
     background-color: ${({theme}: { theme: Theme }) => theme.colors.primary} !important;
   }
+`;
+
+const Card = styled(IonCard)`
+    box-shadow: none;
+    border-radius: 0px;    
+    border: 1px solid ${({theme}: { theme: Theme }) => theme.colors.shade};
 `;
 
 const VideoDiv = styled.div`
