@@ -54,9 +54,17 @@ const AssessmentComponent: FunctionComponent<AssessmentComponentProps> = (props:
             <Accordion label={props.value.name} expanded={expanded} onClick={() => onClick()}>
                 {props.value.state !== AssessmentState.MISSING && props.value.stats ?
                     props.value.stats.map((stat, i) => (
-                        <StatDiv theme={theme} key={i}>
-                            {`${stat.joint} ${stat.name}: ${stat.currValue}${stat.unit}\t Average Range of Motion: ${stat.goalValue}${stat.unit}`}
+                        <StatDiv>
+                            <CurrStatDiv theme={theme}>
+                                <span class="statName">{`${stat.joint} ${stat.name}:`}</span>
+                                <span>{`${stat.currValue}${stat.unit}`}</span>
+                            </CurrStatDiv>
+
+                            <GoalStatDiv theme={theme}>
+                                <span>{`Average Range of Motion: ${stat.goalValue}${stat.unit}`}</span>
+                            </GoalStatDiv>
                         </StatDiv>
+
                     )) : null
                 }
                 {
@@ -124,14 +132,28 @@ const VideoButton = styled.div`
     ion-icon {
         margin-right: 3px;
     }
-    cursor: pointer;
+
+  cursor: pointer;
 `;
 
 const StatDiv = styled.div`
-    margin-left: 20px;
-    font-size: ${({theme}: { theme: Theme }) => theme.subheaderFontSize};
-    font-family: ${({theme}: { theme: Theme }) => theme.subheaderFontFamily};
-    color: ${({theme}: { theme: Theme }) => theme.colors.contrast};
+  display: grid;
+  grid-template-columns: 1fr 1fr auto;
+  margin-left: 20px;
+  font-size: ${({theme}: { theme: Theme }) => theme.subheaderFontSize};
+  font-family: ${({theme}: { theme: Theme }) => theme.subheaderFontFamily};
 `;
+
+const CurrStatDiv = styled.div`
+  color: ${({theme}: { theme: Theme }) => theme.colors.contrast};
+
+  .statName {
+    font-weight: 400;
+  }
+`
+
+const GoalStatDiv = styled.div`
+  color: ${({theme}: { theme: Theme }) => theme.colors.contrast};
+`
 
 export default AssessmentComponent;
