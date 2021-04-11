@@ -56,12 +56,12 @@ const AssessmentComponent: FunctionComponent<AssessmentComponentProps> = (props:
                     props.value.stats.map((stat, i) => (
                         <StatDiv>
                             <CurrStatDiv theme={theme}>
-                                <span class="statName">{`${stat.joint} ${stat.name}:`}</span>
+                                <span class="statName"><b>{`${stat.joint} ${stat.name}: `}</b></span>
                                 <span>{`${stat.currValue}${stat.unit}`}</span>
                             </CurrStatDiv>
 
                             <GoalStatDiv theme={theme}>
-                                <span>{`Average Range of Motion: ${stat.goalValue}${stat.unit}`}</span>
+                                <span><b>{`Average Range of Motion: `}</b>{`${stat.goalValue}${stat.unit}`}</span>
                             </GoalStatDiv>
                         </StatDiv>
 
