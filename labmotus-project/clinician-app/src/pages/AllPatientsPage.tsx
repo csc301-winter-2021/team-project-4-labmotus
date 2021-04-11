@@ -77,11 +77,12 @@ const AllPatientsPageDiv = styled.div`
 
 const PatientsViewDiv = styled.div`
   overflow: hidden;
-  text-align: center;
 
-  width: 80vw;
-  margin-top: 5vh;
-  margin-left: 10vw;
+  @media only screen and (min-width: 768px) {
+    width: 80vw;
+    margin-top: 5vh;
+    margin-left: 10vw;
+  }
 `;
 
 export default AllPatientsPage;

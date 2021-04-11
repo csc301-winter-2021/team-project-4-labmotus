@@ -26,11 +26,21 @@ const Button: FunctionComponent<ButtonProps> = ({label, onClick: onClickCallback
 };
 
 const ButtonStyle = styled.button`
-  font-size: 0.95em;
-  padding: 14px;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  
+  padding: 12px;
   outline: none;
   width: 100%;
   max-width: 490px;
+  font-size: 0.85em;
+
+  @media only screen and (min-width: 768px) {
+    font-size: 1em;
+  }
   
   &.primary {
     color: white;

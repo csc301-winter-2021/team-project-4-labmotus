@@ -1,16 +1,9 @@
 import {FunctionComponent, useContext} from "react";
-import {
-    IonHeader,
-    IonButtons,
-    IonIcon,
-    IonTitle,
-    IonToolbar
-} from "@ionic/react";
+import {IonHeader, IonButtons, IonIcon, IonTitle, IonToolbar} from "@ionic/react";
 // @ts-ignore
-import styled from 'styled-components';
+import styled from "styled-components";
 import {getThemeContext, Theme} from "../theme/Theme";
 import {chevronBack} from "ionicons/icons";
-
 
 export interface HeaderProps {
     onBackClick?: () => void;
@@ -18,9 +11,8 @@ export interface HeaderProps {
     title?: string;
 }
 
-// For 
+// For
 const Header: FunctionComponent<HeaderProps> = ({onBackClick, onSaveClick, title}) => {
-
     const theme = useContext(getThemeContext());
 
     function generateBackButton() {
@@ -30,25 +22,28 @@ const Header: FunctionComponent<HeaderProps> = ({onBackClick, onSaveClick, title
                     <IonIcon icon={chevronBack}/>
                     Back
                 </IonButtons>
-            )    
+            );
         }
         return;
     }
+
     function generateSaveButton() {
         if (onSaveClick) {
             return (
                 <IonButtons slot="end" onClick={onSaveClick}>
                     Save
                 </IonButtons>
-            )    
+            );
         }
         return;
     }
+
     function generateTitle() {
         if (title) {
-            return (<IonTitle >{title}</IonTitle>)
+            return <IonTitle>{title}</IonTitle>;
         }
     }
+
     return (
         <IonHeader>
             <ToolbarStyle theme={theme}>
@@ -57,12 +52,12 @@ const Header: FunctionComponent<HeaderProps> = ({onBackClick, onSaveClick, title
                 {generateTitle()}
             </ToolbarStyle>
         </IonHeader>
-    )
+    );
 };
 
 const ToolbarStyle = styled(IonToolbar)`
   ion-buttons {
-    color: ${({theme}: { theme: Theme }) => theme.colors.primary};
+    color: ${({theme}: { theme: Theme }) => theme.colors.secondary};
     cursor: pointer;
 
     ion-icon {
@@ -73,4 +68,3 @@ const ToolbarStyle = styled(IonToolbar)`
 `;
 
 export default Header;
-
