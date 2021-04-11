@@ -2,9 +2,7 @@ import firebase from 'firebase/app';
 import "firebase/auth"
 import {Assessment, Patient} from "../types";
 import moment, {Moment} from "moment";
-import API from "../../patient-app/src/api/API";
 import {Context, createContext} from "react";
-import API from "../../clinician-app/src/api/API";
 
 export interface FirebaseConfig {
     "apiKey": string;
@@ -165,7 +163,7 @@ export class BaseAPI {
     }
 }
 
-const APIContext: Context<API> = createContext<API>(null);
+const APIContext: Context<any> = createContext<any>(null);
 
 export function getAPIContext(): Context<any> {
     return APIContext
