@@ -105,10 +105,8 @@ const SignupPatientPage: FunctionComponent<SignupPatientPageProps> = () => {
                                     value={name}
                                     onIonChange={(e) => setName(e.detail.value!)}
                                 />
-                                <div>
-                                    <span>Birthday:</span>
-                                    <DateDisplay date={birthday} changeDay={setBirthday} displayFormat={"YYYY-MM-DD"}/>
-                                </div>
+                                Birthday:
+                                <DateDisplay date={birthday} changeDay={setBirthday} displayFormat={"YYYY-MM-DD"}/>
                                 <IonInput
                                     class="input"
                                     placeholder="Email"
@@ -189,10 +187,6 @@ const SignupPatientPageDiv = styled.div`
 
   h3 {
     margin-top: 0;
-  }
-
-  .footer {
-    margin-top: 65vh;
   }
 
   span {

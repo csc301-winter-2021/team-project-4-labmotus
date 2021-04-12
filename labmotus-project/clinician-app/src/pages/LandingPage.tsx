@@ -12,7 +12,7 @@ const LandingPage: FunctionComponent<LandingPageProps> = () => {
     const history = useHistory();
 
     function downloadAPK() {
-        window.open("https://labmotus-misc.s3.amazonaws.com/patient-app.apk");
+        window.open("https://labmotus-misc.s3.amazonaws.com/patient-app-dev.apk");
     }
 
     function clinicianPortal() {
@@ -74,10 +74,6 @@ const LandingPageDiv = styled.div`
   h1 {
     font-weight: bold;
     margin-top: 15vh;
-  }
-
-  .footer {
-    margin-top: 65vh;
   }
 `;
 

@@ -38,7 +38,7 @@ const AssessmentPage: FunctionComponent<AssessmentPageProps> = (props: Assessmen
             console.error(reason);
             setAssessments([]);
         });
-    }, [day]);
+    }, [params.date]);
 
     function getAssessments(week: Moment): Promise<Assessment[]> {
         return UseAPI.getAssessments('-1', week);

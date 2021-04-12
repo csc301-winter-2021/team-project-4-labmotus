@@ -1,7 +1,7 @@
 import React, {FunctionComponent, useEffect, useState} from 'react';
 import {IonDatetime} from "@ionic/react";
 import moment, {Moment} from "moment";
-
+import styled from "styled-components";
 export interface DateDisplayProps {
     date: Moment;
     displayFormat: string;
@@ -15,11 +15,10 @@ export const DateDisplay: FunctionComponent<DateDisplayProps> = ({date, displayF
         setSelectedDate(date.format("YYYY-MM-DD"))
     }, [date]);
     return (
-        <IonDatetime
+        <Datetime
             displayFormat={displayFormat}
             pickerFormat="MMMM DD YYYY"
             dayShortNames={dayShortNames}
-
             value={selectedDate}
             onIonChange={(e) => {
                 setSelectedDate(e.detail.value!);
@@ -31,3 +30,7 @@ export const DateDisplay: FunctionComponent<DateDisplayProps> = ({date, displayF
         />
     );
 };
+
+const Datetime = styled(IonDatetime)`
+    margin-left: -14px;
+`;

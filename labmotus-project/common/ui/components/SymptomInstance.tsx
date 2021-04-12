@@ -143,9 +143,6 @@ const DateChangeDiv = styled.div`
   text-align: center;
   margin-bottom: 2%;
   cursor: pointer;
-  .date-display {
-    margin-left: -14px;
-  }
 `;
 
 const GraphDiv = styled.div`

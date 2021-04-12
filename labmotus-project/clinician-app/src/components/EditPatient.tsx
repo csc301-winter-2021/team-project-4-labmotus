@@ -47,10 +47,6 @@ export const EditPatient: FunctionComponent<EditPatientProps> = (props: EditPati
                     value={editName}
                     onIonChange={(e) => setEditName(e.detail.value!)}
                 />
-                <div>
-                    <span>Birthday:</span>
-                    <DateDisplay date={editBirthday} changeDay={setEditBirthday} displayFormat={"YYYY-MM-DD"}/>
-                </div>
                 <IonInput
                     type="email"
                     clearInput={true}
@@ -65,6 +61,8 @@ export const EditPatient: FunctionComponent<EditPatientProps> = (props: EditPati
                     maxlength={10}
                     onIonChange={(e) => setEditPhone(e.detail.value!)}
                 />
+                Birthday:
+                <DateDisplay date={editBirthday} changeDay={setEditBirthday} displayFormat={"YYYY-MM-DD"}/>
                 <div className="buttons">
                     <Button label="Edit Patient" onClick={editPatient} type="primary full"/>
                     <Button label="Cancel" onClick={() => props.setEditPatient(false)} type="full"/>
