@@ -170,7 +170,12 @@ const PatientProfilePageDiv = styled.div`
     }
   }
 
-  @media only screen and (max-width: 600px) {
+  Button {
+    max-width: 170px;
+    float: right;
+  }
+
+  @media only screen and (max-width: 768px) {
     .profile-info {
       flex-direction: column;
     }

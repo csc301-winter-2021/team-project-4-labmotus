@@ -20,14 +20,14 @@ import {chevronBack} from "ionicons/icons";
 export interface AssessmentPageProps {
 }
 
-const AssessmentPage: FunctionComponent<AssessmentPageProps> = (props: AssessmentPageProps) => {
+const AssessmentPage: FunctionComponent<AssessmentPageProps> = () => {
     const theme: Theme = useContext(getThemeContext());
     const history = useHistory();
 
     const [showAddAssessment, setShowAddAssessment] = useState(false);
     const UseAPI: API = useContext(getAPIContext());
     const params: { patientId: string; date?: string } = useParams();
-    const [isalert, openAlert] = useState<boolean>(false);
+    const [isAlert, openAlert] = useState<boolean>(false);
     const [header, setHeader] = useState<string>(null);
     const [message, setMessage] = useState<string>(null);
     const [video, setVideo] = useState<string>(null);
@@ -63,7 +63,7 @@ const AssessmentPage: FunctionComponent<AssessmentPageProps> = (props: Assessmen
     function createAssessment(assessmentType: string, joints: Joints[]) {
         if (!assessmentType) {
             setHeader("Invalid Assessment Type");
-            setMessage("Please fill out all the fields!")
+            setMessage("Please fill out all the fields!");
             openAlert(true);
             return;
         }
@@ -148,7 +148,9 @@ const AssessmentPage: FunctionComponent<AssessmentPageProps> = (props: Assessmen
         }
         setShowAddAssessment(false);
         setHeader("Assessment Added!");
+        setMessage("");
         openAlert(true);
+        return;
     }
 
     function generateBody() {
@@ -160,26 +162,30 @@ const AssessmentPage: FunctionComponent<AssessmentPageProps> = (props: Assessmen
             return (
                 <Scrollbar>
                     {assessments.map((value) => {
-                        return (
-                            <Card theme={theme}>
-                                <AssessmentComponent value={value} day={day} setVideo={getVideo}> </AssessmentComponent>
-                                <ClinicianNotes>
-                                    <Textarea
-                                        value={value.notes}
-                                        placeholder="Clinician Notes:"
-                                        // onIonChange={e => console.log(e.detail.value)}
-                                        theme={theme}
-                                    >
-                                    </Textarea> 
-                                    <Button label="Save" type="round primary"/>
-                                </ClinicianNotes>
-                            </Card>
-                        )
+                        return <AssessmentCard value={value}/>;
                     })}
                 </Scrollbar>
             );
         }
     }
+
+    const AssessmentCard = ({value}: { value: Assessment }) => {
+        const [notes, setNotes] = useState(value.notes);
+        return (
+            <Card theme={theme}>
+                <AssessmentComponent value={value} day={day} setVideo={getVideo}/>
+                <ClinicianNotes theme={theme}>
+                    <IonTextarea
+                        class="input"
+                        placeholder="Clinician Notes"
+                        value={notes}
+                        onIonChange={(e) => setNotes(e.detail.value!)}
+                    />
+                    <Button label="Save Notes" type="round primary"/>
+                </ClinicianNotes>
+            </Card>
+        );
+    };
 
     return (
         <AssessmentPageDiv>
@@ -190,19 +196,17 @@ const AssessmentPage: FunctionComponent<AssessmentPageProps> = (props: Assessmen
                 </BackButton>
             </HeaderDiv>
             <BodyDiv theme={theme}>{generateBody()}</BodyDiv>
-            <div className="main-padding">
-                <Button label="Add Assessment" onClick={() => setShowAddAssessment(true)} type="primary"/>
-                <IonModal isOpen={showAddAssessment} onDidDismiss={() => setShowAddAssessment(false)}>
-                    <AddAssessment addAssessment={createAssessment} setShowAddAssessment={setShowAddAssessment}/>
-                    <IonAlert
-                        isOpen={isalert}
-                        onDidDismiss={() => openAlert(false)}
-                        header={header}
-                        message={message}
-                        buttons={["OK"]}
-                    />
-                </IonModal>
-            </div>
+            <Button label="Add Assessment" onClick={() => setShowAddAssessment(true)} type="primary round"/>
+            <IonModal isOpen={showAddAssessment} onDidDismiss={() => setShowAddAssessment(false)}>
+                <AddAssessment addAssessment={createAssessment} setShowAddAssessment={setShowAddAssessment}/>
+                <IonAlert
+                    isOpen={isAlert}
+                    onDidDismiss={() => openAlert(false)}
+                    header={header}
+                    message={message}
+                    buttons={["OK"]}
+                />
+            </IonModal>
 
             <PopOver
                 // cssClass={PopOver.styledComponentId}
@@ -229,6 +233,12 @@ const AssessmentPageDiv = styled.div`
   ion-content {
     flex: 1;
   }
+
+  Button {
+    margin-top: 10px;
+    max-width: 200px;
+    align-self: center;
+  }
 `;
 
 const PopOver = styled(IonPopover)`
@@ -239,20 +249,20 @@ const PopOver = styled(IonPopover)`
 `;
 
 const ClinicianNotes = styled.div`
-  align: right;
   margin: 10px;
+
   Button {
-    width:70px;
-    padding:10px;
+    width: 100px;
+    padding: 10px;
     margin-top: 5px;
     margin-bottom: 10px;
     float: right;
   }
-`;
 
-const Textarea = styled(IonTextarea)`
-  height: 100px;
-  background: ${({theme}: { theme: Theme }) => theme.colors.light};
+  ion-textarea {
+    height: 100px;
+    background: ${({theme}: { theme: Theme }) => theme.colors.light};
+  }
 `;
 
 const BackButton = styled.div`
@@ -303,9 +313,9 @@ const BodyDiv = styled.div`
 `;
 
 const Card = styled(IonCard)`
-    box-shadow: none;
-    border-radius: 0px;    
-    border: 1px solid ${({theme}: { theme: Theme }) => theme.colors.shade};
+  box-shadow: none;
+  border-radius: 0;
+  border: 1px solid ${({theme}: { theme: Theme }) => theme.colors.shade};
 `;
 
 const VideoDiv = styled.div`
