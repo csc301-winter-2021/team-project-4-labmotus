@@ -296,7 +296,7 @@ class Database {
             id: undefined,
             patientId: assessment.patientId,
             name: assessment.name,
-            date: moment().toISOString(),
+            date: assessment.date,
             state: AssessmentState.MISSING,
             joints: assessment.joints,
             notes: ""

@@ -43,7 +43,6 @@ const AssessmentPage: FunctionComponent<AssessmentPageProps> = () => {
                 setAssessments(tAssessments);
             })
             .catch((reason) => {
-                console.error(reason);
                 setAssessments([]);
             });
     }, [date]);
@@ -73,7 +72,7 @@ const AssessmentPage: FunctionComponent<AssessmentPageProps> = () => {
                 id: "",
                 patientId: params.patientId,
                 name: assessmentType,
-                date: params.date ? moment(params.date, "YYYY-MM-DD") : moment(),
+                date: day,
                 state: AssessmentState.MISSING,
                 joints: [
                     Joints.Hip_TrunkL,
@@ -95,7 +94,7 @@ const AssessmentPage: FunctionComponent<AssessmentPageProps> = () => {
                 id: "",
                 patientId: params.patientId,
                 name: assessmentType,
-                date: params.date ? moment(params.date, "YYYY-MM-DD") : moment(),
+                date: day,
                 state: AssessmentState.MISSING,
                 joints: [
                     Joints.Hip_TrunkL,
@@ -117,7 +116,7 @@ const AssessmentPage: FunctionComponent<AssessmentPageProps> = () => {
                 id: "",
                 patientId: params.patientId,
                 name: assessmentType,
-                date: params.date ? moment(params.date, "YYYY-MM-DD") : moment(),
+                date: day,
                 state: AssessmentState.MISSING,
                 joints: [
                     Joints.Hip_TrunkL,
@@ -139,7 +138,7 @@ const AssessmentPage: FunctionComponent<AssessmentPageProps> = () => {
                 id: "",
                 patientId: params.patientId,
                 name: assessmentType,
-                date: params.date ? moment(params.date, "YYYY-MM-DD") : moment(),
+                date: day,
                 state: AssessmentState.MISSING,
                 joints: joints,
                 notes: "",
@@ -169,6 +168,11 @@ const AssessmentPage: FunctionComponent<AssessmentPageProps> = () => {
         }
     }
 
+    function saveNotes(assessment: Assessment, notes: string) {
+        assessment.notes = notes;
+        UseAPI.uploadNotes(assessment);
+    }
+
     const AssessmentCard = ({value}: { value: Assessment }) => {
         const [notes, setNotes] = useState(value.notes);
         return (
@@ -181,7 +185,7 @@ const AssessmentPage: FunctionComponent<AssessmentPageProps> = () => {
                         value={notes}
                         onIonChange={(e) => setNotes(e.detail.value!)}
                     />
-                    <Button label="Save Notes" type="round primary"/>
+                    <Button label="Save Notes" onClick={saveNotes(value, notes)} type="round primary"/>
                 </ClinicianNotes>
             </Card>
         );
