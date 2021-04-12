@@ -200,7 +200,7 @@ export default async function (server: fastify.FastifyInstance & { database: Dat
                     return (
                         {
                             joint: key,
-                            name: JOINTS[key].joint + ", " + JOINTS[key].movement
+                            name: JOINTS[key].joint + " " + JOINTS[key].movement
                         }
                     )
                 })

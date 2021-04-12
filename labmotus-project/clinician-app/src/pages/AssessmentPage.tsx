@@ -32,20 +32,18 @@ const AssessmentPage: FunctionComponent<AssessmentPageProps> = () => {
     const [message, setMessage] = useState<string>(null);
     const [video, setVideo] = useState<string>(null);
     const [assessments, setAssessments] = useState<Assessment[]>(null);
-    const {date}: { date: string } = useParams();
-    const day = date ? moment(date, "YYYY-MM-DD") : moment();
+    const day = params.date ? moment(params.date, "YYYY-MM-DD") : moment().startOf('day');
 
     useEffect(() => {
-        setAssessments(null);
         getAssessments(day)
             .then((value) => {
                 const tAssessments = value.filter((ass) => ass.date.format("YYYY-MM-DD") === day.format("YYYY-MM-DD"));
                 setAssessments(tAssessments);
             })
-            .catch((reason) => {
+            .catch(() => {
                 setAssessments([]);
             });
-    }, [date]);
+    }, [day]);
 
     function getAssessments(week: Moment): Promise<Assessment[]> {
         return UseAPI.getAssessments(params.patientId, week);

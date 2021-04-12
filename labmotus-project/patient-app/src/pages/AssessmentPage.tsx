@@ -24,22 +24,21 @@ const AssessmentPage: FunctionComponent<AssessmentPageProps> = (props: Assessmen
     const history = useHistory();
 
     const UseAPI: API = useContext(getAPIContext());
-    const params: { patientId: string, date?: string} = useParams();
+    const params: {date?: string} = useParams();
     const [video, setVideo] = useState<string>(null);
     const [assessments, setAssessments] = useState<Assessment[]>(null);
-    const {date}: { date: string } = useParams();
-    const day = date ? moment(date, 'YYYY-MM-DD') : moment();
+    const day = params.date ? moment(params.date, 'YYYY-MM-DD') : moment().startOf('day');
 
     useEffect(() => {
-        setAssessments(null);
         getAssessments(day).then(value => {
             const tAssessments = value.filter(ass => ass.date.format('YYYY-MM-DD') === day.format('YYYY-MM-DD'));
+            console.log(tAssessments[0])
             setAssessments(tAssessments);
         }).catch(reason => {
             console.error(reason);
             setAssessments([]);
         });
-    }, [date]);
+    }, [day]);
 
     function getAssessments(week: Moment): Promise<Assessment[]> {
         return UseAPI.getAssessments('-1', week);
@@ -59,10 +58,12 @@ const AssessmentPage: FunctionComponent<AssessmentPageProps> = (props: Assessmen
                 <Scrollbar>
                     {assessments.map((value) => {
                         return (
-                            <IonCard>
-                                <AssessmentComponent value={value} day={day} setVideo={setVideo}> </AssessmentComponent>
-                                Clinician Notes: {value.notes}
-                            </IonCard>
+                            <Card theme={theme}>
+                                <AssessmentComponent value={value} day={day} setVideo={setVideo}/>
+                                <ClinicianNotes>
+                                    Clinician Notes: {value.notes}
+                                </ClinicianNotes>
+                            </Card>
                         )
                     })}
                 </Scrollbar>
@@ -165,5 +166,17 @@ const VideoDiv = styled.div`
     width: 90vw;
     height: 90vh;
 `;
+
+const Card = styled(IonCard)`
+  box-shadow: none;
+  border-radius: 0;
+  border: 1px solid ${({theme}: { theme: Theme }) => theme.colors.shade};
+`;
+
+const ClinicianNotes = styled.div`
+    margin: 10px;
+`;
+
+
 
 export default AssessmentPage;
