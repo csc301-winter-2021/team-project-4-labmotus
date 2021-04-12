@@ -1,9 +1,10 @@
 // @ts-ignore
-import {FunctionComponent} from "react";
+import {FunctionComponent, useContext} from "react";
 // @ts-ignore
 import {IonInput} from "@ionic/react";
 // @ts-ignore
 import styled from "styled-components";
+import {getThemeContext, Theme} from "../theme/Theme";
 import Button from "./Button";
 import CenterWrapper from "./CenterWrapper";
 
@@ -18,8 +19,10 @@ export interface LoginFormProps {
 
 export const LoginForm: FunctionComponent<LoginFormProps> = (props: LoginFormProps) => {
 
+    const theme = useContext(getThemeContext());
+
     return (
-        <LoginFormDiv>
+        <LoginFormDiv theme={theme}>
             <CenterWrapper>
                 <div className="form">
                     <IonInput
@@ -50,6 +53,7 @@ export const LoginForm: FunctionComponent<LoginFormProps> = (props: LoginFormPro
 const LoginFormDiv = styled.div`
   height: 100%;
   width: 100%;
+  pointer-events: auto;
 
   .input {
     margin-bottom: 10px;
@@ -71,7 +75,13 @@ const LoginFormDiv = styled.div`
       max-width: 40vw;
     }
   }
-  pointer-events: auto;
+
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus,
+  input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 30px ${({theme}: { theme: Theme }) => theme.colors.light} inset !important;
+  }
 `;
 
 export default LoginForm;

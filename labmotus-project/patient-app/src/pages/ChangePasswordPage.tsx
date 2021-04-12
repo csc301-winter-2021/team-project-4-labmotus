@@ -57,18 +57,14 @@ const ChangePasswordPage: FunctionComponent<ChangePasswordPageProps> = () => {
         } catch (e) {
             console.error(e);
         } finally {
-            history.push(`/settings`);
+            history.goBack();
         }
-    }
-
-    function back() {
-        history.push(`/settings`);
     }
 
     return (
         <ChangePasswordPageDiv theme={theme}>
             <IonPage>
-                <Header onBackClick={back} onSaveClick={changePassword} title="Change Password"/>
+                <Header onBackClick onSaveClick={changePassword} title="Change Password"/>
                 <IonContent>
                     <div className="form">
                         <IonInput

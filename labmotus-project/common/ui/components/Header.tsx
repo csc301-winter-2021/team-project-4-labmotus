@@ -1,24 +1,29 @@
-import {FunctionComponent, useContext} from "react";
+import React, {FunctionComponent, useContext} from "react";
 import {IonHeader, IonButtons, IonIcon, IonTitle, IonToolbar} from "@ionic/react";
 // @ts-ignore
 import styled from "styled-components";
 import {getThemeContext, Theme} from "../theme/Theme";
 import {chevronBack} from "ionicons/icons";
+import {useHistory} from "react-router";
 
 export interface HeaderProps {
-    onBackClick?: () => void;
+    onBackClick?: any;
     onSaveClick?: () => void;
     title?: string;
 }
 
-// For
 const Header: FunctionComponent<HeaderProps> = ({onBackClick, onSaveClick, title}) => {
     const theme = useContext(getThemeContext());
+    const history = useHistory();
+
+    function back() {
+        history.goBack();
+    }
 
     function generateBackButton() {
         if (onBackClick) {
             return (
-                <IonButtons slot="start" onClick={onBackClick}>
+                <IonButtons slot="start" onClick={back}>
                     <IonIcon icon={chevronBack}/>
                     Back
                 </IonButtons>

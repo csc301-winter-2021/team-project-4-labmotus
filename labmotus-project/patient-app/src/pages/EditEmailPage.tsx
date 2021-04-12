@@ -13,6 +13,7 @@ import {useHistory} from "react-router";
 import {Patient} from "../../../common/types/types";
 import {getAPIContext} from "../../../common/api/BaseAPI";
 import Header from "../../../common/ui/components/Header"
+
 export interface EditEmailPageProps {
 }
 
@@ -41,20 +42,16 @@ const EditEmailPage: FunctionComponent<EditEmailPageProps> = () => {
         try {
             patient.user.email = email;
             patient = await UseAPI.updatePatient(patient);
-            history.push(`/settings`);
+            history.goBack();
         } catch (e) {
             console.error(e);
         }
     }
 
-    function back() {
-        history.push(`/settings`);
-    }
-
     return (
         <EditEmailPageDiv theme={theme}>
             <IonPage>
-                <Header onBackClick={back} onSaveClick={editEmail} title="Edit Email"/>                
+                <Header onBackClick onSaveClick={editEmail} title="Edit Email"/>
                 <IonContent>
                     <IonInput
                         type="email"

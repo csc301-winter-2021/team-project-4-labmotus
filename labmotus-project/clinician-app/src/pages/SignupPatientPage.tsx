@@ -7,7 +7,6 @@ import {DateDisplay} from "../../../common/ui/components/DateDisplay";
 import API from "../api/API";
 import moment, {Moment} from "moment";
 import {Patient} from "../../../common/types/types";
-import {useHistory} from "react-router";
 import {getAPIContext} from "../../../common/api/BaseAPI";
 import Button from "../../../common/ui/components/Button";
 import Header from "../../../common/ui/components/Header"
@@ -27,13 +26,6 @@ const SignupPatientPage: FunctionComponent<SignupPatientPageProps> = () => {
     const [isError, openAlert] = useState<boolean>(false);
     const [header, setHeader] = useState<string>();
     const [message, setMessage] = useState<string>();
-
-    const history = useHistory();
-
-    // When user clicks 'Back'
-    function back() {
-        history.goBack();
-    }
 
     // When user signs patient up for an account
     async function signUpPatient() {
@@ -91,7 +83,7 @@ const SignupPatientPage: FunctionComponent<SignupPatientPageProps> = () => {
 
     return (
         <IonPage>
-            <Header onBackClick={back}/>
+            <Header onBackClick/>
             <IonContent fullscreen>
                 <SignupPatientPageDiv theme={theme}>
                     <h1>LabMotus</h1>

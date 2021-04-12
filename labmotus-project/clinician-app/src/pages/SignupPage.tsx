@@ -181,7 +181,7 @@ const SignupPage: FunctionComponent<SignupPageProps> = () => {
 const SignupPageDiv = styled.div`
   overflow: hidden;
   text-align: center;
-  
+
   .input {
     margin-bottom: 10px;
     text-align: left;
@@ -220,6 +220,13 @@ const SignupPageDiv = styled.div`
   span {
     cursor: pointer;
     color: ${({theme}: { theme: Theme }) => theme.colors.secondary};
+  }
+
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus,
+  input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 30px ${({theme}: { theme: Theme }) => theme.colors.light} inset !important;
   }
 `;
 

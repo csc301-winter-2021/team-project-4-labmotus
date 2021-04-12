@@ -2,7 +2,6 @@ import {FunctionComponent, useContext, useState} from "react";
 import {IonAlert, IonContent, IonPage} from "@ionic/react";
 // @ts-ignore
 import API from "../api/API";
-import {useHistory} from "react-router";
 import ForgotPassword from "../../../common/ui/pages/ForgotPassword";
 import {getAPIContext} from "../../../common/api/BaseAPI";
 import Header from "../../../common/ui/components/Header"
@@ -12,17 +11,11 @@ export interface ForgotPasswordPageProps {
 
 const ForgotPasswordPage: FunctionComponent<ForgotPasswordPageProps> = () => {
     const UseAPI: API = useContext(getAPIContext());
-    const history = useHistory();
 
     const [email, setEmail] = useState<string>();
     const [isError, openAlert] = useState<boolean>(false);
     const [header, setHeader] = useState<string>();
     const [message, setMessage] = useState<string>();
-
-    // When user clicks 'Back'
-    function back() {
-        history.push(`/login`);
-    }
 
     // When user clicks 'Forgot Password?'¬
     async function forgotPassword() {
@@ -66,7 +59,7 @@ const ForgotPasswordPage: FunctionComponent<ForgotPasswordPageProps> = () => {
 
     return (
         <IonPage>
-            <Header onBackClick={back}/>
+            <Header onBackClick/>
             <IonContent fullscreen>
                 <ForgotPassword email={email} setEmail={setEmail} onForgotPassword={forgotPassword}/>
             </IonContent>
