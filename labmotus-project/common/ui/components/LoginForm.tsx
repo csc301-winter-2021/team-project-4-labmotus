@@ -4,7 +4,9 @@ import {FunctionComponent, useContext} from "react";
 import {IonInput} from "@ionic/react";
 // @ts-ignore
 import styled from "styled-components";
+import {getThemeContext, Theme} from "../theme/Theme";
 import Button from "./Button";
+import CenterWrapper from "./CenterWrapper";
 
 export interface LoginFormProps {
     email: string;
@@ -17,9 +19,11 @@ export interface LoginFormProps {
 
 export const LoginForm: FunctionComponent<LoginFormProps> = (props: LoginFormProps) => {
 
+    const theme = useContext(getThemeContext());
+
     return (
-        <LoginFormDiv>
-            <div className="main-padding">
+        <LoginFormDiv theme={theme}>
+            <CenterWrapper>
                 <div className="form">
                     <IonInput
                         class="input email"
@@ -41,7 +45,7 @@ export const LoginForm: FunctionComponent<LoginFormProps> = (props: LoginFormPro
                 <p onClick={props.onForgotPassword}>
                     <span>Forgot password?</span>
                 </p>
-            </div>
+            </CenterWrapper>
         </LoginFormDiv>
     );
 };
@@ -49,37 +53,34 @@ export const LoginForm: FunctionComponent<LoginFormProps> = (props: LoginFormPro
 const LoginFormDiv = styled.div`
   height: 100%;
   width: 100%;
+  pointer-events: auto;
 
-  .main-padding {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 100%;
-    padding: 5%;
-    box-sizing: border-box;
+  .input {
+    margin-bottom: 10px;
+    text-align: left;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    --padding-start: 10px;
+  }
 
-    .input {
-      margin-bottom: 10px;
-      text-align: left;
-      border-radius: 5px;
-      border: 1px solid #ddd;
-      --padding-start: 10px;
+  @media only screen and (min-width: 768px) {
+    .form {
+      margin: 0 auto;
+      max-width: 60vw;
     }
+  }
 
-    @media only screen and (min-width: 768px) {
-      .form {
-        margin: 0 auto;
-        max-width: 60vw;
-      }
+  @media only screen and (min-width: 1024px) {
+    .form {
+      max-width: 40vw;
     }
+  }
 
-    @media only screen and (min-width: 1024px) {
-      .form {
-        max-width: 40vw;
-      }
-    }
-    pointer-events: auto;
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus,
+  input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 30px ${({theme}: { theme: Theme }) => theme.colors.light} inset !important;
   }
 `;
 

@@ -17,7 +17,9 @@ import {getThemeContext, Theme} from "../theme/Theme";
 export interface SettingsListProps {
     patient: boolean;
     name: string;
+    editName?: any;
     clinic?: string;
+    editClinic?: string;
     birthday?: string;
     email: string;
     editEmail: any;
@@ -36,7 +38,7 @@ export const SettingsList: FunctionComponent<SettingsListProps> = (props: Settin
         <SettingsListDiv theme={theme}>
             <IonList>
                 <IonListHeader>Profile</IonListHeader>
-                <IonItem>
+                <IonItem button={!props.patient} onClick={props.editName}>
                     <IonIcon slot="start" icon={personOutline}/>
                     <IonLabel>{props.name}</IonLabel>
                 </IonItem>
@@ -47,28 +49,28 @@ export const SettingsList: FunctionComponent<SettingsListProps> = (props: Settin
                     </IonItem>
                 )}
                 {!props.patient && (
-                    <IonItem>
+                    <IonItem button onClick={props.editClinic}>
                         <IonIcon slot="start" icon={businessOutline}/>
                         <IonLabel>{props.clinic}</IonLabel>
                     </IonItem>
                 )}
-                <IonItem button={true} onClick={props.editEmail}>
+                <IonItem button onClick={props.editEmail}>
                     <IonIcon slot="start" icon={mailOutline}/>
                     <IonLabel>{props.email}</IonLabel>
                 </IonItem>
                 {props.patient && (
-                    <IonItem button={true} onClick={props.editPhone}>
+                    <IonItem button onClick={props.editPhone}>
                         <IonIcon slot="start" icon={callOutline}/>
                         <IonLabel>{props.phone}</IonLabel>
                     </IonItem>
                 )}
                 <IonListHeader>Password</IonListHeader>
-                <IonItem button={true} onClick={props.changePassword}>
+                <IonItem button onClick={props.changePassword}>
                     <IonIcon slot="start" icon={lockClosedOutline}/>
                     <IonLabel>Change Password</IonLabel>
                 </IonItem>
                 <IonListHeader>About</IonListHeader>
-                <IonItem button={true} onClick={props.viewTermsOfService}>
+                <IonItem button onClick={props.viewTermsOfService}>
                     <IonIcon slot="start" icon={helpCircleOutline}/>
                     <IonLabel>Terms of Service</IonLabel>
                 </IonItem>

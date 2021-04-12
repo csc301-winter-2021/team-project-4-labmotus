@@ -7,10 +7,10 @@ import {DateDisplay} from "../../../common/ui/components/DateDisplay";
 import API from "../api/API";
 import moment, {Moment} from "moment";
 import {Patient} from "../../../common/types/types";
-import {useHistory} from "react-router";
 import {getAPIContext} from "../../../common/api/BaseAPI";
 import Button from "../../../common/ui/components/Button";
 import Header from "../../../common/ui/components/Header"
+import CenterWrapper from "../../../common/ui/components/CenterWrapper";
 
 export interface SignupPatientPageProps {
 }
@@ -26,13 +26,6 @@ const SignupPatientPage: FunctionComponent<SignupPatientPageProps> = () => {
     const [isError, openAlert] = useState<boolean>(false);
     const [header, setHeader] = useState<string>();
     const [message, setMessage] = useState<string>();
-
-    const history = useHistory();
-
-    // When user clicks 'Back'
-    function back() {
-        history.goBack();
-    }
 
     // When user signs patient up for an account
     async function signUpPatient() {
@@ -90,42 +83,40 @@ const SignupPatientPage: FunctionComponent<SignupPatientPageProps> = () => {
 
     return (
         <IonPage>
-            <Header onBackClick={back} />
+            <Header onBackClick/>
             <IonContent fullscreen>
                 <SignupPatientPageDiv theme={theme}>
                     <h1>LabMotus</h1>
                     <h3>Clinician Portal</h3>
-                    <div className="main-padding">
-                        <div className="main">
-                            <div className="form">
-                                <IonInput
-                                    class="input"
-                                    placeholder="Full Name"
-                                    type="text"
-                                    value={name}
-                                    onIonChange={(e) => setName(e.detail.value!)}
-                                />
-                                Birthday:
-                                <DateDisplay date={birthday} changeDay={setBirthday} displayFormat={"YYYY-MM-DD"}/>
-                                <IonInput
-                                    class="input"
-                                    placeholder="Email"
-                                    type="email"
-                                    value={email}
-                                    onIonChange={(e) => setEmail(e.detail.value!)}
-                                />
-                                <IonInput
-                                    class="input"
-                                    placeholder="Phone Number"
-                                    type="tel"
-                                    value={phone}
-                                    onIonChange={(e) => setPhone(e.detail.value!)}
-                                />
-                                <Button label="Send Confirmation Email to Patient" onClick={signUpPatient}
-                                        type="primary round"/>
-                            </div>
+                    <CenterWrapper className="wrapper">
+                        <div className="form">
+                            <IonInput
+                                class="input"
+                                placeholder="Full Name"
+                                type="text"
+                                value={name}
+                                onIonChange={(e) => setName(e.detail.value!)}
+                            />
+                            <IonInput
+                                class="input"
+                                placeholder="Email"
+                                type="email"
+                                value={email}
+                                onIonChange={(e) => setEmail(e.detail.value!)}
+                            />
+                            <IonInput
+                                class="input"
+                                placeholder="Phone Number"
+                                type="tel"
+                                value={phone}
+                                onIonChange={(e) => setPhone(e.detail.value!)}
+                            />
+                            Birthday:
+                            <DateDisplay date={birthday} changeDay={setBirthday} displayFormat={"YYYY-MM-DD"}/>
+                            <Button label="Send Confirmation Email to Patient" onClick={signUpPatient}
+                                    type="primary round"/>
                         </div>
-                    </div>
+                    </CenterWrapper>
                 </SignupPatientPageDiv>
             </IonContent>
             <IonAlert
@@ -143,41 +134,28 @@ const SignupPatientPageDiv = styled.div`
   overflow: hidden;
   text-align: center;
 
-  .main-padding {
-    position: absolute;
-    top: 55%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 100%;
-    padding: 5%;
-    box-sizing: border-box;
-
-    .input {
-      margin-bottom: 10px;
-      text-align: left;
-      border-radius: 5px;
-      border: 1px solid #ddd;
-      --padding-start: 10px;
-    }
-
-    @media only screen and (min-width: 768px) {
-      .form {
-        margin: 0 auto;
-        max-width: 60vw;
-      }
-    }
-    @media only screen and (min-width: 1024px) {
-      .form {
-        max-width: 40vw;
-      }
-    }
-    pointer-events: none;
+  .input {
+    margin-bottom: 10px;
+    text-align: left;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    --padding-start: 10px;
   }
 
-  .main {
-    height: 100%;
-    width: 100%;
-    pointer-events: auto;
+  @media only screen and (min-width: 768px) {
+    .form {
+      margin: 0 auto;
+      max-width: 60vw;
+    }
+  }
+  @media only screen and (min-width: 1024px) {
+    .form {
+      max-width: 40vw;
+    }
+  }
+
+  .wrapper {
+    top: 55%;
   }
 
   h1 {
@@ -191,7 +169,6 @@ const SignupPatientPageDiv = styled.div`
 
   span {
     cursor: pointer;
-    color: ${({theme}: { theme: Theme }) => theme.colors.primary};
   }
 `;
 

@@ -7,6 +7,7 @@ import {getThemeContext, Theme} from "../../../common/ui/theme/Theme";
 import Button from "../../../common/ui/components/Button";
 import {DateDisplay} from "../../../common/ui/components/DateDisplay";
 import {Moment} from "moment";
+import CenterWrapper from "../../../common/ui/components/CenterWrapper";
 
 export interface EditPatientProps {
     name: string;
@@ -40,7 +41,7 @@ export const EditPatient: FunctionComponent<EditPatientProps> = (props: EditPati
     return (
         <EditPatientDiv theme={theme}>
             <h1>Edit Patient</h1>
-            <div className="main-padding">
+            <CenterWrapper>
                 <IonInput
                     type="text"
                     clearInput={true}
@@ -67,7 +68,7 @@ export const EditPatient: FunctionComponent<EditPatientProps> = (props: EditPati
                     <Button label="Edit Patient" onClick={editPatient} type="primary full"/>
                     <Button label="Cancel" onClick={() => props.setEditPatient(false)} type="full"/>
                 </div>
-            </div>
+            </CenterWrapper>
         </EditPatientDiv>
     );
 };
@@ -76,15 +77,9 @@ const EditPatientDiv = styled.div`
   height: 100%;
   width: 100%;
   padding: 5%;
-
-  .main-padding {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 100%;
-    padding: 5%;
-    box-sizing: border-box;
+  
+  .birthday {
+    text-align: center;
   }
 
   ion-input {

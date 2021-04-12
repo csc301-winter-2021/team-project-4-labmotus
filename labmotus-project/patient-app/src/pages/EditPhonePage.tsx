@@ -1,13 +1,8 @@
 import React, {FunctionComponent, useContext, useState} from "react";
-import {
-    IonAlert,
-    IonContent,
-    IonInput,
-    IonPage,
-} from "@ionic/react";
+import {IonAlert, IonContent, IonInput, IonPage} from "@ionic/react";
 // @ts-ignore
 import styled from "styled-components";
-import Header from "../../../common/ui/components/Header"
+import Header from "../../../common/ui/components/Header";
 import {getThemeContext, Theme} from "../../../common/ui/theme/Theme";
 import API from "../api/API";
 import {useHistory} from "react-router";
@@ -42,20 +37,16 @@ const EditPhonePage: FunctionComponent<EditPhonePageProps> = () => {
         try {
             patient.phone = phoneNumber.replace(/(\d{3})(\d{3})(\d{4})/, "$1-$2-$3");
             patient = await UseAPI.updatePatient(patient);
-            history.push(`/settings`);
+            history.goBack();
         } catch (e) {
             console.error(e);
         }
     }
 
-    function back() {
-        history.push(`/settings`);
-    }
-
     return (
         <EditPhonePageDiv theme={theme}>
             <IonPage>
-                <Header onBackClick={back} onSaveClick={editPhoneNumber} title="Edit Phone Number"/>
+                <Header onBackClick onSaveClick={editPhoneNumber} title="Edit Phone Number"/>
                 <IonContent>
                     <IonInput
                         type="tel"
