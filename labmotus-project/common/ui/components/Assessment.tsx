@@ -1,6 +1,6 @@
 import React, {FunctionComponent, useEffect, useState} from "react";
 // @ts-ignore
-import styled from 'styled-components';
+import styled from "styled-components";
 import {getThemeContext, Theme} from "../theme/Theme";
 import {IonIcon, IonSpinner} from "@ionic/react";
 import {film, videocam} from "ionicons/icons";
@@ -10,9 +10,9 @@ import Accordion from "../components/Accordion";
 import moment, {Moment} from "moment";
 
 export interface AssessmentComponentProps {
-    value: Assessment
-    day: Moment
-    setVideo: any
+    value: Assessment;
+    day: Moment;
+    setVideo: any;
 }
 
 const AssessmentComponent: FunctionComponent<AssessmentComponentProps> = (props: AssessmentComponentProps) => {
@@ -33,107 +33,98 @@ const AssessmentComponent: FunctionComponent<AssessmentComponentProps> = (props:
     }
 
     function record(assessmentID: string) {
-        history.push(`/record/${assessmentID}`)
+        history.push(`/record/${assessmentID}`);
     }
 
     useEffect(() => {
-        setExpanded(props.value.state === AssessmentState.COMPLETE)
+        setExpanded(props.value.state === AssessmentState.COMPLETE);
     }, [props.value.state]);
 
-    function getColor(){
-        let color = moment().format('YYYY-MM-DD') === props.day.format('YYYY-MM-DD') ? theme.colors.success : theme.colors.contrast;
-        if (props.value.state === AssessmentState.PENDING)
-            color = theme.colors.warning;
-        else if (props.value.state === AssessmentState.MISSING)
-            color = theme.colors.alert;
-        return color
+    function getColor() {
+        let color =
+            moment().format("YYYY-MM-DD") === props.day.format("YYYY-MM-DD")
+                ? theme.colors.success
+                : theme.colors.contrast;
+        if (props.value.state === AssessmentState.PENDING) color = theme.colors.warning;
+        else if (props.value.state === AssessmentState.MISSING) color = theme.colors.alert;
+        return color;
     }
 
     return (
         <AccordionContainer color={getColor()}>
             <Accordion label={props.value.name} expanded={expanded} onClick={() => onClick()}>
-                {props.value.state !== AssessmentState.MISSING && props.value.stats ?
-                    props.value.stats.map((stat, i) => (
+                {props.value.state !== AssessmentState.MISSING && props.value.stats
+                    ? props.value.stats.map((stat, i) => (
                         <StatDiv>
                             <CurrStatDiv theme={theme}>
-                                <span class="statName"><b>{`${stat.joint} ${stat.name}: `}</b></span>
+                                  <span class="statName">
+                                      <b>{`${stat.joint} ${stat.name}: `}</b>
+                                  </span>
                                 <span>{`${stat.currValue}${stat.unit}`}</span>
                             </CurrStatDiv>
 
                             <GoalStatDiv theme={theme}>
-                                <span><b>{`Average Range of Motion: `}</b>{`${stat.goalValue}${stat.unit}`}</span>
+                                  <span>
+                                      <b>{`Average Range of Motion: `}</b>
+                                      {`${stat.goalValue}${stat.unit}`}
+                                  </span>
                             </GoalStatDiv>
                         </StatDiv>
-
-                    )) : null
-                }
-                {
-                    props.value.state === AssessmentState.PENDING ?
-                        <IonSpinner name="dots"/> : null
-                }
+                    ))
+                    : null}
+                {props.value.state === AssessmentState.PENDING ? <IonSpinner name="dots"/> : null}
             </Accordion>
-            {props.value.state === AssessmentState.MISSING ?
-                <RecordButton theme={theme} onClick={() => record(props.value.id)}>
+            {props.value.state === AssessmentState.MISSING ? (
+                <Button className="record" theme={theme} onClick={() => record(props.value.id)}>
                     <IonIcon icon={videocam}/>
                     Record
-                </RecordButton> : null
-            }
-            {props.value.videoUrl !== undefined ?
-                <VideoButton theme={theme} onClick={() => onWatch()}>
+                </Button>
+            ) : null}
+            {props.value.videoUrl !== undefined ? (
+                <Button className="video" theme={theme} onClick={() => onWatch()}>
                     <IonIcon icon={film}/>
                     Watch
-                </VideoButton> : null
-            }
+                </Button>
+            ) : null}
         </AccordionContainer>
-    )
+    );
 };
 
 const AccordionContainer = styled.div`
-    position: relative;
-    .accordion {
-        .accordion-label {
-            color: ${({color}: { color: string }) => color};
-        }
+  position: relative;
+
+  .accordion {
+    .accordion-label {
+      color: ${({color}: { color: string }) => color};
     }
+  }
 `;
 
-const RecordButton = styled.div`
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background-color: ${({theme}: { theme: Theme }) => theme.colors.alert};
-    color: ${({theme}: { theme: Theme }) => theme.colors.light};
-    padding: 5px;
-    box-sizing: border-box;
-    border-radius: 10px;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    ion-icon {
-        margin-right: 3px;
-    }
-    cursor: pointer;
-`;
-
-const VideoButton = styled.div`
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background-color: ${({theme}: { theme: Theme }) => theme.colors.success};
-    color: ${({theme}: { theme: Theme }) => theme.colors.light};
-    padding: 5px;
-    box-sizing: border-box;
-    border-radius: 10px;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    ion-icon {
-        margin-right: 3px;
-    }
-
+const Button = styled.div`
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  color: ${({theme}: { theme: Theme }) => theme.colors.primaryContrast};
+  padding: 5px;
+  box-sizing: border-box;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
+
+  ion-icon {
+    margin-right: 3px;
+  }
+
+  &.record {
+    background-color: ${({theme}: { theme: Theme }) => theme.colors.alert};
+  }
+
+  &.video {
+    background-color: ${({theme}: { theme: Theme }) => theme.colors.success};
+  }
 `;
 
 const StatDiv = styled.div`
@@ -150,10 +141,10 @@ const CurrStatDiv = styled.div`
   .statName {
     font-weight: 400;
   }
-`
+`;
 
 const GoalStatDiv = styled.div`
   color: ${({theme}: { theme: Theme }) => theme.colors.contrast};
-`
+`;
 
 export default AssessmentComponent;

@@ -43,12 +43,12 @@ const ButtonStyle = styled.button`
   }
   
   &.primary {
-    color: white;
+    color: ${({theme}: { theme: Theme }) => theme.colors.primaryContrast};
     background-color: ${({theme}: { theme: Theme }) => theme.colors.primary};
   }
 
   &.secondary {
-    color: white;
+    color: ${({theme}: { theme: Theme }) => theme.colors.secondaryContrast};
     background-color: ${({theme}: { theme: Theme }) => theme.colors.secondary};
   }
 

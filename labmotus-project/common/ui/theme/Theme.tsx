@@ -18,7 +18,9 @@ export interface Theme {
 
 export interface Colors {
     primary: string;
+    primaryContrast: string;
     secondary: string;
+    secondaryContrast;
     light: string;
     background: string;
     contrast: string;
@@ -42,7 +44,9 @@ export const PrimaryTheme: Theme = {
     secondaryFontFamily: "Roboto",
     colors: {
         primary: "var(--ion-color-primary)",
+        primaryContrast: "var(--ion-color-primary-contrast)",
         secondary: "var(--ion-color-secondary)",
+        secondaryContrast: "var(--ion-color-secondary-contrast)",
         light: "var(--ion-color-light)",
         background: "var(--ion-background-color)",
         contrast: "var(--ion-color-light-contrast)",
