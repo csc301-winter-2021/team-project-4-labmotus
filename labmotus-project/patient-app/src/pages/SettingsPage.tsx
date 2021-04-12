@@ -26,17 +26,17 @@ const SettingsPage: FunctionComponent<SettingsPageProps> = () => {
     }
 
     // When user clicks on their email
-    function editEmail() {
+    function onEditEmail() {
         history.push("/settings/edit-email");
     }
 
     // When user clicks on their phone number
-    function editPhone() {
+    function onEditPhone() {
         history.push("/settings/edit-phone");
     }
 
     // When user clicks on 'Change Password'
-    function changePassword() {
+    function onChangePassword() {
         history.push("/settings/change-password");
     }
 
@@ -53,12 +53,15 @@ const SettingsPage: FunctionComponent<SettingsPageProps> = () => {
                     <SettingsList
                         patient={true}
                         name={patient?.user?.name}
+                        editName={(): void => null}
+                        clinic=""
+                        editClinic={(): void => null}
                         birthday={patient?.birthday.format(theme.birthdayFormat)}
                         email={patient?.user?.email}
-                        editEmail={editEmail}
+                        editEmail={onEditEmail}
                         phone={patient?.phone}
-                        editPhone={editPhone}
-                        changePassword={changePassword}
+                        editPhone={onEditPhone}
+                        changePassword={onChangePassword}
                         viewTermsOfService={termsOfService}
                         onLogOut={onLogOut}
                     />

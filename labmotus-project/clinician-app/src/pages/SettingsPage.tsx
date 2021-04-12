@@ -10,6 +10,8 @@ import {useHistory} from "react-router";
 import EditEmail from "../components/EditEmail";
 import ChangePassword from "../components/ChangePassword";
 import {getAPIContext} from "../../../common/api/BaseAPI";
+import EditName from "../components/EditName";
+import EditClinic from "../components/EditClinic";
 
 export interface SettingsPageProps {
 }
@@ -19,11 +21,14 @@ const SettingsPage: FunctionComponent<SettingsPageProps> = () => {
     const history = useHistory();
 
     let clinician: Clinician = UseAPI.getCurrentUser();
-    const clinicianEmail = clinician?.user?.email;
 
+    const [showEditName, setEditName] = useState(false);
+    const [showEditClinic, setEditClinic] = useState(false);
     const [showEditEmail, setEditEmail] = useState(false);
     const [showChangePassword, setChangePassword] = useState(false);
-    const [email, setEmail] = useState<string>(clinicianEmail);
+    const [name, setName] = useState<string>(clinician?.user?.name);
+    const [clinicName, setClinicName] = useState<string>(clinician?.clinic);
+    const [email, setEmail] = useState<string>(clinician?.user?.email);
     const [currPassword, setCurrPassword] = useState<string>();
     const [newPassword, setNewPassword] = useState<string>();
     const [confirmPassword, setConfirmPassword] = useState<string>();
@@ -36,9 +41,21 @@ const SettingsPage: FunctionComponent<SettingsPageProps> = () => {
         await UseAPI.logout();
     }
 
+    // When user clicks on their name
+    function onEditName() {
+        setName(clinician?.user?.name);
+        setEditName(true);
+    }
+
+    // When user clicks on the clinic name
+    function onEditClinic() {
+        setClinicName(clinician?.clinic);
+        setEditClinic(true);
+    }
+
     // When user clicks on their email
     function onEditEmail() {
-        setEmail(clinicianEmail);
+        setEmail(clinician?.user?.email);
         setEditEmail(true);
     }
 
@@ -50,6 +67,44 @@ const SettingsPage: FunctionComponent<SettingsPageProps> = () => {
     // When user clicks on 'Terms of Service'
     function termsOfService() {
         history.push("/terms-of-service");
+    }
+
+    // When user clicks 'Edit Name' in the edit name modal
+    async function editName() {
+        // Check if user has entered a valid email
+        if (!name) {
+            setHeader("Invalid Name");
+            setMessage("Please enter your full name.");
+            openAlert(true);
+            return;
+        }
+        try {
+            clinician.user.name = name;
+            clinician = await UseAPI.updateClinician(clinician);
+        } catch (e) {
+            console.error(e);
+        } finally {
+            setEditName(false);
+        }
+    }
+
+    // When user clicks 'Edit Clinic Name' in the edit name modal
+    async function editClinic() {
+        // Check if user has entered a valid email
+        if (!clinicName) {
+            setHeader("Invalid Name");
+            setMessage("Please enter your the clinic's name.");
+            openAlert(true);
+            return;
+        }
+        try {
+            clinician.clinic = clinicName;
+            clinician = await UseAPI.updateClinician(clinician);
+        } catch (e) {
+            console.error(e);
+        } finally {
+            setEditClinic(false);
+        }
     }
 
     // When user clicks 'Edit Email' in the edit email modal
@@ -114,7 +169,9 @@ const SettingsPage: FunctionComponent<SettingsPageProps> = () => {
                         <SettingsList
                             patient={false}
                             name={clinician?.user?.name}
+                            editName={onEditName}
                             clinic={clinician?.clinic}
+                            editClinic={onEditClinic}
                             birthday={null}
                             email={clinician?.user?.email}
                             editEmail={onEditEmail}
@@ -125,15 +182,17 @@ const SettingsPage: FunctionComponent<SettingsPageProps> = () => {
                             onLogOut={onLogOut}
                         />
                     </div>
-                    <IonModal isOpen={showEditEmail} cssClass="clinician-modal"
-                              onDidDismiss={() => setEditEmail(false)}>
+                    <IonModal isOpen={showEditName} onDidDismiss={() => setEditName(false)}>
+                        <EditName name={name} setName={setName} setEditName={setEditName} save={editName}/>
+                    </IonModal>
+                    <IonModal isOpen={showEditClinic} onDidDismiss={() => setEditClinic(false)}>
+                        <EditClinic clinic={clinicName} setClinic={setClinicName} setEditClinic={setEditClinic}
+                                    save={editClinic}/>
+                    </IonModal>
+                    <IonModal isOpen={showEditEmail} onDidDismiss={() => setEditEmail(false)}>
                         <EditEmail email={email} setEmail={setEmail} setEditEmail={setEditEmail} save={editEmail}/>
                     </IonModal>
-                    <IonModal
-                        isOpen={showChangePassword}
-                        cssClass="clinician-modal"
-                        onDidDismiss={() => setChangePassword(false)}
-                    >
+                    <IonModal isOpen={showChangePassword} onDidDismiss={() => setChangePassword(false)}>
                         <ChangePassword
                             currPassword={currPassword}
                             setCurrPassword={setCurrPassword}
