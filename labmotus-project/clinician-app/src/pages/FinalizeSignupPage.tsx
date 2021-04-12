@@ -7,6 +7,7 @@ import API from "../api/API";
 import {useHistory, useLocation} from "react-router";
 import {getAPIContext} from "../../../common/api/BaseAPI";
 import Button from "../../../common/ui/components/Button";
+import CenterWrapper from "../../../common/ui/components/CenterWrapper";
 
 export interface SignupPageProps {
 }
@@ -90,37 +91,40 @@ const FinalizeSignupPage: FunctionComponent<SignupPageProps> = () => {
             <IonContent fullscreen>
                 <SignupPageDiv theme={theme}>
                     <h1>LabMotus</h1>
-                    <div className="main-padding">
+                    <CenterWrapper>
                         <div className="main">
-                            <IonInput
-                                class="input"
-                                placeholder="Email"
-                                type="email"
-                                value={email}
-                                disabled
-                                onIonChange={(e) => setEmail(e.detail.value!)}
-                            />
-                            <IonInput
-                                class="input"
-                                placeholder="Password"
-                                type="password"
-                                value={password}
-                                onIonChange={(e) => setPassword(e.detail.value!)}
-                            />
-                            <IonInput
-                                class="input"
-                                placeholder="Confirm Password"
-                                type="password"
-                                value={confirmPassword}
-                                onIonChange={(e) => setConfirmPassword(e.detail.value!)}
-                            />
-                            <Button label="Sign Up" onClick={signUp} type="primary round"/>
+                            <div className="form">
+
+                                <IonInput
+                                    class="input"
+                                    placeholder="Email"
+                                    type="email"
+                                    value={email}
+                                    disabled
+                                    onIonChange={(e) => setEmail(e.detail.value!)}
+                                />
+                                <IonInput
+                                    class="input"
+                                    placeholder="Password"
+                                    type="password"
+                                    value={password}
+                                    onIonChange={(e) => setPassword(e.detail.value!)}
+                                />
+                                <IonInput
+                                    class="input"
+                                    placeholder="Confirm Password"
+                                    type="password"
+                                    value={confirmPassword}
+                                    onIonChange={(e) => setConfirmPassword(e.detail.value!)}
+                                />
+                                <Button label="Sign Up" onClick={signUp} type="primary round"/>
+                            </div>
                             <p>
                                 By clicking 'Sign Up' you agree to our{" "}
                                 <span onClick={termsOfService}>Terms of Service</span>
                             </p>
                         </div>
-                    </div>
+                    </CenterWrapper>
                     <p className="footer">
                         Already have an account? <span onClick={login}>Login</span>
                     </p>
@@ -144,42 +148,32 @@ const FinalizeSignupPage: FunctionComponent<SignupPageProps> = () => {
                 buttons={["OK"]}
             />
         </IonPage>
-    );
+    )
+        ;
 };
 
 const SignupPageDiv = styled.div`
   overflow: hidden;
   text-align: center;
 
-  .main-padding {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 100%;
-    padding: 5%;
-    box-sizing: border-box;
+  .input {
+    margin-bottom: 10px;
+    text-align: left;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    --padding-start: 10px;
+  }
 
-    .input {
-      margin-bottom: 10px;
-      text-align: left;
-      border-radius: 5px;
-      border: 1px solid #ddd;
-      --padding-start: 10px;
+  @media only screen and (min-width: 768px) {
+    .form {
+      margin: 0 auto;
+      max-width: 60vw;
     }
-
-    @media only screen and (min-width: 768px) {
-      form {
-        margin: 0 auto;
-        max-width: 60vw;
-      }
+  }
+  @media only screen and (min-width: 1024px) {
+    .form {
+      max-width: 40vw;
     }
-    @media only screen and (min-width: 1024px) {
-      form {
-        max-width: 40vw;
-      }
-    }
-    pointer-events: none;
   }
 
   .main {
@@ -199,7 +193,7 @@ const SignupPageDiv = styled.div`
 
   span {
     cursor: pointer;
-    color: ${({theme}: { theme: Theme }) => theme.colors.primary};
+    color: ${({theme}: { theme: Theme }) => theme.colors.secondary};
   }
 `;
 

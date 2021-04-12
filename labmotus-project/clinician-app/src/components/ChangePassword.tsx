@@ -5,6 +5,7 @@ import styled from "styled-components";
 
 import {getThemeContext, Theme} from "../../../common/ui/theme/Theme";
 import Button from "../../../common/ui/components/Button";
+import CenterWrapper from "../../../common/ui/components/CenterWrapper";
 
 export interface ChangePasswordProps {
     currPassword: string;
@@ -23,7 +24,7 @@ export const ChangePassword: FunctionComponent<ChangePasswordProps> = (props: Ch
     return (
         <ChangePasswordDiv theme={theme} data-testid="ChangePasswordComponent">
             <h1>Change Password</h1>
-            <div className="main-padding">
+            <CenterWrapper>
                 <IonInput
                     type="password"
                     placeholder="Current Password"
@@ -50,7 +51,7 @@ export const ChangePassword: FunctionComponent<ChangePasswordProps> = (props: Ch
                             data-testid="change-password"/>
                     <Button label="Cancel" onClick={() => props.setChangePassword(false)} type="full" data-testid="cancel"/>
                 </div>
-            </div>
+            </CenterWrapper>
         </ChangePasswordDiv>
     );
 };
@@ -59,16 +60,6 @@ const ChangePasswordDiv = styled.div`
   height: 100%;
   width: 100%;
   padding: 5%;
-
-  .main-padding {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 100%;
-    padding: 5%;
-    box-sizing: border-box;
-  }
 
   ion-input {
     text-align: center;

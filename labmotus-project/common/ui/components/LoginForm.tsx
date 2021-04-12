@@ -1,10 +1,11 @@
 // @ts-ignore
-import {FunctionComponent, useContext} from "react";
+import {FunctionComponent} from "react";
 // @ts-ignore
 import {IonInput} from "@ionic/react";
 // @ts-ignore
 import styled from "styled-components";
 import Button from "./Button";
+import CenterWrapper from "./CenterWrapper";
 
 export interface LoginFormProps {
     email: string;
@@ -19,7 +20,7 @@ export const LoginForm: FunctionComponent<LoginFormProps> = (props: LoginFormPro
 
     return (
         <LoginFormDiv>
-            <div className="main-padding">
+            <CenterWrapper>
                 <div className="form">
                     <IonInput
                         class="input email"
@@ -41,7 +42,7 @@ export const LoginForm: FunctionComponent<LoginFormProps> = (props: LoginFormPro
                 <p onClick={props.onForgotPassword}>
                     <span>Forgot password?</span>
                 </p>
-            </div>
+            </CenterWrapper>
         </LoginFormDiv>
     );
 };
@@ -50,37 +51,27 @@ const LoginFormDiv = styled.div`
   height: 100%;
   width: 100%;
 
-  .main-padding {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 100%;
-    padding: 5%;
-    box-sizing: border-box;
-
-    .input {
-      margin-bottom: 10px;
-      text-align: left;
-      border-radius: 5px;
-      border: 1px solid #ddd;
-      --padding-start: 10px;
-    }
-
-    @media only screen and (min-width: 768px) {
-      .form {
-        margin: 0 auto;
-        max-width: 60vw;
-      }
-    }
-
-    @media only screen and (min-width: 1024px) {
-      .form {
-        max-width: 40vw;
-      }
-    }
-    pointer-events: auto;
+  .input {
+    margin-bottom: 10px;
+    text-align: left;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    --padding-start: 10px;
   }
+
+  @media only screen and (min-width: 768px) {
+    .form {
+      margin: 0 auto;
+      max-width: 60vw;
+    }
+  }
+
+  @media only screen and (min-width: 1024px) {
+    .form {
+      max-width: 40vw;
+    }
+  }
+  pointer-events: auto;
 `;
 
 export default LoginForm;

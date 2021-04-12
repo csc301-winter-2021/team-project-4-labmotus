@@ -9,6 +9,7 @@ import styled from "styled-components";
 
 import {getThemeContext, Theme} from "../../../common/ui/theme/Theme";
 import Button from "../../../common/ui/components/Button";
+import CenterWrapper from "../../../common/ui/components/CenterWrapper";
 
 export interface AddAssessmentProps {
     addAssessment: any;
@@ -66,7 +67,7 @@ export const AddAssessment: FunctionComponent<AddAssessmentProps> = (props: AddA
     return (
         <AddAssessmentDiv theme={theme}>
             <h1>Add New Assessment</h1>
-            <div className="main-padding">
+            <CenterWrapper>
                 <IonSelect
                     value={assessmentType}
                     placeholder={"Select Assessment"}
@@ -98,7 +99,7 @@ export const AddAssessment: FunctionComponent<AddAssessmentProps> = (props: AddA
                     />
                     <Button label="Cancel" onClick={() => props.setShowAddAssessment(false)} type="full"/>
                 </div>
-            </div>
+            </CenterWrapper>
         </AddAssessmentDiv>
     );
 };
@@ -107,16 +108,6 @@ const AddAssessmentDiv = styled.div`
   height: 100%;
   width: 100%;
   padding: 5%;
-
-  .main-padding {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 100%;
-    padding: 5%;
-    box-sizing: border-box;
-  }
 
   ion-select, ion-input {
     text-align: center;

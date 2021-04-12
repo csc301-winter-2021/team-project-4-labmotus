@@ -7,6 +7,7 @@ import API from "../api/API";
 import {useHistory} from "react-router";
 import {getAPIContext} from "../../../common/api/BaseAPI";
 import Button from "../../../common/ui/components/Button";
+import CenterWrapper from "../../../common/ui/components/CenterWrapper";
 
 export interface SignupPageProps {
 }
@@ -115,7 +116,7 @@ const SignupPage: FunctionComponent<SignupPageProps> = () => {
                 <SignupPageDiv theme={theme}>
                     <h1>LabMotus</h1>
                     <h3>Clinician Portal</h3>
-                    <div className="main-padding">
+                    <CenterWrapper>
                         <div className="main">
                             <div className="form">
                                 <IonInput
@@ -160,7 +161,7 @@ const SignupPage: FunctionComponent<SignupPageProps> = () => {
                                 <span onClick={termsOfService}>Terms of Service</span>
                             </p>
                         </div>
-                    </div>
+                    </CenterWrapper>
                     <p className="footer">
                         Already have an account? <span onClick={login}>Login</span>
                     </p>
@@ -180,36 +181,25 @@ const SignupPage: FunctionComponent<SignupPageProps> = () => {
 const SignupPageDiv = styled.div`
   overflow: hidden;
   text-align: center;
+  
+  .input {
+    margin-bottom: 10px;
+    text-align: left;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    --padding-start: 10px;
+  }
 
-  .main-padding {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 100%;
-    padding: 5%;
-    box-sizing: border-box;
-
-    .input {
-      margin-bottom: 10px;
-      text-align: left;
-      border-radius: 5px;
-      border: 1px solid #ddd;
-      --padding-start: 10px;
+  @media only screen and (min-width: 768px) {
+    .form {
+      margin: 0 auto;
+      max-width: 60vw;
     }
-
-    @media only screen and (min-width: 768px) {
-      .form {
-        margin: 0 auto;
-        max-width: 60vw;
-      }
+  }
+  @media only screen and (min-width: 1024px) {
+    .form {
+      max-width: 40vw;
     }
-    @media only screen and (min-width: 1024px) {
-      .form {
-        max-width: 40vw;
-      }
-    }
-    pointer-events: none;
   }
 
   .main {

@@ -4,6 +4,7 @@ import {IonContent, IonPage} from "@ionic/react";
 import styled from "styled-components";
 import Button from "../../../common/ui/components/Button";
 import {useHistory} from "react-router";
+import CenterWrapper from "../../../common/ui/components/CenterWrapper";
 
 export interface LandingPageProps {
 }
@@ -24,14 +25,14 @@ const LandingPage: FunctionComponent<LandingPageProps> = () => {
             <IonContent fullscreen>
                 <LandingPageDiv>
                     <h1>LabMotus</h1>
-                    <div className="main-padding">
+                    <CenterWrapper>
                         <div className="main">
                             <Button label="Download Patient App" onClick={downloadAPK} type="primary round"/>
                             <br/>
                             <br/>
                             <Button label="See Clinician Portal" onClick={clinicianPortal} type="primary round"/>
                         </div>
-                    </div>
+                    </CenterWrapper>
                 </LandingPageDiv>
             </IonContent>
         </IonPage>
@@ -42,27 +43,16 @@ const LandingPageDiv = styled.div`
   overflow: hidden;
   text-align: center;
 
-  .main-padding {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 100%;
-    padding: 5%;
-    box-sizing: border-box;
-
-    @media only screen and (min-width: 768px) {
-      form {
-        margin: 0 auto;
-        max-width: 60vw;
-      }
+  @media only screen and (min-width: 768px) {
+    form {
+      margin: 0 auto;
+      max-width: 60vw;
     }
-    @media only screen and (min-width: 1024px) {
-      form {
-        max-width: 40vw;
-      }
+  }
+  @media only screen and (min-width: 1024px) {
+    form {
+      max-width: 40vw;
     }
-    pointer-events: none;
   }
 
   .main {
