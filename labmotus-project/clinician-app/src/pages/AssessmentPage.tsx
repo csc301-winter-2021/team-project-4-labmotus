@@ -43,7 +43,7 @@ const AssessmentPage: FunctionComponent<AssessmentPageProps> = () => {
             .catch(() => {
                 setAssessments([]);
             });
-    }, [day]);
+    }, [params.date]);
 
     function getAssessments(week: Moment): Promise<Assessment[]> {
         return UseAPI.getAssessments(params.patientId, week);
