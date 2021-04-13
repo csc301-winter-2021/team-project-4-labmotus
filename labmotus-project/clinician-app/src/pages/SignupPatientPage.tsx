@@ -135,11 +135,11 @@ const SignupPatientPageDiv = styled.div`
   text-align: center;
 
   .input {
-    margin-bottom: 10px;
     text-align: left;
-    border-radius: 5px;
-    border: 1px solid #ddd;
+    border: 1px solid  ${({theme}: { theme: Theme }) => theme.colors.shade};
     --padding-start: 10px;
+    margin: 10px 0;
+    background-color: ${({theme}: { theme: Theme }) => theme.colors.light};
   }
 
   @media only screen and (min-width: 768px) {
@@ -167,9 +167,6 @@ const SignupPatientPageDiv = styled.div`
     margin-top: 0;
   }
 
-  span {
-    cursor: pointer;
-  }
 `;
 
 export default SignupPatientPage;

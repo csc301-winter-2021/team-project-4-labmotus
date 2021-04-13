@@ -77,13 +77,9 @@ const EditPatientDiv = styled.div`
   height: 100%;
   width: 100%;
   padding: 5%;
-  
-  .birthday {
-    text-align: center;
-  }
+  text-align: center;
 
   ion-input {
-    text-align: center;
     margin: 10px 0;
     background-color: ${({theme}: { theme: Theme }) => theme.colors.light};
   }

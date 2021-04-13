@@ -59,7 +59,7 @@ const AssessmentPage: FunctionComponent<AssessmentPageProps> = () => {
 
     function createAssessment(assessmentType: string, joints: Joints[]) {
         if (!assessmentType) {
-            setHeader("Invalid Assessment Type");
+            setHeader("Invalid Assessment");
             setMessage("Please fill out all the fields!");
             openAlert(true);
             return;
@@ -132,6 +132,12 @@ const AssessmentPage: FunctionComponent<AssessmentPageProps> = () => {
             };
             UseAPI.createAssessment(assessment);
         } else {
+            if (joints.length === 0){
+                setHeader("Invalid Assessment");
+                setMessage("Please select joints to analyze!");
+                openAlert(true);
+                return;
+            }
             const assessment: Assessment = {
                 id: "",
                 patientId: params.patientId,
