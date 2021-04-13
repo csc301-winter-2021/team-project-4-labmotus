@@ -21,6 +21,7 @@ const FinalizeSignupPage: FunctionComponent<SignupPageProps> = () => {
     const [password, setPassword] = useState<string>();
     const [confirmPassword, setConfirmPassword] = useState<string>();
     const [isError, openAlert] = useState<boolean>(false);
+    const [redirectSignup, openRedirectSignup] = useState<boolean>(false);
     const [invalidSignup, openInvalidSignup] = useState<boolean>(false);
     const [header, setHeader] = useState<string>();
     const [message, setMessage] = useState<string>();
@@ -62,14 +63,28 @@ const FinalizeSignupPage: FunctionComponent<SignupPageProps> = () => {
             const link = await UseAPI.finishSignUp({...Object.fromEntries(params.entries()), email: email} as any);
             const signUpResult = await UseAPI.changePasswordWithLink(email, link, password);
             switch (signUpResult) {
+                case "success":
+                    openRedirectSignup(true);
+                    return;
                 case "argument-error":
+                    // Error in the sign up link
                     openInvalidSignup(true);
                     return;
-                default:
-                    setHeader("Thanks For Signing Up");
-                    setMessage("You can now log in via our Patient APP!");
+                case "weak-password":
+                    // User chose a weak password under 6 characters
+                    setHeader("Weak Password");
+                    setMessage("Please choose a password that's at least 6 characters.");
                     openAlert(true);
-                    break;
+                    setPassword("");
+                    setConfirmPassword("");
+                    return;
+                default:
+                    setHeader("Error");
+                    setMessage("An error has occurred while trying to sign you up. Please try again later.");
+                    openAlert(true);
+                    setPassword("");
+                    console.log(signUpResult);
+                    return;
             }
         } catch (e) {
             console.error(e);
@@ -94,7 +109,6 @@ const FinalizeSignupPage: FunctionComponent<SignupPageProps> = () => {
                     <CenterWrapper>
                         <div className="main">
                             <div className="form">
-
                                 <IonInput
                                     class="input"
                                     placeholder="Email"
@@ -138,6 +152,16 @@ const FinalizeSignupPage: FunctionComponent<SignupPageProps> = () => {
                 buttons={["OK"]}
             />
             <IonAlert
+                isOpen={redirectSignup}
+                onDidDismiss={() => {
+                    openRedirectSignup(false);
+                    history.push("/");
+                }}
+                header="Thanks For Signing Up"
+                message="You can now log in via our Patient App! We will be redirecting you to the home page."
+                buttons={["OK"]}
+            />
+            <IonAlert
                 isOpen={invalidSignup}
                 onDidDismiss={() => {
                     openInvalidSignup(false);
@@ -148,8 +172,7 @@ const FinalizeSignupPage: FunctionComponent<SignupPageProps> = () => {
                 buttons={["OK"]}
             />
         </IonPage>
-    )
-        ;
+    );
 };
 
 const SignupPageDiv = styled.div`

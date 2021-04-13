@@ -16,7 +16,6 @@ const ForgotPasswordPage: FunctionComponent<ForgotPasswordPageProps> = () => {
     const theme = useContext(getThemeContext());
     const history = useHistory();
 
-
     const [email, setEmail] = useState<string>();
     const [isError, openAlert] = useState<boolean>(false);
     const [header, setHeader] = useState<string>();
@@ -33,6 +32,11 @@ const ForgotPasswordPage: FunctionComponent<ForgotPasswordPageProps> = () => {
         try {
             const forgotPassResult = await UseAPI.forgotPassword(email);
             switch (forgotPassResult) {
+                case "success":
+                    setHeader("Password Reset Email Sent");
+                    setMessage("Please check your email to reset your password!");
+                    openAlert(true);
+                    return;
                 case "invalid-email":
                     // User has entered an invalid email address
                     setHeader("Invalid Email");
@@ -45,15 +49,12 @@ const ForgotPasswordPage: FunctionComponent<ForgotPasswordPageProps> = () => {
                     setMessage("The email you have entered is not associated with an account. Please try again or sign up for an account.");
                     openAlert(true);
                     return;
-                case "success":
-                    // User has entered valid email
-                    setHeader("Password Reset Email Sent");
-                    setMessage("Please check your email to reset your password!");
-                    openAlert(true);
-                    return;
                 default:
+                    setHeader("Error");
+                    setMessage("An error has occurred sending a password reset email. Please try again later.");
+                    openAlert(true);
                     console.log(forgotPassResult);
-                    break;
+                    return;
             }
         } catch (e) {
             console.error(e);
@@ -72,7 +73,9 @@ const ForgotPasswordPage: FunctionComponent<ForgotPasswordPageProps> = () => {
                     <h1>LabMotus</h1>
                     <h3>Clinician Portal</h3>
                     <ForgotPassword email={email} setEmail={setEmail} onForgotPassword={forgotPassword}/>
-                    <p className="footer">Remember your password? <span onClick={login}>Login</span></p>
+                    <p className="footer">
+                        Remember your password? <span onClick={login}>Login</span>
+                    </p>
                     <IonAlert
                         isOpen={isError}
                         onDidDismiss={() => openAlert(false)}
@@ -83,7 +86,6 @@ const ForgotPasswordPage: FunctionComponent<ForgotPasswordPageProps> = () => {
                 </ForgotPasswordPageDiv>
             </IonContent>
         </IonPage>
-
     );
 };
 

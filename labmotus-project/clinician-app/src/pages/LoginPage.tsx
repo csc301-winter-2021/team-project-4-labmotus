@@ -40,6 +40,8 @@ const LoginPage: FunctionComponent<LoginPageProps> = () => {
         try {
             const loginResult = await UseAPI.login(email, password);
             switch (loginResult) {
+                case "success":
+                    return;
                 case "invalid-email":
                     // User has entered an invalid email address
                     setHeader("Invalid Email");
@@ -69,8 +71,12 @@ const LoginPage: FunctionComponent<LoginPageProps> = () => {
                     setPassword("");
                     return;
                 default:
+                    setHeader("Error");
+                    setMessage("An error has occurred while trying to log you in. Please try again later.");
+                    openAlert(true);
+                    setPassword("");
                     console.log(loginResult);
-                    break;
+                    return;
             }
         } catch (e) {
             console.error(e);
@@ -79,12 +85,12 @@ const LoginPage: FunctionComponent<LoginPageProps> = () => {
 
     // When user clicks 'Forgot Password?'
     function forgotPassword() {
-        history.push('/forgot-password');
+        history.push("/forgot-password");
     }
 
     // When user clicks 'Sign Up'
     function signUp() {
-        history.push('/sign-up');
+        history.push("/sign-up");
     }
 
     return (

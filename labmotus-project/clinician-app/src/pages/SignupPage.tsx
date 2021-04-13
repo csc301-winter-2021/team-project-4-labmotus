@@ -67,6 +67,8 @@ const SignupPage: FunctionComponent<SignupPageProps> = () => {
         try {
             const signUpResult = await UseAPI.signUp(name, clinic, email, password);
             switch (signUpResult) {
+                case "success":
+                    return;
                 case "email-already-in-use":
                     // User has entered an email that's already in use
                     setHeader("Email Taken");
@@ -92,8 +94,12 @@ const SignupPage: FunctionComponent<SignupPageProps> = () => {
                     setConfirmPassword("");
                     return;
                 default:
+                    setHeader("Error");
+                    setMessage("An error has occurred while trying to sign you up. Please try again later.");
+                    openAlert(true);
+                    setPassword("");
                     console.log(signUpResult);
-                    break;
+                    return;
             }
         } catch (e) {
             console.error(e);

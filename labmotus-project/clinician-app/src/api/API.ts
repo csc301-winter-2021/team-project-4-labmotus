@@ -94,7 +94,6 @@ class API extends BaseAPI {
                     firebaseId: creds.user.uid
                 }
             };
-            console.log(clinician, "the clinician!")
             const response = await fetch(this._config.api + `/clinician`, {
                 method: "POST",
                 mode: 'cors',
