@@ -1,16 +1,11 @@
 import {FunctionComponent, useContext, useState} from "react";
-import {
-    IonAlert,
-    IonContent,
-    IonInput,
-    IonPage,
-} from "@ionic/react";
+import {IonAlert, IonContent, IonInput, IonPage} from "@ionic/react";
 // @ts-ignore
 import styled from "styled-components";
 import {getThemeContext, Theme} from "../../../common/ui/theme/Theme";
 import API from "../api/API";
 import {getAPIContext} from "../../../common/api/BaseAPI";
-import Header from "../../../common/ui/components/Header"
+import Header from "../../../common/ui/components/Header";
 
 export interface ChangePasswordPageProps {
 }
@@ -147,8 +142,8 @@ const ChangePasswordPageDiv = styled.div`
   ion-input {
     margin: 10px 0;
     background-color: ${({theme}: { theme: Theme }) => theme.colors.light};
+    --padding-start: 10px;
   }
-
 `;
 
 export default ChangePasswordPage;

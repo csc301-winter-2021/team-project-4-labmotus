@@ -110,9 +110,9 @@ export const AddAssessment: FunctionComponent<AddAssessmentProps> = (props: AddA
                                 props.addAssessment(assessmentType, assessmentJoints);
                             }
                         }}
-                        type="primary round full"
+                        type="primary full"
                     />
-                    <Button label="Cancel" onClick={() => props.setShowAddAssessment(false)} type="round full"/>
+                    <Button label="Cancel" onClick={() => props.setShowAddAssessment(false)} type="full"/>
                 </div>
             </AddAssessmentDiv>
         </AddAssessmentScrollbar>

@@ -64,6 +64,9 @@ const SettingsPage: FunctionComponent<SettingsPageProps> = () => {
 
     // When user clicks on 'Change Password'
     function onChangePassword() {
+        setCurrPassword("");
+        setNewPassword("");
+        setConfirmPassword("");
         setChangePassword(true);
     }
 
@@ -114,7 +117,7 @@ const SettingsPage: FunctionComponent<SettingsPageProps> = () => {
     async function editEmail() {
         // Check if user has entered a valid email
         const validEmail = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-        if (!validEmail.test(email.toLowerCase())) {
+        if (!validEmail || !validEmail.test(email.toLowerCase())) {
             setHeader("Invalid Email");
             setMessage("Please enter a valid email address.");
             openAlert(true);
@@ -214,8 +217,12 @@ const SettingsPage: FunctionComponent<SettingsPageProps> = () => {
                         <EditName name={name} setName={setName} setEditName={setEditName} save={editName}/>
                     </IonModal>
                     <IonModal isOpen={showEditClinic} onDidDismiss={() => setEditClinic(false)}>
-                        <EditClinic clinic={clinicName} setClinic={setClinicName} setEditClinic={setEditClinic}
-                                    save={editClinic}/>
+                        <EditClinic
+                            clinic={clinicName}
+                            setClinic={setClinicName}
+                            setEditClinic={setEditClinic}
+                            save={editClinic}
+                        />
                     </IonModal>
                     <IonModal isOpen={showEditEmail} onDidDismiss={() => setEditEmail(false)}>
                         <EditEmail email={email} setEmail={setEmail} setEditEmail={setEditEmail} save={editEmail}/>
