@@ -8,10 +8,11 @@ import {v4 as uuid} from 'uuid';
 
 import config from "../../config.json";
 import {Assessment, AssessmentState, Clinician, Patient, PoseData, SignUpParams, Stats, User} from "../../../common/types/types";
+
 import processWrnchData from "../wrnch/processWrnch";
 
 
-const awsParams = { region: 'us-east-1' };
+const awsParams = {region: 'us-east-1'};
 
 const DynamoDB = new AWS.DynamoDB.DocumentClient(awsParams);
 const PATIENTS_TABLE = config.patientsTable;
@@ -40,7 +41,7 @@ interface UpdateParams {
 class Database {
 
     firebaseClient: firebase.app.App;
-    
+
     constructor(firebaseClient: firebase.app.App) {
         this.firebaseClient = firebaseClient;
     }
@@ -90,25 +91,25 @@ class Database {
     }
 
     private static _buildUpdateParams(modifications: any): UpdateParams {
-        let updateNameValuePairs: string[][] = [];
-        for(let key in modifications) {
-            if(key != "user" && modifications[key] !== undefined) {
+        const updateNameValuePairs: string[][] = [];
+        for (const key in modifications) {
+            if (key !== "user" && modifications[key] !== undefined) {
                 updateNameValuePairs.push([key, modifications[key]]);
             }
         }
-        if(modifications.user) {
-            for(let key in modifications.user) {
-                if(modifications.user[key] !== undefined) {
+        if (modifications.user) {
+            for (const key in modifications.user) {
+                if (modifications.user[key] !== undefined) {
                     updateNameValuePairs.push([key, modifications.user[key]]);
                 }
             }
         }
 
         let updateExpression = "";
-        if(updateNameValuePairs.length > 0) {
+        if (updateNameValuePairs.length > 0) {
             updateExpression = "set #k0 = :v0";
-            if(updateNameValuePairs.length > 1) {
-                for(let i = 1; i < updateNameValuePairs.length; i++) {
+            if (updateNameValuePairs.length > 1) {
+                for (let i = 1; i < updateNameValuePairs.length; i++) {
                     updateExpression += `, #k${i} = :v${i}`
                 }
             }
@@ -116,56 +117,56 @@ class Database {
         return {
             UpdateExpression: updateExpression,
             ExpressionAttributeNames: updateNameValuePairs.reduce((prev, kv, i) => {
-                prev['#k'+i] = kv[0];
+                prev['#k' + i] = kv[0];
                 return prev;
             }, {}),
             ExpressionAttributeValues: updateNameValuePairs.reduce((prev, kv, i) => {
-                prev[':v'+i] = kv[1];
+                prev[':v' + i] = kv[1];
                 return prev;
             }, {})
         };
     }
 
     private static async _checkAssessmentJob(assessment: Assessment): Promise<{ poseData: PoseData, stats: Stats[] }> {
-        if(assessment.state == AssessmentState.PENDING && assessment.wrnchJob) {
-            let api_key = await fs.promises.readFile("WRNCH_API_KEY");
-            var loginParams = new URLSearchParams();
+        if (assessment.state === AssessmentState.PENDING && assessment.wrnchJob) {
+            const api_key = await fs.promises.readFile("WRNCH_API_KEY");
+            const loginParams = new URLSearchParams();
             loginParams.append('api_key', api_key.toString());
-            let token = await fetch(WRNCH_API + "login", {
+            const token = await fetch(WRNCH_API + "login", {
                 method: 'POST',
                 body: loginParams
             })
-            .then(r => r.json())
-            .then(res => res["access_token"]);
+                .then(r => r.json())
+                .then(res => res["access_token"]);
 
-            let status = await fetch(WRNCH_API + `status/${assessment.wrnchJob}`, {
+            const status = await fetch(WRNCH_API + `status/${assessment.wrnchJob}`, {
                 method: 'GET',
                 headers: {
                     'Authorization': "Bearer " + token
                 }
             })
-            .then(r => r.json());
+                .then(r => r.json());
 
-            if(status == WRNCH_PROCESSED) {
-                let data = await fetch(WRNCH_API + `jobs/${assessment.wrnchJob}`, {
+            if (status === WRNCH_PROCESSED) {
+                const data = await fetch(WRNCH_API + `jobs/${assessment.wrnchJob}`, {
                     method: 'GET',
                     headers: {
                         'Authorization': "Bearer " + token
                     }
                 })
-                .then(r => r.json());
+                    .then(r => r.json());
                 return processWrnchData(data, assessment.joints);
-            }else {
+            } else {
                 return undefined;
             }
-        }else {
+        } else {
             return undefined;
         }
     }
 
     async getPatientByFirebaseID(firebaseID: string): Promise<Patient> {
         try {
-            let data = await DynamoDB.query({
+            const data = await DynamoDB.query({
                 TableName: PATIENTS_TABLE,
                 IndexName: FIREBASE_ID_INDEX,
                 KeyConditionExpression: '#F = :f',
@@ -177,12 +178,12 @@ class Database {
                 },
                 Limit: 1
             }).promise();
-            if(data.Items.length < 1) {
+            if (data.Items.length < 1) {
                 throw `Patient with given Firebase ID not found`;
-            }else {
+            } else {
                 return Database._buildPatientFromItem(data.Items[0]);
             }
-        }catch(err) {
+        } catch (err) {
             console.error(err);
             throw "Database query failed";
         }
@@ -190,7 +191,7 @@ class Database {
 
     async getClinicianByFirebaseID(firebaseID: string): Promise<Clinician> {
         try {
-            let data = await DynamoDB.query({
+            const data = await DynamoDB.query({
                 TableName: CLINICIANS_TABLE,
                 IndexName: FIREBASE_ID_INDEX,
                 KeyConditionExpression: '#F = :f',
@@ -202,12 +203,12 @@ class Database {
                 },
                 Limit: 1
             }).promise();
-            if(data.Items.length < 1) {
+            if (data.Items.length < 1) {
                 throw `Clinician with given Firebase ID not found`;
-            }else {
+            } else {
                 return Database._buildClinicianFromItem(data.Items[0]);
             }
-        }catch(err) {
+        } catch (err) {
             console.error(err);
             throw "Database query failed";
         }
@@ -215,16 +216,16 @@ class Database {
 
     async getPatientByID(id: string): Promise<Patient> {
         try {
-            let data = await DynamoDB.get({
+            const data = await DynamoDB.get({
                 TableName: PATIENTS_TABLE,
-                Key: { id }
+                Key: {id}
             }).promise();
-            if(data.Item) {
+            if (data.Item) {
                 return Database._buildPatientFromItem(data.Item);
-            }else {
+            } else {
                 throw `Patient with given ID not found`;
             }
-        }catch(err) {
+        } catch (err) {
             console.error(err);
             throw "Database query failed";
         }
@@ -232,16 +233,16 @@ class Database {
 
     async getClinicianByID(id: string): Promise<Clinician> {
         try {
-            let data = await DynamoDB.get({
+            const data = await DynamoDB.get({
                 TableName: CLINICIANS_TABLE,
-                Key: { id }
+                Key: {id}
             }).promise();
-            if(data.Item) {
+            if (data.Item) {
                 return Database._buildClinicianFromItem(data.Item);
-            }else {
+            } else {
                 throw `Clinician with given ID not found`;
             }
-        }catch(err) {
+        } catch (err) {
             console.error(err);
             throw "Database query failed";
         }
@@ -249,11 +250,11 @@ class Database {
 
     async updatePatient(id: string, modifications: {}): Promise<Patient> {
         try {
-            let updateParams = Database._buildUpdateParams(modifications);
-            if(updateParams) {
+            const updateParams = Database._buildUpdateParams(modifications);
+            if (updateParams) {
                 await DynamoDB.update({
                     TableName: PATIENTS_TABLE,
-                    Key: { id },
+                    Key: {id},
                     ConditionExpression: "attribute_exists(id)",
                     UpdateExpression: updateParams.UpdateExpression,
                     ExpressionAttributeNames: updateParams.ExpressionAttributeNames,
@@ -261,7 +262,7 @@ class Database {
                 }).promise();
             }
             return await this.getPatientByID(id);
-        }catch(err) {
+        } catch (err) {
             console.error(err);
             throw "Failed to update database";
         }
@@ -269,11 +270,11 @@ class Database {
 
     async updateClinician(id: string, modifications: {}): Promise<Clinician> {
         try {
-            let updateParams = Database._buildUpdateParams(modifications);
-            if(updateParams) {
+            const updateParams = Database._buildUpdateParams(modifications);
+            if (updateParams) {
                 await DynamoDB.update({
                     TableName: CLINICIANS_TABLE,
-                    Key: { id },
+                    Key: {id},
                     ConditionExpression: "attribute_exists(id)",
                     UpdateExpression: updateParams.UpdateExpression,
                     ExpressionAttributeNames: updateParams.ExpressionAttributeNames,
@@ -281,14 +282,14 @@ class Database {
                 }).promise();
             }
             return await this.getClinicianByID(id);
-        }catch(err) {
+        } catch (err) {
             console.error(err);
             throw "Failed to update database";
         }
     }
 
     async createAssessment(assessment: Assessment): Promise<Assessment> {
-        if(!assessment.patientId || !assessment.name || !assessment.joints || !assessment.joints.length) {
+        if (!assessment.patientId || !assessment.name || !assessment.joints || !assessment.joints.length) {
             throw "Incomplete assessment data"
         }
 
@@ -303,25 +304,25 @@ class Database {
         }
 
         // Generate unique assessment id
-        let MAX_ITERATIONS = 5; // We will make 5 attempts to generate a UUID, which is generous since we expect **very** few collision to occur
-        for(let i = 0; i < MAX_ITERATIONS; i++) {
+        const MAX_ITERATIONS = 5; // We will make 5 attempts to generate a UUID, which is generous since we expect **very** few collision to occur
+        for (let i = 0; i < MAX_ITERATIONS; i++) {
             assessmentRow.id = uuid();
             try {
-                let data = await DynamoDB.get({
+                const data = await DynamoDB.get({
                     TableName: ASSESSMENTS_TABLE,
-                    Key: { id: assessmentRow.id }
+                    Key: {id: assessmentRow.id}
                 }).promise();
-                if(data.Item) {
+                if (data.Item) {
                     assessmentRow.id = undefined;
-                }else {
+                } else {
                     break;
                 }
-            }catch(err) {
+            } catch (err) {
                 console.error(err);
                 throw "Failed to generate assessment ID";
             }
         }
-        if(assessmentRow.id === undefined) {
+        if (assessmentRow.id === undefined) {
             throw "Failed to generate assessment ID";
         }
 
@@ -331,7 +332,7 @@ class Database {
                 TableName: ASSESSMENTS_TABLE,
                 Item: assessmentRow
             }).promise();
-        }catch(err) {
+        } catch (err) {
             console.error(err);
             throw "Failed to create assessment database entry";
         }
@@ -340,9 +341,9 @@ class Database {
     }
 
     async getAssessmentsByPatient(ID: string, start: Moment, duration: number, unit: string): Promise<Assessment[]> {
-        let end = moment(start).add(duration, unit as any);
+        const end = moment(start).add(duration, unit as any);
         try {
-            let data = await DynamoDB.query({
+            const data = await DynamoDB.query({
                 TableName: ASSESSMENTS_TABLE,
                 IndexName: PATIENT_ID_INDEX,
                 KeyConditionExpression: '#P = :p',
@@ -357,17 +358,20 @@ class Database {
                     ':end': end.toISOString()
                 }
             }).promise();
-            let ret = data.Items.map(Database._buildAssessmentFromItem);
-            for(let assessment of ret) {
-                let processed = await Database._checkAssessmentJob(assessment);
-                if(processed) {
-                    await this.updateAssessment(assessment.patientId, assessment.id, {...processed, state: AssessmentState.COMPLETE });
+            const ret = data.Items.map(Database._buildAssessmentFromItem);
+            for (const assessment of ret) {
+                const processed = await Database._checkAssessmentJob(assessment);
+                if (processed) {
+                    await this.updateAssessment(assessment.patientId, assessment.id, {
+                        ...processed,
+                        state: AssessmentState.COMPLETE
+                    });
                     assessment.poseData = processed.poseData;
                     assessment.stats = processed.stats;
                 }
             }
             return ret;
-        }catch(err) {
+        } catch (err) {
             console.error(err);
             throw "Database query failed";
         }
@@ -375,23 +379,26 @@ class Database {
 
     async getAssessmentByID(patientID: string, assessmentID: string): Promise<Assessment> {
         try {
-            let data = await DynamoDB.get({
+            const data = await DynamoDB.get({
                 TableName: ASSESSMENTS_TABLE,
-                Key: { id: assessmentID }
+                Key: {id: assessmentID}
             }).promise();
-            if(data.Item) {
-                let assessment = Database._buildAssessmentFromItem(data.Item);
-                let processed = await Database._checkAssessmentJob(assessment);
-                if(processed) {
-                    await this.updateAssessment(assessment.patientId, assessment.id, {...processed, state: AssessmentState.COMPLETE });
+            if (data.Item) {
+                const assessment = Database._buildAssessmentFromItem(data.Item);
+                const processed = await Database._checkAssessmentJob(assessment);
+                if (processed) {
+                    await this.updateAssessment(assessment.patientId, assessment.id, {
+                        ...processed,
+                        state: AssessmentState.COMPLETE
+                    });
                     assessment.poseData = processed.poseData;
                     assessment.stats = processed.stats;
                 }
                 return assessment;
-            }else {
+            } else {
                 throw `Assessment with given ID not found`;
             }
-        }catch(err) {
+        } catch (err) {
             console.error(err);
             throw "Database query failed";
         }
@@ -399,52 +406,52 @@ class Database {
 
     async updateAssessment(patientID: string, assessmentID: string, changes: any): Promise<void> {
         try {
-            let updateParams = Database._buildUpdateParams(changes);
-            if(updateParams) {
+            const updateParams = Database._buildUpdateParams(changes);
+            if (updateParams) {
                 await DynamoDB.update({
                     TableName: ASSESSMENTS_TABLE,
-                    Key: { id: assessmentID },
+                    Key: {id: assessmentID},
                     ConditionExpression: "attribute_exists(id)",
                     UpdateExpression: updateParams.UpdateExpression,
                     ExpressionAttributeNames: updateParams.ExpressionAttributeNames,
                     ExpressionAttributeValues: updateParams.ExpressionAttributeValues
                 }).promise();
             }
-        }catch(err) {
+        } catch (err) {
             console.error(err);
             throw "Failed to update database";
         }
     }
 
     async saveVideo(userId: string, assessmentID: string, video: NodeJS.ReadableStream): Promise<string> {
-        const params = {Bucket: VIDEO_BUCKET, Key: VIDEO_KEY_PREFIX+assessmentID+VIDEO_KEY_SUFFIX, Body: video};
+        const params = {Bucket: VIDEO_BUCKET, Key: VIDEO_KEY_PREFIX + assessmentID + VIDEO_KEY_SUFFIX, Body: video};
         const options = {partSize: 10 * 1024 * 1024, queueSize: 1};
         try {
             await this.getAssessmentByID(userId, assessmentID); // Check that assessment exists
-            let videoUrl = `/video/${assessmentID}`
+            const videoUrl = `/video/${assessmentID}`
             await S3.upload(params, options).promise();
             await this.updateAssessment(userId, assessmentID, {
                 "videoUrl": videoUrl,
                 "state": AssessmentState.PENDING
             });
             return videoUrl;
-        }catch(err) {
+        } catch (err) {
             console.error(err);
             throw "Video upload failed";
         }
     }
 
     async getVideo(userId: string, assessmentID: string): Promise<string | ReadStream> {
-        const params = {Bucket: VIDEO_BUCKET, Key: VIDEO_KEY_PREFIX+assessmentID+VIDEO_KEY_SUFFIX, Expires: 300};
+        const params = {Bucket: VIDEO_BUCKET, Key: VIDEO_KEY_PREFIX + assessmentID + VIDEO_KEY_SUFFIX, Expires: 300};
         return S3.getSignedUrlPromise('getObject', params);
     }
 
     async createPatient(clinician: Clinician, patient: Patient): Promise<Patient> {
-        if(!patient.user || !patient.user.name || !patient.phone || !patient.birthday) {
+        if (!patient.user || !patient.user.name || !patient.phone || !patient.birthday) {
             throw "Patient data incomplete"
         }
 
-        let patientRow = {
+        const patientRow = {
             id: undefined,
             firebaseId: undefined,
             name: patient.user.name,
@@ -456,43 +463,43 @@ class Database {
         }
 
         // Generate unique user id
-        let MAX_ITERATIONS = 5; // We will make 5 attempts to generate a UUID, which is generous since we expect **very** few collision to occur
-        for(let i = 0; i < MAX_ITERATIONS; i++) {
+        const MAX_ITERATIONS = 5; // We will make 5 attempts to generate a UUID, which is generous since we expect **very** few collision to occur
+        for (let i = 0; i < MAX_ITERATIONS; i++) {
             patientRow.id = uuid();
             try {
-                let data = await DynamoDB.get({
+                const data = await DynamoDB.get({
                     TableName: PATIENTS_TABLE,
-                    Key: { id: patientRow.id }
+                    Key: {id: patientRow.id}
                 }).promise();
-                if(data.Item) {
+                if (data.Item) {
                     patientRow.id = undefined;
-                }else {
+                } else {
                     break;
                 }
-            }catch(err) {
+            } catch (err) {
                 console.error(err);
                 throw "Failed to generate patient ID";
             }
         }
-        if(patientRow.id === undefined) {
+        if (patientRow.id === undefined) {
             throw "Failed to generate patient ID";
         }
 
         // Create Firebase user
-        let tempPassword = Math.random().toString(36).substring(2,12); // Random 10-character alphanumeric (lowercase) string
+        const tempPassword = Math.random().toString(36).substring(2, 12); // Random 10-character alphanumeric (lowercase) string
         try {
-            let userRecord = await firebaseAdmin.auth().createUser({
+            const userRecord = await firebaseAdmin.auth().createUser({
                 email: patientRow.email,
                 password: tempPassword,
             });
             await this.firebaseClient.auth().signInWithEmailAndPassword(patientRow.email, tempPassword);
             patientRow.firebaseId = this.firebaseClient.auth().currentUser.uid;
-            firebaseAdmin.auth().updateUser(userRecord.uid, { disabled: true });
+            await firebaseAdmin.auth().updateUser(userRecord.uid, {disabled: true});
             await this.firebaseClient.auth().sendSignInLinkToEmail(patientRow.email, {
                 url: config.actionAddress + "?email=" + patientRow.email,
                 handleCodeInApp: true
             });
-        }catch(err) {
+        } catch (err) {
             console.error(err);
             throw "Failed to create patient credentials";
         }
@@ -503,52 +510,52 @@ class Database {
                 TableName: PATIENTS_TABLE,
                 Item: patientRow
             }).promise();
-        }catch(err) {
+        } catch (err) {
             console.error(err);
             throw "Failed to create patient database entry";
         }
 
         // Add patient to clinician
         clinician.patientIDs.push(patientRow.id);
-        await this.updateClinician(clinician.user.id, { patientIDs: clinician.patientIDs });
+        await this.updateClinician(clinician.user.id, {patientIDs: clinician.patientIDs});
 
         return Database._buildPatientFromItem(patientRow);
     }
 
     async createClinician(newClinician: Clinician): Promise<Clinician> {
-        if(!newClinician.user || !newClinician.user.email || !newClinician.user.firebaseId) {
+        if (!newClinician.user || !newClinician.user.name || !newClinician.clinic || !newClinician.user.email || !newClinician.user.firebaseId) {
             throw "Clinician data incomplete";
         }
 
-        let clinicianRow = {
+        const clinicianRow = {
             id: undefined,
             firebaseId: newClinician.user.firebaseId,
-            name: "",
+            name: newClinician.user.name,
             email: newClinician.user.email,
-            clinic: "",
+            clinic: newClinician.clinic,
             patientIDs: []
         };
 
         // Generate unique user id
-        let MAX_ITERATIONS = 5; // We will make 5 attempts to generate a UUID, which is generous since we expect **very** few collision to occur
-        for(let i = 0; i < MAX_ITERATIONS; i++) {
+        const MAX_ITERATIONS = 5; // We will make 5 attempts to generate a UUID, which is generous since we expect **very** few collision to occur
+        for (let i = 0; i < MAX_ITERATIONS; i++) {
             clinicianRow.id = uuid();
             try {
-                let data = await DynamoDB.get({
+                const data = await DynamoDB.get({
                     TableName: CLINICIANS_TABLE,
-                    Key: { id: clinicianRow.id }
+                    Key: {id: clinicianRow.id}
                 }).promise();
-                if(data.Item) {
+                if (data.Item) {
                     clinicianRow.id = undefined;
-                }else {
+                } else {
                     break;
                 }
-            }catch(err) {
+            } catch (err) {
                 console.error(err);
                 throw "Failed to generate clinician ID";
             }
         }
-        if(clinicianRow.id === undefined) {
+        if (clinicianRow.id === undefined) {
             throw "Failed to generate clinician ID";
         }
 
@@ -558,7 +565,7 @@ class Database {
                 TableName: CLINICIANS_TABLE,
                 Item: clinicianRow
             }).promise();
-        }catch(err) {
+        } catch (err) {
             console.error(err);
             throw "Failed to create clinician";
         }
@@ -569,20 +576,20 @@ class Database {
     async finalizePatient(params: SignUpParams): Promise<string> {
         try {
             const user = await firebaseAdmin.auth().getUserByEmail(params.email);
-            await firebaseAdmin.auth().updateUser(user.uid, { disabled: false });
+            await firebaseAdmin.auth().updateUser(user.uid, {disabled: false});
             try {
                 const databaseUser = await this.getPatientByFirebaseID(user.uid);
                 await this.firebaseClient.auth().signInWithEmailLink(params.email, config.actionAddress + "?" + new URLSearchParams(params as any).toString());
-                await this.updatePatient(databaseUser.user.id, { incomplete: false });
+                await this.updatePatient(databaseUser.user.id, {incomplete: false});
                 return await firebaseAdmin.auth().generateSignInWithEmailLink(params.email, {
                     url: config.actionAddress,
                     handleCodeInApp: true
                 });
-            }catch(err) {
-                await firebaseAdmin.auth().updateUser(user.uid, { disabled: true });
+            } catch (err) {
+                await firebaseAdmin.auth().updateUser(user.uid, {disabled: true});
                 throw err;
             }
-        }catch(err) {
+        } catch (err) {
             console.error(err);
             throw "Failed to finalize patient";
         }
