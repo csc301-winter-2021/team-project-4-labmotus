@@ -1,5 +1,5 @@
 import {FunctionComponent, useContext, useEffect, useState} from "react";
-import {IonAlert, IonContent, IonModal, IonPage} from "@ionic/react";
+import {IonAlert, IonContent, IonModal, IonPage, IonSkeletonText} from "@ionic/react";
 //@ts-ignore
 import styled from "styled-components";
 import moment from "moment";
@@ -78,46 +78,63 @@ const PatientProfilePage: FunctionComponent<PatientProfilePageProps> = () => {
         }
     }
 
+    function generateBody() {
+        if (patient === null) {
+            return (
+                <PatientProfilePageDiv theme={theme}>
+                    <div className="loading-patient">
+                        <IonSkeletonText animated style={{width: "45%"}}/>
+                        <IonSkeletonText animated style={{width: "57%"}}/>
+                        <IonSkeletonText animated style={{width: "80%"}}/>
+                        <IonSkeletonText animated style={{width: "100%"}}/>
+                    </div>
+                </PatientProfilePageDiv>
+            );
+        } else {
+            return (
+                <PatientProfilePageDiv theme={theme}>
+                    <div className="profile-header">
+                        <div className="profile-picture">
+                            <ProfilePictureComponent
+                                imageLink="https://research.cbc.osu.edu/sokolov.8/wp-content/uploads/2017/12/profile-icon-png-898.png"/>
+                        </div>
+                        <div className="profile-name">
+                            <h1>{patient?.user?.name}</h1>
+                        </div>
+                    </div>
+                    <div className="profile-info">
+                        <p>
+                            Phone: <span>{patient?.phone.replace(/(\d{3})(\d{3})(\d{4})/, "$1-$2-$3")}</span>
+                        </p>
+                        <p>
+                            Email: <span>{patient?.user?.email}</span>
+                        </p>
+                        <p>
+                            DOB: <span>{patient?.birthday.format(theme.birthdayFormat)}</span>
+                        </p>
+                    </div>
+                    <Button label="Edit Profile" onClick={() => setEditPatient(true)} type="primary round"/>
+                </PatientProfilePageDiv>
+            );
+        }
+    }
+
     return (
         <IonPage>
             <IonContent fullscreen>
-                <PatientProfilePageDiv theme={theme}>
-                    <div>
-                        <div className="profile-header">
-                            <div className="profile-picture">
-                                <ProfilePictureComponent
-                                    imageLink="https://research.cbc.osu.edu/sokolov.8/wp-content/uploads/2017/12/profile-icon-png-898.png"/>
-                            </div>
-                            <div className="profile-name">
-                                <h1>{patient?.user?.name}</h1>
-                            </div>
-                        </div>
-                        <div className="profile-info">
-                            <p>
-                                Phone: <span>{patient?.phone.replace(/(\d{3})(\d{3})(\d{4})/, "$1-$2-$3")}</span>
-                            </p>
-                            <p>
-                                Email: <span>{patient?.user?.email}</span>
-                            </p>
-                            <p>
-                                DOB: <span>{patient?.birthday.format(theme.birthdayFormat)}</span>
-                            </p>
-                        </div>
-                    </div>
-                    <Button label="Edit Profile" onClick={() => setEditPatient(true)} type="primary round"/>
-                    <IonModal isOpen={showEditPatient} onDidDismiss={() => setEditPatient(false)}>
-                        <EditPatient
-                            name={patientName}
-                            setName={setPatientName}
-                            phone={patientPhone}
-                            setPhone={setPatientPhone}
-                            birthday={patientBirthday}
-                            setBirthday={setPatientBirthday}
-                            setEditPatient={setEditPatient}
-                            save={updatePatient}
-                        />
-                    </IonModal>
-                </PatientProfilePageDiv>
+                {generateBody()}
+                <IonModal isOpen={showEditPatient} onDidDismiss={() => setEditPatient(false)}>
+                    <EditPatient
+                        name={patientName}
+                        setName={setPatientName}
+                        phone={patientPhone}
+                        setPhone={setPatientPhone}
+                        birthday={patientBirthday}
+                        setBirthday={setPatientBirthday}
+                        setEditPatient={setEditPatient}
+                        save={updatePatient}
+                    />
+                </IonModal>
                 <SymptomLogPage baseUrl={"/patients/" + params.patientId} getAssessments={getAssessments}/>
             </IonContent>
             <IonAlert
@@ -138,6 +155,10 @@ const PatientProfilePageDiv = styled.div`
   .profile-header {
     display: flex;
     vertical-align: middle;
+
+    .profile-picture {
+      margin-top: 5px;
+    }
 
     .profile-name h1 {
       font-size: 1.9em;
@@ -169,7 +190,14 @@ const PatientProfilePageDiv = styled.div`
       flex-direction: column;
     }
   }
-}
+
+  .loading-patient ion-skeleton-text:first-child {
+    line-height: 2.5em;
+  }
+
+  .loading-patient ion-skeleton-text {
+    line-height: 1.3em;
+  }
 `;
 
 export default PatientProfilePage;

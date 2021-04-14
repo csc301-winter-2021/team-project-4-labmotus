@@ -1,5 +1,5 @@
 import {FunctionComponent, useContext, useEffect, useState} from "react";
-import {IonContent, IonPage} from "@ionic/react";
+import {IonContent, IonPage, IonSpinner} from "@ionic/react";
 // @ts-ignore
 import styled from "styled-components";
 import {getThemeContext, Theme} from "../../../common/ui/theme/Theme";
@@ -10,6 +10,7 @@ import {useHistory} from "react-router";
 import {PatientSearchComponent} from "../components/PatientSearchComponent";
 import {getAPIContext} from "../../../common/api/BaseAPI";
 import Button from "../../../common/ui/components/Button";
+import CenterWrapper from "../../../common/ui/components/CenterWrapper";
 
 export interface AllPatientsPageProps {
 }
@@ -20,28 +21,41 @@ const AllPatientsPage: FunctionComponent<AllPatientsPageProps> = () => {
     const history = useHistory();
 
     const emptyPatientsList: Patient[] = [];
-    const [allPatients, setAllPatients] = useState(emptyPatientsList);
-    const [patientsToShow, setPatientsToShow] = useState(allPatients);
+    const [allPatients, setAllPatients] = useState(null);
+    const [patientsToShow, setPatientsToShow] = useState(emptyPatientsList);
+
+    useEffect(() => {
+        getAllPatients();
+    }, []);
 
     function getAllPatients(): void {
-        UseAPI.getAllPatients().then(
-            (patients: Patient[]) => {
-                setAllPatients(patients);
-                setPatientsToShow(patients)
-            },
-            () => {
-                // pass
-            }
-        )
+        UseAPI.getAllPatients().then((patients: Patient[]) => {
+            setAllPatients(patients);
+            setPatientsToShow(patients);
+        });
     }
 
     function signupPatient(): void {
-        history.push('/sign-up-patient');
+        history.push("/sign-up-patient");
     }
 
-    useEffect(() => {
-        getAllPatients()
-    }, []);
+    function generateBody() {
+        if (allPatients === null) {
+            return (
+                <CenterWrapper>
+                    <IonSpinner/>
+                </CenterWrapper>
+            );
+        } else if (allPatients.length === 0) {
+            return (
+                <CenterWrapper>
+                    <p>No patients yet!</p>
+                </CenterWrapper>
+            );
+        } else {
+            return <PatientListComponent patientList={patientsToShow}/>;
+        }
+    }
 
     return (
         <IonPage>
@@ -52,7 +66,7 @@ const AllPatientsPage: FunctionComponent<AllPatientsPageProps> = () => {
                     <Button label="Add Patient" onClick={signupPatient} type="primary round"/>
                     <PatientsViewDiv>
                         <PatientSearchComponent allPatients={allPatients} setPatientsToShow={setPatientsToShow}/>
-                        <PatientListComponent patientList={patientsToShow}/>
+                        {generateBody()}
                     </PatientsViewDiv>
                 </AllPatientsPageDiv>
             </IonContent>
