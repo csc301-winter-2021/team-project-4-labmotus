@@ -248,7 +248,6 @@ class API extends BaseAPI {
         try {
             await this._firebaseSignInWithEmailAndPassword(this._user?.user.email, currPassword);
             await this._firebaseChangePassword(newPassword);
-            await this.logout();
             return "success";
         } catch (e) {
             return e.code.slice(5);

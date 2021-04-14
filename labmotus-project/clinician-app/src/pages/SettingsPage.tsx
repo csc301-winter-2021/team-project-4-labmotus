@@ -26,12 +26,15 @@ const SettingsPage: FunctionComponent<SettingsPageProps> = () => {
     const [showEditClinic, setEditClinic] = useState(false);
     const [showEditEmail, setEditEmail] = useState(false);
     const [showChangePassword, setChangePassword] = useState(false);
+
     const [name, setName] = useState<string>(clinician?.user?.name);
     const [clinicName, setClinicName] = useState<string>(clinician?.clinic);
     const [email, setEmail] = useState<string>(clinician?.user?.email);
     const [currPassword, setCurrPassword] = useState<string>();
     const [newPassword, setNewPassword] = useState<string>();
     const [confirmPassword, setConfirmPassword] = useState<string>();
+
+    const [redirectLogout, openRedirectLogout] = useState<boolean>(false);
     const [isError, openAlert] = useState<boolean>(false);
     const [header, setHeader] = useState<string>();
     const [message, setMessage] = useState<string>();
@@ -139,6 +142,7 @@ const SettingsPage: FunctionComponent<SettingsPageProps> = () => {
             setHeader("Passwords Don't Match");
             setMessage("The passwords don't match. Please try again.");
             openAlert(true);
+            setConfirmPassword("");
             return;
         }
         if (currPassword === newPassword) {
@@ -150,12 +154,36 @@ const SettingsPage: FunctionComponent<SettingsPageProps> = () => {
             return;
         }
         try {
-            const pass = await UseAPI.changePassword(currPassword, newPassword);
-            console.log(pass, "testing in change password for clinician");
+            const changePassResult = await UseAPI.changePassword(currPassword, newPassword);
+            switch (changePassResult) {
+                case "success":
+                    openRedirectLogout(true);
+                    return;
+                case "wrong-password":
+                    // User has entered the wrong current password
+                    setHeader("Incorrect Password");
+                    setMessage("The current password you entered is incorrect. Please try again.");
+                    openAlert(true);
+                    setNewPassword("");
+                    setConfirmPassword("");
+                    return;
+                case "weak-password":
+                    // User chose a new weak password under 6 characters
+                    setHeader("Weak Password");
+                    setMessage("Please choose a new password that's at least 6 characters.");
+                    openAlert(true);
+                    setNewPassword("");
+                    setConfirmPassword("");
+                    return;
+                default:
+                    setHeader("Error");
+                    setMessage("An error has occurred while changing your password. Please try again later.");
+                    openAlert(true);
+                    console.log(changePassResult);
+                    return;
+            }
         } catch (e) {
             console.error(e);
-        } finally {
-            setChangePassword(false);
         }
     }
 
@@ -204,6 +232,16 @@ const SettingsPage: FunctionComponent<SettingsPageProps> = () => {
                             save={changePassword}
                         />
                     </IonModal>
+                    <IonAlert
+                        isOpen={redirectLogout}
+                        onDidDismiss={() => {
+                            openRedirectLogout(false);
+                            onLogOut();
+                        }}
+                        header="Password Changed"
+                        message="Your password has been successfully changed."
+                        buttons={["OK"]}
+                    />
                     <IonAlert
                         isOpen={isError}
                         onDidDismiss={() => openAlert(false)}
