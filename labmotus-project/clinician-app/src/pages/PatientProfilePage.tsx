@@ -27,7 +27,6 @@ const PatientProfilePage: FunctionComponent<PatientProfilePageProps> = () => {
 
     const [patient, setPatient] = useState<Patient>(null);
     const [patientName, setPatientName] = useState("");
-    const [patientEmail, setPatientEmail] = useState("");
     const [patientPhone, setPatientPhone] = useState("");
     const [patientBirthday, setPatientBirthday] = useState<Moment>(moment());
     const [isError, openAlert] = useState<boolean>(false);
@@ -41,7 +40,6 @@ const PatientProfilePage: FunctionComponent<PatientProfilePageProps> = () => {
     useEffect(() => {
         UseAPI.getPatient(params.patientId).then((retPatient: Patient) => {
             setPatientName(retPatient.user.name);
-            setPatientEmail(retPatient.user.email);
             setPatientPhone(retPatient.phone.split("-").join(""));
             setPatientBirthday(moment(retPatient.birthday));
             setPatient(retPatient);
@@ -56,14 +54,7 @@ const PatientProfilePage: FunctionComponent<PatientProfilePageProps> = () => {
             openAlert(true);
             return;
         }
-        // Check if user has entered a valid email
-        const validEmail = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-        if (!patientEmail || !validEmail.test(patientEmail.toLowerCase())) {
-            setHeader("Invalid Email");
-            setMessage("Please enter a valid email address.");
-            openAlert(true);
-            return;
-        }
+
         // Check if user has entered a valid phone number
         const validNumber = /^\d{10}$/;
         if (!patientPhone || !validNumber.test(patientPhone)) {
@@ -72,13 +63,13 @@ const PatientProfilePage: FunctionComponent<PatientProfilePageProps> = () => {
             openAlert(true);
             return;
         }
+
         try {
             if (patient != null) {
                 patient.user.name = patientName;
-                patient.user.email = patientEmail;
                 patient.phone = patientPhone.replace(/(\d{3})(\d{3})(\d{4})/, "$1-$2-$3");
-                patient.birthday = moment(patientBirthday);
-                UseAPI.updatePatient(patient).then((value) => setPatient(value));
+                patient.birthday = patientBirthday;
+                await UseAPI.updatePatient(patient).then((value) => setPatient(value));
             }
         } catch (e) {
             console.error(e);
@@ -98,18 +89,18 @@ const PatientProfilePage: FunctionComponent<PatientProfilePageProps> = () => {
                                     imageLink="https://research.cbc.osu.edu/sokolov.8/wp-content/uploads/2017/12/profile-icon-png-898.png"/>
                             </div>
                             <div className="profile-name">
-                                <h1>{patientName}</h1>
+                                <h1>{patient?.user?.name}</h1>
                             </div>
                         </div>
                         <div className="profile-info">
                             <p>
-                                Phone: <span>{patientPhone}</span>
+                                Phone: <span>{patient?.phone.replace(/(\d{3})(\d{3})(\d{4})/, "$1-$2-$3")}</span>
                             </p>
                             <p>
-                                Email: <span>{patientEmail}</span>
+                                Email: <span>{patient?.user?.email}</span>
                             </p>
                             <p>
-                                DOB: <span>{patientBirthday.format(theme.birthdayFormat)}</span>
+                                DOB: <span>{patient?.birthday.format(theme.birthdayFormat)}</span>
                             </p>
                         </div>
                     </div>
@@ -118,11 +109,9 @@ const PatientProfilePage: FunctionComponent<PatientProfilePageProps> = () => {
                         <EditPatient
                             name={patientName}
                             setName={setPatientName}
-                            email={patientEmail}
-                            setEmail={setPatientEmail}
                             phone={patientPhone}
                             setPhone={setPatientPhone}
-                            birthday={moment(patientBirthday)}
+                            birthday={patientBirthday}
                             setBirthday={setPatientBirthday}
                             setEditPatient={setEditPatient}
                             save={updatePatient}

@@ -1,4 +1,4 @@
-import {FunctionComponent, useContext, useState} from "react";
+import {FunctionComponent, useContext} from "react";
 import {IonInput} from "@ionic/react";
 // @ts-ignore
 import styled from "styled-components";
@@ -12,8 +12,6 @@ import CenterWrapper from "../../../common/ui/components/CenterWrapper";
 export interface EditPatientProps {
     name: string;
     setName: any;
-    email: string;
-    setEmail: any;
     phone: string;
     setPhone: any;
     birthday: Moment;
@@ -24,19 +22,6 @@ export interface EditPatientProps {
 
 export const EditPatient: FunctionComponent<EditPatientProps> = (props: EditPatientProps) => {
     const theme = useContext(getThemeContext());
-    const [editName, setEditName] = useState(props.name);
-    const [editEmail, setEditEmail] = useState(props.email);
-    const [editPhone, setEditPhone] = useState(props.phone);
-    const [editBirthday, setEditBirthday] = useState<Moment>(props.birthday);
-
-    // Prevent any changes from automatically updating the DOM while editing
-    function editPatient() {
-        props.setName(editName);
-        props.setEmail(editEmail);
-        props.setBirthday(editBirthday);
-        props.setPhone(editPhone);
-        props.save();
-    }
 
     return (
         <EditPatientDiv theme={theme}>
@@ -45,27 +30,21 @@ export const EditPatient: FunctionComponent<EditPatientProps> = (props: EditPati
                 <IonInput
                     type="text"
                     clearInput={true}
-                    value={editName}
-                    onIonChange={(e) => setEditName(e.detail.value!)}
-                />
-                <IonInput
-                    type="email"
-                    clearInput={true}
-                    value={editEmail}
-                    onIonChange={(e) => setEditEmail(e.detail.value!)}
+                    value={props.name}
+                    onIonChange={(e) => props.setName(e.detail.value!)}
                 />
                 <IonInput
                     type="tel"
                     clearInput={true}
-                    value={editPhone}
+                    value={props.phone}
                     minlength={10}
                     maxlength={10}
-                    onIonChange={(e) => setEditPhone(e.detail.value!)}
+                    onIonChange={(e) => props.setPhone(e.detail.value!)}
                 />
                 Birthday:
-                <DateDisplay date={editBirthday} changeDay={setEditBirthday} displayFormat={"YYYY-MM-DD"}/>
+                <DateDisplay date={props.birthday} changeDay={props.setBirthday} displayFormat={"YYYY-MM-DD"}/>
                 <div className="buttons">
-                    <Button label="Edit Patient" onClick={editPatient} type="primary full"/>
+                    <Button label="Edit Patient" onClick={props.save} type="primary full"/>
                     <Button label="Cancel" onClick={() => props.setEditPatient(false)} type="full"/>
                 </div>
             </CenterWrapper>
