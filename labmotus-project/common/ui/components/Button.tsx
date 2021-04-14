@@ -37,6 +37,7 @@ const ButtonStyle = styled.button`
   width: 100%;
   max-width: 490px;
   font-size: 0.85em;
+  text-transform: capitalize;
 
   @media only screen and (min-width: 768px) {
     font-size: 1em;

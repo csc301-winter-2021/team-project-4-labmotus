@@ -293,7 +293,7 @@ class Database {
             throw "Incomplete assessment data"
         }
 
-        let assessmentRow = {
+        const assessmentRow = {
             id: undefined,
             patientId: assessment.patientId,
             name: assessment.name,
