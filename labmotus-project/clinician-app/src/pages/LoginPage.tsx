@@ -37,6 +37,7 @@ const LoginPage: FunctionComponent<LoginPageProps> = () => {
             openAlert(true);
             return;
         }
+        
         try {
             const loginResult = await UseAPI.login(email, password);
             switch (loginResult) {
@@ -67,6 +68,13 @@ const LoginPage: FunctionComponent<LoginPageProps> = () => {
                     // User has entered the wrong password
                     setHeader("Incorrect Password");
                     setMessage("The password you entered is incorrect. Please try again.");
+                    openAlert(true);
+                    setPassword("");
+                    return;
+                case "too-many-requests":
+                    // User has sent too many login requests
+                    setHeader("Login Temporarily Disabled");
+                    setMessage("You have made too many consecutive attempts. Please try again later.");
                     openAlert(true);
                     setPassword("");
                     return;
