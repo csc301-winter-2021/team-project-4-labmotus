@@ -8,7 +8,7 @@ import moment from "moment";
 import {Assessment} from "../../../common/types/types";
 import API from "../api/API";
 import {getAPIContext} from "../../../common/api/BaseAPI";
-import Scrollbar from "react-scrollbars-custom";
+import CustomScrollbar from "../../../common/ui/components/CustomScrollbar"
 import ReactPlayer from "react-player";
 import {Moment} from "moment/moment";
 
@@ -55,16 +55,16 @@ const AssessmentPage: FunctionComponent<AssessmentPageProps> = (props: Assessmen
             return <NoneDiv theme={theme}>No Assessments Today</NoneDiv>;
         } else {
             return (
-                <Scrollbar>
-                    {assessments.map((value) => {
+                <CustomScrollbar>
+                    {assessments.map((value, i) => {
                         return (
-                            <Card theme={theme}>
+                            <Card key={i} theme={theme}>
                                 <AssessmentComponent value={value} day={day} setVideo={setVideo}/>
                                 <ClinicianNotes>Clinician Notes: {value.notes}</ClinicianNotes>
                             </Card>
                         );
                     })}
-                </Scrollbar>
+                </CustomScrollbar>
             );
         }
     }
@@ -149,14 +149,6 @@ const BodyDiv = styled.div`
   align-items: center;
   justify-content: center;
   margin-top: 1%;
-
-  .ScrollbarsCustom-Track {
-    background-color: ${({theme}: { theme: Theme }) => theme.colors.shade} !important;
-  }
-
-  .ScrollbarsCustom-Thumb {
-    background-color: ${({theme}: { theme: Theme }) => theme.colors.primary} !important;
-  }
 `;
 
 const VideoDiv = styled.div`

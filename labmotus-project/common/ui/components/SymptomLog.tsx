@@ -1,12 +1,10 @@
-import {FunctionComponent, useContext} from "react";
+import React, {FunctionComponent, useContext} from "react";
 // @ts-ignore
 import styled from 'styled-components';
 import {Theme, getThemeContext} from "../theme/Theme";
-// @ts-ignore
 import Accordion from "./Accordion";
 import SymptomProgressBar from "./SymptomProgressBar";
-// @ts-ignore
-import Scrollbar from "react-scrollbars-custom";
+import CustomScrollbar from "../../../common/ui/components/CustomScrollbar"
 import {Stats} from "../../types";
 
 export interface SymptomLogProps {
@@ -34,21 +32,14 @@ const SymptomLog: FunctionComponent<SymptomLogProps> = ({logs, shadow = false}) 
     }
 
     return (<SymptomLogDiv className="symptom-log" theme={theme}>
-        <Scrollbar>
+        <CustomScrollbar>
             {generateAccordions()}
-        </Scrollbar>
+        </CustomScrollbar>
     </SymptomLogDiv>)
 };
 
 const SymptomLogDiv = styled.div`
     overflow: hidden;
-    .ScrollbarsCustom-Track {
-        width: 6px !important;
-        background-color: ${({theme}: { theme: Theme }) => theme.colors.shade} !important;
-    }
-    .ScrollbarsCustom-Thumb {
-        background-color: ${({theme}: { theme: Theme }) => theme.colors.primary} !important;
-    }
 `;
 
 const AccordionDiv = styled.div`

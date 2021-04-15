@@ -9,7 +9,7 @@ import styled from "styled-components";
 
 import {getThemeContext, Theme} from "../../../common/ui/theme/Theme";
 import Button from "../../../common/ui/components/Button";
-import Scrollbar from "react-scrollbars-custom";
+import CustomScrollbar from "../../../common/ui/components/CustomScrollbar"
 
 export interface AddAssessmentProps {
     addAssessment: any;
@@ -78,7 +78,7 @@ export const AddAssessment: FunctionComponent<AddAssessmentProps> = (props: AddA
     }, []);
 
     return (
-        <AddAssessmentScrollbar theme={theme}>
+        <CustomScrollbar>
             <AddAssessmentDiv theme={theme}>
                 <h1>Add New Assessment</h1>
                 <IonSelect
@@ -115,20 +115,10 @@ export const AddAssessment: FunctionComponent<AddAssessmentProps> = (props: AddA
                     <Button label="Cancel" onClick={() => props.setShowAddAssessment(false)} type="full"/>
                 </div>
             </AddAssessmentDiv>
-        </AddAssessmentScrollbar>
+        </CustomScrollbar>
 
     );
 };
-
-const AddAssessmentScrollbar = styled(Scrollbar)`
-    .ScrollbarsCustom-Track {
-        background-color: ${({theme}: { theme: Theme }) => theme.colors.shade} !important;
-      }
-    
-      .ScrollbarsCustom-Thumb {
-        background-color: ${({theme}: { theme: Theme }) => theme.colors.primary} !important;
-      }
-`;
 
 const AddAssessmentDiv = styled.div`
   height: 100%;
