@@ -32,6 +32,7 @@ const ForgotPasswordPage: FunctionComponent<ForgotPasswordPageProps> = () => {
                     setHeader("Password Reset Email Sent");
                     setMessage("Please check your email to reset your password!");
                     openAlert(true);
+                    setEmail("");
                     return;
                 case "invalid-email":
                     // User has entered an invalid email address

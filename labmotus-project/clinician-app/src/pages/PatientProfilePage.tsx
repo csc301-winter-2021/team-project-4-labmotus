@@ -37,14 +37,23 @@ const PatientProfilePage: FunctionComponent<PatientProfilePageProps> = () => {
         return UseAPI.getAssessments(params.patientId, week);
     }
 
-    useEffect(() => {
-        UseAPI.getPatient(params.patientId).then((retPatient: Patient) => {
+    async function getPatient() {
+        await UseAPI.getPatient(params.patientId).then((retPatient: Patient) => {
             setPatientName(retPatient.user.name);
             setPatientPhone(retPatient.phone.split("-").join(""));
             setPatientBirthday(moment(retPatient.birthday));
             setPatient(retPatient);
         });
+    }
+
+    useEffect(() => {
+        getPatient();
     }, [params.patientId]);
+
+    // When user clicks on 'Edit Patient'
+    function onEditPatient() {
+        getPatient().then((e) => setEditPatient(true));
+    }
 
     async function updatePatient() {
         // Check if user has entered a name
@@ -113,7 +122,7 @@ const PatientProfilePage: FunctionComponent<PatientProfilePageProps> = () => {
                             DOB: <span>{patient?.birthday.format(theme.birthdayFormat)}</span>
                         </p>
                     </div>
-                    <Button label="Edit Profile" onClick={() => setEditPatient(true)} type="primary round"/>
+                    <Button label="Edit Profile" onClick={onEditPatient} type="primary round"/>
                 </PatientProfilePageDiv>
             );
         }
