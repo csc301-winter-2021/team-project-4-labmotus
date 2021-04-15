@@ -43,8 +43,7 @@ class MockAPI extends API {
         return "success";
     }
 
-    async createPatient(patient: Patient): Promise<Patient> {
-        // TODO
+    async createPatient(patient: Patient): Promise<string> {
         throw Error("Not Implemented")
     }
 
@@ -65,7 +64,6 @@ class MockAPI extends API {
     }
 
     async createAssessment(assessment: Assessment): Promise<Assessment> {
-        // TODO
         throw Error("Not Implemented")
     }
 

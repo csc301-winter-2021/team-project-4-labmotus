@@ -30,7 +30,7 @@ class API extends BaseAPI {
         }
     }
 
-    async createPatient(patient: Patient): Promise<Patient> {
+    async createPatient(patient: Patient): Promise<string> {
         const token = await firebase.auth().currentUser.getIdToken() as any;
         // @ts-ignore
         const response = await fetch(this._config.api + `/patient`, {
@@ -43,11 +43,9 @@ class API extends BaseAPI {
             body: JSON.stringify(patient)
         });
         if (response.ok) {
-            const newPatient: Patient = JSON.parse(await response.text()).body;
-            newPatient.birthday = moment(newPatient.birthday);
-            return newPatient;
+            return "success";
         } else {
-            console.error(response);
+            return response.text();
         }
     }
 

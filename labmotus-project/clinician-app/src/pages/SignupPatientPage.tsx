@@ -67,14 +67,40 @@ const SignupPatientPage: FunctionComponent<SignupPatientPageProps> = () => {
             };
 
             // Add patient to database
-            await UseAPI.createPatient(patient);
-            setHeader("Account Added");
-            setMessage("A confirmation email will be sent to the patient shortly.");
-            openAlert(true);
-            setName("");
-            setEmail("");
-            setBirthday(moment());
-            setPhone("");
+            const createPatientResult = await UseAPI.createPatient(patient);
+            switch (createPatientResult) {
+                case "success":
+                    setHeader("Account Added");
+                    setMessage("A confirmation email will be sent to the patient shortly.");
+                    openAlert(true);
+                    setName("");
+                    setEmail("");
+                    setBirthday(moment());
+                    setPhone("");
+                    return;
+                case "Creation Failed":
+                    // Usually the case that the email was invalid or in use
+                    setHeader("Invalid Email");
+                    setMessage("The email you have entered is invalid or already has an account associated with it. Please enter a different email.");
+                    openAlert(true);
+                    return;
+                case "Forbidden":
+                    // Patient tried to create a new patient
+                    setHeader("Forbidden");
+                    setMessage("This operation is not allowed. Only clinicians can create patients.");
+                    setName("");
+                    setEmail("");
+                    setBirthday(moment());
+                    setPhone("");
+                    openAlert(true);
+                    return;
+                default:
+                    setHeader("Error");
+                    setMessage("An error has occurred while trying to sign up the patient. Please try again later.");
+                    openAlert(true);
+                    console.log(createPatientResult)
+                    return;
+            }
         } catch (e) {
             console.error(e);
         }
