@@ -189,7 +189,7 @@ const AssessmentPage: FunctionComponent<AssessmentPageProps> = () => {
                         value={notes}
                         onIonChange={(e) => setNotes(e.detail.value!)}
                     />
-                    <Button label="Save Notes" onClick={saveNotes(value, notes)} type="round primary"/>
+                    <Button label="Save Notes" onClick={() => saveNotes(value, notes)} type="round primary"/>
                 </ClinicianNotes>
             </Card>
         );

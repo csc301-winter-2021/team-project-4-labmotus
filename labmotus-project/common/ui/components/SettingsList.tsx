@@ -19,7 +19,7 @@ export interface SettingsListProps {
     name: string;
     editName?: any;
     clinic?: string;
-    editClinic?: string;
+    editClinic?: any;
     birthday?: string;
     email: string;
     editEmail: any;

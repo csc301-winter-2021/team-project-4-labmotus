@@ -60,7 +60,6 @@ const SignupPatientPage: FunctionComponent<SignupPatientPageProps> = () => {
                     id: "",
                     name: name,
                 },
-                // TODO REPLACE WITH CURRENT CLINICIAN'S ID + ADD PATIENT TO THE LIST
                 clinicianID: "",
                 birthday: birthday,
                 phone: phone.replace(/(\d{3})(\d{3})(\d{4})/, "$1-$2-$3"),
@@ -88,7 +87,7 @@ const SignupPatientPage: FunctionComponent<SignupPatientPageProps> = () => {
                 <SignupPatientPageDiv theme={theme}>
                     <h1>LabMotus</h1>
                     <h3>Clinician Portal</h3>
-                    <CenterWrapper className="wrapper">
+                    <CenterWrapper>
                         <div className="form">
                             <IonInput
                                 class="input"
@@ -136,7 +135,7 @@ const SignupPatientPageDiv = styled.div`
 
   .input {
     text-align: left;
-    border: 1px solid  ${({theme}: { theme: Theme }) => theme.colors.shade};
+    border: 1px solid ${({theme}: { theme: Theme }) => theme.colors.shade};
     --padding-start: 10px;
     margin: 10px 0;
     background-color: ${({theme}: { theme: Theme }) => theme.colors.light};
@@ -154,10 +153,6 @@ const SignupPatientPageDiv = styled.div`
     }
   }
 
-  .wrapper {
-    top: 55%;
-  }
-
   h1 {
     font-weight: bold;
     margin-top: 10vh;
@@ -166,7 +161,6 @@ const SignupPatientPageDiv = styled.div`
   h3 {
     margin-top: 0;
   }
-
 `;
 
 export default SignupPatientPage;
