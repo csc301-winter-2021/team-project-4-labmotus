@@ -59,7 +59,7 @@ class MockAPI extends API {
         throw Error("Not Implemented")
     }
 
-    async uploadNotes(assessment: Assessment): Promise<Assessment> {
+    async uploadNotes(assessment: Assessment): Promise<string> {
         throw Error("Not Implemented")
     }
 

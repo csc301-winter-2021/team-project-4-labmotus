@@ -2,13 +2,13 @@ import {FunctionComponent, useContext, useEffect, useState} from "react";
 // @ts-ignore
 import styled from "styled-components";
 import {getThemeContext, Theme} from "../../../common/ui/theme/Theme";
-import {IonAlert, IonCard, IonIcon, IonModal, IonPopover, IonSpinner, IonTextarea} from "@ionic/react";
+import {IonAlert, IonCard, IonIcon, IonModal, IonPopover, IonSpinner, IonTextarea, IonToast} from "@ionic/react";
 import {useHistory, useParams} from "react-router";
 import moment from "moment";
 import {Assessment, AssessmentState, Joints} from "../../../common/types/types";
 import API from "../api/API";
 import {getAPIContext} from "../../../common/api/BaseAPI";
-import CustomScrollbar from "../../../common/ui/components/CustomScrollbar"
+import CustomScrollbar from "../../../common/ui/components/CustomScrollbar";
 import ReactPlayer from "react-player";
 import {Moment} from "moment/moment";
 
@@ -27,13 +27,15 @@ const AssessmentPage: FunctionComponent<AssessmentPageProps> = () => {
     const [showAddAssessment, setShowAddAssessment] = useState(false);
     const UseAPI: API = useContext(getAPIContext());
     const params: { patientId: string; date?: string } = useParams();
-    const [isAlert, openAlert] = useState<boolean>(false);
-    const [header, setHeader] = useState<string>(null);
-    const [message, setMessage] = useState<string>(null);
     const [video, setVideo] = useState<string>(null);
     const [assessments, setAssessments] = useState<Assessment[]>(null);
     const [reload, setReload] = useState(0);
-    const day = params.date ? moment(params.date, "YYYY-MM-DD") : moment().startOf('day');
+    const day = params.date ? moment(params.date, "YYYY-MM-DD") : moment().startOf("day");
+
+    const [isAlert, openAlert] = useState<boolean>(false);
+    const [showToast, setShowToast] = useState<boolean>(false);
+    const [header, setHeader] = useState<string>(null);
+    const [message, setMessage] = useState<string>(null);
 
     useEffect(() => {
         getAssessments(day)
@@ -59,103 +61,59 @@ const AssessmentPage: FunctionComponent<AssessmentPageProps> = () => {
     }
 
     async function createAssessment(assessmentType: string, joints: Joints[]) {
-        if (!assessmentType) {
-            setHeader("Invalid Assessment");
-            setMessage("Please fill out all the fields!");
-            openAlert(true);
-            return;
-        }
-        // TODO: have assessments stored somewhere else?
-        else if (assessmentType === "Squats") {
-            const assessment: Assessment = {
-                id: "",
-                patientId: params.patientId,
-                name: assessmentType,
-                date: day,
-                state: AssessmentState.MISSING,
-                joints: [
-                    Joints.Hip_TrunkL,
-                    Joints.Hip_TrunkR,
-                    Joints.KneeL_Flexion,
-                    Joints.KneeR_Flexion,
-                    Joints.KneeL_ValgusVarus,
-                    Joints.KneeR_ValgusVarus,
-                    Joints.AnkleL_Dorsiflexion,
-                    Joints.AnkleL_Plantarflexion,
-                    Joints.AnkleL_Dorsiflexion,
-                    Joints.AnkleL_Plantarflexion,
-                ],
-                notes: "",
-            };
-            await UseAPI.createAssessment(assessment);
-        } else if (assessmentType === "Single Leg Squats") {
-            const assessment: Assessment = {
-                id: "",
-                patientId: params.patientId,
-                name: assessmentType,
-                date: day,
-                state: AssessmentState.MISSING,
-                joints: [
-                    Joints.Hip_TrunkL,
-                    Joints.Hip_TrunkR,
-                    Joints.KneeL_Flexion,
-                    Joints.KneeR_Flexion,
-                    Joints.KneeL_ValgusVarus,
-                    Joints.KneeR_ValgusVarus,
-                    Joints.AnkleL_Dorsiflexion,
-                    Joints.AnkleL_Plantarflexion,
-                    Joints.AnkleL_Dorsiflexion,
-                    Joints.AnkleL_Plantarflexion,
-                ],
-                notes: "",
-            };
-            await UseAPI.createAssessment(assessment);
-        } else if (assessmentType === "Gait Analysis") {
-            const assessment: Assessment = {
-                id: "",
-                patientId: params.patientId,
-                name: assessmentType,
-                date: day,
-                state: AssessmentState.MISSING,
-                joints: [
-                    Joints.Hip_TrunkL,
-                    Joints.Hip_TrunkR,
-                    Joints.KneeL_Flexion,
-                    Joints.KneeR_Flexion,
-                    Joints.KneeL_ValgusVarus,
-                    Joints.KneeR_ValgusVarus,
-                    Joints.AnkleL_Dorsiflexion,
-                    Joints.AnkleL_Plantarflexion,
-                    Joints.AnkleL_Dorsiflexion,
-                    Joints.AnkleL_Plantarflexion,
-                ],
-                notes: "",
-            };
-            await UseAPI.createAssessment(assessment);
-        } else {
-            if (joints.length === 0){
+        switch (assessmentType) {
+            case "":
                 setHeader("Invalid Assessment");
-                setMessage("Please select joints to analyze!");
+                setMessage("Please fill out all the fields!");
                 openAlert(true);
                 return;
-            }
-            const assessment: Assessment = {
-                id: "",
-                patientId: params.patientId,
-                name: assessmentType,
-                date: day,
-                state: AssessmentState.MISSING,
-                joints: joints,
-                notes: "",
-            };
-            await UseAPI.createAssessment(assessment);
+            case "Squats":
+            case "Single Leg Squats":
+            case "Gait Analysis":
+                await UseAPI.createAssessment({
+                    id: "",
+                    patientId: params.patientId,
+                    name: assessmentType,
+                    date: day,
+                    state: AssessmentState.MISSING,
+                    joints: [
+                        Joints.Hip_TrunkL,
+                        Joints.Hip_TrunkR,
+                        Joints.KneeL_Flexion,
+                        Joints.KneeR_Flexion,
+                        Joints.KneeL_ValgusVarus,
+                        Joints.KneeR_ValgusVarus,
+                        Joints.AnkleL_Dorsiflexion,
+                        Joints.AnkleL_Plantarflexion,
+                        Joints.AnkleL_Dorsiflexion,
+                        Joints.AnkleL_Plantarflexion,
+                    ],
+                    notes: "",
+                });
+                setShowAddAssessment(false);
+                setReload(reload + 1);
+                return;
+            default:
+                // Custom Assessment
+                if (joints.length === 0) {
+                    setHeader("Invalid Joints");
+                    setMessage("Please select at least one joint to analyze!");
+                    openAlert(true);
+                    return;
+                }
+                await UseAPI.createAssessment({
+                    id: "",
+                    patientId: params.patientId,
+                    name: assessmentType,
+                    date: day,
+                    state: AssessmentState.MISSING,
+                    joints: joints,
+                    notes: "",
+                });
+                setShowAddAssessment(false);
+                setReload(reload + 1);
+                return;
         }
-        setShowAddAssessment(false);
-        setHeader("Assessment Added!");
-        setMessage("");
-        openAlert(true);
-        setReload(reload + 1);
-        return;
     }
 
     function generateBody() {
@@ -174,9 +132,23 @@ const AssessmentPage: FunctionComponent<AssessmentPageProps> = () => {
         }
     }
 
-    function saveNotes(assessment: Assessment, notes: string) {
+    async function saveNotes(assessment: Assessment, notes: string) {
+        // If user didn't make any changes to the notes
+        if (assessment.notes === notes || notes === "") {
+            return;
+        }
         assessment.notes = notes;
-        UseAPI.uploadNotes(assessment);
+        const saveNotesResult = await UseAPI.uploadNotes(assessment);
+        switch (saveNotesResult) {
+            case "success":
+                setMessage("Notes saved!");
+                setShowToast(true);
+                return;
+            default:
+                setMessage("Couldn't save the notes. Please try again later.");
+                setShowToast(true);
+                return;
+        }
     }
 
     const AssessmentCard = ({value}: { value: Assessment }) => {
@@ -217,16 +189,18 @@ const AssessmentPage: FunctionComponent<AssessmentPageProps> = () => {
                     buttons={["OK"]}
                 />
             </IonModal>
-
-            <PopOver
-                // cssClass={PopOver.styledComponentId}
-                isOpen={video !== null}
-                onDidDismiss={() => setVideo(null)}
-            >
+            <PopOver isOpen={video !== null} onDidDismiss={() => setVideo(null)}>
                 <VideoDiv>
                     <ReactPlayer width="100%" height="100%" url={video} playing/>
                 </VideoDiv>
             </PopOver>
+            <IonToast
+                isOpen={showToast}
+                onDidDismiss={() => setShowToast(false)}
+                message={message}
+                duration={1000}
+                position="middle"
+            />
         </AssessmentPageDiv>
     );
 };

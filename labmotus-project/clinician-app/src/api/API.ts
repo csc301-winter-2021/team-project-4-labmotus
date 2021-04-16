@@ -203,7 +203,7 @@ class API extends BaseAPI {
         }
     }
 
-    async uploadNotes(assessment: Assessment): Promise<Assessment> {
+    async uploadNotes(assessment: Assessment): Promise<string> {
         const token = await firebase.auth().currentUser.getIdToken() as any;
         // @ts-ignore
         const response = await fetch(this._config.api + `/notes`, {
@@ -216,10 +216,9 @@ class API extends BaseAPI {
             body: JSON.stringify(assessment)
         });
         if (response.ok) {
-            const res = JSON.parse(await response.text()).body;
-            return {...res, date: moment(res)};
+            return "success";
         } else {
-            console.error(response);
+            return response.text();
         }
     }
 
@@ -261,19 +260,19 @@ class API extends BaseAPI {
         }
     }
 
-    async getAllJoints(): Promise<any[]>{
+    async getAllJoints(): Promise<any[]> {
         try {
             const response = await fetch(this._config.api + `/joints`, {
                 method: "GET",
                 mode: 'cors',
-            });     
+            });
             if (response.ok) {
                 return JSON.parse(await response.text()).body;
             } else {
                 console.error(response);
             }
         } catch (e) {
-            return ;
+            return;
         }
 
     }
