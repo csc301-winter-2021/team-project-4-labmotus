@@ -26,29 +26,56 @@ const EditEmailPage: FunctionComponent<EditEmailPageProps> = () => {
     const patientEmail = patient?.user?.email;
 
     const [email, setEmail] = useState<string>(patientEmail);
+    const [currPassword, setCurrPassword] = useState<string>();
     const [isError, openAlert] = useState<boolean>(false);
     const [header, setHeader] = useState<string>();
     const [message, setMessage] = useState<string>();
 
     async function editEmail() {
-        // Check if user has entered a valid email
-        const validEmail = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-        if (!validEmail.test(email)) {
+        if (!email) {
             setHeader("Invalid Email");
-            setMessage("Please enter a valid email address.");
+            setMessage("Please enter your new email address.");
+            openAlert(true);
+            return;
+        }
+        if (!currPassword) {
+            setHeader("Invalid Password");
+            setMessage("Please enter your current password.");
             openAlert(true);
             return;
         }
         try {
-            // When user has made no changes
             if (patient.user.email === email) {
                 history.goBack();
                 return;
             }
-            patient.user.email = email;
-            patient = await UseAPI.updatePatient(patient);
-            history.goBack();
-            return;
+            const changeEmailResult = await UseAPI.changeEmail(email, currPassword);
+            switch (changeEmailResult) {
+                case "success":
+                    patient.user.email = email;
+                    patient = await UseAPI.updatePatient(patient);
+                    history.goBack();
+                    return;
+                case "invalid-email":
+                    // User has entered an invalid email address
+                    setHeader("Invalid Email");
+                    setMessage("Please enter a valid email address.");
+                    openAlert(true);
+                    return;
+                case "wrong-password":
+                    // User has entered the wrong current password
+                    setHeader("Incorrect Password");
+                    setMessage("The current password you entered is incorrect. Please try again.");
+                    openAlert(true);
+                    setCurrPassword("");
+                    return;
+                default:
+                    setHeader("Error");
+                    setMessage("An error has occurred while changing your email. Please try again later.");
+                    openAlert(true);
+                    console.log(changeEmailResult);
+                    return;
+            }
         } catch (e) {
             console.error(e);
         }
@@ -65,6 +92,12 @@ const EditEmailPage: FunctionComponent<EditEmailPageProps> = () => {
                         clearInput={true}
                         value={email}
                         onIonChange={(e) => setEmail(e.detail.value!)}
+                    />
+                    <IonInput
+                        type="password"
+                        placeholder="Current Password"
+                        value={currPassword}
+                        onIonChange={(e) => setCurrPassword(e.detail.value!)}
                     />
                 </IonContent>
             </IonPage>
@@ -85,9 +118,9 @@ const EditEmailPageDiv = styled.div`
   height: 100%;
 
   ion-input {
-    text-align: center;
     margin: 10px 0;
     background-color: ${({theme}: { theme: Theme }) => theme.colors.light};
+    --padding-start: 10px;
   }
 
 `;

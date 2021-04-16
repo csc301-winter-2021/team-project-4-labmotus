@@ -61,6 +61,7 @@ const EditPatientDiv = styled.div`
   ion-input {
     margin: 10px 0;
     background-color: ${({theme}: { theme: Theme }) => theme.colors.light};
+    --padding-start: 20px;
   }
 
   .buttons > * {

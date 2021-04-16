@@ -59,6 +59,7 @@ const SettingsPage: FunctionComponent<SettingsPageProps> = () => {
     // When user clicks on their email
     function onEditEmail() {
         setEmail(clinician?.user?.email);
+        setCurrPassword("");
         setEditEmail(true);
     }
 
@@ -77,7 +78,6 @@ const SettingsPage: FunctionComponent<SettingsPageProps> = () => {
 
     // When user clicks 'Edit Name' in the edit name modal
     async function editName() {
-        // Check if user has entered a valid email
         if (!name) {
             setHeader("Invalid Name");
             setMessage("Please enter your full name.");
@@ -85,6 +85,10 @@ const SettingsPage: FunctionComponent<SettingsPageProps> = () => {
             return;
         }
         try {
+            if (clinician.user.name === name) {
+                setEditName(false);
+                return;
+            }
             clinician.user.name = name;
             clinician = await UseAPI.updateClinician(clinician);
         } catch (e) {
@@ -96,7 +100,6 @@ const SettingsPage: FunctionComponent<SettingsPageProps> = () => {
 
     // When user clicks 'Edit Clinic Name' in the edit name modal
     async function editClinic() {
-        // Check if user has entered a valid email
         if (!clinicName) {
             setHeader("Invalid Name");
             setMessage("Please enter your the clinic's name.");
@@ -104,6 +107,10 @@ const SettingsPage: FunctionComponent<SettingsPageProps> = () => {
             return;
         }
         try {
+            if (clinician.clinic === clinicName) {
+                setEditClinic(false);
+                return;
+            }
             clinician.clinic = clinicName;
             clinician = await UseAPI.updateClinician(clinician);
         } catch (e) {
@@ -115,21 +122,52 @@ const SettingsPage: FunctionComponent<SettingsPageProps> = () => {
 
     // When user clicks 'Edit Email' in the edit email modal
     async function editEmail() {
-        // Check if user has entered a valid email
-        const validEmail = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-        if (!validEmail || !validEmail.test(email)) {
+        if (!email) {
             setHeader("Invalid Email");
-            setMessage("Please enter a valid email address.");
+            setMessage("Please enter your new email address.");
+            openAlert(true);
+            return;
+        }
+        if (!currPassword) {
+            setHeader("Invalid Password");
+            setMessage("Please enter your current password.");
             openAlert(true);
             return;
         }
         try {
-            clinician.user.email = email;
-            clinician = await UseAPI.updateClinician(clinician);
+            if (clinician.user.email === email) {
+                setEditEmail(false);
+                return;
+            }
+            const changeEmailResult = await UseAPI.changeEmail(email, currPassword);
+            switch (changeEmailResult) {
+                case "success":
+                    clinician.user.email = email;
+                    clinician = await UseAPI.updateClinician(clinician);
+                    setEditEmail(false);
+                    return;
+                case "invalid-email":
+                    // User has entered an invalid email address
+                    setHeader("Invalid Email");
+                    setMessage("Please enter a valid email address.");
+                    openAlert(true);
+                    return;
+                case "wrong-password":
+                    // User has entered the wrong current password
+                    setHeader("Incorrect Password");
+                    setMessage("The current password you entered is incorrect. Please try again.");
+                    openAlert(true);
+                    setCurrPassword("");
+                    return;
+                default:
+                    setHeader("Error");
+                    setMessage("An error has occurred while changing your email. Please try again later.");
+                    openAlert(true);
+                    console.log(changeEmailResult);
+                    return;
+            }
         } catch (e) {
             console.error(e);
-        } finally {
-            setEditEmail(false);
         }
     }
 
@@ -225,7 +263,14 @@ const SettingsPage: FunctionComponent<SettingsPageProps> = () => {
                         />
                     </IonModal>
                     <IonModal isOpen={showEditEmail} onDidDismiss={() => setEditEmail(false)}>
-                        <EditEmail email={email} setEmail={setEmail} setEditEmail={setEditEmail} save={editEmail}/>
+                        <EditEmail
+                            email={email}
+                            setEmail={setEmail}
+                            setEditEmail={setEditEmail}
+                            currPassword={currPassword}
+                            setCurrPassword={setCurrPassword}
+                            save={editEmail}
+                        />
                     </IonModal>
                     <IonModal isOpen={showChangePassword} onDidDismiss={() => setChangePassword(false)}>
                         <ChangePassword

@@ -239,6 +239,16 @@ class API extends BaseAPI {
         return patients;
     }
 
+    async changeEmail(newEmail: string, currPassword: string): Promise<string> {
+        try {
+            await this._firebaseSignInWithEmailAndPassword(this._user?.user.email, currPassword);
+            await this._firebaseChangeEmail(newEmail);
+            return "success";
+        } catch (e) {
+            return e.code.slice(5);
+        }
+    }
+
     async changePassword(currPassword: string, newPassword: string): Promise<string> {
         try {
             await this._firebaseSignInWithEmailAndPassword(this._user?.user.email, currPassword);

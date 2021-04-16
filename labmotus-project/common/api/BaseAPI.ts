@@ -143,6 +143,12 @@ export class BaseAPI {
         }
     }
 
+    async _firebaseChangeEmail(email: string): Promise<firebase.auth.UserCredential> {
+        return new Promise<void>((resolve, reject) => {
+            this._firebase.auth().currentUser.updateEmail(email).then(resolve).catch(reject)
+        })
+    }
+
     async _firebaseChangePassword(newPassword: string): Promise<void> {
         return new Promise<void>((resolve, reject) => {
             this._firebase.auth().currentUser.updatePassword(newPassword).then(resolve).catch(reject)

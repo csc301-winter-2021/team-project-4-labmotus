@@ -11,12 +11,14 @@ export interface EditEmailProps {
     email: string;
     setEmail: any;
     setEditEmail: any;
+    currPassword: string;
+    setCurrPassword: any;
     save: any;
 }
 
 export const EditEmail: FunctionComponent<EditEmailProps> = (props: EditEmailProps) => {
+    
     const theme = useContext(getThemeContext());
-
 
     return (
         <EditEmailDiv theme={theme}>
@@ -27,6 +29,12 @@ export const EditEmail: FunctionComponent<EditEmailProps> = (props: EditEmailPro
                     clearInput={true}
                     value={props.email}
                     onIonChange={(e) => props.setEmail(e.detail.value!)}
+                />
+                <IonInput
+                    type="password"
+                    placeholder="Current Password"
+                    value={props.currPassword}
+                    onIonChange={(e) => props.setCurrPassword(e.detail.value!)}
                 />
                 <div className="buttons">
                     <Button label="Edit Email" onClick={props.save} type="primary full"/>
@@ -43,9 +51,9 @@ const EditEmailDiv = styled.div`
   padding: 5%;
 
   ion-input {
-    text-align: center;
     margin: 10px 0;
     background-color: ${({theme}: { theme: Theme }) => theme.colors.light};
+    --padding-start: 10px;
   }
 
   .buttons > * {

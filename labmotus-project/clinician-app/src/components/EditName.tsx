@@ -42,9 +42,9 @@ const EditNameDiv = styled.div`
   padding: 5%;
 
   ion-input {
-    text-align: center;
     margin: 10px 0;
     background-color: ${({theme}: { theme: Theme }) => theme.colors.light};
+    --padding-start: 10px;
   }
 
   .buttons > * {
