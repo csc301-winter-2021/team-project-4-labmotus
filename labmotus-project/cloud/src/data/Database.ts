@@ -250,6 +250,10 @@ class Database {
 
     async updatePatient(id: string, modifications: {}): Promise<Patient> {
         try {
+            if (modifications.hasOwnProperty('birthday')) {
+                // @ts-ignore
+                modifications.birthday = modifications.birthday.toISOString();
+            }
             const updateParams = Database._buildUpdateParams(modifications);
             if (updateParams) {
                 await DynamoDB.update({

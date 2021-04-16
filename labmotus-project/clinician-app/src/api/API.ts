@@ -139,9 +139,7 @@ class API extends BaseAPI {
             body: JSON.stringify(patient)
         });
         if (response.ok) {
-            const newPatient = JSON.parse(await response.text()).body;
-            this._user = newPatient;
-            return newPatient;
+            return JSON.parse(await response.text()).body;
         } else {
             console.error(response);
         }

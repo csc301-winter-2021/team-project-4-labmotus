@@ -38,7 +38,7 @@ const SignupPatientPage: FunctionComponent<SignupPatientPageProps> = () => {
         }
         // Check if user has entered a valid email
         const validEmail = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-        if (!email || !validEmail.test(email.toLowerCase())) {
+        if (!email || !validEmail.test(email)) {
             setHeader("Invalid Email");
             setMessage("Please enter a valid email address for the patient.");
             openAlert(true);

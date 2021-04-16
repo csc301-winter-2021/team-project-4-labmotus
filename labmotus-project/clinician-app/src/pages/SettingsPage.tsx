@@ -117,7 +117,7 @@ const SettingsPage: FunctionComponent<SettingsPageProps> = () => {
     async function editEmail() {
         // Check if user has entered a valid email
         const validEmail = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-        if (!validEmail || !validEmail.test(email.toLowerCase())) {
+        if (!validEmail || !validEmail.test(email)) {
             setHeader("Invalid Email");
             setMessage("Please enter a valid email address.");
             openAlert(true);

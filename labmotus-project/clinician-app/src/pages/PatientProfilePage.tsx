@@ -52,7 +52,7 @@ const PatientProfilePage: FunctionComponent<PatientProfilePageProps> = () => {
 
     // When user clicks on 'Edit Patient'
     function onEditPatient() {
-        getPatient().then((e) => setEditPatient(true));
+        getPatient().then(() => setEditPatient(true));
     }
 
     async function updatePatient() {
@@ -75,6 +75,15 @@ const PatientProfilePage: FunctionComponent<PatientProfilePageProps> = () => {
 
         try {
             if (patient != null) {
+                // When user has made no changes
+                if (
+                    patient.user.name === patientName &&
+                    patient.phone === patientPhone.replace(/(\d{3})(\d{3})(\d{4})/, "$1-$2-$3") &&
+                    patient.birthday === patientBirthday
+                ) {
+                    setEditPatient(false);
+                    return;
+                }
                 patient.user.name = patientName;
                 patient.phone = patientPhone.replace(/(\d{3})(\d{3})(\d{4})/, "$1-$2-$3");
                 patient.birthday = patientBirthday;
@@ -119,7 +128,7 @@ const PatientProfilePage: FunctionComponent<PatientProfilePageProps> = () => {
                             Email: <span>{patient?.user?.email}</span>
                         </p>
                         <p>
-                            DOB: <span>{patient?.birthday.format(theme.birthdayFormat)}</span>
+                            DOB: <span>{moment(patient?.birthday).format(theme.birthdayFormat)}</span>
                         </p>
                     </div>
                     <Button label="Edit Profile" onClick={onEditPatient} type="primary round"/>

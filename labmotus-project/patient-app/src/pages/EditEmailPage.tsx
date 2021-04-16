@@ -33,16 +33,22 @@ const EditEmailPage: FunctionComponent<EditEmailPageProps> = () => {
     async function editEmail() {
         // Check if user has entered a valid email
         const validEmail = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-        if (!validEmail.test(email.toLowerCase())) {
+        if (!validEmail.test(email)) {
             setHeader("Invalid Email");
             setMessage("Please enter a valid email address.");
             openAlert(true);
             return;
         }
         try {
+            // When user has made no changes
+            if (patient.user.email === email) {
+                history.goBack();
+                return;
+            }
             patient.user.email = email;
             patient = await UseAPI.updatePatient(patient);
             history.goBack();
+            return;
         } catch (e) {
             console.error(e);
         }

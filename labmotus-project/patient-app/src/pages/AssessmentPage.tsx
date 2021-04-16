@@ -8,7 +8,7 @@ import moment from "moment";
 import {Assessment} from "../../../common/types/types";
 import API from "../api/API";
 import {getAPIContext} from "../../../common/api/BaseAPI";
-import CustomScrollbar from "../../../common/ui/components/CustomScrollbar"
+import CustomScrollbar from "../../../common/ui/components/CustomScrollbar";
 import ReactPlayer from "react-player";
 import {Moment} from "moment/moment";
 
@@ -30,22 +30,23 @@ const AssessmentPage: FunctionComponent<AssessmentPageProps> = (props: Assessmen
     const day = params.date ? moment(params.date, "YYYY-MM-DD") : moment().startOf("day");
 
     useEffect(() => {
-        getAssessments(day).then(value => {
-            const tAssessments = value.filter(ass => ass.date.format('YYYY-MM-DD') === day.format('YYYY-MM-DD'));
-            console.log(tAssessments[0])
-            setAssessments(tAssessments);
-        }).catch(reason => {
-            console.error(reason);
-            setAssessments([]);
-        });
+        getAssessments(day)
+            .then((value) => {
+                const tAssessments = value.filter((ass) => ass.date.format("YYYY-MM-DD") === day.format("YYYY-MM-DD"));
+                setAssessments(tAssessments);
+            })
+            .catch((e) => {
+                console.error(e);
+                setAssessments([]);
+            });
     }, [params.date]);
 
-    function getAssessments(week: Moment): Promise<Assessment[]> {
-        return UseAPI.getAssessments("-1", week);
+    async function getAssessments(week: Moment): Promise<Assessment[]> {
+        return await UseAPI.getAssessments("-1", week);
     }
 
     function back() {
-        history.push(`/home/${day.format('YYYY-MM-DD')}`);
+        history.push(`/home/${day.format("YYYY-MM-DD")}`);
     }
 
     function generateBody() {

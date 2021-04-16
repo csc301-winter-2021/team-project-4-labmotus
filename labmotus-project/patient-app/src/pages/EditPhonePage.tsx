@@ -35,9 +35,15 @@ const EditPhonePage: FunctionComponent<EditPhonePageProps> = () => {
             return;
         }
         try {
+            // When user has made no changes
+            if (patient.phone === phoneNumber.replace(/(\d{3})(\d{3})(\d{4})/, "$1-$2-$3")) {
+                history.goBack();
+                return;
+            }
             patient.phone = phoneNumber.replace(/(\d{3})(\d{3})(\d{4})/, "$1-$2-$3");
             patient = await UseAPI.updatePatient(patient);
             history.goBack();
+            return;
         } catch (e) {
             console.error(e);
         }
