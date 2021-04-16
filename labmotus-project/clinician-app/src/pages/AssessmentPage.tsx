@@ -32,6 +32,7 @@ const AssessmentPage: FunctionComponent<AssessmentPageProps> = () => {
     const [message, setMessage] = useState<string>(null);
     const [video, setVideo] = useState<string>(null);
     const [assessments, setAssessments] = useState<Assessment[]>(null);
+    const [reload, setReload] = useState(0);
     const day = params.date ? moment(params.date, "YYYY-MM-DD") : moment().startOf('day');
 
     useEffect(() => {
@@ -43,7 +44,7 @@ const AssessmentPage: FunctionComponent<AssessmentPageProps> = () => {
             .catch(() => {
                 setAssessments([]);
             });
-    }, [params.date]);
+    }, [params.date, reload]);
 
     function getAssessments(week: Moment): Promise<Assessment[]> {
         return UseAPI.getAssessments(params.patientId, week);
@@ -57,7 +58,7 @@ const AssessmentPage: FunctionComponent<AssessmentPageProps> = () => {
         UseAPI.getVideo(videoURL).then((data) => setVideo(data));
     }
 
-    function createAssessment(assessmentType: string, joints: Joints[]) {
+    async function createAssessment(assessmentType: string, joints: Joints[]) {
         if (!assessmentType) {
             setHeader("Invalid Assessment");
             setMessage("Please fill out all the fields!");
@@ -86,7 +87,7 @@ const AssessmentPage: FunctionComponent<AssessmentPageProps> = () => {
                 ],
                 notes: "",
             };
-            UseAPI.createAssessment(assessment);
+            await UseAPI.createAssessment(assessment);
         } else if (assessmentType === "Single Leg Squats") {
             const assessment: Assessment = {
                 id: "",
@@ -108,7 +109,7 @@ const AssessmentPage: FunctionComponent<AssessmentPageProps> = () => {
                 ],
                 notes: "",
             };
-            UseAPI.createAssessment(assessment);
+            await UseAPI.createAssessment(assessment);
         } else if (assessmentType === "Gait Analysis") {
             const assessment: Assessment = {
                 id: "",
@@ -130,7 +131,7 @@ const AssessmentPage: FunctionComponent<AssessmentPageProps> = () => {
                 ],
                 notes: "",
             };
-            UseAPI.createAssessment(assessment);
+            await UseAPI.createAssessment(assessment);
         } else {
             if (joints.length === 0){
                 setHeader("Invalid Assessment");
@@ -147,12 +148,13 @@ const AssessmentPage: FunctionComponent<AssessmentPageProps> = () => {
                 joints: joints,
                 notes: "",
             };
-            UseAPI.createAssessment(assessment);
+            await UseAPI.createAssessment(assessment);
         }
         setShowAddAssessment(false);
         setHeader("Assessment Added!");
         setMessage("");
         openAlert(true);
+        setReload(reload + 1);
         return;
     }
 
