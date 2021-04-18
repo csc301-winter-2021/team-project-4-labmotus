@@ -7,7 +7,16 @@ import fetch from "node-fetch";
 import {v4 as uuid} from 'uuid';
 
 import config from "../../config.json";
-import {Assessment, AssessmentState, Clinician, Patient, PoseData, SignUpParams, Stats, User} from "../../../common/types/types";
+import {
+    Assessment,
+    AssessmentState,
+    Clinician,
+    Patient,
+    PoseData,
+    SignUpParams,
+    Stats,
+    User
+} from "../../../common/types/types";
 
 import processWrnchData from "../wrnch/processWrnch";
 
@@ -450,6 +459,27 @@ class Database {
         return S3.getSignedUrlPromise('getObject', params);
     }
 
+    async _firebaseCreateUser(properties: firebaseAdmin.auth.CreateRequest): Promise<firebaseAdmin.auth.UserRecord> {
+        return new Promise<firebaseAdmin.auth.UserRecord>((resolve, reject) => {
+            firebaseAdmin.auth().createUser(properties).then(resolve).catch(reject)
+        })
+    }
+
+    async _firebaseSignIn(user: string, password: string): Promise<firebase.auth.UserCredential> {
+        return new Promise<firebase.auth.UserCredential>((resolve, reject) => {
+            this.firebaseClient.auth().signInWithEmailAndPassword(user, password).then(resolve).catch(reject)
+        })
+    }
+
+    async _firebaseSendSignInLinkToEmail(user: string): Promise<void> {
+        return new Promise<void>((resolve, reject) => {
+            this.firebaseClient.auth().sendSignInLinkToEmail(user, {
+                url: config.actionAddress + "?email=" + user,
+                handleCodeInApp: true
+            }).then(resolve).catch(reject)
+        })
+    }
+
     async createPatient(clinician: Clinician, patient: Patient): Promise<Patient> {
         if (!patient.user || !patient.user.name || !patient.phone || !patient.birthday) {
             throw "Patient data incomplete"
@@ -492,17 +522,14 @@ class Database {
         // Create Firebase user
         const tempPassword = Math.random().toString(36).substring(2, 12); // Random 10-character alphanumeric (lowercase) string
         try {
-            const userRecord = await firebaseAdmin.auth().createUser({
+            const userRecord = await this._firebaseCreateUser({
                 email: patientRow.email,
                 password: tempPassword,
             });
-            await this.firebaseClient.auth().signInWithEmailAndPassword(patientRow.email, tempPassword);
+            await this._firebaseSignIn(patientRow.email, tempPassword);
             patientRow.firebaseId = this.firebaseClient.auth().currentUser.uid;
-            await firebaseAdmin.auth().updateUser(userRecord.uid, {disabled: true});
-            await this.firebaseClient.auth().sendSignInLinkToEmail(patientRow.email, {
-                url: config.actionAddress + "?email=" + patientRow.email,
-                handleCodeInApp: true
-            });
+            await this._firebaseSendSignInLinkToEmail(patientRow.email);
+            firebaseAdmin.auth().updateUser(userRecord.uid, {disabled: true});
         } catch (err) {
             console.error(err);
             throw "Failed to create patient credentials";
@@ -577,25 +604,32 @@ class Database {
         return Database._buildClinicianFromItem(clinicianRow);
     }
 
+    async _firebaseLinkSignIn(email: string, params: string): Promise<firebase.auth.UserCredential> {
+        return new Promise<firebase.auth.UserCredential>((resolve, reject) => {
+            this.firebaseClient.auth().signInWithEmailLink(email, params).then(resolve).catch(reject)
+        })
+    }
+
     async finalizePatient(params: SignUpParams): Promise<string> {
-        try {
-            const user = await firebaseAdmin.auth().getUserByEmail(params.email);
-            await firebaseAdmin.auth().updateUser(user.uid, {disabled: false});
+        const user = await firebaseAdmin.auth().getUserByEmail(params.email);
+        await firebaseAdmin.auth().updateUser(user.uid, {disabled: false});
+        const databasePatient = await this.getPatientByFirebaseID(user.uid);
+        if (databasePatient) {
             try {
-                const databaseUser = await this.getPatientByFirebaseID(user.uid);
-                await this.firebaseClient.auth().signInWithEmailLink(params.email, config.actionAddress + "?" + new URLSearchParams(params as any).toString());
-                await this.updatePatient(databaseUser.user.id, {incomplete: false});
+                await this._firebaseLinkSignIn(params.email, config.actionAddress + "?" + new URLSearchParams(params as any).toString());
+                // TODO FIX THIS TO WRITE IT TO DB!
+                databasePatient.incomplete = false;
                 return await firebaseAdmin.auth().generateSignInWithEmailLink(params.email, {
                     url: config.actionAddress,
                     handleCodeInApp: true
                 });
-            } catch (err) {
-                await firebaseAdmin.auth().updateUser(user.uid, {disabled: true});
-                throw err;
+            } catch (e) {
+                firebaseAdmin.auth().updateUser(user.uid, {disabled: true});
+                throw e
             }
-        } catch (err) {
-            console.error(err);
-            throw "Failed to finalize patient";
+        } else {
+            firebaseAdmin.auth().updateUser(user.uid, {disabled: true});
+            throw Error("No Such User")
         }
     }
 }
